@@ -1,8 +1,8 @@
 ---
-name: Issue template
+name: "[FE]"
 about: Describe this issue template's purpose here.
 title: ''
-labels: ''
+labels: "\U0001F3A8 Frontend"
 assignees: ''
 
 ---
