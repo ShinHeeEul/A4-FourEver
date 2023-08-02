@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../style/typo';
-import headerPageName from '../constant';
+import { headerPageName } from '../constant';
 
 const HeaderDiv = styled.div`
   width: calc(100% - 180px);
