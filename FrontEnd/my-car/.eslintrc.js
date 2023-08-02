@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
 };
