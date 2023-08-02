@@ -10,6 +10,6 @@ const HeaderDiv = styled.div`
 `;
 
 function Header() {
-  return <HeaderDiv></HeaderDiv>;
+  return <HeaderDiv>현대차</HeaderDiv>;
 }
 export default Header;

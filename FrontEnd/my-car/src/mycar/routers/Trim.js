@@ -1,4 +1,4 @@
 function Trim() {
-  return <>트림페이지</>;
+  return <div></div>;
 }
 export default Trim;

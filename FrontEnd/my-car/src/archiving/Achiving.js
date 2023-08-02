@@ -1,4 +1,4 @@
 function Archiving() {
-  return <></>;
+  return <div></div>;
 }
 export default Archiving;
