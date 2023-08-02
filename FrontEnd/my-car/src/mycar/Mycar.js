@@ -1,4 +1,4 @@
-// import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 // import { useState } from 'react';
 // import Trim from './routers/Trim.js';
 // import Engine from './routers/Engine';
@@ -14,7 +14,7 @@ function Mycar() {
   return (
     <>
       <NavBar />
-      {/* <Outlet contexts={setOptions} /> */}
+      <Outlet />
       <SummaryModal />
     </>
   );
