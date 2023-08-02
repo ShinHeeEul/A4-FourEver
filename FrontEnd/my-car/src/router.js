@@ -1,53 +1,55 @@
-import { createBrowserRouter } from "react-router-dom";
-import Root from "./Root";
-import Mycar from "./mycar/Mycar";
-import Trim from "./mycar/routers/Trim";
-import Archiving from "./archiving/Achiving";
-import Mychiving from "./mychiving/Mychiving";
-import Engine from "./mycar/routers/Engine";
-import WheelDrive from "./mycar/routers/WheelDrive";
-import Login from "./login/Login";
+import { createBrowserRouter } from 'react-router-dom';
+import Root from './Root';
+import Mycar from './mycar/Mycar';
+import Trim from './mycar/routers/Trim';
+import Archiving from './archiving/Achiving';
+import Mychiving from './mychiving/Mychiving';
+import Engine from './mycar/routers/Engine';
+import WheelDrive from './mycar/routers/WheelDrive';
+import Login from './login/Login';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Login />,
       },
       {
-        path: "mycar",
+        path: 'mycar',
         element: <Mycar />,
         children: [
           {
-            path: "trim",
+            path: 'trim',
             // loader: fetchOption,
             element: <Trim />,
           },
           {
-            path: "engine",
+            path: 'engine',
             // loader: fetchOption,
             element: <Engine />,
           },
           {
-            path: "wheeldrive",
+            path: 'wheeldrive',
             // loader: fetchOption,
             element: <WheelDrive />,
           },
         ],
       },
       {
-        path: "achieving",
+        path: 'achieving',
         element: <Archiving />,
         children: [],
       },
       {
-        path: "mychiving",
+        path: 'mychiving',
         element: <Mychiving />,
         children: [],
       },
     ],
   },
 ]);
+
+export default router;

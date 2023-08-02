@@ -1,4 +1,4 @@
 function BodyType() {
-  return <></>;
+  // return <></>;
 }
 export default BodyType;

@@ -1,1 +1,4 @@
-export async function fetchOption() {}
+async function fetchOption() {
+  // <div />;
+}
+export default fetchOption;
