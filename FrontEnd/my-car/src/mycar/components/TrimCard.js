@@ -76,7 +76,7 @@ function CarCardLine() {
   );
 }
 
-function Trim() {
+function TrimCard() {
   return (
     <div>
       <CarCardDiv>
@@ -122,4 +122,4 @@ function Trim() {
     </div>
   );
 }
-export default Trim;
+export default TrimCard;
