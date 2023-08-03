@@ -71,7 +71,7 @@ const CarCardLogoNameDiv = styled.div`
 `;
 
 const CarCardLogoImg = styled.div`
-  ${(props) => {
+  /* ${(props) => {
     if (props.isactive === true) {
       return `
         stroke: ${palette.Primary};
@@ -80,7 +80,7 @@ const CarCardLogoImg = styled.div`
     return `
       stroke: ${palette.DarkGray};
     `;
-  }}
+  }} */
 `;
 
 const CarCardLogoName = styled.div`
