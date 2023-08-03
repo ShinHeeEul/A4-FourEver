@@ -8,7 +8,6 @@ const CarCardDiv = styled.div`
   display: flex;
   justify-content: center;
   gap: 24px;
-  padding-top: 454px;
 `;
 
 const CarCardSub = styled.div`
