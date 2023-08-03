@@ -1,4 +1,4 @@
-package A4.FourEver.config;
+package A4.FourEver.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
