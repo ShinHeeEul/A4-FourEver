@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from './components/NavBar';
-import SummaryModal from './components/SummaryModal';
 import { myCarPagePath } from '../constant';
+import Footer from './components/Footer';
 
 function Mycar() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function Mycar() {
     <>
       <NavBar page={page} />
       <Outlet context={{ page, userCar, setUserCar }} />
-      <SummaryModal
+      <Footer
         userCar={userCar}
         price={userCar.price}
         setPage={setPage}
