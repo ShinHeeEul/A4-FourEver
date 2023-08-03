@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import Buttons from './PageMoveBtns';
 import {
@@ -163,48 +162,48 @@ function ColorComponents({ category, color }) {
   );
 }
 
-function SummaryModal() {
-  const [options] = useState({
-    trim: 'Le Blanc',
-    engine: '가솔린 2.2',
-    bodyType: '7인승',
-    wheelDrive: '2WD',
-    exteriorColor: '문라이트 블루펄',
-    builtInColor: '퀄팅 천연 (블랙)',
-    selectedOptions: [
-      '2열 통풍 시트 ~! ',
-      '안녕하세요',
-      '집에 가고싶다......',
-      '넘치게 ',
-      '해볼게요',
-      '넘치게 ',
-      '해볼게요',
-    ],
-  });
+function SummaryModal({ userCar, page, setPage }) {
+  // const [options] = useState({
+  //   trim: 'Le Blanc',
+  //   engine: '가솔린 2.2',
+  //   bodyType: '7인승',
+  //   wheelDrive: '2WD',
+  //   exteriorColor: '문라이트 블루펄',
+  //   builtInColor: '퀄팅 천연 (블랙)',
+  //   selectedOptions: [
+  //     '2열 통풍 시트 ~! ',
+  //     '안녕하세요',
+  //     '집에 가고싶다......',
+  //     '넘치게 ',
+  //     '해볼게요',
+  //     '넘치게 ',
+  //     '해볼게요',
+  //   ],
+  // });
 
   return (
     <Container>
       <OptionInfoWrap>
         <TrimWrap>
           <OptionCategory>트림</OptionCategory>
-          <SelectTrimModelText>{options.trim}</SelectTrimModelText>
+          <SelectTrimModelText>{userCar.trim}</SelectTrimModelText>
           <div style={{ display: 'flex' }}>
-            {options.engine && (
-              <SelectTrimOptionsText>{options.engine}</SelectTrimOptionsText>
+            {userCar.engine && (
+              <SelectTrimOptionsText>{userCar.engine}</SelectTrimOptionsText>
             )}
-            {options.bodyType && (
+            {userCar.bodyType && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {options.bodyType}
+                  {userCar.bodyType}
                 </SelectTrimOptionsText>
               </>
             )}
-            {options.wheelDrive && (
+            {userCar.wheelDrive && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {options.wheelDrive}
+                  {userCar.wheelDrive}
                 </SelectTrimOptionsText>
               </>
             )}
@@ -215,8 +214,8 @@ function SummaryModal() {
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents category="외장" color={options.exteriorColor} />
-          <ColorComponents category="내장" color={options.builtInColor} />
+          <ColorComponents category="외장" color={userCar.exteriorColor} />
+          <ColorComponents category="내장" color={userCar.builtInColor} />
         </ColorWrap>
 
         <DivisionStroke />
@@ -229,16 +228,17 @@ function SummaryModal() {
             </OptionCategory>
           </SelectedOptionTitleWrap>
           <SelectedOptionsTagsWrap>
-            {options.selectedOptions.slice(0, 3).map((option) => (
-              <SelectOptionTag>
-                <SelectOptionText>{option}</SelectOptionText>
-              </SelectOptionTag>
-            ))}
-            {options.selectedOptions.length > 3 && (
+            {userCar.selectedOptions &&
+              userCar.selectedOptions.slice(0, 3).map((option) => (
+                <SelectOptionTag key={option}>
+                  <SelectOptionText>{option}</SelectOptionText>
+                </SelectOptionTag>
+              ))}
+            {userCar.selectedOptions && userCar.selectedOptions.length > 3 && (
               <SelectOptionTag>
                 <SelectOptionText>+</SelectOptionText>
                 <SelectOptionText>
-                  {options.selectedOptions.length - 3}
+                  {userCar.selectedOptions.length - 3}
                 </SelectOptionText>
               </SelectOptionTag>
             )}
@@ -254,7 +254,7 @@ function SummaryModal() {
         </PriceWrap>
       </OptionInfoWrap>
 
-      <Buttons />
+      <Buttons page={page} setPage={setPage} />
     </Container>
   );
 }

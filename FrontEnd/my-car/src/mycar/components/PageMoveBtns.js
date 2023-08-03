@@ -27,36 +27,37 @@ const PrevButton = styled(Button)`
   width: 121px;
   color: #002c5f;
   background: var(--hyundai-neutral, #fafafa);
+  visibility: ${(props) =>
+    props.isFirst || props.isCompletePage ? 'hidden' : 'visible'};
 `;
 
-function Buttons() {
+function Buttons({ page, setPage }) {
   const navigate = useNavigate();
+  const isCompletePage = page === 8;
 
   const prevClick = () => {
     navigate.back();
+    setPage((prevPage) => prevPage - 1);
   };
   const nextClick = () => {
-    // 페이지 상태 변경
-    // 마지막 페이지가 아니라면
-    // setPage((prev)=>prev+1);
-    // 마지막 페이지라면
-    // 차 만들기 완료 페이지로
+    if (!isCompletePage) {
+      setPage((prevPage) => prevPage + 1);
+    } else {
+      navigate('/');
+    }
   };
-
-  // const isCompletePage = page === 13;
 
   return (
     <ButtonContainer>
       <PrevButton
-        // isFirst={page === 0}
-        // isCompletePage={isCompletePage}
+        isFirst={page === 0}
+        isCompletePage={isCompletePage}
         onClick={prevClick}
       >
         이전
       </PrevButton>
       <NextButton onClick={nextClick}>
-        다음 단계로
-        {/* {isCompletePage ? '이 차량 구매하기' : '다음 단계로'} */}
+        {isCompletePage ? '이 차량 구매하기' : '다음 단계로'}
       </NextButton>
     </ButtonContainer>
   );
