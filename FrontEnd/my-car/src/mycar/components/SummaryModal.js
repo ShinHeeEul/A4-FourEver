@@ -9,6 +9,8 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
+import { useState } from 'react';
+import { carCardInfo } from '../../constant';
 
 const Container = styled.div`
   height: calc(108px - 24px);
@@ -162,31 +164,16 @@ function ColorComponents({ category, color }) {
   );
 }
 
-function SummaryModal({ userCar, page, setPage }) {
-  // const [options] = useState({
-  //   trim: 'Le Blanc',
-  //   engine: '가솔린 2.2',
-  //   bodyType: '7인승',
-  //   wheelDrive: '2WD',
-  //   exteriorColor: '문라이트 블루펄',
-  //   builtInColor: '퀄팅 천연 (블랙)',
-  //   selectedOptions: [
-  //     '2열 통풍 시트 ~! ',
-  //     '안녕하세요',
-  //     '집에 가고싶다......',
-  //     '넘치게 ',
-  //     '해볼게요',
-  //     '넘치게 ',
-  //     '해볼게요',
-  //   ],
-  // });
-
+function SummaryModal({ userCar, page, setPage, price }) {
+  const sumPrice = price.reduce((acc, current) => acc + current, 0);
   return (
     <Container>
       <OptionInfoWrap>
         <TrimWrap>
           <OptionCategory>트림</OptionCategory>
-          <SelectTrimModelText>{userCar.trim}</SelectTrimModelText>
+          <SelectTrimModelText>
+            {carCardInfo[userCar.trim].name}
+          </SelectTrimModelText>
           <div style={{ display: 'flex' }}>
             {userCar.engine && (
               <SelectTrimOptionsText>{userCar.engine}</SelectTrimOptionsText>
@@ -248,7 +235,7 @@ function SummaryModal({ userCar, page, setPage }) {
         <PriceWrap>
           <OptionCategory>예상 가격</OptionCategory>
           <PriceTextWrap>
-            <PriceNumber>47,720,000</PriceNumber>
+            <PriceNumber>{sumPrice.toLocaleString()}</PriceNumber>
             <PriceOne>원</PriceOne>
           </PriceTextWrap>
         </PriceWrap>

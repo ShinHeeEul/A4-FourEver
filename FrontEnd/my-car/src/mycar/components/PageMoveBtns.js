@@ -28,7 +28,7 @@ const PrevButton = styled(Button)`
   color: #002c5f;
   background: var(--hyundai-neutral, #fafafa);
   visibility: ${(props) =>
-    props.isFirst || props.isCompletePage ? 'hidden' : 'visible'};
+    props.isfirst || props.iscompletepage ? 'hidden' : 'visible'};
 `;
 
 function Buttons({ page, setPage }) {
@@ -36,7 +36,7 @@ function Buttons({ page, setPage }) {
   const isCompletePage = page === 8;
 
   const prevClick = () => {
-    navigate.back();
+    navigate(-1);
     setPage((prevPage) => prevPage - 1);
   };
   const nextClick = () => {
@@ -50,8 +50,8 @@ function Buttons({ page, setPage }) {
   return (
     <ButtonContainer>
       <PrevButton
-        isFirst={page === 0}
-        isCompletePage={isCompletePage}
+        isfirst={page === 0}
+        iscompletepage={isCompletePage}
         onClick={prevClick}
       >
         이전
