@@ -10,7 +10,7 @@ import java.util.stream.StreamSupport;
 @Component
 public class BodyMapper {
 
-    public BodyDTO toBodyDTO(Body body) {
+    public BodyDTO toBodyDTO(final Body body) {
         return BodyDTO.builder()
                 .body_id(body.getBody_id())
                 .name(body.getName())
@@ -20,7 +20,7 @@ public class BodyMapper {
                 .build();
     }
 
-    public List<BodyDTO> toBodyDTOList(Iterable<Body> bodies) {
+    public List<BodyDTO> toBodyDTOList(final Iterable<Body> bodies) {
         return StreamSupport.stream(bodies.spliterator(), false)
                 .map(this::toBodyDTO)
                 .collect(Collectors.toList());

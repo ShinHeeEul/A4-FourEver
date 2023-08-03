@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class TrimService {
 
-
     private final TrimRepository trimRepository;
     private final TrimMapper trimMapper;
 
@@ -23,11 +22,11 @@ public class TrimService {
         this.trimMapper = trimMapper;
     }
 
-    public List<TrimDTO> getAllTrimsByCarId(Long car_id) {
+    public List<TrimDTO> getAllTrimsByCarId(final Long car_id) {
         return trimMapper.toTrimDTOList(trimRepository.findAllOnlyTrimByCarId(car_id));
     }
 
-    public TrimDTO getTrimById(Long trim_id) {
+    public TrimDTO getTrimById(final Long trim_id) {
         Trim trim = trimRepository.findOnlyTrim(trim_id).orElseThrow(() -> new TrimNotFoundException(trim_id));
         return trimMapper.toTrimDTO(trim);
     }

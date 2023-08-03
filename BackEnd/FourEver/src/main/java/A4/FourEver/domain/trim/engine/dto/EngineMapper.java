@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 @Component
 public class EngineMapper {
 
-    public EngineDTO toEngineDTO(Engine engine) {
+    public EngineDTO toEngineDTO(final Engine engine) {
         return EngineDTO.builder()
                 .engine_id(engine.getEngine_id())
                 .name(engine.getName())
@@ -23,7 +23,7 @@ public class EngineMapper {
                 .build();
     }
 
-    public List<EngineDTO> toEngineDTOList(Iterable<Engine> engines) {
+    public List<EngineDTO> toEngineDTOList(final Iterable<Engine> engines) {
         return StreamSupport.stream(engines.spliterator(), false)
                 .map(this::toEngineDTO)
                 .collect(Collectors.toList());

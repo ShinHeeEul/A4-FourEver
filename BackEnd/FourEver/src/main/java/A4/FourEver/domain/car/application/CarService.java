@@ -26,7 +26,7 @@ public class CarService {
         return carMapper.toCarDTOList(carRepository.findAllOnlyCar());
     }
 
-    public CarDTO getCarById(Long id) {
+    public CarDTO getCarById(final Long id) {
         Car car = carRepository.findOnlyCar(id).orElseThrow(() -> new CarNotFoundException(id));
         return carMapper.toCarDTO(car);
     }

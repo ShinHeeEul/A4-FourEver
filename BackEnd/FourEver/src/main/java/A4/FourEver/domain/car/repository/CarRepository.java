@@ -15,5 +15,5 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     List<Car> findAllOnlyCar();
 
     @Query("SELECT * FROM car WHERE car_id = :id")
-    Optional<Car> findOnlyCar(@Param("id") Long id);
+    Optional<Car> findOnlyCar(@Param("id") final Long id);
 }

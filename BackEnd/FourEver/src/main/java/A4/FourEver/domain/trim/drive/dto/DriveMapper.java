@@ -10,7 +10,7 @@ import java.util.stream.StreamSupport;
 @Component
 public class DriveMapper {
 
-    public DriveDTO toDriveDTO(Drive drive) {
+    public DriveDTO toDriveDTO(final Drive drive) {
         return DriveDTO.builder()
                 .drive_id(drive.getDrive_id())
                 .name(drive.getName())
@@ -20,7 +20,7 @@ public class DriveMapper {
                 .build();
     }
 
-    public List<DriveDTO> toDriveDTOList(Iterable<Drive> drives) {
+    public List<DriveDTO> toDriveDTOList(final Iterable<Drive> drives) {
         return StreamSupport.stream(drives.spliterator(), false)
                 .map(this::toDriveDTO)
                 .collect(Collectors.toList());

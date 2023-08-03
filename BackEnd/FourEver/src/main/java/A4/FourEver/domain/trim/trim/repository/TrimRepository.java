@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface TrimRepository extends CrudRepository<Trim, Long> {
 
     @Query("SELECT * FROM trim WHERE car_id = :car_id")
-    List<Trim> findAllOnlyTrimByCarId(@Param("car_id") Long car_id);
+    List<Trim> findAllOnlyTrimByCarId(@Param("car_id") final Long car_id);
 
     @Query("SELECT * FROM trim WHERE trim_id = :trim_id")
-    Optional<Trim> findOnlyTrim(@Param("trim_id") Long trim_id);
+    Optional<Trim> findOnlyTrim(@Param("trim_id") final Long trim_id);
 }

@@ -22,13 +22,13 @@ public class TrimController {
 
     @Operation(summary = "모든 트림 정보 조회")
     @GetMapping
-    public List<TrimDTO> getAllTrimsByCarId(@PathVariable Long car_id) {
+    public List<TrimDTO> getAllTrimsByCarId(@PathVariable final Long car_id) {
         return trimService.getAllTrimsByCarId(car_id);
     }
 
     @Operation(summary = "특정 트림 정보 조회")
     @GetMapping("/{trim_id}")
-    public TrimDTO getTrimById(@PathVariable Long car_id, @PathVariable Long trim_id) {
+    public TrimDTO getTrimById(@PathVariable final Long car_id, @PathVariable final Long trim_id) {
         return trimService.getTrimById(trim_id);
     }
 }

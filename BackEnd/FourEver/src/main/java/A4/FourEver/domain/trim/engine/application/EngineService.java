@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class EngineService {
 
-
     private final EngineRepository engineRepository;
     private final EngineMapper engineMapper;
 
@@ -23,11 +22,11 @@ public class EngineService {
         this.engineMapper = engineMapper;
     }
 
-    public List<EngineDTO> getAllEnginesByCarId(Long car_id) {
+    public List<EngineDTO> getAllEnginesByCarId(final Long car_id) {
         return engineMapper.toEngineDTOList(engineRepository.findAllOnlyEngineByCarId(car_id));
     }
 
-    public EngineDTO getEngineById(Long engine_id) {
+    public EngineDTO getEngineById(final Long engine_id) {
         Engine engine = engineRepository.findOnlyEngine(engine_id).orElseThrow(() -> new EngineNotFoundException(engine_id));
         return engineMapper.toEngineDTO(engine);
     }

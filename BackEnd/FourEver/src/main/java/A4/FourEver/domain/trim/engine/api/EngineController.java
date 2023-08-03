@@ -22,13 +22,13 @@ public class EngineController {
 
     @Operation(summary = "모든 엔진 정보 조회")
     @GetMapping
-    public List<EngineDTO> getAllEnginesByCarId(@PathVariable Long car_id) {
+    public List<EngineDTO> getAllEnginesByCarId(@PathVariable final Long car_id) {
         return engineService.getAllEnginesByCarId(car_id);
     }
 
     @Operation(summary = "특정 엔진 정보 조회")
     @GetMapping("/{engine_id}")
-    public EngineDTO getEngineById(@PathVariable Long car_id, @PathVariable Long Engine_id) {
+    public EngineDTO getEngineById(@PathVariable final Long car_id, @PathVariable final Long Engine_id) {
         return engineService.getEngineById(Engine_id);
     }
 }

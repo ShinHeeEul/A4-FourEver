@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface EngineRepository extends CrudRepository<Engine, Long> {
 
     @Query("SELECT * FROM engine WHERE car_id = :car_id")
-    List<Engine> findAllOnlyEngineByCarId(@Param("car_id") Long car_id);
+    List<Engine> findAllOnlyEngineByCarId(@Param("car_id") final Long car_id);
 
     @Query("SELECT * FROM engine WHERE engine_id = :engine_id")
-    Optional<Engine> findOnlyEngine(@Param("engine_id") Long engine_id);
+    Optional<Engine> findOnlyEngine(@Param("engine_id") final Long engine_id);
 }

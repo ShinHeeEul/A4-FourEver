@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class BodyService {
 
-
     private final BodyRepository bodyRepository;
     private final BodyMapper bodyMapper;
 
@@ -23,11 +22,11 @@ public class BodyService {
         this.bodyMapper = bodyMapper;
     }
 
-    public List<BodyDTO> getAllBodiesByCarId(Long car_id) {
+    public List<BodyDTO> getAllBodiesByCarId(final Long car_id) {
         return bodyMapper.toBodyDTOList(bodyRepository.findAllOnlyBodyByCarId(car_id));
     }
 
-    public BodyDTO getBodyById(Long body_id) {
+    public BodyDTO getBodyById(final Long body_id) {
         Body body = bodyRepository.findOnlyBody(body_id).orElseThrow(() -> new BodyNotFoundException(body_id));
         return bodyMapper.toBodyDTO(body);
     }

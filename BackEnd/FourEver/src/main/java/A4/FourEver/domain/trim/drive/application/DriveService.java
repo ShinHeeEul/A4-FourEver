@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class DriveService {
 
-
     private final DriveRepository driveRepository;
     private final DriveMapper driveMapper;
 
@@ -23,11 +22,11 @@ public class DriveService {
         this.driveMapper = driveMapper;
     }
 
-    public List<DriveDTO> getAllDrivesByCarId(Long car_id) {
+    public List<DriveDTO> getAllDrivesByCarId(final Long car_id) {
         return driveMapper.toDriveDTOList(driveRepository.findAllOnlyDriveByCarId(car_id));
     }
 
-    public DriveDTO getDriveById(Long drive_id) {
+    public DriveDTO getDriveById(final Long drive_id) {
         Drive drive = driveRepository.findOnlyDrive(drive_id).orElseThrow(() -> new DriveNotFoundException(drive_id));
         return driveMapper.toDriveDTO(drive);
     }

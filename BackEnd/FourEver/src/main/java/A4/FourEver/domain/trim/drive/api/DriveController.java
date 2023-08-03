@@ -22,13 +22,13 @@ public class DriveController {
 
     @Operation(summary = "모든 구동 방식 조회")
     @GetMapping
-    public List<DriveDTO> getAllDrivesByCarId(@PathVariable Long car_id) {
+    public List<DriveDTO> getAllDrivesByCarId(@PathVariable final Long car_id) {
         return driveService.getAllDrivesByCarId(car_id);
     }
 
     @Operation(summary = "특정 구동 방식 조회")
     @GetMapping("/{Drive_id}")
-    public DriveDTO getDriveById(@PathVariable Long car_id, @PathVariable Long Drive_id) {
+    public DriveDTO getDriveById(@PathVariable final Long car_id, @PathVariable final Long Drive_id) {
         return driveService.getDriveById(Drive_id);
     }
 }

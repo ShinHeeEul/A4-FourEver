@@ -22,13 +22,13 @@ public class BodyController {
 
     @Operation(summary = "모든 바디 타입 정보 조회")
     @GetMapping
-    public List<BodyDTO> getAllBodiesByCarId(@PathVariable Long car_id) {
+    public List<BodyDTO> getAllBodiesByCarId(@PathVariable final Long car_id) {
         return bodyService.getAllBodiesByCarId(car_id);
     }
 
     @Operation(summary = "특정 바디 타입 조회")
     @GetMapping("/{Body_id}")
-    public BodyDTO getBodyById(@PathVariable Long car_id, @PathVariable Long Body_id) {
+    public BodyDTO getBodyById(@PathVariable final Long car_id, @PathVariable final Long Body_id) {
         return bodyService.getBodyById(Body_id);
     }
 }

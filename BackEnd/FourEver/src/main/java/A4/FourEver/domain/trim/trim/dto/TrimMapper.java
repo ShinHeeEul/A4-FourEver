@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 @Component
 public class TrimMapper {
 
-    public TrimDTO toTrimDTO(Trim trim) {
+    public TrimDTO toTrimDTO(final Trim trim) {
         return TrimDTO.builder()
                 .trim_id(trim.getTrim_id())
                 .name(trim.getName())
@@ -20,7 +20,7 @@ public class TrimMapper {
                 .build();
     }
 
-    public List<TrimDTO> toTrimDTOList(Iterable<Trim> trims) {
+    public List<TrimDTO> toTrimDTOList(final Iterable<Trim> trims) {
         return StreamSupport.stream(trims.spliterator(), false)
                 .map(this::toTrimDTO)
                 .collect(Collectors.toList());

@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface BodyRepository extends CrudRepository<Body, Long> {
 
     @Query("SELECT * FROM body WHERE car_id = :car_id")
-    List<Body> findAllOnlyBodyByCarId(@Param("car_id") Long car_id);
+    List<Body> findAllOnlyBodyByCarId(@Param("car_id") final Long car_id);
 
     @Query("SELECT * FROM body WHERE body_id = :body_id")
-    Optional<Body> findOnlyBody(@Param("body_id") Long body_id);
+    Optional<Body> findOnlyBody(@Param("body_id") final Long body_id);
 }

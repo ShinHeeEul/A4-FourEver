@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface DriveRepository extends CrudRepository<Drive, Long> {
 
     @Query("SELECT * FROM drive WHERE car_id = :car_id")
-    List<Drive> findAllOnlyDriveByCarId(@Param("car_id") Long car_id);
+    List<Drive> findAllOnlyDriveByCarId(@Param("car_id") final Long car_id);
 
     @Query("SELECT * FROM drive WHERE drive_id = :drive_id")
-    Optional<Drive> findOnlyDrive(@Param("drive_id") Long drive_id);
+    Optional<Drive> findOnlyDrive(@Param("drive_id") final Long drive_id);
 }

@@ -26,7 +26,7 @@ public class CarController {
 
     @Operation(summary = "특정 차량 정보 조회")
     @GetMapping("/{id}")
-    public CarDTO getCarById(@PathVariable Long id) {
+    public CarDTO getCarById(@PathVariable final Long id) {
         return carService.getCarById(id);
     }
 }
