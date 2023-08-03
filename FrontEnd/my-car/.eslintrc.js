@@ -37,7 +37,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/destructuring-assignment': 'off',
     'react/no-array-index-key': 'off',
-    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': 2,
   },
 

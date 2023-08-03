@@ -147,7 +147,7 @@ function TrimCard({ setUserCar }) {
   function ChangeCard(carName, stateUserCar, idx) {
     stateUserCar((prevState) => ({
       ...prevState,
-      trim: { carName },
+      trim: carName,
     }));
     setSelected(idx);
   }
