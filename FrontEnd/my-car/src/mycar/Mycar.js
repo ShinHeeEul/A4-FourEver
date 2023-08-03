@@ -1,20 +1,35 @@
-import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import NavBar from './components/NavBar';
 import SummaryModal from './components/SummaryModal';
+import { myCarPagePath } from '../constant';
 
 function Mycar() {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState(0);
   const [userCar, setUserCar] = useState({
-    trim: 'LeBlanc',
+    trim: 0,
     selectedOptions: [],
+    price: [47720000],
   });
+
+  useEffect(() => {
+    navigate(`/mycar/${myCarPagePath[page]}`);
+  }, [page]);
+
+  console.log(userCar);
 
   return (
     <>
       <NavBar page={page} />
-      <Outlet context={{ setUserCar }} />
-      <SummaryModal userCar={userCar} setPage={setPage} page={page} />
+      <Outlet context={{ page, userCar, setUserCar }} />
+      <SummaryModal
+        userCar={userCar}
+        price={userCar.price}
+        setPage={setPage}
+        page={page}
+      />
     </>
   );
 }

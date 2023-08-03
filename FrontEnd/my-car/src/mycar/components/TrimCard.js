@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import palette from '../../style/styleVariable';
 import { Body3Medium, CaptionMedium, Heading3Bold } from '../../style/typo';
 import { carCardInfo } from '../../constant';
+import { useOutletContext } from 'react-router-dom';
 
 const CarCardDiv = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const CarCardSub = styled.div`
   flex-shrink: 0;
   border-radius: 8px;
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.isactive === true) {
       return `
         background-color: rgba(0, 44, 95, 0.10);;
         border: 2px solid ${palette.Primary}
@@ -38,7 +39,7 @@ const CarCardSub = styled.div`
 const CarCardName = styled.span`
   ${Heading3Bold};
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.isactive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -71,7 +72,7 @@ const CarCardLogoNameDiv = styled.div`
 
 const CarCardLogoImg = styled.div`
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.isactive === true) {
       return `
         stroke: ${palette.Primary};
       `;
@@ -88,7 +89,7 @@ const CarCardLogoName = styled.div`
   text-align: center;
   align-items: center;
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.isactive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -103,7 +104,7 @@ const CarCardPriceWon = styled.span`
   ${Body3Medium};
   padding-left: 4px;
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.isactive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -115,8 +116,8 @@ const CarCardPriceWon = styled.span`
   }}
 `;
 
-function CarCardLine({ isActive }) {
-  if (isActive) {
+function CarCardLine({ isactive }) {
+  if (isactive) {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -142,12 +143,18 @@ function CarCardLine({ isActive }) {
   );
 }
 
-function TrimCard({ setUserCar }) {
-  const [selected, setSelected] = useState(0);
-  function ChangeCard(carName, stateUserCar, idx) {
+function TrimCard() {
+  const { userCar, setUserCar, page } = useOutletContext();
+  const [selected, setSelected] = useState(userCar.trim);
+
+  function ChangeCard(car, stateUserCar, idx) {
+    const Price = [...userCar.price];
+    Price[page] = parseInt(car.price.replace(/,/g, ''), 10);
+
     stateUserCar((prevState) => ({
       ...prevState,
-      trim: carName,
+      trim: idx,
+      price: Price,
     }));
     setSelected(idx);
   }
@@ -157,19 +164,20 @@ function TrimCard({ setUserCar }) {
       <CarCardDiv>
         {carCardInfo.map((car, idx) => (
           <CarCardSub
-            isActive={selected === idx}
-            onClick={() => ChangeCard(car.name, setUserCar, idx)}
+            key={idx}
+            isactive={selected === idx}
+            onClick={() => ChangeCard(car, setUserCar, idx)}
           >
-            <CarCardName isActive={selected === idx}>{car.name}</CarCardName>
-            <CarCardLine isActive={selected === idx} />
+            <CarCardName isactive={selected === idx}>{car.name}</CarCardName>
+            <CarCardLine isactive={selected === idx} />
             <CarCardLogoDiv>
-              <CarCardLogo isActive={selected === idx}>
+              <CarCardLogo isactive={selected === idx}>
                 <CarCardLogoImg>{car.logo[0]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[0]}
                   </CarCardLogoName>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[1]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
@@ -177,10 +185,10 @@ function TrimCard({ setUserCar }) {
               <CarCardLogo>
                 <CarCardLogoImg>{car.logo[1]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[2]}
                   </CarCardLogoName>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[3]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
@@ -188,19 +196,19 @@ function TrimCard({ setUserCar }) {
               <CarCardLogo>
                 <CarCardLogoImg>{car.logo[2]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[4]}
                   </CarCardLogoName>
-                  <CarCardLogoName isActive={selected === idx}>
+                  <CarCardLogoName isactive={selected === idx}>
                     {car.logoText[5]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
               </CarCardLogo>
             </CarCardLogoDiv>
-            <CarCardLine isActive={selected === idx} />
+            <CarCardLine isactive={selected === idx} />
             <CarCardPriceDiv>
-              <CarCardName isActive={selected === idx}>{car.price}</CarCardName>
-              <CarCardPriceWon isActive={selected === idx}>원</CarCardPriceWon>
+              <CarCardName isactive={selected === idx}>{car.price}</CarCardName>
+              <CarCardPriceWon isactive={selected === idx}>원</CarCardPriceWon>
             </CarCardPriceDiv>
           </CarCardSub>
         ))}
