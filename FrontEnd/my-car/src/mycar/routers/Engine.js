@@ -5,11 +5,12 @@ import { Container } from './Trim';
 
 const EngineContainer = styled(Container)`
   flex-direction: row;
+  gap: 40px;
 `;
 
-const OptionImg = styled.div`
+const OptionImgWrap = styled.div`
   width: 620px;
-  height: 380px;
+  height: 400px;
   flex-shrink: 0;
   background-color: black;
 `;
@@ -30,7 +31,7 @@ function Engine() {
   return (
     <EngineContainer>
       <LeftWrap>
-        <OptionImg />
+        <OptionImgWrap></OptionImgWrap>
         <TitlePriceTag />
       </LeftWrap>
       <RightWrap>

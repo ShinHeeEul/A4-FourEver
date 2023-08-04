@@ -6,10 +6,8 @@ export const Container = styled.div`
   width: 1280px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 736px;
   gap: 30px;
-  margin: 0 auto;
+  margin: 50px auto;
   flex-direction: column;
 `;
 
