@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Heading4Bold } from '../../style/typo';
 import palette from '../../style/styleVariable';
+import { myCarPagePath } from '../../constant';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -36,11 +37,12 @@ function Buttons({ page, setPage }) {
   const isCompletePage = page === 8;
 
   const prevClick = () => {
-    navigate(-1);
+    navigate(`/mycar/${myCarPagePath[page - 1]}`);
     setPage((prevPage) => prevPage - 1);
   };
   const nextClick = () => {
     if (!isCompletePage) {
+      navigate(`/mycar/${myCarPagePath[page + 1]}`);
       setPage((prevPage) => prevPage + 1);
     } else {
       navigate('/');
