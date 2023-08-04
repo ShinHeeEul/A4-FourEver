@@ -1068,3 +1068,5 @@ export const carCardInfo = [
     price: '52,540,000',
   },
 ];
+
+export const engineInfo = ['디젤 2.0', '가솔린 3.8'];

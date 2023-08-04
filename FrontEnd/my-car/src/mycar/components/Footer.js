@@ -9,7 +9,7 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import { carCardInfo } from '../../constant';
+import { carCardInfo, engineInfo } from '../../constant';
 import Buttons from './PageMoveBtns';
 
 const Container = styled.div`
@@ -166,6 +166,7 @@ function ColorComponents({ category, color }) {
 
 function Footer({ userCar, page, setPage, price }) {
   const sumPrice = price.reduce((acc, current) => acc + current, 0);
+
   return (
     <Container>
       <OptionInfoWrap>
@@ -175,10 +176,12 @@ function Footer({ userCar, page, setPage, price }) {
             {carCardInfo[userCar.trim].name}
           </SelectTrimModelText>
           <div style={{ display: 'flex' }}>
-            {userCar.engine && (
-              <SelectTrimOptionsText>{userCar.engine}</SelectTrimOptionsText>
+            {userCar.engine >= 0 && (
+              <SelectTrimOptionsText>
+                {engineInfo[userCar.engine]}
+              </SelectTrimOptionsText>
             )}
-            {userCar.bodyType && (
+            {userCar.bodyType >= 0 && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
@@ -186,7 +189,7 @@ function Footer({ userCar, page, setPage, price }) {
                 </SelectTrimOptionsText>
               </>
             )}
-            {userCar.wheelDrive && (
+            {userCar.wheelDrive >= 0 && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
