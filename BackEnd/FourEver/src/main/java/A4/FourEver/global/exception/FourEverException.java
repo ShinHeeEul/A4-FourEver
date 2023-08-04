@@ -1,9 +1,20 @@
 package A4.FourEver.global.exception;
 
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
-public class FourEverException extends RuntimeException {
 
-    public FourEverException(final String message) {
-        super(message);
+@Getter
+public class FourEverException extends RuntimeException{
+
+    private final HttpStatus httpStatus;
+    private final String message;
+    private final int code;
+
+    public FourEverException(HttpStatus httpStatus, String message, int code) {
+        this.httpStatus = httpStatus;
+        this.message = message;
+        this.code = code;
     }
 }
+
