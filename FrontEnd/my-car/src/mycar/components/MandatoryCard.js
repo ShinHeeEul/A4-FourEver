@@ -18,6 +18,15 @@ const MandatoryCardDiv = styled.div`
   border: 2px solid ${palette.LightSand};
   padding: 18px 22px 28px;
   cursor: pointer;
+  ${(props) =>
+    props.$isActive &&
+    css`
+      border: 2px solid ${palette.Primary};
+      background: rgba(56, 93, 162, 0.1);
+      span {
+        color: ${palette.Primary};
+      }
+    `}
 `;
 
 const CardNamePriceDiv = styled.div`
@@ -67,7 +76,7 @@ const DetailOptionWrap = styled(CardNamePriceDiv)`
       margin-bottom: 8px;
     `}
 `;
-function MandatoryCard({ option }) {
+function MandatoryCard({ option, isActive, clickHandler, id }) {
   const { page } = useOutletContext();
   function CardLine() {
     return (
@@ -83,7 +92,7 @@ function MandatoryCard({ option }) {
     );
   }
   return (
-    <MandatoryCardDiv>
+    <MandatoryCardDiv $isActive={isActive} onClick={() => clickHandler(id)}>
       <CardNamePriceDiv>
         <CardName>{option.name}</CardName>
         <CardPriceDiv>
