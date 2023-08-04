@@ -43,6 +43,9 @@ const CategoryTextMain = styled.span`
   ${Body2Medium};
   color: ${palette.Black};
   padding-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CategoryTextSub = styled.span`
@@ -51,8 +54,33 @@ const CategoryTextSub = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 12px;
+  padding-left: 8px;
 `;
+
+function NavBarImg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_107_10719)">
+        <path
+          d="M5.72656 11.06L8.7799 8L5.72656 4.94L6.66656 4L10.6666 8L6.66656 12L5.72656 11.06Z"
+          fill="#BEBEBE"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_107_10719">
+          <rect width="16" height="16" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
 function NavBar() {
   return (
     <NavBarDiv>
@@ -62,56 +90,24 @@ function NavBar() {
             <CategoryNumText>1</CategoryNumText>
           </CategoryNumDiv>
         </CategoryNum>
-        <CategoryTextMain>{navCategoryName[0].key}</CategoryTextMain>
-        <CategoryTextSub>
-          {navCategoryName[0].value[0]}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <g clipPath="url(#clip0_107_10719)">
-              <path
-                d="M5.72656 11.06L8.7799 8L5.72656 4.94L6.66656 4L10.6666 8L6.66656 12L5.72656 11.06Z"
-                fill="#BEBEBE"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_107_10719">
-                <rect width="16" height="16" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          {navCategoryName[0].value[1]}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <g clipPath="url(#clip0_107_10719)">
-              <path
-                d="M5.72656 11.06L8.7799 8L5.72656 4.94L6.66656 4L10.6666 8L6.66656 12L5.72656 11.06Z"
-                fill="#BEBEBE"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_107_10719">
-                <rect width="16" height="16" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          {navCategoryName[0].value[2]}
-          <CategoryNumSubDiv>
-            <CategoryNumText>2</CategoryNumText>
-          </CategoryNumSubDiv>
-          <CategoryNumSubDiv>
-            <CategoryNumText>3</CategoryNumText>
-          </CategoryNumSubDiv>
-        </CategoryTextSub>
+        <CategoryTextMain>
+          {navCategoryName['trim'].id}
+          <NavBarImg />
+        </CategoryTextMain>
+        {navCategoryName['trim'].value.map((v) => {
+          return (
+            <>
+              <CategoryTextSub>{v}</CategoryTextSub>
+              <NavBarImg />
+            </>
+          );
+        })}
+        <CategoryNumSubDiv>
+          <CategoryNumText>2</CategoryNumText>
+        </CategoryNumSubDiv>
+        <CategoryNumSubDiv>
+          <CategoryNumText>3</CategoryNumText>
+        </CategoryNumSubDiv>
       </NavBarCategory>
     </NavBarDiv>
   );
