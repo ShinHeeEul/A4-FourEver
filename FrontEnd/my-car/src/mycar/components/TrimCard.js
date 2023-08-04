@@ -23,7 +23,7 @@ const CarCardSub = styled.div`
   flex-shrink: 0;
   border-radius: 8px;
   ${(props) => {
-    if (props.isactive === true) {
+    if (props.$isActive === true) {
       return `
         background-color: rgba(0, 44, 95, 0.10);;
         border: 2px solid ${palette.Primary}
@@ -39,7 +39,7 @@ const CarCardSub = styled.div`
 const CarCardName = styled.span`
   ${Heading3Bold};
   ${(props) => {
-    if (props.isactive === true) {
+    if (props.$isActive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -72,7 +72,7 @@ const CarCardLogoNameDiv = styled.div`
 
 const CarCardLogoImg = styled.div`
   /* ${(props) => {
-    if (props.isactive === true) {
+    if (props.$isActive === true) {
       return `
         stroke: ${palette.Primary};
       `;
@@ -89,7 +89,7 @@ const CarCardLogoName = styled.div`
   text-align: center;
   align-items: center;
   ${(props) => {
-    if (props.isactive === true) {
+    if (props.isActive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -104,7 +104,7 @@ const CarCardPriceWon = styled.span`
   ${Body3Medium};
   padding-left: 4px;
   ${(props) => {
-    if (props.isactive === true) {
+    if (props.isActive === true) {
       return `
         color: ${palette.Primary};
       `;
@@ -116,8 +116,8 @@ const CarCardPriceWon = styled.span`
   }}
 `;
 
-function CarCardLine({ isactive }) {
-  if (isactive) {
+function CarCardLine({ $isActive }) {
+  if ($isActive) {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -165,19 +165,19 @@ function TrimCard() {
         {carCardInfo.map((car, idx) => (
           <CarCardSub
             key={idx}
-            isactive={selected === idx}
+            $isActive={selected === idx}
             onClick={() => ChangeCard(car, setUserCar, idx)}
           >
-            <CarCardName isactive={selected === idx}>{car.name}</CarCardName>
-            <CarCardLine isactive={selected === idx} />
+            <CarCardName $isActive={selected === idx}>{car.name}</CarCardName>
+            <CarCardLine $isActive={selected === idx} />
             <CarCardLogoDiv>
-              <CarCardLogo isactive={selected === idx}>
+              <CarCardLogo $isActive={selected === idx}>
                 <CarCardLogoImg>{car.logo[0]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[0]}
                   </CarCardLogoName>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[1]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
@@ -185,10 +185,10 @@ function TrimCard() {
               <CarCardLogo>
                 <CarCardLogoImg>{car.logo[1]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[2]}
                   </CarCardLogoName>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[3]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
@@ -196,19 +196,21 @@ function TrimCard() {
               <CarCardLogo>
                 <CarCardLogoImg>{car.logo[2]}</CarCardLogoImg>
                 <CarCardLogoNameDiv>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[4]}
                   </CarCardLogoName>
-                  <CarCardLogoName isactive={selected === idx}>
+                  <CarCardLogoName $isActive={selected === idx}>
                     {car.logoText[5]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
               </CarCardLogo>
             </CarCardLogoDiv>
-            <CarCardLine isactive={selected === idx} />
+            <CarCardLine $isActive={selected === idx} />
             <CarCardPriceDiv>
-              <CarCardName isactive={selected === idx}>{car.price}</CarCardName>
-              <CarCardPriceWon isactive={selected === idx}>원</CarCardPriceWon>
+              <CarCardName $isActive={selected === idx}>
+                {car.price}
+              </CarCardName>
+              <CarCardPriceWon $isActive={selected === idx}>원</CarCardPriceWon>
             </CarCardPriceDiv>
           </CarCardSub>
         ))}

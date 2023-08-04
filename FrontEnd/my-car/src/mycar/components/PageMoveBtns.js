@@ -28,7 +28,7 @@ const PrevButton = styled(Button)`
   color: #002c5f;
   background: var(--hyundai-neutral, #fafafa);
   visibility: ${(props) =>
-    props.isfirst || props.iscompletepage ? 'hidden' : 'visible'};
+    props.$isFirst || props.$isCompletepage ? 'hidden' : 'visible'};
 `;
 
 function Buttons({ page, setPage }) {
@@ -50,8 +50,8 @@ function Buttons({ page, setPage }) {
   return (
     <ButtonContainer>
       <PrevButton
-        isfirst={page === 0}
-        iscompletepage={isCompletePage}
+        $isFirst={page === 0}
+        $isCompletepage={isCompletePage}
         onClick={prevClick}
       >
         이전

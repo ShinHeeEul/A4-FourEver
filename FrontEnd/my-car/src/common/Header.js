@@ -82,7 +82,7 @@ function Header() {
           <g clipPath="url(#clip0_1570_5239)">
             <mask
               id="mask0_1570_5239"
-              style={{ 'mask-type': 'luminance' }}
+              style={{ maskType: 'luminance' }}
               maskUnits="userSpaceOnUse"
               x="0"
               y="0"
