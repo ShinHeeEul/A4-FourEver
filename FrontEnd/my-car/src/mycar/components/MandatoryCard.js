@@ -1,31 +1,39 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../../style/styleVariable';
-import { Body3Medium, Body4Regular, Heading3Bold } from '../../style/typo';
+import {
+  Body3Medium,
+  Body3Regular,
+  Heading3Bold,
+  Heading4Bold,
+} from '../../style/typo';
+import { useOutletContext } from 'react-router-dom';
 
 const MandatoryCardDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 15px;
   width: 347px;
-  height: 218px;
   flex-shrink: 0;
   border-radius: 8px;
   background-color: ${palette.LightSand};
   border: 2px solid ${palette.LightSand};
-  padding: 0 22px;
+  padding: 18px 22px 28px;
+  cursor: pointer;
 `;
 
 const CardNamePriceDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 22px;
 `;
 const CardName = styled.span`
   ${Heading3Bold}
   color: ${palette.Black};
 `;
+const CardOne = styled(CardName)`
+  ${Heading4Bold}
+`;
 const CardText = styled.span`
-  ${Body4Regular}
+  ${Body3Regular}
   color: ${palette.Black};
   display: flex;
   flex-direction: column;
@@ -45,8 +53,22 @@ const EngineMaxInfo = styled.span`
 const CardLineDiv = styled.div`
   display: flex;
   justify-content: center;
+  margin: 20px 0;
 `;
-function MandatoryCard() {
+
+const DetailOptionWrap = styled(CardNamePriceDiv)`
+  margin: 0;
+  /* &:first-child {
+    margin-bottom: 8px;
+  } */
+  ${(props) =>
+    props.$isFirst &&
+    css`
+      margin-bottom: 8px;
+    `}
+`;
+function MandatoryCard({ option }) {
+  const { page } = useOutletContext();
   function CardLine() {
     return (
       <svg
@@ -63,29 +85,28 @@ function MandatoryCard() {
   return (
     <MandatoryCardDiv>
       <CardNamePriceDiv>
-        <CardName>가솔린3.8</CardName>
+        <CardName>{option.name}</CardName>
         <CardPriceDiv>
-          <CardName>+1,480,000</CardName>
-          <CardText>원</CardText>
+          <CardName>+{option.price}</CardName>
+          <CardOne>원</CardOne>
         </CardPriceDiv>
       </CardNamePriceDiv>
-      <CardText>
-        고마력의 우수한 가속 성능을 확보하여, 넉넉하고 안정감 있는 주행이
-        가능합니다. 엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을
-        제공합니다.
-      </CardText>
+      <CardText>{option.explanation}</CardText>
       <CardLineDiv>
         <CardLine />
       </CardLineDiv>
-
-      <CardNamePriceDiv>
-        <EngineMaxInfo>최고출력</EngineMaxInfo>
-        <CardText>295/6,000PS/rpm</CardText>
-      </CardNamePriceDiv>
-      <CardNamePriceDiv>
-        <EngineMaxInfo>최대토크</EngineMaxInfo>
-        <CardText>36.2/5,200kgf-m/rpm</CardText>
-      </CardNamePriceDiv>
+      {page === 1 && (
+        <>
+          <DetailOptionWrap $isFirst>
+            <EngineMaxInfo>최고출력</EngineMaxInfo>
+            <CardText>{option.maxOutput}</CardText>
+          </DetailOptionWrap>
+          <DetailOptionWrap>
+            <EngineMaxInfo>최대토크</EngineMaxInfo>
+            <CardText>{option.maxTalk}</CardText>
+          </DetailOptionWrap>
+        </>
+      )}
     </MandatoryCardDiv>
   );
 }
