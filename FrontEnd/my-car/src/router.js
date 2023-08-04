@@ -7,6 +7,8 @@ import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
 import Login from './login/Login';
+import fetchOption from './api';
+import fetchData from './api';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'trim',
-            // loader: fetchOption,
+            loader: fetchData,
             element: <Trim />,
           },
           {
