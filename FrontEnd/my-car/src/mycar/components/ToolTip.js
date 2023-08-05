@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body4Regular } from '../../style/typo';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ToolTipWrap = styled.div`
   position: absolute;
@@ -83,29 +83,34 @@ function ToolTipContainer() {
 
 function ToolTip() {
   const [showTooltip, setShowTooltip] = useState(false);
-  const [lastTime, setLastTime] = useState(Date.now());
-  let timerId = 0;
+  const timerRef = useRef(null);
+
+  const startTimer = () => {
+    timerRef.current = setTimeout(() => {
+      setShowTooltip(true);
+    }, 10000);
+  };
+
+  const stopTimer = () => {
+    clearTimeout(timerRef.current);
+    setShowTooltip(false);
+  };
 
   useEffect(() => {
     const handleClick = () => {
-      clearInterval(timerId);
       setShowTooltip(false);
-      setLastTime(Date.now());
+      stopTimer();
+      startTimer();
     };
+    startTimer();
+
     document.addEventListener('click', handleClick);
+
     return () => {
       document.removeEventListener('click', handleClick);
+      clearTimeout(timerRef.current);
     };
-  }, [timerId]);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    timerId = setInterval(() => {
-      if (Date.now() - lastTime >= 10000) {
-        setShowTooltip(true);
-      }
-    }, 1000);
-  }, [lastTime]);
+  }, []);
 
   return (
     <ToolTipWrap $isSHow={showTooltip}>
