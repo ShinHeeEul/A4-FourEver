@@ -49,6 +49,33 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: 'color',
+            // loader: fetchOption,
+            element: <Engine />,
+          },
+          {
+            path: 'option',
+            // loader: fetchOption,
+            element: <Engine />,
+            children: [
+              {
+                path: 'selection',
+                // loader: fetchOption,
+                element: <Engine />,
+              },
+              {
+                path: 'accessories',
+                // loader: fetchOption,
+                element: <BodyType />,
+              },
+              {
+                path: 'performance',
+                // loader: fetchOption,
+                element: <WheelDrive />,
+              },
+            ],
+          },
         ],
       },
       {

@@ -4,23 +4,36 @@ export const myCarPagePath = [
   'trim/engine',
   'trim/bodytype',
   'trim/wheeldrive',
+  'color',
+  'option/selection',
+  'option/accessories',
+  'option/performance',
 ];
 
 export const navCategoryName = {
   trim: {
     id: '트림',
-    value: ['모델', '엔진', '바디타입', '구동방식'],
+    value: {
+      model: '모델',
+      engine: '엔진',
+      bodytype: '바디타입',
+      wheeldrive: '구동방식',
+    },
   },
   color: {
     id: '색깔',
-    outer: '외장 색상',
-    inner: '내장 색상',
+    value: {
+      outer: '외장 색상',
+      inner: '내장 색상',
+    },
   },
   option: {
     id: '옵션',
-    selection: '선택 옵션',
-    accessories: 'H Genuine Accessories',
-    performance: 'N Performance',
+    value: {
+      selection: '선택 옵션',
+      accessories: 'H Genuine Accessories',
+      performance: 'N Performance',
+    },
   },
 };
 
