@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import ToolTip from './components/ToolTip';
 
 function Mycar() {
   const [page, setPage] = useState(0);
@@ -13,6 +14,7 @@ function Mycar() {
 
   return (
     <>
+      <ToolTip />
       <NavBar page={page} />
       <Outlet context={{ page, userCar, setUserCar }} />
       <Footer
