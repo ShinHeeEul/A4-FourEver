@@ -9,6 +9,7 @@ import WheelDrive from './mycar/routers/WheelDrive';
 import Login from './login/Login';
 import fetchOption from './api';
 import fetchData from './api';
+import BodyType from './mycar/routers/BodyType';
 
 const router = createBrowserRouter([
   {
@@ -25,18 +26,55 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'trim',
-            loader: fetchData,
-            element: <Trim />,
+            children: [
+              {
+                path: 'model',
+                loader: fetchData,
+                element: <Trim />,
+              },
+              {
+                path: 'engine',
+                // loader: fetchOption,
+                element: <Engine />,
+              },
+              {
+                path: 'bodytype',
+                // loader: fetchOption,
+                element: <BodyType />,
+              },
+              {
+                path: 'wheeldrive',
+                // loader: fetchOption,
+                element: <WheelDrive />,
+              },
+            ],
           },
           {
-            path: 'engine',
+            path: 'color',
             // loader: fetchOption,
             element: <Engine />,
           },
           {
-            path: 'wheeldrive',
+            path: 'option',
             // loader: fetchOption,
-            element: <WheelDrive />,
+            element: <Engine />,
+            children: [
+              {
+                path: 'selection',
+                // loader: fetchOption,
+                element: <Engine />,
+              },
+              {
+                path: 'accessories',
+                // loader: fetchOption,
+                element: <BodyType />,
+              },
+              {
+                path: 'performance',
+                // loader: fetchOption,
+                element: <WheelDrive />,
+              },
+            ],
           },
         ],
       },
