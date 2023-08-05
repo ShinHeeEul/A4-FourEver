@@ -36,33 +36,6 @@ export const navCategoryName = {
   },
 };
 
-export const navCategoryName = {
-  trim: {
-    id: '트림',
-    value: {
-      model: '모델',
-      engine: '엔진',
-      bodytype: '바디타입',
-      wheeldrive: '구동방식',
-    },
-  },
-  color: {
-    id: '색깔',
-    value: {
-      outer: '외장 색상',
-      inner: '내장 색상',
-    },
-  },
-  option: {
-    id: '옵션',
-    value: {
-      selection: '선택 옵션',
-      accessories: 'H Genuine Accessories',
-      performance: 'N Performance',
-    },
-  },
-};
-
 export const carCardInfo = [
   {
     name: 'Le Blanc(르블랑)',
