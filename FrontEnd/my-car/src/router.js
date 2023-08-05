@@ -11,6 +11,7 @@ import fetchOption from './api';
 import fetchData from './api';
 import BodyType from './mycar/routers/BodyType';
 import Color from './mycar/routers/Color';
+import SelectOption from './mycar/routers/SelectOption';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             path: 'color',
             // loader: fetchOption,
             element: <Color />,
+          },
+          {
+            path: 'selectoption',
+            element: <SelectOption />,
           },
         ],
       },

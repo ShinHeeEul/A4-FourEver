@@ -4,7 +4,7 @@ import palette from '../../style/styleVariable';
 
 const Container = styled.div`
   color: ${palette.Black};
-  width: 620px;
+  width: ${(props) => (props.$isSmall ? '500px' : '620px')};
 `;
 
 const Header = styled.header`
@@ -12,6 +12,8 @@ const Header = styled.header`
   justify-content: space-between;
   margin-bottom: 8px;
   align-items: flex-end;
+  padding-bottom: 5px;
+  border-bottom: 5px solid black;
 `;
 const Title = styled.h1`
   ${Heading1Bold};
@@ -36,28 +38,13 @@ const Tag = styled.div`
   ${Body3Regular}
 `;
 
-function DivisionStroke() {
+function TitlePriceTag({ selectedOption, isSmall = false }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="620"
-      height="4"
-      viewBox="0 0 620 4"
-      fill="none"
-    >
-      <path d="M0 2H620" stroke="#232323" strokeWidth="4" />
-    </svg>
-  );
-}
-
-function TitlePriceTag({ selectedOption }) {
-  return (
-    <Container>
+    <Container $isSmall={isSmall}>
       <Header>
         <Title>{selectedOption.name}</Title>
         <Price>+{selectedOption.price} 원</Price>
       </Header>
-      <DivisionStroke />
       {selectedOption.tags && (
         <TagWrap>
           {selectedOption.tags.map((tag, index) => (
