@@ -13,6 +13,8 @@ import {
   bodyTypeInfo,
   carCardInfo,
   engineInfo,
+  innerColorInfo,
+  outerColorInfo,
   wheelDriveInfo,
 } from '../../constant';
 import Buttons from './PageMoveBtns';
@@ -131,7 +133,7 @@ const TrimWrap = styled(OptionEachWrap)`
   margin-right: 8px;
 `;
 const ColorWrap = styled(OptionEachWrap)`
-  width: 160px;
+  width: 200px;
   margin: 0 18px 0 22px;
 `;
 const SelectedOptionWrap = styled(OptionEachWrap)`
@@ -209,8 +211,14 @@ function Footer({ userCar, page, setPage, price }) {
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents category="외장" color={userCar.exteriorColor} />
-          <ColorComponents category="내장" color={userCar.builtInColor} />
+          <ColorComponents
+            category="외장"
+            color={outerColorInfo[userCar?.outerColor]?.name}
+          />
+          <ColorComponents
+            category="내장"
+            color={innerColorInfo[userCar?.innerColor]?.name}
+          />
         </ColorWrap>
 
         <DivisionStroke />
