@@ -28,23 +28,28 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'trim',
-            loader: fetchData,
-            element: <Trim />,
-          },
-          {
-            path: 'engine',
-            // loader: fetchOption,
-            element: <Engine />,
-          },
-          {
-            path: 'bodytype',
-            // loader: fetchOption,
-            element: <BodyType />,
-          },
-          {
-            path: 'wheeldrive',
-            // loader: fetchOption,
-            element: <WheelDrive />,
+            children: [
+              {
+                path: 'model',
+                loader: fetchData,
+                element: <Trim />,
+              },
+              {
+                path: 'engine',
+                // loader: fetchOption,
+                element: <Engine />,
+              },
+              {
+                path: 'bodytype',
+                // loader: fetchOption,
+                element: <BodyType />,
+              },
+              {
+                path: 'wheeldrive',
+                // loader: fetchOption,
+                element: <WheelDrive />,
+              },
+            ],
           },
           {
             path: 'color',
@@ -52,8 +57,24 @@ const router = createBrowserRouter([
             element: <Color />,
           },
           {
-            path: 'selectoption',
-            element: <SelectOption />,
+            path: 'option',
+            children: [
+              {
+                path: 'selection',
+                // loader: fetchOption,
+                element: <SelectOption />,
+              },
+              {
+                path: 'accessories',
+                // loader: fetchOption,
+                element: <SelectOption />,
+              },
+              {
+                path: 'performance',
+                // loader: fetchOption,
+                element: <SelectOption />,
+              },
+            ],
           },
         ],
       },
