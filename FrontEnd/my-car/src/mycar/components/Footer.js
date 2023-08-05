@@ -178,14 +178,14 @@ function Footer({ userCar, page, setPage, price }) {
           <div style={{ display: 'flex' }}>
             {userCar.engine >= 0 && (
               <SelectTrimOptionsText>
-                {engineInfo[userCar.engine]}
+                {engineInfo[userCar.engine].name}
               </SelectTrimOptionsText>
             )}
             {userCar.bodyType >= 0 && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {bodyTypeInfo[userCar.bodyType]}
+                  {bodyTypeInfo[userCar.bodyType].name}
                 </SelectTrimOptionsText>
               </>
             )}

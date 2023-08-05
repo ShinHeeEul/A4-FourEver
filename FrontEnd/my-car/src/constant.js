@@ -1069,5 +1069,42 @@ export const carCardInfo = [
   },
 ];
 
-export const engineInfo = ['디젤 2.0', '가솔린 3.8'];
-export const bodyTypeInfo = ['7인승', '8인승'];
+export const engineInfo = [
+  {
+    name: '디젤 2.2',
+    price: '1,480,000',
+    explanation:
+      '높은 토크로 파워풀한 드라이빙이 가능하며, 차급대비 연비 효율이 우수합니다.',
+    maxOutput: '295/6,000PS/rpm',
+    maxTalk: '36.2/5,200kgf-m/rpm',
+  },
+  {
+    name: '가솔린 3.8',
+    price: '1,480,001',
+    explanation:
+      '고마력의 우수한 가속 성능을 확보하여, 넉넉하고 안정감 있는 주행이 가능합니다엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을 제공합니다.',
+    maxOutput: '295/6,000PS/rpm',
+    maxTalk: '36.2/5,200kgf-m/rpm',
+  },
+];
+export const bodyTypeInfo = [
+  {
+    name: '7인승',
+    price: '0',
+    explanation:
+      '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다.',
+  },
+  {
+    name: '8인승',
+    price: '0',
+    explanation:
+      '1열 2명, 2열 3명, 3열 3명이 탑승할 수 있는 구조로, 많은 인원이 탑승할 수 있도록 배려하였습니다',
+    // tags: [
+    //   '어린이👶',
+    //   '이것만 있으면 나도 주차고수🚘',
+    //   '편리해요😉',
+    //   '대형견도 문제 없어요🐶',
+    //   '가성비가 좋아요',
+    // ],
+  },
+];

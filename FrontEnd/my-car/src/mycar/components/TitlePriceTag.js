@@ -50,26 +50,21 @@ function DivisionStroke() {
   );
 }
 
-function TitlePriceTag() {
-  const tags = [
-    '어린이👶',
-    '이것만 있으면 나도 주차고수🚘',
-    '편리해요😉',
-    '대형견도 문제 없어요🐶',
-    '가성비가 좋아요',
-  ];
+function TitlePriceTag({ selectedOption }) {
   return (
     <Container>
       <Header>
-        <Title>문라이트 펄 블루</Title>
-        <Price>+690,000 원</Price>
+        <Title>{selectedOption.name}</Title>
+        <Price>+{selectedOption.price} 원</Price>
       </Header>
       <DivisionStroke />
-      <TagWrap>
-        {tags.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-      </TagWrap>
+      {selectedOption.tags && (
+        <TagWrap>
+          {selectedOption.tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
+          ))}
+        </TagWrap>
+      )}
     </Container>
   );
 }
