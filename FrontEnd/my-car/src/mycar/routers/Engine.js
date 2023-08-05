@@ -10,19 +10,19 @@ const EngineContainer = styled(Container)`
   gap: 40px;
 `;
 
-const OptionImgWrap = styled.div`
+export const OptionImgWrap = styled.div`
   width: 620px;
   height: 400px;
   flex-shrink: 0;
   background-color: black;
 `;
 
-const LeftWrap = styled.div`
+export const LeftWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
-const RightWrap = styled.div`
+export const RightWrap = styled.div`
   display: flex;
   flex-direction: column;
 

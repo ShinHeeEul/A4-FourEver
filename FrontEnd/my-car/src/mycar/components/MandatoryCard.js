@@ -101,11 +101,12 @@ function MandatoryCard({ option, isActive, clickHandler, id }) {
         </CardPriceDiv>
       </CardNamePriceDiv>
       <CardText>{option.explanation}</CardText>
-      <CardLineDiv>
-        <CardLine />
-      </CardLineDiv>
+
       {page === 1 && (
         <>
+          <CardLineDiv>
+            <CardLine />
+          </CardLineDiv>
           <DetailOptionWrap $isFirst>
             <EngineMaxInfo>최고출력</EngineMaxInfo>
             <CardText>{option.maxOutput}</CardText>

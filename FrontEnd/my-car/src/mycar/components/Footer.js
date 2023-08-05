@@ -9,7 +9,7 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import { carCardInfo, engineInfo } from '../../constant';
+import { bodyTypeInfo, carCardInfo, engineInfo } from '../../constant';
 import Buttons from './PageMoveBtns';
 
 const Container = styled.div`
@@ -185,7 +185,7 @@ function Footer({ userCar, page, setPage, price }) {
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {userCar.bodyType}
+                  {bodyTypeInfo[userCar.bodyType]}
                 </SelectTrimOptionsText>
               </>
             )}

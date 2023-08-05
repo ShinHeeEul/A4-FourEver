@@ -9,6 +9,7 @@ import WheelDrive from './mycar/routers/WheelDrive';
 import Login from './login/Login';
 import fetchOption from './api';
 import fetchData from './api';
+import BodyType from './mycar/routers/BodyType';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
             path: 'engine',
             // loader: fetchOption,
             element: <Engine />,
+          },
+          {
+            path: 'bodytype',
+            // loader: fetchOption,
+            element: <BodyType />,
           },
           {
             path: 'wheeldrive',
