@@ -42,9 +42,16 @@ const ColorImgWrap = styled.div`
     ${Body4Regular}
   }
   text-align: center;
+  position: relative;
 `;
 const ColorImg = styled.img`
   border-radius: 8px;
+  box-sizing: border-box;
+  ${(props) =>
+    props.$isActive &&
+    css`
+      border: 3px solid #00aad2;
+    `}
 `;
 const ColorOptionsWrap = styled.div`
   display: flex;
@@ -79,6 +86,20 @@ const ColorOptionsWrap = styled.div`
           }
         `}
 `;
+const CheckIconWrap = styled.div`
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  width: 22px;
+  height: 22px;
+  ${(props) =>
+    props.$isActive &&
+    css`
+      display: block;
+    `}
+`;
 
 function UnderLine() {
   return (
@@ -90,6 +111,26 @@ function UnderLine() {
       fill="none"
     >
       <path d="M0 1L331 0.999971" stroke="#DCDCDC" />
+    </svg>
+  );
+}
+function CheckIcon({ $isActive }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+    >
+      <circle cx="11" cy="11" r="11" fill="#00AAD2" />
+      <path
+        d="M6 11.5L9.33333 15L16 8"
+        stroke="#F6F3F2"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   );
 }
@@ -107,7 +148,10 @@ function ColorComponents({ title, selected, options, optionClick }) {
           return (
             <>
               <ColorImgWrap onClick={() => optionClick(index)}>
-                <ColorImg src={src} />
+                <CheckIconWrap $isActive={index === selected} src={src}>
+                  <CheckIcon />
+                </CheckIconWrap>
+                <ColorImg $isActive={index === selected} src={src} />
                 {title === '외장 색상' && <span>{name}</span>}
               </ColorImgWrap>
             </>
