@@ -63,11 +63,13 @@ const router = createBrowserRouter([
                 path: 'selection',
                 // loader: fetchOption,
                 element: <SelectOption />,
+
               },
               {
                 path: 'accessories',
                 // loader: fetchOption,
                 element: <SelectOption />,
+
               },
               {
                 path: 'performance',
