@@ -10,6 +10,8 @@ import Login from './login/Login';
 import fetchOption from './api';
 import fetchData from './api';
 import BodyType from './mycar/routers/BodyType';
+import Color from './mycar/routers/Color';
+import SelectOption from './mycar/routers/SelectOption';
 
 const router = createBrowserRouter([
   {
@@ -52,27 +54,27 @@ const router = createBrowserRouter([
           {
             path: 'color',
             // loader: fetchOption,
-            element: <Engine />,
+            element: <Color />,
           },
           {
             path: 'option',
-            // loader: fetchOption,
-            element: <Engine />,
             children: [
               {
                 path: 'selection',
                 // loader: fetchOption,
-                element: <Engine />,
+                element: <SelectOption />,
+
               },
               {
                 path: 'accessories',
                 // loader: fetchOption,
-                element: <BodyType />,
+                element: <SelectOption />,
+
               },
               {
                 path: 'performance',
                 // loader: fetchOption,
-                element: <WheelDrive />,
+                element: <SelectOption />,
               },
             ],
           },

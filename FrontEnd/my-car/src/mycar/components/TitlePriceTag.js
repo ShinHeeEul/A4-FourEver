@@ -4,7 +4,7 @@ import palette from '../../style/styleVariable';
 
 const Container = styled.div`
   color: ${palette.Black};
-  width: 620px;
+  width: ${(props) => (props.$isSmall ? '500px' : '620px')};
 `;
 
 const Header = styled.header`
@@ -12,6 +12,8 @@ const Header = styled.header`
   justify-content: space-between;
   margin-bottom: 8px;
   align-items: flex-end;
+  padding-bottom: 5px;
+  border-bottom: 5px solid black;
 `;
 const Title = styled.h1`
   ${Heading1Bold};
@@ -36,40 +38,20 @@ const Tag = styled.div`
   ${Body3Regular}
 `;
 
-function DivisionStroke() {
+function TitlePriceTag({ selectedOption, isSmall = false }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="620"
-      height="4"
-      viewBox="0 0 620 4"
-      fill="none"
-    >
-      <path d="M0 2H620" stroke="#232323" strokeWidth="4" />
-    </svg>
-  );
-}
-
-function TitlePriceTag() {
-  const tags = [
-    '어린이👶',
-    '이것만 있으면 나도 주차고수🚘',
-    '편리해요😉',
-    '대형견도 문제 없어요🐶',
-    '가성비가 좋아요',
-  ];
-  return (
-    <Container>
+    <Container $isSmall={isSmall}>
       <Header>
-        <Title>문라이트 펄 블루</Title>
-        <Price>+690,000 원</Price>
+        <Title>{selectedOption.name}</Title>
+        <Price>+{selectedOption.price} 원</Price>
       </Header>
-      <DivisionStroke />
-      <TagWrap>
-        {tags.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-      </TagWrap>
+      {selectedOption.tags && (
+        <TagWrap>
+          {selectedOption.tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
+          ))}
+        </TagWrap>
+      )}
     </Container>
   );
 }

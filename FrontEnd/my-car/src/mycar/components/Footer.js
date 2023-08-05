@@ -9,7 +9,14 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import { carCardInfo } from '../../constant';
+import {
+  bodyTypeInfo,
+  carCardInfo,
+  engineInfo,
+  innerColorInfo,
+  outerColorInfo,
+  wheelDriveInfo,
+} from '../../constant';
 import Buttons from './PageMoveBtns';
 
 const Container = styled.div`
@@ -126,7 +133,7 @@ const TrimWrap = styled(OptionEachWrap)`
   margin-right: 8px;
 `;
 const ColorWrap = styled(OptionEachWrap)`
-  width: 160px;
+  width: 200px;
   margin: 0 18px 0 22px;
 `;
 const SelectedOptionWrap = styled(OptionEachWrap)`
@@ -166,6 +173,7 @@ function ColorComponents({ category, color }) {
 
 function Footer({ userCar, page, setPage, price }) {
   const sumPrice = price.reduce((acc, current) => acc + current, 0);
+
   return (
     <Container>
       <OptionInfoWrap>
@@ -175,22 +183,24 @@ function Footer({ userCar, page, setPage, price }) {
             {carCardInfo[userCar.trim].name}
           </SelectTrimModelText>
           <div style={{ display: 'flex' }}>
-            {userCar.engine && (
-              <SelectTrimOptionsText>{userCar.engine}</SelectTrimOptionsText>
+            {userCar.engine >= 0 && (
+              <SelectTrimOptionsText>
+                {engineInfo[userCar.engine].name}
+              </SelectTrimOptionsText>
             )}
-            {userCar.bodyType && (
+            {userCar.bodyType >= 0 && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {userCar.bodyType}
+                  {bodyTypeInfo[userCar.bodyType].name}
                 </SelectTrimOptionsText>
               </>
             )}
-            {userCar.wheelDrive && (
+            {userCar.wheelDrive >= 0 && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {userCar.wheelDrive}
+                  {wheelDriveInfo[userCar.wheelDrive].name}
                 </SelectTrimOptionsText>
               </>
             )}
@@ -201,8 +211,14 @@ function Footer({ userCar, page, setPage, price }) {
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents category="외장" color={userCar.exteriorColor} />
-          <ColorComponents category="내장" color={userCar.builtInColor} />
+          <ColorComponents
+            category="외장"
+            color={outerColorInfo[userCar?.outerColor]?.name}
+          />
+          <ColorComponents
+            category="내장"
+            color={innerColorInfo[userCar?.innerColor]?.name}
+          />
         </ColorWrap>
 
         <DivisionStroke />
