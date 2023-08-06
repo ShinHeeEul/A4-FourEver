@@ -19,6 +19,8 @@ import {
   selectOptionInfo,
 } from '../../constant';
 import Buttons from './PageMoveBtns';
+import SummaryModal from './SummaryModal';
+import useState from 'react';
 
 const Container = styled.div`
   height: calc(108px - 24px);
@@ -172,10 +174,20 @@ function ColorComponents({ category, color }) {
   );
 }
 
-function Footer({ userCar, page, setPage, price }) {
+function showModal(setShowSummaryModal) {
+  setShowSummaryModal(true);
+}
+
+function Footer({
+  userCar,
+  page,
+  setPage,
+  price,
+  showSummaryModal,
+  setShowSummaryModal,
+}) {
   const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
   const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
-
   return (
     <Container>
       <OptionInfoWrap>
@@ -228,7 +240,17 @@ function Footer({ userCar, page, setPage, price }) {
         <SelectedOptionWrap>
           <SelectedOptionTitleWrap>
             <OptionCategory>선택 옵션</OptionCategory>
-            <OptionCategory style={{ cursor: 'pointer' }}>
+            <OptionCategory
+              style={{ cursor: 'pointer' }}
+              onClick={() => showModal(setShowSummaryModal)}
+            >
+              {showSummaryModal && (
+                <SummaryModal
+                  userCar={userCar}
+                  price={{ trim: userCar.price, option: userCar.optionPrice }}
+                  setShowSummaryModal={setShowSummaryModal}
+                />
+              )}
               견적 요약 보기
             </OptionCategory>
           </SelectedOptionTitleWrap>

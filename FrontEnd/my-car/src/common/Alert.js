@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
-import useState from 'react';
 
 const AlertBgDiv = styled.div`
   position: absolute;
@@ -10,6 +9,7 @@ const AlertBgDiv = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 1;
+  backdrop-filter: blur(2px);
 `;
 
 const AlertDiv = styled.div`
