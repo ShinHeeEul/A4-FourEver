@@ -55,6 +55,7 @@ function OptionCard({
   optionClick,
   isBasicTab,
   addOption,
+  setModal,
 }) {
   return (
     <CardsWrap>
@@ -64,6 +65,9 @@ function OptionCard({
           key={index}
           onClick={() => {
             if (!isBasicTab) return optionClick(index);
+            else {
+              setModal(() => ({ show: true, optionId: index }));
+            }
           }}
         >
           <CardImg src={option.src} />
