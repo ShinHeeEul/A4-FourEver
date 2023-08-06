@@ -10,6 +10,7 @@ function Mycar() {
     trim: 0,
     selectedOptions: [],
     price: [47720000],
+    optionPrice: [],
   });
 
   return (
@@ -19,7 +20,7 @@ function Mycar() {
       <Outlet context={{ page, userCar, setUserCar }} />
       <Footer
         userCar={userCar}
-        price={userCar.price}
+        price={{ trim: userCar.price, option: userCar.optionPrice }}
         setPage={setPage}
         page={page}
       />
