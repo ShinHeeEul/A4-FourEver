@@ -71,24 +71,32 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function Alert() {
-  return (
-    <AlertBgDiv>
-      <AlertDiv>
-        <AlertMsgDiv>
-          <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg>
-          <AlertMsg>
-            만들던 차량은 아카이빙 내가 만든 차량 에 저장해둘게요
-          </AlertMsg>
-        </AlertMsgDiv>
+function closeAlert(setShowCommonAlert) {
+  setShowCommonAlert(false);
+}
 
-        <AlertBtnDiv>
-          <BtnCancel>취소</BtnCancel>
-          <BtnConfirm>내 차 만들기 종료</BtnConfirm>
-        </AlertBtnDiv>
-      </AlertDiv>
-    </AlertBgDiv>
-  );
+function Alert({ showCommonAlert, setShowCommonAlert }) {
+  if (showCommonAlert === true) {
+    return (
+      <AlertBgDiv>
+        <AlertDiv>
+          <AlertMsgDiv>
+            <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg>
+            <AlertMsg>
+              만들던 차량은 아카이빙 내가 만든 차량 에 저장해둘게요
+            </AlertMsg>
+          </AlertMsgDiv>
+
+          <AlertBtnDiv>
+            <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
+              취소
+            </BtnCancel>
+            <BtnConfirm>내 차 만들기 종료</BtnConfirm>
+          </AlertBtnDiv>
+        </AlertDiv>
+      </AlertBgDiv>
+    );
+  }
 }
 
 export default Alert;

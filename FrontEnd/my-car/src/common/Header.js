@@ -33,6 +33,7 @@ const ToCarivingBtn = styled.button`
   width: 98px;
   height: 35px;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 const ToCarivingBtnText = styled.span`
@@ -68,7 +69,11 @@ const AutoSaveText = styled.span`
   color: ${palette.DarkGray};
 `;
 
-function Header() {
+function showAlert(setShowCommonAlert) {
+  setShowCommonAlert(true);
+}
+
+function Header({ setShowCommonAlert }) {
   return (
     <HeaderDiv>
       <HeaderElements>
@@ -177,7 +182,7 @@ function Header() {
         >
           <path d="M1 0V18" stroke="#232323" />
         </svg>
-        <ToCarivingBtn>
+        <ToCarivingBtn onClick={() => showAlert(setShowCommonAlert)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="23.267px"
