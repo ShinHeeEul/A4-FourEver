@@ -16,6 +16,10 @@ export const OptionImgWrap = styled.div`
   height: 400px;
   flex-shrink: 0;
   background-color: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
 `;
 
 export const LeftWrap = styled.div`
