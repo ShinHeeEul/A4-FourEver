@@ -1,8 +1,6 @@
 import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Medium } from '../../style/typo';
-import { useState } from 'react';
-import { useOutlet, useOutletContext } from 'react-router-dom';
 
 const CardsWrap = styled.div`
   display: flex;
