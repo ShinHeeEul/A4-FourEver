@@ -116,7 +116,7 @@ function ToolTip() {
     <ToolTipWrap $isSHow={showTooltip}>
       <ToolTipContainer />
       <span>
-        가솔린 3.8의 리얼한 후기가 <br />
+        다른 시승자의 리얼한 후기가 <br />
         궁금하다면?
       </span>
     </ToolTipWrap>
