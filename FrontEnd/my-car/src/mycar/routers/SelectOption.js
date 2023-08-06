@@ -9,10 +9,12 @@ import { basicOptionInfo, selectOptionInfo } from '../../constant';
 import DetailExplainCard from '../components/DetailExplainCard';
 import OptionTabs from '../components/OptionTabs';
 import OptionCard from '../components/OptionCard';
+import BasicOptionModal from '../components/BasicOptionModal';
 
 const SelectOptionContainer = styled(Container)`
   align-items: center;
   gap: 50px;
+  position: relative;
 `;
 const TopContentsWrap = styled(Container)`
   flex-direction: row;
@@ -40,6 +42,7 @@ function SelectOption() {
   const [selected, setSelected] = useState(0);
   const [isBasicTab, setIsBasicTab] = useState(false);
   const [basicIndex, setBasicIndex] = useState(0);
+  const [modal, setModal] = useState({ show: false, optionId: 0 });
 
   const categoryClick = (index) => {
     setBasicIndex(index);
@@ -96,8 +99,14 @@ function SelectOption() {
           isBasicTab={isBasicTab}
           optionClick={optionClick}
           addOption={addOption}
+          setModal={setModal}
         />
       </SelectOptionWrap>
+      <BasicOptionModal
+        modal={modal}
+        setModal={setModal}
+        option={basicOptionInfo[basicIndex].options}
+      />
     </SelectOptionContainer>
   );
 }
