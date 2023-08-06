@@ -16,6 +16,7 @@ import {
   innerColorInfo,
   outerColorInfo,
   wheelDriveInfo,
+  selectOptionInfo,
 } from '../../constant';
 import Buttons from './PageMoveBtns';
 
@@ -172,7 +173,8 @@ function ColorComponents({ category, color }) {
 }
 
 function Footer({ userCar, page, setPage, price }) {
-  const sumPrice = price.reduce((acc, current) => acc + current, 0);
+  const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
+  const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
 
   return (
     <Container>
@@ -234,7 +236,9 @@ function Footer({ userCar, page, setPage, price }) {
             {userCar.selectedOptions &&
               userCar.selectedOptions.slice(0, 3).map((option) => (
                 <SelectOptionTag key={option}>
-                  <SelectOptionText>{option}</SelectOptionText>
+                  <SelectOptionText>
+                    {selectOptionInfo[option].name}
+                  </SelectOptionText>
                 </SelectOptionTag>
               ))}
             {userCar.selectedOptions && userCar.selectedOptions.length > 3 && (
@@ -251,7 +255,9 @@ function Footer({ userCar, page, setPage, price }) {
         <PriceWrap>
           <OptionCategory>예상 가격</OptionCategory>
           <PriceTextWrap>
-            <PriceNumber>{sumPrice.toLocaleString()}</PriceNumber>
+            <PriceNumber>
+              {(trimPrice + optionPrice).toLocaleString()}
+            </PriceNumber>
             <PriceOne>원</PriceOne>
           </PriceTextWrap>
         </PriceWrap>
