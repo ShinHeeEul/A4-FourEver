@@ -87,7 +87,7 @@ const AddOrRemoveButton = styled.button`
   border-radius: 8px;
   ${Body3Medium}
   cursor: pointer;
-  z-index: 40;
+  z-index: 0;
 `;
 
 function OptionCard({
