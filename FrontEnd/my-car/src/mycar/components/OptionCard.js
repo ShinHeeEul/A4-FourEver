@@ -1,6 +1,7 @@
 import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Medium, Body4Regular } from '../../style/typo';
+import { useOutletContext } from 'react-router-dom';
 
 const DimmedOverlay = styled.div`
   width: calc(100% - 20px);
@@ -46,7 +47,7 @@ const Card = styled.div`
   box-sizing: border-box;
 
   background-color: ${(props) =>
-    props.$isActive ? 'rgba(0, 44, 95, 0.10)' : palette.LightSand};
+    props.$isAdded ? 'rgba(0, 44, 95, 0.10)' : palette.LightSand};
   ${(props) =>
     props.$isActive &&
     css`
@@ -81,13 +82,26 @@ const CardDetailWrap = styled.div`
 const AddOrRemoveButton = styled.button`
   width: 100%;
   height: 30px;
-  border: 2px solid #385da2;
+
   color: #385da2;
   background-color: ${palette.Neutral};
   border-radius: 8px;
   ${Body3Medium}
   cursor: pointer;
   z-index: 0;
+
+  ${(props) =>
+    props.$isAdded
+      ? css`
+          background-color: ${palette.Primary};
+          border: 2px solid ${palette.Primary};
+          color: white;
+        `
+      : css`
+          background-color: ${palette.Neutral};
+          color: #385da2;
+          border: 2px solid #385da2;
+        `}
 `;
 
 function OptionCard({
@@ -98,46 +112,59 @@ function OptionCard({
   addOption,
   setModal,
 }) {
+  const { userCar } = useOutletContext();
+  const isAdded = (index) => {
+    const found = userCar.selectedOptions.some((option) => option === index);
+    return found;
+  };
+
   return (
     <CardsWrap>
-      {optionInfo.map((option, index) => (
-        <Card
-          $isActive={index === selected && !isBasicTab}
-          $isBasicTab={isBasicTab}
-          key={index}
-          onClick={() => {
-            if (!isBasicTab) return optionClick(index);
-            else {
-              setModal(() => ({ show: true, optionId: index }));
-            }
-          }}
-        >
-          <DimmedOverlay>
-            <ul>
-              {option?.explain &&
-                option.explain.map((explain) => <li>{explain.main}</li>)}
-            </ul>
-          </DimmedOverlay>
-          <CardImg src={option.src} />
-          <CardDetailWrap>
-            <div>
-              <h3>{option.name}</h3>
-              {!isBasicTab ? (
-                <h3>{option.price}</h3>
-              ) : (
-                <span style={{ color: `${palette.MediumGray}` }}>
-                  기본 포함
-                </span>
+      {optionInfo.map((option, index) => {
+        const addState = isAdded(index);
+        return (
+          <Card
+            $isAdded={addState}
+            $isActive={index === selected && !isBasicTab}
+            $isBasicTab={isBasicTab}
+            key={index}
+            onClick={() => {
+              if (!isBasicTab) return optionClick(index);
+              else {
+                setModal(() => ({ show: true, optionId: index }));
+              }
+            }}
+          >
+            <DimmedOverlay>
+              <ul>
+                {option?.explain &&
+                  option.explain.map((explain) => <li>{explain.main}</li>)}
+              </ul>
+            </DimmedOverlay>
+            <CardImg src={option.src} />
+            <CardDetailWrap>
+              <div>
+                <h3>{option.name}</h3>
+                {!isBasicTab ? (
+                  <h3>{option.price}</h3>
+                ) : (
+                  <span style={{ color: `${palette.MediumGray}` }}>
+                    기본 포함
+                  </span>
+                )}
+              </div>
+              {!isBasicTab && (
+                <AddOrRemoveButton
+                  $isAdded={addState}
+                  onClick={() => addOption(index)}
+                >
+                  {addState ? '취소하기' : '추가하기'}
+                </AddOrRemoveButton>
               )}
-            </div>
-            {!isBasicTab && (
-              <AddOrRemoveButton onClick={() => addOption(index)}>
-                추가하기
-              </AddOrRemoveButton>
-            )}
-          </CardDetailWrap>
-        </Card>
-      ))}
+            </CardDetailWrap>
+          </Card>
+        );
+      })}
     </CardsWrap>
   );
 }
