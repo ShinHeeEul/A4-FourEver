@@ -50,6 +50,7 @@ const TitleDiv = styled.div`
   justify-content: flex-end;
   gap: 152px;
   align-items: center;
+  position: sticky;
 `;
 const TitleText = styled.span`
   ${Heading4Medium};
