@@ -20,7 +20,7 @@ export const navCategoryName = {
     },
   },
   color: {
-    id: '색깔',
+    id: '색상',
     value: {
       outer: '외장 색상',
       inner: '내장 색상',
