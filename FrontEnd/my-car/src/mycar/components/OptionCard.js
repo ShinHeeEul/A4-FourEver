@@ -110,6 +110,7 @@ function OptionCard({
   optionClick,
   isBasicTab,
   addOption,
+  removeOption,
   setModal,
 }) {
   const { userCar } = useOutletContext();
@@ -156,7 +157,13 @@ function OptionCard({
               {!isBasicTab && (
                 <AddOrRemoveButton
                   $isAdded={addState}
-                  onClick={() => addOption(index)}
+                  onClick={() => {
+                    if (addState) {
+                      removeOption(index);
+                    } else {
+                      addOption(index);
+                    }
+                  }}
                 >
                   {addState ? '취소하기' : '추가하기'}
                 </AddOrRemoveButton>

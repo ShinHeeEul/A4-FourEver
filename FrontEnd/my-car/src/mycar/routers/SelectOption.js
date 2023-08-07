@@ -65,7 +65,21 @@ function SelectOption() {
       optionPrice: OptionPrice,
     }));
   };
-  const removeOption = () => {};
+  const removeOption = (index) => {
+    const prevOption = [...userCar.selectedOptions];
+    const prevOptionPrice = [...userCar.optionPrice];
+
+    const indexToRemove = prevOption.findIndex((option) => option === index);
+
+    const newOption = prevOption.filter((option) => option !== index);
+    const newOptionPrice = prevOptionPrice.splice(indexToRemove, 1);
+
+    setUserCar((prev) => ({
+      ...prev,
+      selectedOptions: newOption,
+      optionPrice: newOptionPrice,
+    }));
+  };
 
   return (
     <SelectOptionContainer>
@@ -98,8 +112,9 @@ function SelectOption() {
           selected={selected}
           isBasicTab={isBasicTab}
           optionClick={optionClick}
-          addOption={addOption}
           setModal={setModal}
+          addOption={addOption}
+          removeOption={removeOption}
         />
       </SelectOptionWrap>
       <BasicOptionModal
