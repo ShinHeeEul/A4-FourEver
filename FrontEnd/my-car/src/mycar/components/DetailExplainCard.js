@@ -54,6 +54,10 @@ const ExplainWrap = styled.div`
       }
       span {
         ${Heading4Medium}
+        max-width: 350px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     ${ExplainHeaderPageInfo} {
