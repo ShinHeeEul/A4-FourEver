@@ -8,6 +8,7 @@ export const myCarPagePath = [
   'option/selection',
   'option/accessories',
   'option/performance',
+  'complete',
 ];
 export const navCategoryName = {
   trim: {
