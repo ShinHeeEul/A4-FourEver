@@ -12,6 +12,7 @@ import fetchData from './api';
 import BodyType from './mycar/routers/BodyType';
 import Color from './mycar/routers/Color';
 import SelectOption from './mycar/routers/SelectOption';
+import Complete from './mycar/routers/Complete';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: 'mycar/complete',
+        element: <Complete />,
       },
       {
         path: 'achieving',
