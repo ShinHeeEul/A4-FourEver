@@ -1,5 +1,7 @@
+import CompleteTopBanner from '../components/CompleteTopBanner';
+
 function Complete() {
-  return <></>;
+  return <CompleteTopBanner />;
 }
 
 export default Complete;
