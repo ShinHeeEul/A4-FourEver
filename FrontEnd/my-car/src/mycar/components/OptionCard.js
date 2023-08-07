@@ -1,6 +1,34 @@
 import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
-import { Body3Medium } from '../../style/typo';
+import { Body3Medium, Body4Regular } from '../../style/typo';
+
+const DimmedOverlay = styled.div`
+  width: calc(100% - 20px);
+  padding: 0 10px 0 15px;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  ul {
+    ${Body4Regular}
+    margin-top: 15px;
+    color: ${palette.Neutral};
+    font-size: 12px;
+    width: 80%;
+    height: 80%;
+    /* overflow: auto; */
+    li {
+      list-style: disc;
+      margin-bottom: 5px;
+      list-style-position: inside;
+      text-indent: -15px;
+    }
+  }
+`;
 
 const CardsWrap = styled.div`
   display: flex;
@@ -8,6 +36,7 @@ const CardsWrap = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   width: 160px;
   border-radius: 8px;
   display: flex;
@@ -23,6 +52,17 @@ const Card = styled.div`
     css`
       border: 2px solid ${palette.Primary};
     `}
+
+  ${(props) =>
+    !props.$isBasicTab &&
+    css`
+      &:hover{
+        ${DimmedOverlay}{
+          opacity: 1;
+        }}
+      }
+      }
+    `} 
 
   cursor: pointer;
 `;
@@ -47,6 +87,7 @@ const AddOrRemoveButton = styled.button`
   border-radius: 8px;
   ${Body3Medium}
   cursor: pointer;
+  z-index: 40;
 `;
 
 function OptionCard({
@@ -62,6 +103,7 @@ function OptionCard({
       {optionInfo.map((option, index) => (
         <Card
           $isActive={index === selected && !isBasicTab}
+          $isBasicTab={isBasicTab}
           key={index}
           onClick={() => {
             if (!isBasicTab) return optionClick(index);
@@ -70,6 +112,12 @@ function OptionCard({
             }
           }}
         >
+          <DimmedOverlay>
+            <ul>
+              {option?.explain &&
+                option.explain.map((explain) => <li>{explain.main}</li>)}
+            </ul>
+          </DimmedOverlay>
           <CardImg src={option.src} />
           <CardDetailWrap>
             <div>
