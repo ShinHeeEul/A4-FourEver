@@ -39,6 +39,7 @@ export const navCategoryName = {
 
 export const carCardInfo = [
   {
+    id: '1',
     name: 'Le Blanc(르블랑)',
     logo: [
       <svg
@@ -430,6 +431,7 @@ export const carCardInfo = [
     price: '47,720,000',
   },
   {
+    id: '2',
     name: 'Exclusive',
     logo: [
       <svg
@@ -553,6 +555,7 @@ export const carCardInfo = [
     price: '40,440,000',
   },
   {
+    id: '3',
     name: 'Prestige',
     logo: [
       <svg
@@ -829,6 +832,7 @@ export const carCardInfo = [
     price: '47,720,000',
   },
   {
+    id: '4',
     name: 'Calligraphy',
     logo: [
       <svg
@@ -1099,6 +1103,7 @@ export const carCardInfo = [
 
 export const engineInfo = [
   {
+    id: '1',
     name: '디젤 2.2',
     price: '1,480,000',
     explanation:
@@ -1107,6 +1112,7 @@ export const engineInfo = [
     maxTalk: '36.2/5,200kgf-m/rpm',
   },
   {
+    id: '2',
     name: '가솔린 3.8',
     price: '1,480,001',
     explanation:
@@ -1117,6 +1123,7 @@ export const engineInfo = [
 ];
 export const bodyTypeInfo = [
   {
+    id: '1',
     name: '7인승',
     price: '0',
     src: [
@@ -1127,6 +1134,7 @@ export const bodyTypeInfo = [
       '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다.',
   },
   {
+    id: '2',
     name: '8인승',
     price: '0',
     src: [
@@ -1147,6 +1155,7 @@ export const bodyTypeInfo = [
 
 export const wheelDriveInfo = [
   {
+    id: '1',
     name: '2WD',
     price: '0',
     explanation:
@@ -1154,6 +1163,7 @@ export const wheelDriveInfo = [
   },
 
   {
+    id: '2',
     name: '4WD',
     price: '0',
     explanation:
@@ -1163,6 +1173,7 @@ export const wheelDriveInfo = [
 
 export const outerColorInfo = [
   {
+    id: '1',
     name: '어비스 블랙 펄',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1175,6 +1186,7 @@ export const outerColorInfo = [
     ],
   },
   {
+    id: '2',
     name: '쉬머링 실버 메탈릭',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1187,6 +1199,7 @@ export const outerColorInfo = [
     ],
   },
   {
+    id: '3',
     name: '문라이트 블루 펄',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1199,6 +1212,7 @@ export const outerColorInfo = [
     ],
   },
   {
+    id: '4',
     name: '가이아 브라운 펄',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1211,11 +1225,13 @@ export const outerColorInfo = [
     ],
   },
   {
+    id: '5',
     name: '그라파이트 그레이 메탈릭',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
   },
   {
+    id: '6',
     name: '크리미 화이트 펄 ',
     price: '100,000',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1223,11 +1239,13 @@ export const outerColorInfo = [
 ];
 export const innerColorInfo = [
   {
+    id: '1',
     name: '퀄팅 천연 (블랙)',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
   },
   {
+    id: '2',
     name: '쿨그레이',
     price: '0',
     src: 'http://www.matcl.com/files/attach/images/2791205/612/805/002/132233b03f63844eab14177157cf5947.jpg',
@@ -1495,7 +1513,7 @@ export const selectOptionInfo = [
   {
     id: '8',
     category: 'N Performance',
-    name: '주차보조 시스템 II',
+    name: '퍼포먼스 II',
     price: '190,000',
     tags: [
       '어린이👶',

@@ -140,48 +140,40 @@ function SummaryModal({
           <AllOptionDiv>
             <OptionDiv>트림</OptionDiv>
             <OptionContentDiv>
-              <OptionDetailDiv>
-                모델 {carCardInfo[userCar.trim].name}
-              </OptionDetailDiv>
-              <OptionDetailDiv>
-                {carCardInfo[userCar.trim].price} 원
-              </OptionDetailDiv>
+              <OptionDetailDiv>모델 {userCar.trim.name}</OptionDetailDiv>
+              <OptionDetailDiv>{userCar.trim.price} 원</OptionDetailDiv>
             </OptionContentDiv>
-            {userCar.engine >= 0 && (
+            {userCar.engine && (
               <>
                 <OptionContentDiv>
-                  <OptionDetailDiv>
-                    엔진 {engineInfo[userCar.engine].name}
-                  </OptionDetailDiv>
-                  <OptionDetailDiv>
-                    {engineInfo[userCar.engine].price}원
-                  </OptionDetailDiv>
+                  <OptionDetailDiv>엔진 {userCar.engine.name}</OptionDetailDiv>
+                  <OptionDetailDiv>{userCar.engine.price}원</OptionDetailDiv>
                 </OptionContentDiv>
               </>
             )}
             <OptionDetailDiv>
-              {userCar.bodyType >= 0 && (
+              {userCar.bodyType && (
                 <>
                   <OptionContentDiv>
                     <OptionDetailDiv>
-                      바디타입 {bodyTypeInfo[userCar.bodyType].name}
+                      바디타입 {userCar.bodyType.name}
                     </OptionDetailDiv>
                     <OptionDetailDiv>
-                      {bodyTypeInfo[userCar.bodyType].price}원
+                      {userCar.bodyType.price}원
                     </OptionDetailDiv>
                   </OptionContentDiv>
                 </>
               )}
             </OptionDetailDiv>
             <OptionDetailDiv>
-              {userCar.wheelDrive >= 0 && (
+              {userCar.wheelDrive && (
                 <>
                   <OptionContentDiv>
                     <OptionDetailDiv>
-                      구동방식 {wheelDriveInfo[userCar.wheelDrive].name}
+                      구동방식 {userCar.wheelDrive.name}
                     </OptionDetailDiv>
                     <OptionDetailDiv>
-                      {wheelDriveInfo[userCar.wheelDrive].price}원
+                      {userCar.wheelDrive.price}원
                     </OptionDetailDiv>
                   </OptionContentDiv>
                 </>
@@ -191,8 +183,7 @@ function SummaryModal({
             <OptionContentDiv>
               외장색상 / 내장색상{' '}
               <OptionDetailDiv>
-                {outerColorInfo[userCar?.outerColor]?.name}/
-                {innerColorInfo[userCar?.innerColor]?.name}
+                {userCar.outerColor.name}/{userCar.innerColor.name}
               </OptionDetailDiv>
             </OptionContentDiv>
             <OptionDiv>선택옵션 {userCar.selectedOptions.length}</OptionDiv>

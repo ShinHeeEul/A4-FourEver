@@ -6,6 +6,7 @@ import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';
 import { wheelDriveInfo } from '../../constant';
+import { SelectedIndex } from '../util/SelectedIndex';
 
 const WheelDriveContainer = styled(Container)`
   flex-direction: row;
@@ -14,14 +15,18 @@ const WheelDriveContainer = styled(Container)`
 
 function WheelDrive() {
   const { setUserCar, userCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(userCar.wheelDrive || 0);
-
-  const setWheelOption = (id) => {
+  const [selected, setSelected] = useState(
+    SelectedIndex({
+      userOption: userCar.wheelDrive,
+      optionInfo: wheelDriveInfo,
+    }),
+  );
+  const setWheelOption = (index) => {
     const Price = [...userCar.price];
-    Price[page] = parseInt(wheelDriveInfo[id].price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(wheelDriveInfo[index].price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      wheelDrive: id,
+      wheelDrive: wheelDriveInfo[index],
       price: Price,
     }));
   };
@@ -30,11 +35,7 @@ function WheelDrive() {
     setSelected(optionId);
     setWheelOption(optionId);
   };
-  useEffect(() => {
-    if (!userCar.wheelDrive) {
-      setWheelOption(0);
-    }
-  }, []);
+
   return (
     <WheelDriveContainer>
       <LeftWrap>
