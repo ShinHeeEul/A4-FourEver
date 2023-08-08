@@ -10,16 +10,16 @@ import java.util.stream.StreamSupport;
 @Component
 public class CarMapper {
 
-    public CarDTO toCarDTO(final Car car) {
-        return CarDTO.builder()
+    public CarInfoDTO toCarInfoDTO(final Car car) {
+        return CarInfoDTO.builder()
                 .car_id(car.getCar_id())
                 .name(car.getName())
                 .build();
     }
 
-    public List<CarDTO> toCarDTOList(final Iterable<Car> cars) {
+    public List<CarInfoDTO> toCarInfoDTOList(final Iterable<Car> cars) {
         return StreamSupport.stream(cars.spliterator(), false)
-                .map(this::toCarDTO)
+                .map(this::toCarInfoDTO)
                 .collect(Collectors.toList());
     }
 }
