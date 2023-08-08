@@ -8,6 +8,7 @@ import {
 } from '../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 import SelectedOption from './SelectedOption';
+import AddProcessBtn from './AddProcessBtn';
 
 const BgDiv = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
   gap: 15px;
-  margin: 120px auto;
+  margin: 140px auto;
 `;
 
 const BannerDiv = styled.div`
@@ -29,6 +30,7 @@ const BannerDiv = styled.div`
 const FunctionTitle = styled.div`
   ${Heading2Medium}
   width: 100%;
+  padding-bottom: 10px;
 `;
 
 const FunctionText = styled.span`
@@ -88,6 +90,10 @@ const InnerColorChip = styled.div`
   margin-right: 12px;
 `;
 
+const MainLineDiv = styled.div`
+  padding: 0 0 15px 0;
+`;
+
 function Line() {
   return (
     <svg
@@ -125,7 +131,10 @@ function CompletedFunction() {
   );
   return (
     <BgDiv>
-      <Line />
+      <MainLineDiv>
+        <Line />
+      </MainLineDiv>
+
       <FunctionTitle>
         <div>나의 펠리세이드는 이런 기능을 가지고 있어요</div>
       </FunctionTitle>
@@ -141,7 +150,7 @@ function CompletedFunction() {
             </FunctionTextDiv>
             <FunctionTextDiv>
               <FunctionTitle>
-                {(trimPrice + optPrice)
+                {trimPrice
                   .toString()
                   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
                 원
@@ -166,6 +175,7 @@ function CompletedFunction() {
         </ColorDiv>
       </BannerDiv>
       <SelectedOption />
+      <AddProcessBtn />
     </BgDiv>
   );
 }

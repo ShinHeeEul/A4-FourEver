@@ -15,13 +15,13 @@ import OptionCard, {
 const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
-  margin: 30px auto;
+  margin: 100px auto;
 `;
 
 const NothingDiv = styled.div`
   width: 1024px;
   align-items: center;
-  margin: 30px auto;
+  margin: 100px auto;
 `;
 
 const NothingTextDiv = styled.div`
