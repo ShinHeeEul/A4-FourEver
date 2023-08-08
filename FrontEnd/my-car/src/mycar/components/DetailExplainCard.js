@@ -6,7 +6,8 @@ import {
   Heading4Medium,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 const ExplainHeaderWrap = styled.div``;
 const ExplainHeaderTitle = styled.div``;
@@ -153,31 +154,42 @@ function RightArrow({ reference, clickHandler, explainPage }) {
   );
 }
 
-function DetailExplainCard({ selectOptionInfo, selected }) {
+function DetailExplainCard({ selectedOption }) {
+  const { page } = useOutletContext();
+
   const leftArrow = useRef();
   const rightArrow = useRef();
+
   const [explainPage, setExplainPage] = useState(0);
-  const changeExplainPage = (state) => {
-    setExplainPage(state);
-    leftArrow.current.style.display = state === 0 ? 'none' : ' block';
+
+  const changeExplainPage = (page) => {
+    setExplainPage(page);
+    leftArrow.current.style.display = page === 0 ? 'none' : ' block';
     rightArrow.current.style.display =
-      state === selectOptionInfo[selected].explain.length - 1
-        ? 'none'
-        : ' block';
+      page === selectedOption.explain.length - 1 ? 'none' : ' block';
   };
+
+  useEffect(() => {
+    setExplainPage(0);
+    leftArrow.current.style.display = 'none';
+    rightArrow.current.style.display =
+      selectedOption.explain.length - 1 !== 0 ? 'block' : 'none';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   return (
     <ExplainWrap>
       <ExplainHeaderWrap>
         <ExplainHeaderTitle>
           <ExplainHeaderPage>0{explainPage + 1}</ExplainHeaderPage>
-          <span>{selectOptionInfo[selected].explain[explainPage].main}</span>
+          <span>{selectedOption.explain[explainPage].main}</span>
         </ExplainHeaderTitle>
         <ExplainHeaderPageInfo>
-          {explainPage + 1}/{selectOptionInfo[selected].explain.length}
+          {explainPage + 1}/{selectedOption.explain.length}
         </ExplainHeaderPageInfo>
       </ExplainHeaderWrap>
       <ExplainDetail>
-        {selectOptionInfo[selected].explain[explainPage].detail}
+        {selectedOption.explain[explainPage].detail}
       </ExplainDetail>
       <LeftArrow
         reference={leftArrow}

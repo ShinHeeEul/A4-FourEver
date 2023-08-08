@@ -188,33 +188,32 @@ function Footer({
 }) {
   const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
   const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
+
   return (
     <Container>
       <OptionInfoWrap>
         <TrimWrap>
           <OptionCategory>트림</OptionCategory>
-          <SelectTrimModelText>
-            {carCardInfo[userCar.trim].name}
-          </SelectTrimModelText>
+          <SelectTrimModelText>{userCar.trim.name}</SelectTrimModelText>
           <div style={{ display: 'flex' }}>
-            {userCar.engine >= 0 && (
+            {userCar.engine && (
               <SelectTrimOptionsText>
-                {engineInfo[userCar.engine].name}
+                {userCar.engine.name}
               </SelectTrimOptionsText>
             )}
-            {userCar.bodyType >= 0 && (
+            {userCar.bodyType && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {bodyTypeInfo[userCar.bodyType].name}
+                  {userCar.bodyType.name}
                 </SelectTrimOptionsText>
               </>
             )}
-            {userCar.wheelDrive >= 0 && (
+            {userCar.wheelDrive && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
-                  {wheelDriveInfo[userCar.wheelDrive].name}
+                  {userCar.wheelDrive.name}
                 </SelectTrimOptionsText>
               </>
             )}
@@ -225,14 +224,8 @@ function Footer({
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents
-            category="외장"
-            color={outerColorInfo[userCar?.outerColor]?.name}
-          />
-          <ColorComponents
-            category="내장"
-            color={innerColorInfo[userCar?.innerColor]?.name}
-          />
+          <ColorComponents category="외장" color={userCar.outerColor.name} />
+          <ColorComponents category="내장" color={userCar.innerColor.name} />
         </ColorWrap>
 
         <DivisionStroke />
@@ -256,11 +249,9 @@ function Footer({
           </SelectedOptionTitleWrap>
           <SelectedOptionsTagsWrap>
             {userCar.selectedOptions &&
-              userCar.selectedOptions.slice(0, 3).map((option) => (
+              userCar?.selectedOptions.slice(0, 3).map((option) => (
                 <SelectOptionTag key={option}>
-                  <SelectOptionText>
-                    {selectOptionInfo[option].name}
-                  </SelectOptionText>
+                  <SelectOptionText>{option.name}</SelectOptionText>
                 </SelectOptionTag>
               ))}
             {userCar.selectedOptions && userCar.selectedOptions.length > 3 && (

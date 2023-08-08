@@ -4,11 +4,24 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ToolTip from './components/ToolTip';
 import SummaryModal from './components/SummaryModal';
+import {
+  bodyTypeInfo,
+  carCardInfo,
+  engineInfo,
+  innerColorInfo,
+  outerColorInfo,
+  wheelDriveInfo,
+} from '../constant';
 
 function Mycar() {
   const [page, setPage] = useState(0);
   const [userCar, setUserCar] = useState({
-    trim: 0,
+    trim: carCardInfo[0],
+    engine: engineInfo[0],
+    bodyType: bodyTypeInfo[0],
+    wheelDrive: wheelDriveInfo[0],
+    outerColor: outerColorInfo[2],
+    innerColor: innerColorInfo[0],
     selectedOptions: [],
     price: [47720000],
     optionPrice: [],

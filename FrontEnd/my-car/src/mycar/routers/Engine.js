@@ -5,6 +5,7 @@ import { Container } from './Trim';
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { engineInfo } from '../../constant';
+import { SelectedIndex } from '../util/SelectedIndex';
 
 const EngineContainer = styled(Container)`
   flex-direction: row;
@@ -35,33 +36,18 @@ export const RightWrap = styled.div`
 `;
 
 function Engine() {
-  // const engine = [
-  //   {
-  //     name: '디젤 2.2',
-  //     price: '1,480,000',
-  //     explanation:
-  //       '높은 토크로 파워풀한 드라이빙이 가능하며, 차급대비 연비 효율이 우수합니다.',
-  //     maxOutput: '295/6,000PS/rpm',
-  //     maxTalk: '36.2/5,200kgf-m/rpm',
-  //   },
-  //   {
-  //     name: '가솔린 3.8',
-  //     price: '1,480,001',
-  //     explanation:
-  //       '고마력의 우수한 가속 성능을 확보하여, 넉넉하고 안정감 있는 주행이 가능합니다엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을 제공합니다.',
-  //     maxOutput: '295/6,000PS/rpm',
-  //     maxTalk: '36.2/5,200kgf-m/rpm',
-  //   },
-  // ];
   const { setUserCar, userCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(userCar.engine || 0);
 
-  const setEngineOption = (id) => {
+  const [selected, setSelected] = useState(
+    SelectedIndex({ userOption: userCar.engine, optionInfo: engineInfo }),
+  );
+
+  const setEngineOption = (index) => {
     const Price = [...userCar.price];
-    Price[page] = parseInt(engineInfo[id].price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(engineInfo[index].price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      engine: id,
+      engine: engineInfo[index],
       price: Price,
     }));
   };
@@ -70,12 +56,6 @@ function Engine() {
     setSelected(optionId);
     setEngineOption(optionId);
   };
-
-  useEffect(() => {
-    if (!userCar.engine) {
-      setEngineOption(0);
-    }
-  }, []);
 
   return (
     <EngineContainer>

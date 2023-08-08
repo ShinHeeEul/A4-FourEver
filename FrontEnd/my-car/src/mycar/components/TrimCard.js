@@ -4,6 +4,7 @@ import palette from '../../style/styleVariable';
 import { Body3Medium, CaptionMedium, Heading3Bold } from '../../style/typo';
 import { carCardInfo } from '../../constant';
 import { useOutletContext } from 'react-router-dom';
+import { SelectedIndex } from '../util/SelectedIndex';
 
 const CarCardDiv = styled.div`
   display: flex;
@@ -145,7 +146,9 @@ function CarCardLine({ $isActive }) {
 
 function TrimCard() {
   const { userCar, setUserCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(userCar.trim);
+  const [selected, setSelected] = useState(
+    SelectedIndex({ userOption: userCar.trim, optionInfo: carCardInfo }),
+  );
 
   function ChangeCard(car, stateUserCar, idx) {
     const Price = [...userCar.price];
@@ -153,7 +156,7 @@ function TrimCard() {
 
     stateUserCar((prevState) => ({
       ...prevState,
-      trim: idx,
+      trim: carCardInfo[idx],
       price: Price,
     }));
     setSelected(idx);

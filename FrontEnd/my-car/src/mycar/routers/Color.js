@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Body4Regular, Heading3Medium } from '../../style/typo';
 import palette from '../../style/styleVariable';
+import { SelectedIndex } from '../util/SelectedIndex';
 
 const ColorContainer = styled(Container)`
   flex-direction: row;
@@ -164,16 +165,26 @@ function ColorComponents({ title, selected, options, optionClick }) {
 
 function Color() {
   const { setUserCar, userCar, page } = useOutletContext();
-  const [selectedOption, setSelectedOption] = useState(outerColorInfo[2]);
-  const [outerSelected, setOuterSelected] = useState(userCar.outerColor || 2);
-  const [innerSelected, setInnerSelected] = useState(userCar.innerColor || 0);
+  const [selectedOption, setSelectedOption] = useState(userCar.outerColor);
+  const [outerSelected, setOuterSelected] = useState(
+    SelectedIndex({
+      userOption: userCar.outerColor,
+      optionInfo: outerColorInfo,
+    }),
+  );
+  const [innerSelected, setInnerSelected] = useState(
+    SelectedIndex({
+      userOption: userCar.innerColor,
+      optionInfo: innerColorInfo,
+    }),
+  );
 
   const outerClick = (index) => {
     const Price = [...userCar.price];
     Price[page] = parseInt(outerColorInfo[index].price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      outerColor: index,
+      outerColor: outerColorInfo[index],
       price: Price,
     }));
     setOuterSelected(index);
@@ -183,22 +194,12 @@ function Color() {
   const innerClick = (index) => {
     setUserCar((prevState) => ({
       ...prevState,
-      innerColor: index,
+      innerColor: innerColorInfo[index],
     }));
     setInnerSelected(index);
     setSelectedOption(innerColorInfo[index]);
   };
 
-  useEffect(() => {
-    if (!userCar.innerColor && !userCar.outerColor) {
-      setUserCar((prevState) => ({
-        ...prevState,
-        innerColor: 0,
-        outerColor: 2,
-      }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <ColorContainer>
       <LeftWrap>
