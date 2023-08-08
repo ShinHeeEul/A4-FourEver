@@ -10,6 +10,7 @@ const NavBarDiv = styled.div`
   background-color: ${palette.LightSand};
   display: flex;
   align-items: center;
+  margin-top: 60px;
 `;
 
 const NavBarCategory = styled.div`
