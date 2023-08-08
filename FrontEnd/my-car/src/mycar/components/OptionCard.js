@@ -114,15 +114,17 @@ function OptionCard({
   setModal,
 }) {
   const { userCar } = useOutletContext();
-  const isAdded = (index) => {
-    const found = userCar.selectedOptions.some((option) => option === index);
+
+  const isAdded = (eachOption) => {
+    const found = userCar.selectedOptions.some(
+      (option) => option.id === eachOption.id,
+    );
     return found;
   };
-
   return (
     <CardsWrap>
       {optionInfo.map((option, index) => {
-        const addState = isAdded(index);
+        const addState = isAdded(option);
         return (
           <Card
             $isAdded={addState}
@@ -130,7 +132,7 @@ function OptionCard({
             $isBasicTab={isBasicTab}
             key={index}
             onClick={() => {
-              if (!isBasicTab) return optionClick(index);
+              if (!isBasicTab) optionClick(index);
               else {
                 setModal(() => ({ show: true, optionId: index }));
               }
@@ -138,7 +140,7 @@ function OptionCard({
           >
             <DimmedOverlay>
               <ul>
-                {option?.explain &&
+                {!isBasicTab &&
                   option.explain.map((explain) => <li>{explain.main}</li>)}
               </ul>
             </DimmedOverlay>

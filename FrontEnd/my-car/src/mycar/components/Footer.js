@@ -188,6 +188,7 @@ function Footer({
 }) {
   const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
   const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
+
   return (
     <Container>
       <OptionInfoWrap>
@@ -256,11 +257,9 @@ function Footer({
           </SelectedOptionTitleWrap>
           <SelectedOptionsTagsWrap>
             {userCar.selectedOptions &&
-              userCar.selectedOptions.slice(0, 3).map((option) => (
+              userCar?.selectedOptions.slice(0, 3).map((option) => (
                 <SelectOptionTag key={option}>
-                  <SelectOptionText>
-                    {selectOptionInfo[option].name}
-                  </SelectOptionText>
+                  <SelectOptionText>{option.name}</SelectOptionText>
                 </SelectOptionTag>
               ))}
             {userCar.selectedOptions && userCar.selectedOptions.length > 3 && (

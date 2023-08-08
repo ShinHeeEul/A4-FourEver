@@ -202,12 +202,8 @@ function SummaryModal({
                 return (
                   <>
                     <OptionContentDiv>
-                      <OptionDetailDiv>
-                        {selectOptionInfo[elem].name}
-                      </OptionDetailDiv>
-                      <OptionDetailDiv>
-                        {selectOptionInfo[elem].price}원
-                      </OptionDetailDiv>
+                      <OptionDetailDiv>{elem.name}</OptionDetailDiv>
+                      <OptionDetailDiv>{elem.price}원</OptionDetailDiv>
                     </OptionContentDiv>
                   </>
                 );
