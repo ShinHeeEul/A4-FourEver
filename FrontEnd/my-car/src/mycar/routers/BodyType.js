@@ -16,27 +16,33 @@ const BodyTypeContainer = styled(Container)`
 function BodyType() {
   const { setUserCar, userCar, page } = useOutletContext();
   const [selected, setSelected] = useState(
-    SelectedIndex({ userOption: userCar.bodyType, optionInfo: bodyTypeInfo }),
+    SelectedIndex({
+      userOptionID: userCar.bodyType?.id || bodyTypeInfo[0].id,
+      optionInfo: bodyTypeInfo,
+    }),
   );
   const [imgSelected, setImgSelected] = useState(0);
-  const setEngineOption = (index) => {
+  const setEngineOption = ({ selectOption, index }) => {
     const Price = [...userCar.price];
-    Price[page] = parseInt(bodyTypeInfo[index].price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      bodyType: bodyTypeInfo[index],
+      bodyType: selectOption,
       price: Price,
     }));
-  };
-
-  const optionClick = (optionId) => {
-    setSelected(optionId);
-    setEngineOption(optionId);
+    setSelected(index || 0);
   };
 
   useEffect(() => {
     setImgSelected(0);
   }, [selected]);
+
+  useEffect(() => {
+    if (!userCar.bodyType?.id) {
+      setEngineOption({ selectOption: bodyTypeInfo[0] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BodyTypeContainer>
@@ -55,9 +61,9 @@ function BodyType() {
         {bodyTypeInfo.map((option, index) => (
           <MandatoryCard
             key={index}
-            id={index}
+            index={index}
             isActive={selected === index}
-            clickHandler={optionClick}
+            clickHandler={setEngineOption}
             option={option}
           />
         ))}

@@ -16,12 +16,12 @@ import {
 function Mycar() {
   const [page, setPage] = useState(0);
   const [userCar, setUserCar] = useState({
-    trim: carCardInfo[0],
-    engine: engineInfo[0],
-    bodyType: bodyTypeInfo[0],
-    wheelDrive: wheelDriveInfo[0],
-    outerColor: outerColorInfo[2],
-    innerColor: innerColorInfo[0],
+    trim: {},
+    engine: {},
+    bodyType: {},
+    wheelDrive: {},
+    outerColor: {},
+    innerColor: {},
     selectedOptions: [],
     price: [47720000],
     optionPrice: [],

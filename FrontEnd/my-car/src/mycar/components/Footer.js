@@ -194,14 +194,14 @@ function Footer({
       <OptionInfoWrap>
         <TrimWrap>
           <OptionCategory>트림</OptionCategory>
-          <SelectTrimModelText>{userCar.trim.name}</SelectTrimModelText>
+          <SelectTrimModelText>{userCar.trim?.name}</SelectTrimModelText>
           <div style={{ display: 'flex' }}>
             {userCar.engine && (
               <SelectTrimOptionsText>
-                {userCar.engine.name}
+                {userCar.engine?.name}
               </SelectTrimOptionsText>
             )}
-            {userCar.bodyType && (
+            {userCar.bodyType?.name && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
@@ -209,7 +209,7 @@ function Footer({
                 </SelectTrimOptionsText>
               </>
             )}
-            {userCar.wheelDrive && (
+            {userCar.wheelDrive?.name && (
               <>
                 <SelectTrimOptionsText>/</SelectTrimOptionsText>
                 <SelectTrimOptionsText>
@@ -224,8 +224,8 @@ function Footer({
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents category="외장" color={userCar.outerColor.name} />
-          <ColorComponents category="내장" color={userCar.innerColor.name} />
+          <ColorComponents category="외장" color={userCar?.outerColor?.name} />
+          <ColorComponents category="내장" color={userCar?.innerColor?.name} />
         </ColorWrap>
 
         <DivisionStroke />

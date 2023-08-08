@@ -1,6 +1,6 @@
-export function SelectedIndex({ userOption, optionInfo }) {
+export function SelectedIndex({ userOptionID, optionInfo }) {
   const optionIndex = optionInfo.findIndex(
-    (option) => option.id === userOption.id,
+    (option) => option.id === userOptionID,
   );
   return optionIndex;
 }

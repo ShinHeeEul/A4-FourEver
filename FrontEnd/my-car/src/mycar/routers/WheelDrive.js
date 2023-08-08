@@ -17,24 +17,29 @@ function WheelDrive() {
   const { setUserCar, userCar, page } = useOutletContext();
   const [selected, setSelected] = useState(
     SelectedIndex({
-      userOption: userCar.wheelDrive,
+      userOptionID: userCar.wheelDrive.id || wheelDriveInfo[0].id,
       optionInfo: wheelDriveInfo,
     }),
   );
-  const setWheelOption = (index) => {
+  const setWheelOption = ({ selectOption, index }) => {
     const Price = [...userCar.price];
-    Price[page] = parseInt(wheelDriveInfo[index].price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      wheelDrive: wheelDriveInfo[index],
+      wheelDrive: selectOption,
       price: Price,
     }));
+    setSelected(index || 0);
   };
 
-  const optionClick = (optionId) => {
-    setSelected(optionId);
-    setWheelOption(optionId);
-  };
+  useEffect(() => {
+    !userCar.WheelDrive?.id &&
+      setWheelOption({ selectOption: wheelDriveInfo[0] });
+    // if (!userCar.WheelDrive?.id) {
+
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <WheelDriveContainer>
@@ -46,9 +51,9 @@ function WheelDrive() {
         {wheelDriveInfo.map((option, index) => (
           <MandatoryCard
             key={index}
-            id={index}
+            index={index}
             isActive={selected === index}
-            clickHandler={optionClick}
+            clickHandler={setWheelOption}
             option={option}
           />
         ))}
