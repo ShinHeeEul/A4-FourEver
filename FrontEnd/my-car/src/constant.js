@@ -35,6 +35,13 @@ export const navCategoryName = {
       performance: 'N Performance',
     },
   },
+  complete: {
+    id: '색상',
+    value: {
+      outer: '외장 색상',
+      inner: '내장 색상',
+    },
+  },
 };
 
 export const carCardInfo = [

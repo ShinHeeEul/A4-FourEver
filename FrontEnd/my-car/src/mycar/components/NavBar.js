@@ -119,63 +119,64 @@ function NavBar() {
   const [titlePathName, subPathName] = pathnameList;
 
   const nowPageObj = Object.entries(navCategoryName[titlePathName].value);
+  if (titlePathName !== 'complete') {
+    return (
+      <NavBarDiv>
+        <NavBarCategory>
+          {Object.keys(navCategoryName).map((_, navFullIdx) => {
+            return (
+              <>
+                <CategoryNumSubDiv
+                  $isSelected={
+                    Object.keys(navCategoryName)[navFullIdx] === titlePathName
+                  }
+                >
+                  <CategoryNumText>{navFullIdx + 1}</CategoryNumText>
+                </CategoryNumSubDiv>
 
-  return (
-    <NavBarDiv>
-      <NavBarCategory>
-        {Object.keys(navCategoryName).map((_, navFullIdx) => {
-          return (
-            <>
-              <CategoryNumSubDiv
-                $isSelected={
-                  Object.keys(navCategoryName)[navFullIdx] === titlePathName
-                }
-              >
-                <CategoryNumText>{navFullIdx + 1}</CategoryNumText>
-              </CategoryNumSubDiv>
+                <CategoryTextMain
+                  $show={
+                    Object.keys(navCategoryName)[navFullIdx] === titlePathName
+                  }
+                >
+                  {navCategoryName[titlePathName].id}
+                </CategoryTextMain>
 
-              <CategoryTextMain
-                $show={
-                  Object.keys(navCategoryName)[navFullIdx] === titlePathName
-                }
-              >
-                {navCategoryName[titlePathName].id}
-              </CategoryTextMain>
-
-              {nowPageObj.map(([key, value], eachElemIdx) => {
-                return (
-                  <>
-                    <CategoryTextSubShow
-                      $show={
-                        Object.keys(navCategoryName)[navFullIdx] ===
-                        titlePathName
-                      }
-                      $isSelected={
-                        key === subPathName || subPathName === undefined
-                      }
-                    >
-                      {value}
-                    </CategoryTextSubShow>
-                    {eachElemIdx !==
-                    Object.keys(navCategoryName[titlePathName].value).length -
-                      1 ? (
-                      <NavBarImg
-                        show={
+                {nowPageObj.map(([key, value], eachElemIdx) => {
+                  return (
+                    <>
+                      <CategoryTextSubShow
+                        $show={
                           Object.keys(navCategoryName)[navFullIdx] ===
                           titlePathName
                         }
-                      />
-                    ) : (
-                      <div></div>
-                    )}
-                  </>
-                );
-              })}
-            </>
-          );
-        })}
-      </NavBarCategory>
-    </NavBarDiv>
-  );
+                        $isSelected={
+                          key === subPathName || subPathName === undefined
+                        }
+                      >
+                        {value}
+                      </CategoryTextSubShow>
+                      {eachElemIdx !==
+                      Object.keys(navCategoryName[titlePathName].value).length -
+                        1 ? (
+                        <NavBarImg
+                          show={
+                            Object.keys(navCategoryName)[navFullIdx] ===
+                            titlePathName
+                          }
+                        />
+                      ) : (
+                        <div></div>
+                      )}
+                    </>
+                  );
+                })}
+              </>
+            );
+          })}
+        </NavBarCategory>
+      </NavBarDiv>
+    );
+  }
 }
 export default NavBar;
