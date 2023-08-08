@@ -8,15 +8,6 @@ import {
 } from '../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 
-import {
-  bodyTypeInfo,
-  carCardInfo,
-  engineInfo,
-  innerColorInfo,
-  outerColorInfo,
-  wheelDriveInfo,
-} from '../../constant';
-
 const BgDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,11 +132,10 @@ function CompletedFunction() {
         <SeperateDiv>
           <FunctionDetailDiv>
             <FunctionTextDiv>
-              <FunctionTitle>{carCardInfo[userCar.trim].name}</FunctionTitle>
+              <FunctionTitle>{userCar.trim.name}</FunctionTitle>
               <FunctionText>
-                {engineInfo[userCar.engine].name} /{' '}
-                {bodyTypeInfo[userCar.bodyType].name} /{' '}
-                {wheelDriveInfo[userCar.wheelDrive].name}
+                {userCar.engine.name} / {userCar.bodyType.name} /{' '}
+                {userCar.wheelDrive.name}
               </FunctionText>
             </FunctionTextDiv>
             <FunctionTextDiv>
@@ -165,16 +155,12 @@ function CompletedFunction() {
           <ColorInfo>
             <ColorText>외장색상</ColorText>
             <OuterColorChip />
-            <FunctionText>
-              {outerColorInfo[userCar?.outerColor]?.name}
-            </FunctionText>
+            <FunctionText>{userCar.outerColor.name}</FunctionText>
           </ColorInfo>
           <ColorInfo>
             <ColorText>내장색상</ColorText>
             <InnerColorChip />
-            <FunctionText>
-              {innerColorInfo[userCar?.innerColor]?.name}
-            </FunctionText>
+            <FunctionText>{userCar.innerColor.name}</FunctionText>
           </ColorInfo>
         </ColorDiv>
       </BannerDiv>
