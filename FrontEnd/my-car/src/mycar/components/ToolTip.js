@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body4Regular } from '../../style/typo';
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ToolTipWrap = styled.div`
   position: absolute;
@@ -18,6 +19,7 @@ const ToolTipWrap = styled.div`
   opacity: ${(props) => (props.$isSHow ? '1' : '0')};
   cursor: ${(props) => (props.$isSHow ? 'pointer' : 'auto')};
   transition: opacity 0.3s ease-in;
+  display: ${(props) => (props.$notUsed ? 'none' : 'block')};
 `;
 
 function ToolTipContainer() {
@@ -112,8 +114,12 @@ function ToolTip() {
     };
   }, []);
 
+  const location = useLocation().pathname;
+  const pathnameList = location.split('/').slice(2);
+  const [titlePathName, _] = pathnameList;
+
   return (
-    <ToolTipWrap $isSHow={showTooltip}>
+    <ToolTipWrap $notUsed={titlePathName === 'complete'} $isSHow={showTooltip}>
       <ToolTipContainer />
       <span>
         다른 시승자의 리얼한 후기가 <br />
