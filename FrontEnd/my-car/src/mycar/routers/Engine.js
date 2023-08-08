@@ -39,24 +39,29 @@ function Engine() {
   const { setUserCar, userCar, page } = useOutletContext();
 
   const [selected, setSelected] = useState(
-    SelectedIndex({ userOption: userCar.engine, optionInfo: engineInfo }),
+    SelectedIndex({
+      userOptionID: userCar.engine?.id || engineInfo[0].id,
+      optionInfo: engineInfo,
+    }),
   );
 
-  const setEngineOption = (index) => {
+  const setEngineOption = ({ selectOption, index }) => {
     const Price = [...userCar.price];
-    Price[page] = parseInt(engineInfo[index].price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
     setUserCar((prevState) => ({
       ...prevState,
-      engine: engineInfo[index],
+      engine: selectOption,
       price: Price,
     }));
+    setSelected(index || 0);
   };
 
-  const optionClick = (optionId) => {
-    setSelected(optionId);
-    setEngineOption(optionId);
-  };
-
+  useEffect(() => {
+    if (!userCar.engine?.id) {
+      setEngineOption({ selectOption: engineInfo[0] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <EngineContainer>
       <LeftWrap>
@@ -67,9 +72,9 @@ function Engine() {
         {engineInfo.map((option, index) => (
           <MandatoryCard
             key={index}
-            id={index}
+            index={index}
             isActive={selected === index}
-            clickHandler={optionClick}
+            clickHandler={setEngineOption}
             option={option}
           />
         ))}

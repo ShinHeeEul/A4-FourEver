@@ -147,20 +147,29 @@ function CarCardLine({ $isActive }) {
 function TrimCard() {
   const { userCar, setUserCar, page } = useOutletContext();
   const [selected, setSelected] = useState(
-    SelectedIndex({ userOption: userCar.trim, optionInfo: carCardInfo }),
+    SelectedIndex({
+      userOptionID: userCar.trim?.id || carCardInfo[0].id,
+      optionInfo: carCardInfo,
+    }),
   );
 
-  function ChangeCard(car, stateUserCar, idx) {
+  function setTrimOption({ selectOption, idx }) {
     const Price = [...userCar.price];
-    Price[page] = parseInt(car.price.replace(/,/g, ''), 10);
+    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
 
-    stateUserCar((prevState) => ({
+    setUserCar((prevState) => ({
       ...prevState,
-      trim: carCardInfo[idx],
+      trim: selectOption,
       price: Price,
     }));
-    setSelected(idx);
+    idx && setSelected(idx);
   }
+  useEffect(() => {
+    if (!userCar.trim?.id) {
+      setTrimOption({ selectOption: carCardInfo[0] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -169,7 +178,7 @@ function TrimCard() {
           <CarCardSub
             key={idx}
             $isActive={selected === idx}
-            onClick={() => ChangeCard(car, setUserCar, idx)}
+            onClick={() => setTrimOption({ selectOption: car, idx })}
           >
             <CarCardName $isActive={selected === idx}>{car.name}</CarCardName>
             <CarCardLine $isActive={selected === idx} />

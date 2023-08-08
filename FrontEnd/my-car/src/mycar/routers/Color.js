@@ -165,16 +165,18 @@ function ColorComponents({ title, selected, options, optionClick }) {
 
 function Color() {
   const { setUserCar, userCar, page } = useOutletContext();
-  const [selectedOption, setSelectedOption] = useState(userCar.outerColor);
+  const [selectedOption, setSelectedOption] = useState(
+    userCar.outerColor.id ? userCar.outerColor : outerColorInfo[2],
+  );
   const [outerSelected, setOuterSelected] = useState(
     SelectedIndex({
-      userOption: userCar.outerColor,
+      userOptionID: userCar.outerColor?.id || outerColorInfo[2].id,
       optionInfo: outerColorInfo,
     }),
   );
   const [innerSelected, setInnerSelected] = useState(
     SelectedIndex({
-      userOption: userCar.innerColor,
+      userOptionID: userCar.innerColor?.id || innerColorInfo[0].id,
       optionInfo: innerColorInfo,
     }),
   );
@@ -199,6 +201,17 @@ function Color() {
     setInnerSelected(index);
     setSelectedOption(innerColorInfo[index]);
   };
+
+  useEffect(() => {
+    if (!userCar.outerColor?.id && !userCar.innerColor?.id) {
+      setUserCar((prevState) => ({
+        ...prevState,
+        outerColor: outerColorInfo[2],
+        innerColor: innerColorInfo[0],
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ColorContainer>

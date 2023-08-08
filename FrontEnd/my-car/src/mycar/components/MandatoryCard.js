@@ -76,7 +76,7 @@ const DetailOptionWrap = styled(CardNamePriceDiv)`
       margin-bottom: 8px;
     `}
 `;
-function MandatoryCard({ option, isActive, clickHandler, id }) {
+function MandatoryCard({ option, isActive, clickHandler, index }) {
   const { page } = useOutletContext();
   function CardLine() {
     return (
@@ -92,7 +92,10 @@ function MandatoryCard({ option, isActive, clickHandler, id }) {
     );
   }
   return (
-    <MandatoryCardDiv $isActive={isActive} onClick={() => clickHandler(id)}>
+    <MandatoryCardDiv
+      $isActive={isActive}
+      onClick={() => clickHandler({ selectOption: option, index })}
+    >
       <CardNamePriceDiv>
         <CardName>{option.name}</CardName>
         <CardPriceDiv>
