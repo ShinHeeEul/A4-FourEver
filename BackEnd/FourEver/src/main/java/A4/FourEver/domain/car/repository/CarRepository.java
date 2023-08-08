@@ -72,7 +72,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
                         .trim_id(rs.getLong("trim_id"))
                         .name(rs.getString("trim_name"))
                         .image(rs.getString("trim_image"))
-                        .price(rs.getLong("trim_price"))
+                        .price(rs.getDouble("trim_price"))
                         .build();
                 trimInfoDTOs.add(trim);
 
@@ -81,7 +81,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
                         .name(rs.getString("body_name"))
                         .image(rs.getString("body_image"))
                         .description(rs.getString("body_description"))
-                        .price(rs.getLong("body_price"))
+                        .price(rs.getDouble("body_price"))
                         .build();
                 bodyInfoDTOs.add(body);
 
@@ -90,7 +90,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
                         .name(rs.getString("drive_name"))
                         .image(rs.getString("drive_image"))
                         .description(rs.getString("drive_description"))
-                        .price(rs.getLong("drive_price"))
+                        .price(rs.getDouble("drive_price"))
                         .build();
                 driveInfoDTOs.add(drive);
 
@@ -101,7 +101,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
                         .description(rs.getString("engine_description"))
                         .max_output(rs.getString("engine_max_output"))
                         .max_tok(rs.getString("engine_max_tok"))
-                        .price(rs.getLong("engine_price"))
+                        .price(rs.getDouble("engine_price"))
                         .build();
                 engineInfoDTOs.add(engine);
             }

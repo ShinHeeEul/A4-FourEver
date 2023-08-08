@@ -13,6 +13,6 @@ public class Engine {
     private String description;
     private String max_output;
     private String max_tok;
-    private Long price;
+    private Double price;
 }
 

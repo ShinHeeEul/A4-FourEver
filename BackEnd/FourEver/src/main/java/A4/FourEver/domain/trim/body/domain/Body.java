@@ -11,5 +11,5 @@ public class Body {
     private String name;
     private String image;
     private String description;
-    private Long price;
+    private Double price;
 }

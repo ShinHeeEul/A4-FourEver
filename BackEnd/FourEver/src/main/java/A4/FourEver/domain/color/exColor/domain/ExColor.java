@@ -15,7 +15,7 @@ public class ExColor {
     private String name;
     private String color_image;
     private String rotation_image;
-    private Long price;
+    private Double price;
 
     @MappedCollection(idColumn = "ex_color_id", keyColumn = "ex_color_tag_id")
     private List<ExColorTag> exColorTags;
