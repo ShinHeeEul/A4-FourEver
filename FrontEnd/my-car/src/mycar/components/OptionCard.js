@@ -3,7 +3,7 @@ import palette from '../../style/styleVariable';
 import { Body3Medium, Body4Regular } from '../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 
-const DimmedOverlay = styled.div`
+export const DimmedOverlay = styled.div`
   width: calc(100% - 20px);
   padding: 0 10px 0 15px;
   height: 100%;
@@ -31,7 +31,7 @@ const DimmedOverlay = styled.div`
   }
 `;
 
-const CardsWrap = styled.div`
+export const CardsWrap = styled.div`
   display: flex;
   gap: 10px;
 `;
@@ -72,7 +72,7 @@ const CardImg = styled.img`
   height: 93px;
 `;
 
-const CardDetailWrap = styled.div`
+export const CardDetailWrap = styled.div`
   padding: 10px 12px;
   display: flex;
   flex-direction: column;

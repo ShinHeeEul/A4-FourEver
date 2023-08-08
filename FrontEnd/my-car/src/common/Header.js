@@ -12,6 +12,9 @@ const HeaderDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 90px 0 90px;
+  position: fixed;
+  top: 0;
+  z-index: 3;
 `;
 
 const HeaderElements = styled.div`

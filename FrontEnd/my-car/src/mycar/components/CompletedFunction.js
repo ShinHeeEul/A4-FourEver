@@ -7,6 +7,7 @@ import {
   Heading4Medium,
 } from '../../style/typo';
 import { useOutletContext } from 'react-router-dom';
+import SelectedOption from './SelectedOption';
 
 const BgDiv = styled.div`
   display: flex;
@@ -15,11 +16,11 @@ const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
   gap: 15px;
-  margin: 400px auto;
+  margin: 120px auto;
 `;
 
 const BannerDiv = styled.div`
-  width: 1040px;
+  width: 1024px;
   height: 230px;
   border-radius: 8px;
   background-color: ${palette.LightSand};
@@ -164,6 +165,7 @@ function CompletedFunction() {
           </ColorInfo>
         </ColorDiv>
       </BannerDiv>
+      <SelectedOption />
     </BgDiv>
   );
 }

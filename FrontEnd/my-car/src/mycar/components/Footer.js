@@ -38,6 +38,8 @@ const Container = styled.div`
   align-items: center;
   padding: 12px 90px 12px;
   justify-content: space-between;
+  position: fixed;
+  bottom: 0;
 `;
 const OptionInfoWrap = styled.div`
   display: flex;

@@ -6,14 +6,16 @@ import carImg from './image-91.png';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
-  position: fixed;
   width: 100%;
+  margin-top: 70px;
+  /* position: fixed;
+  top: 70px; */
 `;
 const BannerDiv = styled.div`
   height: 277px;
   width: 100%;
   margin-top: 30px;
-  background-color: ${palette.LightSand};
+  /* background-color: ${palette.LightSand}; */
 `;
 
 const TextDiv = styled.div`
