@@ -20,7 +20,8 @@ import {
 } from '../../constant';
 import Buttons from './PageMoveBtns';
 import SummaryModal from './SummaryModal';
-import useState from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   height: calc(108px - 24px);
@@ -43,6 +44,7 @@ const Container = styled.div`
 `;
 const OptionInfoWrap = styled.div`
   display: flex;
+  visibility: ${(props) => (props.$isShow ? 'visible' : 'hidden')};
 `;
 const PriceText = styled.span`
   ${Heading1Bold}
@@ -151,6 +153,22 @@ const PriceWrap = styled(OptionEachWrap)`
   gap: 10px;
 `;
 
+const ExpectPriceWrap = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  gap: 15px;
+  top: 50%;
+  transform: translate(0, -30%);
+  right: 17%;
+  span {
+    ${Body3Medium}
+  }
+  h3 {
+    ${Heading1Bold}
+  }
+`;
+
 function DivisionStroke() {
   return (
     <svg
@@ -191,9 +209,20 @@ function Footer({
   const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
   const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
 
+  const location = useLocation().pathname;
+
+  const [isCompletePage, setIsCompletePage] = useState(false);
+
+  useEffect(() => {
+    const pathnameList = location.split('/').slice(2);
+    const [titlePathName, _] = pathnameList;
+    setIsCompletePage(titlePathName === 'complete');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   return (
     <Container>
-      <OptionInfoWrap>
+      <OptionInfoWrap $isShow={!isCompletePage}>
         <TrimWrap>
           <OptionCategory>트림</OptionCategory>
           <SelectTrimModelText>{userCar.trim?.name}</SelectTrimModelText>
@@ -277,6 +306,12 @@ function Footer({
           </PriceTextWrap>
         </PriceWrap>
       </OptionInfoWrap>
+      {isCompletePage && (
+        <ExpectPriceWrap>
+          <span>예상 견적 가격</span>
+          <h3> {(trimPrice + optionPrice).toLocaleString()}</h3>
+        </ExpectPriceWrap>
+      )}
 
       <Buttons page={page} setPage={setPage} />
     </Container>
