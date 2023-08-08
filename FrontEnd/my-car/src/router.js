@@ -77,12 +77,13 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: 'complete',
+            element: <Complete />,
+          },
         ],
       },
-      {
-        path: 'mycar/complete',
-        element: <Complete />,
-      },
+
       {
         path: 'achieving',
         element: <Archiving />,
