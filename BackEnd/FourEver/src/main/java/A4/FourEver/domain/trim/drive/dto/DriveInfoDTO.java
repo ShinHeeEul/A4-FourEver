@@ -1,12 +1,13 @@
-package A4.FourEver.domain.trim.drive.domain;
+package A4.FourEver.domain.trim.drive.dto;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
 
+@Builder
 @Getter
-public class Drive {
-
-    @Id
+@EqualsAndHashCode
+public class DriveInfoDTO {
     private Long drive_id;
     private String name;
     private String image;

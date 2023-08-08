@@ -10,24 +10,22 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.util.List;
 
-
 @Getter
 public class Car {
 
     @Id
     private Long car_id;
-
     private String name;
 
     @MappedCollection(idColumn = "car_id", keyColumn = "trim_id")
-    private List<Trim> trimList;
+    private List<Trim> trims;
 
     @MappedCollection(idColumn = "car_id", keyColumn = "body_id")
-    private List<Body> bodyList;
+    private List<Body> bodies;
 
     @MappedCollection(idColumn = "car_id", keyColumn = "drive_id")
-    private List<Drive> driveList;
+    private List<Drive> drives;
 
     @MappedCollection(idColumn = "car_id", keyColumn = "engine_id")
-    private List<Engine> engineList;
+    private List<Engine> engines;
 }

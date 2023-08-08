@@ -1,12 +1,13 @@
-package A4.FourEver.domain.trim.engine.domain;
+package A4.FourEver.domain.trim.engine.dto;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
 
+@Builder
 @Getter
-public class Engine {
-
-    @Id
+@EqualsAndHashCode
+public class EngineInfoDTO {
     private Long engine_id;
     private String name;
     private String image;
@@ -15,4 +16,3 @@ public class Engine {
     private String max_tok;
     private Long price;
 }
-

@@ -6,9 +6,7 @@ import lombok.Setter;
 
 @Builder
 @Getter
-@Setter
-public class CarDTO {
-
+public class CarInfoDTO {
     private Long car_id;
     private String name;
 }

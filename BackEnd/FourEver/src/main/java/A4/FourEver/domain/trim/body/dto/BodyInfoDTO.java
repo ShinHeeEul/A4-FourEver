@@ -1,12 +1,13 @@
-package A4.FourEver.domain.trim.body.domain;
+package A4.FourEver.domain.trim.body.dto;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
 
+@Builder
 @Getter
-public class Body {
-
-    @Id
+@EqualsAndHashCode
+public class BodyInfoDTO {
     private Long body_id;
     private String name;
     private String image;
