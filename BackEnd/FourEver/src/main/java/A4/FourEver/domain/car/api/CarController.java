@@ -1,7 +1,6 @@
 package A4.FourEver.domain.car.api;
 
 import A4.FourEver.domain.car.application.CarService;
-import A4.FourEver.domain.car.dto.CarInfoDTO;
 import A4.FourEver.domain.car.dto.CarConfigDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,12 +17,6 @@ public class CarController {
 
     @Autowired
     private CarService carService;
-
-    @Operation(summary = "모든 차량 정보 조회")
-    @GetMapping
-    public List<CarInfoDTO> getAllCars() {
-        return carService.getAllCars();
-    }
 
     @Operation(summary = "특정 차량의 trim 정보 조회")
     @GetMapping("/{id}/trim")
