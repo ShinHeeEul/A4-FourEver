@@ -4,10 +4,7 @@ import A4.FourEver.domain.car.application.CarService;
 import A4.FourEver.domain.car.dto.CarConfigDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Tag(name = "치량 정보")
@@ -15,8 +12,11 @@ import java.util.List;
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    private CarService carService;
+    private final CarService carService;
+
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
     @Operation(summary = "특정 차량의 trim 정보 조회")
     @GetMapping("/{id}/trim")
