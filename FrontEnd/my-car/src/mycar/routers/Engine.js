@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';
-import { Container } from './Trim';
+import { Container } from './Model';
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { engineInfo } from '../../constant';

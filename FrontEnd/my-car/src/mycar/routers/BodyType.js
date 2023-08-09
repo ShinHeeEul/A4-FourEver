@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { Container } from './Trim';
+import { Container } from './Model';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';

@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import TrimCard from '../components/TrimCard';
 import { useLoaderData } from 'react-router-dom';
+import { useContext } from 'react';
 
 export const Container = styled.div`
   width: 1280px;
@@ -11,9 +12,7 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-function Trim() {
-  const { data } = useLoaderData();
-  console.log(data);
+function Model() {
   return (
     <Container>
       <div style={{ height: '355px' }} />
@@ -21,4 +20,4 @@ function Trim() {
     </Container>
   );
 }
-export default Trim;
+export default Model;

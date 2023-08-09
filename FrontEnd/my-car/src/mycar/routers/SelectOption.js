@@ -1,7 +1,7 @@
 import { css, styled } from 'styled-components';
 import TitlePriceTag from '../components/TitlePriceTag';
 import { LeftWrap, RightWrap } from './Engine';
-import { Container } from './Trim';
+import { Container } from './Model';
 import { useEffect, useState } from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
 
