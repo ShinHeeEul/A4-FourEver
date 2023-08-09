@@ -7,16 +7,6 @@ import {
   Body3Regular,
 } from '../../style/typo';
 
-import {
-  bodyTypeInfo,
-  carCardInfo,
-  engineInfo,
-  innerColorInfo,
-  outerColorInfo,
-  wheelDriveInfo,
-  selectOptionInfo,
-} from '../../constant';
-
 const ModalBgDiv = styled.div`
   position: absolute;
   top: 0;

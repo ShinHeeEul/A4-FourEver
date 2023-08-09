@@ -1,10 +1,11 @@
 import CompleteTopBanner from '../components/CompleteTopBanner';
 import CompletedFunction from '../components/CompletedFunction';
-import SelectedOption from '../components/SelectedOption';
+import AnimationMovingCar from '../components/AnimationMovingCar';
 
 function Complete() {
   return (
     <>
+      <AnimationMovingCar />
       <CompleteTopBanner />
       <CompletedFunction />
     </>
