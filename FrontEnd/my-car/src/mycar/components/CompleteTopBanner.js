@@ -1,6 +1,10 @@
 import { css, styled, keyframes } from 'styled-components';
 import palette from '../../style/styleVariable';
-import { CaptionRegular, Heading1Medium } from '../../style/typo';
+import {
+  CaptionRegular,
+  Heading1Medium,
+  Heading3Medium,
+} from '../../style/typo';
 import carImg from './image-91.png';
 
 const AllDiv = styled.div`
@@ -45,9 +49,38 @@ const BgDiv = styled.div`
 
 const CarImg = styled.img``;
 
-const DetailDiv = styled.div``;
+const DetailDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const DetailText = styled.div`
   ${CaptionRegular}
+  font-size: 16px;
+`;
+const BtnDiv = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+`;
+const MychivingBtn = styled.button`
+  ${Heading3Medium}
+  font-weight: 400;
+  font-size: 14px;
+  border: none;
+  width: 130px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${palette.LightSand};
+  border: 1px solid ${palette.LightGray};
+  color: ${palette.DarkGray};
+  cursor: pointer;
+  &:hover {
+    color: ${palette.LightSand};
+    background-color: ${palette.DarkGray};
+  }
 `;
 
 function Line() {
@@ -74,7 +107,10 @@ function CompleteTopBanner() {
           <CompletedMsg>나의 펠리세이드가 완성되었어요 !</CompletedMsg>
           <DetailDiv>
             <DetailText>완성된 차량은 마이카이빙에서 볼 수 있어요</DetailText>
-            <DetailText>마이카이빙 바로가기</DetailText>
+            <BtnDiv>
+              <MychivingBtn>마이카이빙 바로가기</MychivingBtn>
+              <MychivingBtn>홈 바로가기</MychivingBtn>
+            </BtnDiv>
           </DetailDiv>
         </TextDiv>
         <BgDiv>
