@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class Engine {
 
     @Id
-    private Long engine_id;
+    private Long id;
     private String name;
     private String image;
     private String description;

@@ -11,11 +11,11 @@ import java.util.List;
 public class InColor {
 
     @Id
-    private Long in_color_id;
+    private Long id;
     private String name;
     private String color_image;
     private String in_image;
 
-    @MappedCollection(idColumn = "in_color_id", keyColumn = "in_color_tag_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<InColorTag> inColorTags;
 }

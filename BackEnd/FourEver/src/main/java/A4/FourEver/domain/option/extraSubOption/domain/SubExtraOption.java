@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class SubExtraOption {
 
     @Id
-    private Long sub_option_id;
+    private Long id;
     private String name;
     private String description;
     private String image;

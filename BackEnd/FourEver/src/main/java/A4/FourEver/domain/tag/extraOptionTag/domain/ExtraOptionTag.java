@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class ExtraOptionTag {
 
     @Id
-    private Long extra_option_tag_id;
+    private Long id;
     private String name;
     private Long count;
 }

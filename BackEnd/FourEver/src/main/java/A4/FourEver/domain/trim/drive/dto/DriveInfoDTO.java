@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class DriveInfoDTO {
-    private Long drive_id;
+    private Long id;
     private String name;
     private String image;
     private String description;

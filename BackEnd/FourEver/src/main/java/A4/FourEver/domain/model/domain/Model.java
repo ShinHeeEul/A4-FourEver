@@ -5,5 +5,5 @@ import org.springframework.data.annotation.Id;
 public class Model {
 
     @Id
-    private Long model_id;
+    private Long id;
 }

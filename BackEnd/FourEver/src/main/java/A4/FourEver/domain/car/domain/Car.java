@@ -14,18 +14,18 @@ import java.util.List;
 public class Car {
 
     @Id
-    private Long car_id;
+    private Long id;
     private String name;
 
-    @MappedCollection(idColumn = "car_id", keyColumn = "trim_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<Trim> trims;
 
-    @MappedCollection(idColumn = "car_id", keyColumn = "body_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<Body> bodies;
 
-    @MappedCollection(idColumn = "car_id", keyColumn = "drive_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<Drive> drives;
 
-    @MappedCollection(idColumn = "car_id", keyColumn = "engine_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<Engine> engines;
 }

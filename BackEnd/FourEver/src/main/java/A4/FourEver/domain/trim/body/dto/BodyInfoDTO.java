@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class BodyInfoDTO {
-    private Long body_id;
+    private Long id;
     private String name;
     private String image;
     private String description;
