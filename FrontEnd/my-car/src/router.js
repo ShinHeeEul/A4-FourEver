@@ -1,18 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import Mycar from './mycar/Mycar';
-import Trim from './mycar/routers/Trim';
 import Archiving from './archiving/Achiving';
 import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
 import Login from './login/Login';
-import fetchOption from './api';
+// import fetchOption from './api';
 import fetchData from './api';
 import BodyType from './mycar/routers/BodyType';
 import Color from './mycar/routers/Color';
 import SelectOption from './mycar/routers/SelectOption';
 import Complete from './mycar/routers/Complete';
+import Model from './mycar/routers/Model';
+import RootTrim from './mycar/routers/parents/RootTrims';
+import RootSelectOption from './mycar/routers/parents/RootSelectOption';
+import MyCarOptionAPI from './api';
+import { OPTIONS } from './constant';
 
 const router = createBrowserRouter([
   {
@@ -29,11 +33,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'trim',
+            loader: () => MyCarOptionAPI(OPTIONS.TRIM),
+            element: <RootTrim />,
             children: [
               {
                 path: 'model',
-                loader: fetchData,
-                element: <Trim />,
+                element: <Model />,
               },
               {
                 path: 'engine',
@@ -56,9 +61,11 @@ const router = createBrowserRouter([
             path: 'color',
             // loader: fetchOption,
             element: <Color />,
+            children: [{ path: '', element: <Color /> }],
           },
           {
             path: 'option',
+            element: <RootSelectOption />,
             children: [
               {
                 path: 'selection',

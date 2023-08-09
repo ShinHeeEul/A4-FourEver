@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { Container } from './Trim';
+import { Container } from './Model';
 import { styled } from 'styled-components';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';

@@ -10,6 +10,14 @@ export const myCarPagePath = [
   'option/performance',
   'complete',
 ];
+
+export const BASIC_SERVER_URL = 'http://www.hyundaimycar.store:8080';
+export const OPTIONS = {
+  TRIM: 'trim',
+  COLOR: 'color',
+  SELECTED: 'option',
+};
+
 export const navCategoryName = {
   trim: {
     id: '트림',

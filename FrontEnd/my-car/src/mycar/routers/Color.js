@@ -1,5 +1,5 @@
 import { css, styled } from 'styled-components';
-import { Container } from './Trim';
+import { Container } from './Model';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';
 import { innerColorInfo, outerColorInfo } from '../../constant';
