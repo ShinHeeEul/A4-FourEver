@@ -3,26 +3,13 @@ package A4.FourEver.domain.trim.trim.dto;
 import A4.FourEver.domain.trim.trim.domain.Trim;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-
 @Component
 public class TrimMapper {
 
-    public TrimDTO toTrimDTO(final Trim trim) {
-        return TrimDTO.builder()
-                .trim_id(trim.getTrim_id())
-                .name(trim.getName())
-                .image(trim.getImage())
-                .price(trim.getPrice())
+    public TrimConfigDTO toTrimConfigDTO(final Trim trim) {
+        return TrimConfigDTO.builder()
+                .inColors(trim.getInColors())
+                .exColors(trim.getExColors())
                 .build();
-    }
-
-    public List<TrimDTO> toTrimDTOList(final Iterable<Trim> trims) {
-        return StreamSupport.stream(trims.spliterator(), false)
-                .map(this::toTrimDTO)
-                .collect(Collectors.toList());
     }
 }

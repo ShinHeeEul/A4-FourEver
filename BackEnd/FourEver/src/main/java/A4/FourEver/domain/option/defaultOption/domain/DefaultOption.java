@@ -1,15 +1,14 @@
-package A4.FourEver.domain.trim.drive.domain;
+package A4.FourEver.domain.option.defaultOption.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 @Getter
-public class Drive {
+public class DefaultOption {
 
     @Id
-    private Long drive_id;
+    private Long default_option_id;
     private String name;
-    private String image;
     private String description;
-    private Double price;
+    private String image;
 }
