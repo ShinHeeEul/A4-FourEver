@@ -9,15 +9,13 @@ const ModalBgDiv = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 5;
-  backdrop-filter: blur(9px);
+  backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: ${(props) => (props.$showModal ? 0 : 1)};
-  transition: opacity 0.5s ease;
 `;
 const Container = styled.div`
   width: 100%;
@@ -82,29 +80,32 @@ const CarImage = styled.img`
 `;
 
 function AnimationMovingCar() {
-  const [showModal, setShowModal] = useState(false);
+  const [removeModal, setRemoveModal] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowModal(true);
+      setRemoveModal(true);
     }, 2800);
 
     return () => clearTimeout(timer);
   }, []);
-  return (
-    <ModalBgDiv $showModal={showModal}>
-      <Container>
-        <CarImage src={carImage} alt="Car Image" />
-        <TitleDiv>
-          <div>
-            <TitleText>당신만의 세상을 위한,</TitleText>
-          </div>
 
-          <TitleTextBig>펠리세이드가 완성되었습니다</TitleTextBig>
-        </TitleDiv>
-      </Container>
-    </ModalBgDiv>
-  );
+  if (removeModal !== true) {
+    return (
+      <ModalBgDiv $removeModal={removeModal}>
+        <Container $removeModal={removeModal}>
+          <CarImage src={carImage} alt="Car Image" />
+          <TitleDiv>
+            <div>
+              <TitleText>당신만의 세상을 위한,</TitleText>
+            </div>
+
+            <TitleTextBig>펠리세이드가 완성되었습니다</TitleTextBig>
+          </TitleDiv>
+        </Container>
+      </ModalBgDiv>
+    );
+  }
 }
 
 export default AnimationMovingCar;
