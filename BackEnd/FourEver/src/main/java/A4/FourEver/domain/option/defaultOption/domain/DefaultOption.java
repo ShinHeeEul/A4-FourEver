@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class DefaultOption {
 
     @Id
-    private Long default_option_id;
+    private Long id;
     private String name;
     private String description;
     private String image;

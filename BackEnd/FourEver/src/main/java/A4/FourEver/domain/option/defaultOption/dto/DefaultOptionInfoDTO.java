@@ -6,7 +6,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class DefaultOptionInfoDTO {
-    private Long default_option_id;
+    private Long id;
     private String name;
     private String description;
     private String category;

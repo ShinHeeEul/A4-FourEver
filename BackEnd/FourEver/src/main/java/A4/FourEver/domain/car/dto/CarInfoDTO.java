@@ -6,6 +6,6 @@ import lombok.Getter;
 @Builder
 @Getter
 public class CarInfoDTO {
-    private Long car_id;
+    private Long id;
     private String name;
 }

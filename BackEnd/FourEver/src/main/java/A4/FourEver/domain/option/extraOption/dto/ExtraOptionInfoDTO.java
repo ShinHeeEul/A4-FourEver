@@ -11,7 +11,7 @@ import java.util.Set;
 @Builder
 @Getter
 public class ExtraOptionInfoDTO {
-    private Long extra_option_id;
+    private Long id;
     private String name;
     private String description;
     private String category;
@@ -27,7 +27,7 @@ public class ExtraOptionInfoDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExtraOptionInfoDTO that = (ExtraOptionInfoDTO) o;
-        return Objects.equals(extra_option_id, that.extra_option_id) &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(category, that.category) &&
@@ -39,6 +39,6 @@ public class ExtraOptionInfoDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(extra_option_id, name, description, category, image, price, x_position, y_position);
+        return Objects.hash(id, name, description, category, image, price, x_position, y_position);
     }
 }

@@ -11,12 +11,12 @@ import java.util.List;
 public class ExColor {
 
     @Id
-    private Long ex_color_id;
+    private Long id;
     private String name;
     private String color_image;
     private String rotation_image;
     private Double price;
 
-    @MappedCollection(idColumn = "ex_color_id", keyColumn = "ex_color_tag_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<ExColorTag> exColorTags;
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class TrimInfoDTO {
-    private Long trim_id;
+    private Long id;
     private String name;
     private String image;
     private Double price;

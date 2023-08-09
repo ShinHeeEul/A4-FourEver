@@ -12,7 +12,7 @@ import java.util.Set;
 public class Trim {
 
     @Id
-    private Long trim_id;
+    private Long id;
     private String name;
     private String image;
     private Double price;

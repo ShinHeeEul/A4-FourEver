@@ -12,7 +12,7 @@ import java.util.List;
 public class ExtraOption {
 
     @Id
-    private Long extra_option_id;
+    private Long id;
     private String name;
     private String description;
     private String image;

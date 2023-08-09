@@ -12,7 +12,7 @@ public class CarMapper {
 
     public CarInfoDTO toCarInfoDTO(final Car car) {
         return CarInfoDTO.builder()
-                .car_id(car.getCar_id())
+                .id(car.getId())
                 .name(car.getName())
                 .build();
     }

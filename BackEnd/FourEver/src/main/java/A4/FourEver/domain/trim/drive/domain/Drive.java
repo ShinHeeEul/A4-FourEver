@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class Drive {
 
     @Id
-    private Long drive_id;
+    private Long id;
     private String name;
     private String image;
     private String description;

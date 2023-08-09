@@ -27,8 +27,8 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
             ")" +
             "SELECT DISTINCT do.*, doc.name AS category_name " +
             "FROM default_option do " +
-            "JOIN default_option_category doc ON do.default_option_category_id = doc.default_option_category_id " +
-            "JOIN default_option_model dom ON do.default_option_id = dom.default_option_id " +
+            "JOIN default_option_category doc ON do.default_option_category_id = doc.id " +
+            "JOIN default_option_model dom ON do.id = dom.default_option_id " +
             "JOIN ModelID ON dom.model_id = ModelID.model_id"
             , resultSetExtractorClass = ModelDefaultOptionInfoDTOExtractor.class)
     ModelDefaultOptionInfoDTO findModelDefaultOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
@@ -41,18 +41,18 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
             "SELECT DISTINCT " +
             "    eo.*," +
             "    eoc.name AS category_name, " +
-            "    eot.extra_option_tag_id AS tag_id, " +
+            "    eot.id AS tag_id, " +
             "    eot.name AS tag_name, " +
             "    eot.count AS tag_count," +
-            "    so.sub_extra_option_id," +
-            "    so.name AS sub_option_name," +
-            "    so.description AS sub_option_description," +
-            "    so.image AS sub_option_image " +
+            "    seo.id AS sub_extra_option_id," +
+            "    seo.name AS sub_extra_option_name," +
+            "    seo.description AS sub_extra_option_description," +
+            "    seo.image AS sub_extra_option_image " +
             "FROM extra_option eo " +
-            "JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.extra_option_category_id " +
-            "JOIN extra_option_model eom ON eo.extra_option_id = eom.extra_option_id " +
-            "LEFT JOIN extra_option_tag eot ON eo.extra_option_id = eot.extra_option_id " +
-            "LEFT JOIN sub_extra_option so ON eo.extra_option_id = so.extra_option_id " +
+            "JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id " +
+            "JOIN extra_option_model eom ON eo.id = eom.extra_option_id " +
+            "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
+            "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
             "JOIN ModelID ON eom.model_id = ModelID.model_id"
             , resultSetExtractorClass = ModelExtraOptionInfoDTOExtractor.class)
     ModelExtraOptionInfoDTO findModelExtraOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
@@ -65,7 +65,7 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
 
             while (rs.next()) {
                 DefaultOptionInfoDTO defaultOptionInfoDto = DefaultOptionInfoDTO.builder()
-                        .default_option_id(rs.getLong("default_option_id"))
+                        .id(rs.getLong("id"))
                         .name(rs.getString("name"))
                         .description(rs.getString("description"))
                         .image(rs.getString("image"))
@@ -89,14 +89,14 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
 
             while (rs.next()) {
                 SubExtraOptionInfoDTO subExtraOptionInfoDTO = SubExtraOptionInfoDTO.builder()
-                        .sub_option_id(rs.getLong("sub_extra_option_id"))
-                        .name(rs.getString("sub_option_name"))
-                        .description(rs.getString("sub_option_description"))
-                        .image(rs.getString("sub_option_image"))
+                        .id(rs.getLong("sub_extra_option_id"))
+                        .name(rs.getString("sub_extra_option_name"))
+                        .description(rs.getString("sub_extra_option_description"))
+                        .image(rs.getString("sub_extra_option_image"))
                         .build();
 
                 ExtraOptionTagInfoDTO extraOptionTagInfoDTO = ExtraOptionTagInfoDTO.builder()
-                        .extra_option_tag_id(rs.getLong("tag_id"))
+                        .id(rs.getLong("tag_id"))
                         .name(rs.getString("tag_name"))
                         .count(rs.getLong("tag_count"))
                         .build();
@@ -114,7 +114,7 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
                     Set<SubExtraOptionInfoDTO> subExtraOptionInfoDTOs = new HashSet<>();
 
                     extraOptionInfoDto = ExtraOptionInfoDTO.builder()
-                            .extra_option_id(rs.getLong("extra_option_id"))
+                            .id(rs.getLong("id"))
                             .name(rs.getString("name"))
                             .description(rs.getString("description"))
                             .category(rs.getString("category_name"))
@@ -139,7 +139,7 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
         }
 
         private boolean matchesExtraOptionId(ExtraOptionInfoDTO dto, Long id) {
-            return dto.getExtra_option_id().equals(id);
+            return dto.getId().equals(id);
         }
     }
 }

@@ -19,10 +19,10 @@ public class ModelController {
     @Operation(summary = "해당 모델의 옵션 정보 조회")
     @GetMapping("/option")
     public ModelOptionInfoDTO getModelOption(
-            @RequestParam("trim_id") Long trim_id,
-            @RequestParam("body_id") Long body_id,
-            @RequestParam("engine_id") Long engine_id,
-            @RequestParam("drive_id") Long drive_id) {
+            @RequestParam("trim_id") final Long trim_id,
+            @RequestParam("body_id") final Long body_id,
+            @RequestParam("engine_id") final Long engine_id,
+            @RequestParam("drive_id") final Long drive_id) {
         return modelService.getModelOption(trim_id, body_id, engine_id, drive_id);
     }
 }

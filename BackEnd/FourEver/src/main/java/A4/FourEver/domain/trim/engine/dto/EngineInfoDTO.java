@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class EngineInfoDTO {
-    private Long engine_id;
+    private Long id;
     private String name;
     private String image;
     private String description;

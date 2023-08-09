@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class ExColorTag {
 
     @Id
-    private Long ex_color_tag_id;
+    private Long id;
     private String name;
     private Long count;
 }
