@@ -17,9 +17,9 @@ public class Trim {
     private String image;
     private Double price;
 
-    @MappedCollection(idColumn = "trim_id", keyColumn = "in_color_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private Set<InColor> inColors;
 
-    @MappedCollection(idColumn = "trim_id", keyColumn = "ex_color_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private Set<ExColor> exColors;
 }

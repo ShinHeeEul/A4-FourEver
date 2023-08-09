@@ -23,24 +23,24 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     List<Car> findAll();
 
     @Query(value = "SELECT DISTINCT " +
-            "t.trim_id AS trim_id, " +
+            "t.id AS trim_id, " +
             "t.name AS trim_name, " +
             "t.image AS trim_image, " +
             "t.price AS trim_price, " +
 
-            "b.body_id AS body_id, " +
+            "b.id AS body_id, " +
             "b.name AS body_name, " +
             "b.image AS body_image, " +
             "b.description AS body_description, " +
             "b.price AS body_price, " +
 
-            "d.drive_id AS drive_id, " +
+            "d.id AS drive_id, " +
             "d.name AS drive_name, " +
             "d.image AS drive_image, " +
             "d.description AS drive_description, " +
             "d.price AS drive_price, " +
 
-            "e.engine_id AS engine_id, " +
+            "e.id AS engine_id, " +
             "e.name AS engine_name, " +
             "e.image AS engine_image, " +
             "e.description AS engine_description, " +
@@ -49,11 +49,11 @@ public interface CarRepository extends CrudRepository<Car, Long> {
             "e.price AS engine_price " +
 
             "FROM car c " +
-            "LEFT JOIN engine e ON c.car_id = e.car_id " +
-            "LEFT JOIN body b ON c.car_id = b.car_id " +
-            "LEFT JOIN trim t ON c.car_id = t.car_id " +
-            "LEFT JOIN drive d ON c.car_id = d.car_id " +
-            "WHERE c.car_id = :id"
+            "LEFT JOIN engine e ON c.id = e.car_id " +
+            "LEFT JOIN body b ON c.id = b.car_id " +
+            "LEFT JOIN trim t ON c.id = t.car_id " +
+            "LEFT JOIN drive d ON c.id = d.car_id " +
+            "WHERE c.id = :id"
             , resultSetExtractorClass = CarConfigExtractor.class
     )
     CarConfigDTO findCarConfigById(@Param("id") final Long id);
