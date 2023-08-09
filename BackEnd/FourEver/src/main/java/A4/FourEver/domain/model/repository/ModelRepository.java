@@ -21,7 +21,7 @@ import java.util.Set;
 public interface ModelRepository extends CrudRepository<Model, Long> {
 
     @Query(value = "WITH ModelID AS (" +
-            "    SELECT model_id " +
+            "    SELECT id AS model_id" +
             "    FROM model " +
             "    WHERE trim_id = :trim_id AND engine_id = :engine_id AND body_id = :body_id AND drive_id = :drive_id" +
             ")" +
@@ -34,7 +34,7 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
     ModelDefaultOptionInfoDTO findModelDefaultOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
 
     @Query(value = "WITH ModelID AS (" +
-            "    SELECT model_id " +
+            "    SELECT id AS model_id" +
             "    FROM model " +
             "    WHERE trim_id = :trim_id AND engine_id = :engine_id AND body_id = :body_id AND drive_id = :drive_id" +
             ")" +
@@ -101,7 +101,7 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
                         .count(rs.getLong("tag_count"))
                         .build();
 
-                Long extra_option_id = rs.getLong("extra_option_id");
+                Long extra_option_id = rs.getLong("id");
 
                 Optional<ExtraOptionInfoDTO> extraOptionInfoDtoOpt = extraOptionDTOs.stream()
                         .filter(extraOptionInfoDTO -> matchesExtraOptionId(extraOptionInfoDTO, extra_option_id))
