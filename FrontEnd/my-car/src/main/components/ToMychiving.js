@@ -22,6 +22,7 @@ const TitleText = styled.span`
 
 const DetailText = styled.span`
   ${Heading1Bold}
+  font-weight: 500;
   font-size: 20px;
   height: 40px;
   color: ${palette.LightGray};
@@ -40,20 +41,28 @@ const ToPageBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${palette.LightSand};
-  border: 2px solid ${palette.DarkGray};
-  color: ${palette.DarkGray};
+  background-color: transparent;
+  border: 2px solid ${palette.LightSand};
+  color: ${palette.LightSand};
   margin-top: 18px;
   cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
   &:hover {
-    color: ${palette.LightSand};
-    background-color: ${palette.DarkGray};
+    background-color: ${palette.LightSand};
+    color: ${palette.DarkGray};
   }
+`;
+
+const ToMychivingContainer = styled.div`
+  position: relative;
 `;
 
 function ToMychiving() {
   return (
-    <>
+    <ToMychivingContainer>
       <TextDiv>
         <TitleText>지난번에 직접 만들었던</TitleText>
         <TitleText>나만의 차를 언제든지 볼 수 있어요</TitleText>
@@ -68,7 +77,7 @@ function ToMychiving() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </>
+    </ToMychivingContainer>
   );
 }
 

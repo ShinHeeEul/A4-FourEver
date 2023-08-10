@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 import Btn from './components/EachPageBtn';
 import ToMycar from './components/ToMycar';
 import ToArchiving from './components/ToArchiving';
@@ -29,7 +29,6 @@ function Main() {
   return (
     <BgDiv>
       <MainHeader />
-
       {currentDisplay === 1 && <ToMycar />}
       {currentDisplay === 2 && <ToArchiving />}
       {currentDisplay === 3 && <ToMychiving />}

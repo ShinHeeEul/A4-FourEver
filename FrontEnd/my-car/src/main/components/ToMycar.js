@@ -22,6 +22,7 @@ const TitleText = styled.span`
 
 const DetailText = styled.span`
   ${Heading1Bold}
+  font-weight: 500;
   font-size: 20px;
   height: 40px;
   color: ${palette.LightGray};
@@ -29,31 +30,40 @@ const DetailText = styled.span`
 const BtnDiv = styled.div`
   width: 200px;
   height: 50px;
+  margin-top: 18px;
 `;
+
 const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
   font-size: 16px;
   border: none;
-  width: 200px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${palette.LightSand};
-  border: 2px solid ${palette.DarkGray};
-  color: ${palette.DarkGray};
-  margin-top: 18px;
+  background-color: transparent;
+  border: 2px solid ${palette.LightSand};
+  color: ${palette.LightSand};
   cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
   &:hover {
-    color: ${palette.LightSand};
-    background-color: ${palette.DarkGray};
+    background-color: ${palette.LightSand};
+    color: ${palette.DarkGray};
   }
+`;
+
+const ToMycarContainer = styled.div`
+  position: relative;
 `;
 
 function ToMycar() {
   return (
-    <>
+    <ToMycarContainer>
       <TextDiv>
         <TitleText>내가 타고 싶은</TitleText>
         <TitleText>나만의 차를 만들어보세요</TitleText>
@@ -67,7 +77,7 @@ function ToMycar() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </>
+    </ToMycarContainer>
   );
 }
 
