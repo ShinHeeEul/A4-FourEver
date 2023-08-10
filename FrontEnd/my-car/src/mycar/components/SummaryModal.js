@@ -22,7 +22,7 @@ const ModalDiv = styled.div`
   width: 476px;
   height: 633px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 20px;
   background: #fff;
   box-shadow: -2px 0px 12px 0px rgba(78, 81, 94, 0.25);
 
@@ -131,13 +131,17 @@ function SummaryModal({
             <OptionDiv>트림</OptionDiv>
             <OptionContentDiv>
               <OptionDetailDiv>모델 {userCar.trim.name}</OptionDetailDiv>
-              <OptionDetailDiv>{userCar.trim.price} 원</OptionDetailDiv>
+              <OptionDetailDiv>
+                {userCar.trim.price.toLocaleString()} 원
+              </OptionDetailDiv>
             </OptionContentDiv>
             {userCar.engine && (
               <>
                 <OptionContentDiv>
                   <OptionDetailDiv>엔진 {userCar.engine.name}</OptionDetailDiv>
-                  <OptionDetailDiv>{userCar.engine.price}원</OptionDetailDiv>
+                  <OptionDetailDiv>
+                    {userCar.engine.price.toLocaleString()}원
+                  </OptionDetailDiv>
                 </OptionContentDiv>
               </>
             )}
@@ -149,7 +153,7 @@ function SummaryModal({
                       바디타입 {userCar.bodyType.name}
                     </OptionDetailDiv>
                     <OptionDetailDiv>
-                      {userCar.bodyType.price}원
+                      {userCar.bodyType.price.toLocaleString()}원
                     </OptionDetailDiv>
                   </OptionContentDiv>
                 </>
@@ -163,17 +167,17 @@ function SummaryModal({
                       구동방식 {userCar.wheelDrive.name}
                     </OptionDetailDiv>
                     <OptionDetailDiv>
-                      {userCar.wheelDrive.price}원
+                      {userCar.wheelDrive.price.toLocaleString()}원
                     </OptionDetailDiv>
                   </OptionContentDiv>
                 </>
               )}
             </OptionDetailDiv>
-            <OptionDiv>색상</OptionDiv>
+            <OptionDiv> 외장색상 / 내장색상</OptionDiv>
             <OptionContentDiv>
-              외장색상 / 내장색상{' '}
+              {userCar.outerColor.name}/{userCar.innerColor.name}
               <OptionDetailDiv>
-                {userCar.outerColor.name}/{userCar.innerColor.name}
+                {userCar.outerColor.price.toLocaleString()}원
               </OptionDetailDiv>
             </OptionContentDiv>
             <OptionDiv>선택옵션 {userCar.selectedOptions.length}</OptionDiv>
@@ -184,7 +188,9 @@ function SummaryModal({
                   <>
                     <OptionContentDiv>
                       <OptionDetailDiv>{elem.name}</OptionDetailDiv>
-                      <OptionDetailDiv>{elem.price}원</OptionDetailDiv>
+                      <OptionDetailDiv>
+                        {elem.price.toLocaleString()}원
+                      </OptionDetailDiv>
                     </OptionContentDiv>
                   </>
                 );
