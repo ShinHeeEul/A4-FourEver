@@ -255,16 +255,20 @@ function Footer({
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents
-            category="외장"
-            color={userCar?.outerColor?.name}
-            src={userCar.outerColor?.color_image}
-          />
-          <ColorComponents
-            category="내장"
-            color={userCar?.innerColor?.name}
-            src={userCar.innerColor?.color_image}
-          />
+          {userCar.outerColor?.name && (
+            <>
+              <ColorComponents
+                category="외장"
+                color={userCar?.outerColor?.name}
+                src={userCar.outerColor?.color_image}
+              />
+              <ColorComponents
+                category="내장"
+                color={userCar?.innerColor?.name}
+                src={userCar.innerColor?.color_image}
+              />
+            </>
+          )}
         </ColorWrap>
 
         <DivisionStroke />
