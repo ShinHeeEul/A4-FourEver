@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Component
 public class TrimMapper {
 
-    public TrimConfigDTO toTrimConfigDTO(Set<InColorInfoDTO> inColorInfoDTOs, Set<ExColorInfoDTO> exColorInfoDTOs) {
+    public TrimColorsAndTagsDTO convertToSortedDTO(final Set<InColorInfoDTO> inColorInfoDTOs, final Set<ExColorInfoDTO> exColorInfoDTOs) {
         List<InColorInfoSortedDTO> inColorList = inColorInfoDTOs.stream()
                 .sorted(Comparator.comparingLong(InColorInfoDTO::getId))
                 .map(this::convertInColorInfoDTO)
@@ -27,14 +27,13 @@ public class TrimMapper {
                 .map(this::convertInColorInfoDTO)
                 .collect(Collectors.toList());
 
-
-        return TrimConfigDTO.builder()
+        return TrimColorsAndTagsDTO.builder()
                 .inColors(inColorList)
                 .exColors(exColorList)
                 .build();
     }
 
-    private InColorInfoSortedDTO convertInColorInfoDTO(InColorInfoDTO dto) {
+    private InColorInfoSortedDTO convertInColorInfoDTO(final InColorInfoDTO dto) {
         List<InColorTagInfoDTO> sortedInColorTag = dto.getInColorTagInfoDTOS().stream()
                 .sorted(Comparator.comparingLong(InColorTagInfoDTO::getId))
                 .collect(Collectors.toList());

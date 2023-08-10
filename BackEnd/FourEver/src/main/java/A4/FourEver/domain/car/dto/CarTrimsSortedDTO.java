@@ -8,11 +8,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @Getter
-public class CarConfigDTO {
+public class CarTrimsSortedDTO {
     private List<TrimInfoDTO> trimInfoDTOs;
     private List<BodyInfoDTO> bodyInfoDTOs;
     private List<DriveInfoDTO> driveInfoDTOs;

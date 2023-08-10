@@ -1,9 +1,10 @@
 package A4.FourEver.domain.model.domain;
 
-import org.springframework.data.annotation.Id;
 
 public class Model {
-
-    @Id
     private Long id;
+    private Long trim_id;
+    private Long engine_id;
+    private Long body_id;
+    private Long drive_id;
 }

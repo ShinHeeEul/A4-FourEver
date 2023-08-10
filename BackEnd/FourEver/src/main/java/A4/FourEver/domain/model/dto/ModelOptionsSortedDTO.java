@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class ModelOptionConfigDTO {
+public class ModelOptionsSortedDTO {
     private List<ExtraOptionInfoSortedDTO> extraOptionInfoSortedDTOs;
     private List<DefaultOptionInfoDTO> defaultOptionInfoDTOs;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class TrimConfigDTO {
+public class TrimColorsAndTagsDTO {
     private List<InColorInfoSortedDTO> inColors;
     private List<ExColorInfoSortedDTO> exColors;
 }

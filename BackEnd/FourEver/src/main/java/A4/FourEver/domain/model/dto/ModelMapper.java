@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class ModelMapper {
 
-    public ModelOptionConfigDTO convertToDTO(Set<ExtraOptionInfoDTO> extraOptionInfoDTO, Set<DefaultOptionInfoDTO> defaultOptionDTOs) {
+    public ModelOptionsSortedDTO convertToSortedDTO(final Set<ExtraOptionInfoDTO> extraOptionInfoDTO, final Set<DefaultOptionInfoDTO> defaultOptionDTOs) {
         List<ExtraOptionInfoSortedDTO> extraOptionList = extraOptionInfoDTO.stream()
                 .sorted(Comparator.comparingLong(ExtraOptionInfoDTO::getId))
                 .map(this::convertExtraOptionInfoDTO)
@@ -25,13 +25,13 @@ public class ModelMapper {
                 .sorted(Comparator.comparingLong(DefaultOptionInfoDTO::getId))
                 .collect(Collectors.toList());
 
-        return ModelOptionConfigDTO.builder()
+        return ModelOptionsSortedDTO.builder()
                 .defaultOptionInfoDTOs(defaultOptionList)
                 .extraOptionInfoSortedDTOs(extraOptionList)
                 .build();
     }
 
-    private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(ExtraOptionInfoDTO dto) {
+    private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(final ExtraOptionInfoDTO dto) {
         List<ExtraOptionTagInfoDTO> sortedOptionTags = dto.getExtraOptionTagInfoDTOS().stream()
                 .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
                 .collect(Collectors.toList());
