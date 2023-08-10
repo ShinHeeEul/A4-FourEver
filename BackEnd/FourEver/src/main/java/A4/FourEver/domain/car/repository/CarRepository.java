@@ -13,9 +13,11 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface CarRepository extends CrudRepository<Car, Long> {
 
@@ -106,11 +108,24 @@ public interface CarRepository extends CrudRepository<Car, Long> {
                 engineInfoDTOs.add(engine);
             }
 
+            List<TrimInfoDTO> trimList = trimInfoDTOs.stream()
+                    .sorted(Comparator.comparingLong(TrimInfoDTO::getId))
+                    .collect(Collectors.toList());
+            List<EngineInfoDTO> engineList = engineInfoDTOs.stream()
+                    .sorted(Comparator.comparingLong(EngineInfoDTO::getId))
+                    .collect(Collectors.toList());
+            List<BodyInfoDTO> bodyList = bodyInfoDTOs.stream()
+                    .sorted(Comparator.comparingLong(BodyInfoDTO::getId))
+                    .collect(Collectors.toList());
+            List<DriveInfoDTO> driveList = driveInfoDTOs.stream()
+                    .sorted(Comparator.comparingLong(DriveInfoDTO::getId))
+                    .collect(Collectors.toList());
+
             return CarConfigDTO.builder()
-                    .trimInfoDTOs(trimInfoDTOs)
-                    .bodyInfoDTOs(bodyInfoDTOs)
-                    .driveInfoDTOs(driveInfoDTOs)
-                    .engineInfoDTOs(engineInfoDTOs)
+                    .trimInfoDTOs(trimList)
+                    .bodyInfoDTOs(bodyList)
+                    .driveInfoDTOs(driveList)
+                    .engineInfoDTOs(engineList)
                     .build();
         }
     }

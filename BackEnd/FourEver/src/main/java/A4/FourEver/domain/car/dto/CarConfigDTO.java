@@ -7,13 +7,14 @@ import A4.FourEver.domain.trim.trim.dto.TrimInfoDTO;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Set;
 
 @Builder
 @Getter
 public class CarConfigDTO {
-    private Set<TrimInfoDTO> trimInfoDTOs;
-    private Set<BodyInfoDTO> bodyInfoDTOs;
-    private Set<DriveInfoDTO> driveInfoDTOs;
-    private Set<EngineInfoDTO> engineInfoDTOs;
+    private List<TrimInfoDTO> trimInfoDTOs;
+    private List<BodyInfoDTO> bodyInfoDTOs;
+    private List<DriveInfoDTO> driveInfoDTOs;
+    private List<EngineInfoDTO> engineInfoDTOs;
 }
