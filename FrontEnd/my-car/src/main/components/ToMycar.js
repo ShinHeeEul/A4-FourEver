@@ -33,7 +33,10 @@ const DetailText = styled.span`
   height: 40px;
   color: ${palette.DarkGray};
 `;
-
+const BtnDiv = styled.div`
+  width: 200px;
+  height: 50px;
+`;
 const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
@@ -65,9 +68,11 @@ function ToMycar() {
           현대닷컴의 내차만들기를 이용하여 온라인으로 쉽고 간편하게 나만의 차를
           만들 수 있어요
         </DetailText>
-        <Link to="/mycar/trim/model">
-          <ToPageBtn>내차만들기 바로가기</ToPageBtn>
-        </Link>
+        <BtnDiv>
+          <Link to="/mycar/trim/model">
+            <ToPageBtn>내차만들기 바로가기</ToPageBtn>
+          </Link>
+        </BtnDiv>
       </TextDiv>
     </BgDiv>
   );
