@@ -32,7 +32,10 @@ const DetailText = styled.span`
   font-size: 20px;
   height: 40px;
 `;
-
+const BtnDiv = styled.div`
+  width: 200px;
+  height: 50px;
+`;
 const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
@@ -64,9 +67,11 @@ function ToArchiving() {
           차량과 옵션에 대한 실제 후기가 궁금하신가요? 아카이빙에서 사람들의
           실사용 후기를 확인해보세요
         </DetailText>
-        <Link to="/archiving">
-          <ToPageBtn>아카이빙 바로가기</ToPageBtn>
-        </Link>
+        <BtnDiv>
+          <Link to="/archiving">
+            <ToPageBtn>아카이빙 바로가기</ToPageBtn>
+          </Link>
+        </BtnDiv>
       </TextDiv>
     </BgDiv>
   );

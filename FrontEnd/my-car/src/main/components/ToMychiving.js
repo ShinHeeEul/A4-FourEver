@@ -33,26 +33,31 @@ const DetailText = styled.span`
   font-size: 20px;
   height: 30px;
   color: ${palette.LightGray};
+  padding-bottom: 30px;
 `;
-
+const BtnDiv = styled.div`
+  width: 200px;
+  height: 50px;
+`;
 const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
   font-size: 16px;
-  border: none;
   width: 200px;
   height: 50px;
+  border: none;
+
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${palette.LightSand};
   border: 2px solid ${palette.DarkGray};
   color: ${palette.DarkGray};
-  margin-top: 30px;
-  cursor: pointer;
+
   &:hover {
     color: ${palette.LightSand};
     background-color: ${palette.DarkGray};
+    cursor: pointer;
   }
 `;
 
@@ -62,16 +67,16 @@ function ToMychiving() {
       <TextDiv>
         <TitleText>지난번에 직접 만들었던</TitleText>
         <TitleText>나만의 차를 언제든지 볼 수 있어요</TitleText>
+
         <DetailText>
-          만들던 차량을 저장하지않고 중간에 이탈하셨다고요?
+          만들던 차량을 중간에 저장하지 않았어도 자동저장 기능으로 만들었던
+          부분부터 다시 만들어 나만의 차를 완성해보세요
         </DetailText>
-        <DetailText>
-          자동저장 기능으로 만들었던 부분부터 다시 만들어 나만의 차를
-          완성해보세요
-        </DetailText>
-        <Link to="/mychiving">
-          <ToPageBtn>마이카이빙 바로가기</ToPageBtn>
-        </Link>
+        <BtnDiv>
+          <Link to="/mychiving">
+            <ToPageBtn>마이카이빙 바로가기</ToPageBtn>
+          </Link>
+        </BtnDiv>
       </TextDiv>
     </BgDiv>
   );
