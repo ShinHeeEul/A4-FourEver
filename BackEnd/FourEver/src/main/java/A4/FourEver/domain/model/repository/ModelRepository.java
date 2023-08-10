@@ -1,8 +1,6 @@
 package A4.FourEver.domain.model.repository;
 
 import A4.FourEver.domain.model.domain.Model;
-import A4.FourEver.domain.model.dto.ModelDefaultOptionInfoDTO;
-import A4.FourEver.domain.model.dto.ModelExtraOptionInfoDTO;
 import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
@@ -30,8 +28,8 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
             "JOIN default_option_category doc ON do.default_option_category_id = doc.id " +
             "JOIN default_option_model dom ON do.id = dom.default_option_id " +
             "JOIN ModelID ON dom.model_id = ModelID.model_id"
-            , resultSetExtractorClass = ModelDefaultOptionInfoDTOExtractor.class)
-    ModelDefaultOptionInfoDTO findModelDefaultOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
+            , resultSetExtractorClass = DefaultOptionInfoDTOExtractor.class)
+    Set<DefaultOptionInfoDTO> findModelDefaultOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
 
     @Query(value = "WITH ModelID AS (" +
             "    SELECT id AS model_id" +
@@ -54,13 +52,13 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
             "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
             "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
             "JOIN ModelID ON eom.model_id = ModelID.model_id"
-            , resultSetExtractorClass = ModelExtraOptionInfoDTOExtractor.class)
-    ModelExtraOptionInfoDTO findModelExtraOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
+            , resultSetExtractorClass = ExtraOptionInfoDTOExtractor.class)
+    Set<ExtraOptionInfoDTO> findModelExtraOption(@Param("trim_id") final Long trim_id, @Param("engine_id") final Long engine_id, @Param("body_id") final Long body_id, @Param("drive_id") final Long drive_id);
 
-    class ModelDefaultOptionInfoDTOExtractor implements ResultSetExtractor<ModelDefaultOptionInfoDTO> {
+    class DefaultOptionInfoDTOExtractor implements ResultSetExtractor<Set<DefaultOptionInfoDTO>> {
 
         @Override
-        public ModelDefaultOptionInfoDTO extractData(ResultSet rs) throws SQLException {
+        public Set<DefaultOptionInfoDTO> extractData(ResultSet rs) throws SQLException {
             Set<DefaultOptionInfoDTO> defaultOptionDTOs = new HashSet<>();
 
             while (rs.next()) {
@@ -75,16 +73,14 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
                 defaultOptionDTOs.add(defaultOptionInfoDto);
             }
 
-            return ModelDefaultOptionInfoDTO.builder()
-                    .defaultOptionInfoDTOs(defaultOptionDTOs)
-                    .build();
+            return defaultOptionDTOs;
         }
     }
 
-    class ModelExtraOptionInfoDTOExtractor implements ResultSetExtractor<ModelExtraOptionInfoDTO> {
+    class ExtraOptionInfoDTOExtractor implements ResultSetExtractor<Set<ExtraOptionInfoDTO>> {
 
         @Override
-        public ModelExtraOptionInfoDTO extractData(ResultSet rs) throws SQLException {
+        public Set<ExtraOptionInfoDTO> extractData(ResultSet rs) throws SQLException {
             Set<ExtraOptionInfoDTO> extraOptionDTOs = new HashSet<>();
 
             while (rs.next()) {
@@ -107,13 +103,13 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
                         .filter(extraOptionInfoDTO -> matchesExtraOptionId(extraOptionInfoDTO, extra_option_id))
                         .findFirst();
 
-                ExtraOptionInfoDTO extraOptionInfoDto = extraOptionInfoDtoOpt.orElse(null);
+                ExtraOptionInfoDTO exColorDto = extraOptionInfoDtoOpt.orElse(null);
 
                 if(extraOptionInfoDtoOpt.isEmpty()) {
                     Set<ExtraOptionTagInfoDTO> extraOptionTagInfoDTOS = new HashSet<>();
                     Set<SubExtraOptionInfoDTO> subExtraOptionInfoDTOs = new HashSet<>();
 
-                    extraOptionInfoDto = ExtraOptionInfoDTO.builder()
+                    exColorDto = ExtraOptionInfoDTO.builder()
                             .id(rs.getLong("id"))
                             .name(rs.getString("name"))
                             .description(rs.getString("description"))
@@ -127,15 +123,13 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
                             .build();
                 }
 
-                extraOptionInfoDto.getExtraOptionTagInfoDTOS().add(extraOptionTagInfoDTO);
-                extraOptionInfoDto.getSubExtraOptionInfoDTOs().add(subExtraOptionInfoDTO);
+                exColorDto.getExtraOptionTagInfoDTOS().add(extraOptionTagInfoDTO);
+                exColorDto.getSubExtraOptionInfoDTOs().add(subExtraOptionInfoDTO);
 
-                extraOptionDTOs.add(extraOptionInfoDto);
+                extraOptionDTOs.add(exColorDto);
             }
 
-            return ModelExtraOptionInfoDTO.builder()
-                    .extraOptionInfoDTOs(extraOptionDTOs)
-                    .build();
+            return extraOptionDTOs;
         }
 
         private boolean matchesExtraOptionId(ExtraOptionInfoDTO dto, Long id) {

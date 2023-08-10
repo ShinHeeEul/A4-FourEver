@@ -1,7 +1,7 @@
 package A4.FourEver.domain.model.api;
 
 import A4.FourEver.domain.model.application.ModelService;
-import A4.FourEver.domain.model.dto.ModelOptionInfoSortedDTO;
+import A4.FourEver.domain.model.dto.ModelOptionConfigDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class ModelController {
 
     @Operation(summary = "해당 모델의 옵션 정보 조회")
     @GetMapping("/option")
-    public ModelOptionInfoSortedDTO getModelOption(
+    public ModelOptionConfigDTO getModelOption(
             @RequestParam("trim_id") final Long trim_id,
             @RequestParam("body_id") final Long body_id,
             @RequestParam("engine_id") final Long engine_id,

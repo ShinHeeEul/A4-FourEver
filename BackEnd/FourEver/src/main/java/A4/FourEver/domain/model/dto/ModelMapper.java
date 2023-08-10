@@ -15,24 +15,24 @@ import java.util.stream.Collectors;
 @Component
 public class ModelMapper {
 
-    public ModelOptionInfoSortedDTO convertToDTO(Set<ExtraOptionInfoDTO> extraOptionSet, Set<DefaultOptionInfoDTO> defaultOptionSet) {
-        List<ExtraOptionInfoSortedDTO> extraOptionList = extraOptionSet.stream()
+    public ModelOptionConfigDTO convertToDTO(Set<ExtraOptionInfoDTO> extraOptionInfoDTO, Set<DefaultOptionInfoDTO> defaultOptionDTOs) {
+        List<ExtraOptionInfoSortedDTO> extraOptionList = extraOptionInfoDTO.stream()
                 .sorted(Comparator.comparingLong(ExtraOptionInfoDTO::getId))
                 .map(this::convertExtraOptionInfoDTO)
                 .collect(Collectors.toList());
 
-        List<DefaultOptionInfoDTO> defaultOptionList = defaultOptionSet.stream()
+        List<DefaultOptionInfoDTO> defaultOptionList = defaultOptionDTOs.stream()
                 .sorted(Comparator.comparingLong(DefaultOptionInfoDTO::getId))
                 .collect(Collectors.toList());
 
-        return ModelOptionInfoSortedDTO.builder()
+        return ModelOptionConfigDTO.builder()
                 .defaultOptionInfoDTOs(defaultOptionList)
                 .extraOptionInfoSortedDTOs(extraOptionList)
                 .build();
     }
 
     private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(ExtraOptionInfoDTO dto) {
-        List<ExtraOptionTagInfoDTO> sortedTags = dto.getExtraOptionTagInfoDTOS().stream()
+        List<ExtraOptionTagInfoDTO> sortedOptionTags = dto.getExtraOptionTagInfoDTOS().stream()
                 .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
                 .collect(Collectors.toList());
 
@@ -49,7 +49,7 @@ public class ModelMapper {
                 .price(dto.getPrice())
                 .x_position(dto.getX_position())
                 .y_position(dto.getY_position())
-                .extraOptionTagInfoDTOS(sortedTags)
+                .extraOptionTagInfoDTOS(sortedOptionTags)
                 .subExtraOptionInfoDTOs(sortedSubOptions)
                 .build();
     }
