@@ -1,11 +1,13 @@
 package A4.FourEver.domain.trim.trim.application;
 
-import A4.FourEver.domain.trim.trim.domain.Trim;
+import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimConfigDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimMapper;
-import A4.FourEver.domain.trim.trim.exception.TrimNotFoundException;
 import A4.FourEver.domain.trim.trim.repository.TrimRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class TrimService {
@@ -18,8 +20,10 @@ public class TrimService {
         this.trimMapper = trimMapper;
     }
 
-    public TrimConfigDTO getById(final Long id) {
-        Trim trim = trimRepository.findById(id).orElseThrow(() -> new TrimNotFoundException(id));
-        return trimMapper.toTrimConfigDTO(trim);
+    public TrimConfigDTO getTrimColorAndTagById(final Long id) {
+        Set<InColorInfoDTO> inColorInfoDTOs = trimRepository.getInColorAndTagByTrimId(id);
+        Set<ExColorInfoDTO> exColorInfoDTOs = trimRepository.getExColorAndTagByTrimId(id);
+
+        return trimMapper.toTrimConfigDTO(inColorInfoDTOs, exColorInfoDTOs);
     }
 }

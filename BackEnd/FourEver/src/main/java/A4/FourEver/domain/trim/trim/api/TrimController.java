@@ -23,6 +23,6 @@ public class TrimController {
     @Operation(summary = "특정 차량의 trim 정보 조회")
     @GetMapping("/{id}/color")
     public TrimConfigDTO getCarTrimsById(@PathVariable final Long id) {
-        return trimService.getById(id);
+        return trimService.getTrimColorAndTagById(id);
     }
 }
