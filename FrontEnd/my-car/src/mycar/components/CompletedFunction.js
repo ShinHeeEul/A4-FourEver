@@ -72,22 +72,18 @@ const ColorInfo = styled.div`
   padding-right: 40px;
 `;
 
-const OuterColorChip = styled.div`
+const ColorChip = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 100%;
   flex-shrink: 0;
-  background-color: #002c5f;
   margin-right: 12px;
-`;
-
-const InnerColorChip = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: 100%;
-  flex-shrink: 0;
-  background-color: #191f32;
-  margin-right: 12px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const MainLineDiv = styled.div`
@@ -164,12 +160,16 @@ function CompletedFunction() {
         <ColorDiv>
           <ColorInfo>
             <ColorText>외장색상</ColorText>
-            <OuterColorChip />
+            <ColorChip>
+              <img alt="exColor" src={userCar.outerColor.color_image} />
+            </ColorChip>
             <FunctionText>{userCar.outerColor.name}</FunctionText>
           </ColorInfo>
           <ColorInfo>
             <ColorText>내장색상</ColorText>
-            <InnerColorChip />
+            <ColorChip>
+              <img alt="inColor" src={userCar.innerColor.color_image} />
+            </ColorChip>
             <FunctionText>{userCar.innerColor.name}</FunctionText>
           </ColorInfo>
         </ColorDiv>

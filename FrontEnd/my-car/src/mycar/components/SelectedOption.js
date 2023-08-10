@@ -7,11 +7,7 @@ import {
   Heading4Medium,
 } from '../../style/typo';
 import { useOutletContext } from 'react-router-dom';
-import OptionCard, {
-  CardDetailWrap,
-  CardsWrap,
-  DimmedOverlay,
-} from './OptionCard';
+import { CardsWrap } from './OptionCard';
 const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
@@ -73,6 +69,7 @@ const NewCardsWrap = styled(CardsWrap)`
   width: 100%;
   overflow-x: scroll;
   flex: auto;
+  gap: 10px;
   &::-webkit-scrollbar {
     height: 9px;
   }
@@ -81,15 +78,22 @@ const NewCardsWrap = styled(CardsWrap)`
     border: 1px;
     background: ${palette.Sand};
   }
+  padding-bottom: 10px;
 `;
 
 const Card = styled.div`
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   border: 2px solid white;
   box-sizing: border-box;
   background-color: ${palette.LightSand};
+  flex-shrink: 0;
+  overflow: hidden;
+  padding-bottom: 5px;
+  img {
+    width: 180px;
+  }
 `;
 
 const CardImg = styled.img`
@@ -109,18 +113,17 @@ function SelectedOption() {
         </SelectedOptionTitle>
         <OptionsDiv>
           <NewCardsWrap>
-            {userCar.selectedOptions.length >= 0 &&
-              userCar.selectedOptions.map((elem) => {
-                return (
-                  <Card>
-                    <CardImg></CardImg>
-                    <DetailWrap>
-                      <CardTitleText>{elem.name}</CardTitleText>
-                      <CardPriceText>{elem.price}원</CardPriceText>
-                    </DetailWrap>
-                  </Card>
-                );
-              })}
+            {userCar.selectedOptions.map((option) => {
+              return (
+                <Card>
+                  <CardImg src={option.image} />
+                  <DetailWrap>
+                    <CardTitleText>{option.name}</CardTitleText>
+                    <CardPriceText>{option.price}원</CardPriceText>
+                  </DetailWrap>
+                </Card>
+              );
+            })}
           </NewCardsWrap>
         </OptionsDiv>
       </BgDiv>

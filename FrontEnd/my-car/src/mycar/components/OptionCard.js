@@ -107,6 +107,7 @@ const Card = styled.div`
 const CardImg = styled.img`
   width: 160px;
   height: 93px;
+  object-fit: cover;
 `;
 
 export const CardDetailWrap = styled.div`
