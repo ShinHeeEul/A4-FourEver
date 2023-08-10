@@ -17,9 +17,16 @@ const Header = styled.header`
 `;
 const Title = styled.h1`
   ${Heading1Bold};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 170px);
+  flex-grow: 1;
 `;
 const Price = styled.h3`
   ${Heading2Bold}
+  width: 170px;
+  text-align: right;
 `;
 const TagWrap = styled.div`
   margin-top: 22px;
