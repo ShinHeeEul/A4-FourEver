@@ -12,10 +12,39 @@ export const myCarPagePath = [
 ];
 
 export const BASIC_SERVER_URL = 'http://www.hyundaimycar.store:8080';
-export const OPTIONS = {
-  TRIM: 'trim',
-  COLOR: 'color',
-  SELECTED: 'option',
+export const MYCAR = {
+  TRIM: {
+    URL: 'cars/1/trim',
+    FILED: {
+      MODEL: 'trimInfoDTOs',
+      ENGINE: 'engineInfoDTOs',
+      BODY: 'bodyInfoDTOs',
+      WHEEL: 'driveInfoDTOs',
+    },
+  },
+  COLOR: {
+    URL: 'trims/1/color',
+    FILED: {
+      INCOLOR: 'inColors',
+      EXCOLOR: 'exColors',
+      TAGS: {
+        inColors: 'inColorTagInfoDTOS',
+        exColors: 'exColorTagInfoDTOS',
+      },
+      IMG: {
+        inColors: 'in_image',
+        exColors: 'rotation_image',
+      },
+    },
+  },
+  SELECTED: {
+    URL: 'model/option?trim_id=1&body_id=1&engine_id=1&drive_id=1',
+    FILED: {
+      SELECT: 'extraOptionInfoSortedDTOs',
+      BASIC: 'defaultOptionInfoDTOs',
+      TAGS: 'extraOptionTagInfoDTOS',
+    },
+  },
 };
 
 export const navCategoryName = {
@@ -54,8 +83,6 @@ export const navCategoryName = {
 
 export const carCardInfo = [
   {
-    id: '1',
-    name: 'Le Blanc(르블랑)',
     logo: [
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -443,11 +470,8 @@ export const carCardInfo = [
       '클러스터(12.3',
       '인치 컬러 LCD)',
     ],
-    price: '47,720,000',
   },
   {
-    id: '2',
-    name: 'Exclusive',
     logo: [
       <svg
         width="40"
@@ -567,11 +591,8 @@ export const carCardInfo = [
       '베젤리스',
       '인사이드 미러',
     ],
-    price: '40,440,000',
   },
   {
-    id: '3',
-    name: 'Prestige',
     logo: [
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -844,11 +865,8 @@ export const carCardInfo = [
       '전후석 통합',
       '터치 컨트롤',
     ],
-    price: '47,720,000',
   },
   {
-    id: '4',
-    name: 'Calligraphy',
     logo: [
       <svg
         width="40"
@@ -1112,7 +1130,6 @@ export const carCardInfo = [
       '캘리그래피',
       '전용 디자인',
     ],
-    price: '52,540,000',
   },
 ];
 

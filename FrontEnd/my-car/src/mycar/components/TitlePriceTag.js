@@ -38,17 +38,17 @@ const Tag = styled.div`
   ${Body3Regular}
 `;
 
-function TitlePriceTag({ selectedOption, isSmall = false }) {
+function TitlePriceTag({ selectedOption, tagFiled, isSmall = false }) {
   return (
     <Container $isSmall={isSmall}>
       <Header>
         <Title>{selectedOption.name}</Title>
-        <Price>+{selectedOption.price} 원</Price>
+        <Price>+{selectedOption?.price?.toLocaleString() || 0} 원</Price>
       </Header>
-      {selectedOption.tags && (
+      {selectedOption[tagFiled] && (
         <TagWrap>
-          {selectedOption.tags.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
+          {selectedOption[tagFiled].slice(0, 5).map((tag, index) => (
+            <Tag key={index}>{tag.name}</Tag>
           ))}
         </TagWrap>
       )}

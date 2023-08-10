@@ -8,7 +8,7 @@ async function fetchData({ path }) {
 
 //내차만들기 페이지 API PATH 생성
 const MyCarApiPath = {
-  base: `${BASIC_SERVER_URL}/cars/1`,
+  base: BASIC_SERVER_URL,
   option: (option) => `${MyCarApiPath.base}/${option}`,
 };
 //내차만들기 페이지 API

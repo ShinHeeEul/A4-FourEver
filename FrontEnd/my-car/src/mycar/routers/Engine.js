@@ -2,10 +2,10 @@ import { styled } from 'styled-components';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';
 import { Container } from './Model';
-import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { engineInfo } from '../../constant';
-import { SelectedIndex } from '../util/SelectedIndex';
+import { MYCAR } from '../../constant';
+import TrimImg from '../components/TrimImg';
+import { useSelect } from '../useSelect';
 
 const EngineContainer = styled(Container)`
   flex-direction: row;
@@ -31,50 +31,34 @@ export const LeftWrap = styled.div`
 export const RightWrap = styled.div`
   display: flex;
   flex-direction: column;
-
+  position: relative;
   gap: 12px;
 `;
 
 function Engine() {
-  const { setUserCar, userCar, page } = useOutletContext();
+  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
+  const engineOption = trimOptions[MYCAR.TRIM.FILED.ENGINE];
+  const [selected, setSelectedOption] = useSelect({
+    setUserCar,
+    userCar,
+    option: engineOption,
+    field: 'engine',
+    page,
+  });
 
-  const [selected, setSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.engine?.id || engineInfo[0].id,
-      optionInfo: engineInfo,
-    }),
-  );
-
-  const setEngineOption = ({ selectOption, index }) => {
-    const Price = [...userCar.price];
-    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
-    setUserCar((prevState) => ({
-      ...prevState,
-      engine: selectOption,
-      price: Price,
-    }));
-    setSelected(index || 0);
-  };
-
-  useEffect(() => {
-    if (!userCar.engine?.id) {
-      setEngineOption({ selectOption: engineInfo[0] });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <EngineContainer>
       <LeftWrap>
-        <OptionImgWrap></OptionImgWrap>
-        <TitlePriceTag selectedOption={engineInfo[selected]} />
+        <TrimImg src={engineOption[selected].image} />
+        <TitlePriceTag selectedOption={engineOption[selected]} />
       </LeftWrap>
       <RightWrap>
-        {engineInfo.map((option, index) => (
+        {engineOption.map((option, index) => (
           <MandatoryCard
             key={index}
             index={index}
             isActive={selected === index}
-            clickHandler={setEngineOption}
+            clickHandler={setSelectedOption}
             option={option}
           />
         ))}

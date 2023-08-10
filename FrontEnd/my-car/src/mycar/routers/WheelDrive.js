@@ -5,8 +5,10 @@ import { styled } from 'styled-components';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';
-import { wheelDriveInfo } from '../../constant';
+import { MYCAR, wheelDriveInfo } from '../../constant';
 import { SelectedIndex } from '../util/SelectedIndex';
+import { useSelect } from '../useSelect';
+import TrimImg from '../components/TrimImg';
 
 const WheelDriveContainer = styled(Container)`
   flex-direction: row;
@@ -14,46 +16,32 @@ const WheelDriveContainer = styled(Container)`
 `;
 
 function WheelDrive() {
-  const { setUserCar, userCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.wheelDrive.id || wheelDriveInfo[0].id,
-      optionInfo: wheelDriveInfo,
-    }),
+  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
+
+  const wheelOptions = trimOptions[MYCAR.TRIM.FILED.WHEEL].sort(
+    (a, b) => a.id - b.id,
   );
-  const setWheelOption = ({ selectOption, index }) => {
-    const Price = [...userCar.price];
-    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
-    setUserCar((prevState) => ({
-      ...prevState,
-      wheelDrive: selectOption,
-      price: Price,
-    }));
-    setSelected(index || 0);
-  };
-
-  useEffect(() => {
-    !userCar.WheelDrive?.id &&
-      setWheelOption({ selectOption: wheelDriveInfo[0] });
-    // if (!userCar.WheelDrive?.id) {
-
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [selected, setSelectedOption] = useSelect({
+    setUserCar,
+    userCar,
+    option: wheelOptions,
+    field: 'wheelDrive',
+    page,
+  });
 
   return (
     <WheelDriveContainer>
       <LeftWrap>
-        <OptionImgWrap></OptionImgWrap>
-        <TitlePriceTag selectedOption={wheelDriveInfo[selected]} />
+        <TrimImg src={wheelOptions[selected].image} />
+        <TitlePriceTag selectedOption={wheelOptions[selected]} />
       </LeftWrap>
       <RightWrap>
-        {wheelDriveInfo.map((option, index) => (
+        {wheelOptions.map((option, index) => (
           <MandatoryCard
             key={index}
             index={index}
             isActive={selected === index}
-            clickHandler={setWheelOption}
+            clickHandler={setSelectedOption}
             option={option}
           />
         ))}

@@ -16,7 +16,8 @@ import Model from './mycar/routers/Model';
 import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 import MyCarOptionAPI from './api';
-import { OPTIONS } from './constant';
+import { MYCAR } from './constant';
+import RootColor from './mycar/routers/parents/RootColor';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'trim',
-            loader: () => MyCarOptionAPI(OPTIONS.TRIM),
+            loader: () => MyCarOptionAPI(MYCAR.TRIM.URL),
             element: <RootTrim />,
             children: [
               {
@@ -59,12 +60,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'color',
-            // loader: fetchOption,
-            element: <Color />,
+            loader: () => MyCarOptionAPI(MYCAR.COLOR.URL),
+            element: <RootColor />,
             children: [{ path: '', element: <Color /> }],
           },
           {
             path: 'option',
+            loader: () => MyCarOptionAPI(MYCAR.SELECTED.URL),
             element: <RootSelectOption />,
             children: [
               {

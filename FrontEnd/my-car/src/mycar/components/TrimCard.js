@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import palette from '../../style/styleVariable';
 import { Body3Medium, CaptionMedium, Heading3Bold } from '../../style/typo';
 import { carCardInfo } from '../../constant';
 import { useOutletContext } from 'react-router-dom';
-import { SelectedIndex } from '../util/SelectedIndex';
+import { useSelect } from '../useSelect';
 
 const CarCardDiv = styled.div`
   display: flex;
@@ -144,85 +143,49 @@ function CarCardLine({ $isActive }) {
   );
 }
 
-function TrimCard() {
+function TrimCard({ options }) {
   const { userCar, setUserCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.trim?.id || carCardInfo[0].id,
-      optionInfo: carCardInfo,
-    }),
-  );
 
-  function setTrimOption({ selectOption, idx }) {
-    const Price = [...userCar.price];
-    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
-
-    setUserCar((prevState) => ({
-      ...prevState,
-      trim: selectOption,
-      price: Price,
-    }));
-    idx && setSelected(idx);
-  }
-  useEffect(() => {
-    if (!userCar.trim?.id) {
-      setTrimOption({ selectOption: carCardInfo[0] });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [selected, setSelectedOption] = useSelect({
+    setUserCar,
+    userCar,
+    option: options,
+    field: 'trim',
+    page,
+  });
 
   return (
     <div>
       <CarCardDiv>
-        {carCardInfo.map((car, idx) => (
+        {options.map((car, index) => (
           <CarCardSub
-            key={idx}
-            $isActive={selected === idx}
-            onClick={() => setTrimOption({ selectOption: car, idx })}
+            key={index}
+            $isActive={selected === index}
+            onClick={() => setSelectedOption({ selectOption: car, index })}
           >
-            <CarCardName $isActive={selected === idx}>{car.name}</CarCardName>
-            <CarCardLine $isActive={selected === idx} />
+            <CarCardName $isActive={selected === index}>{car.name}</CarCardName>
+            <CarCardLine $isActive={selected === index} />
             <CarCardLogoDiv>
-              <CarCardLogo $isActive={selected === idx}>
-                <CarCardLogoImg>{car.logo[0]}</CarCardLogoImg>
-                <CarCardLogoNameDiv>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[0]}
+              {carCardInfo[index].logo.map((item, key) => (
+                <CarCardLogoNameDiv key={key}>
+                  <CarCardLogoImg> {item}</CarCardLogoImg>
+                  <CarCardLogoName $isActive={selected === index}>
+                    {carCardInfo[index].logoText[0]}
                   </CarCardLogoName>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[1]}
-                  </CarCardLogoName>
-                </CarCardLogoNameDiv>
-              </CarCardLogo>
-              <CarCardLogo>
-                <CarCardLogoImg>{car.logo[1]}</CarCardLogoImg>
-                <CarCardLogoNameDiv>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[2]}
-                  </CarCardLogoName>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[3]}
+                  <CarCardLogoName $isActive={selected === index}>
+                    {carCardInfo[index].logoText[1]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
-              </CarCardLogo>
-              <CarCardLogo>
-                <CarCardLogoImg>{car.logo[2]}</CarCardLogoImg>
-                <CarCardLogoNameDiv>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[4]}
-                  </CarCardLogoName>
-                  <CarCardLogoName $isActive={selected === idx}>
-                    {car.logoText[5]}
-                  </CarCardLogoName>
-                </CarCardLogoNameDiv>
-              </CarCardLogo>
+              ))}
             </CarCardLogoDiv>
-            <CarCardLine $isActive={selected === idx} />
+            <CarCardLine $isActive={selected === index} />
             <CarCardPriceDiv>
-              <CarCardName $isActive={selected === idx}>
-                {car.price}
+              <CarCardName $isActive={selected === index}>
+                {car.price.toLocaleString()}
               </CarCardName>
-              <CarCardPriceWon $isActive={selected === idx}>원</CarCardPriceWon>
+              <CarCardPriceWon $isActive={selected === index}>
+                원
+              </CarCardPriceWon>
             </CarCardPriceDiv>
           </CarCardSub>
         ))}

@@ -9,15 +9,7 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import {
-  bodyTypeInfo,
-  carCardInfo,
-  engineInfo,
-  innerColorInfo,
-  outerColorInfo,
-  wheelDriveInfo,
-  selectOptionInfo,
-} from '../../constant';
+
 import Buttons from './PageMoveBtns';
 import SummaryModal from './SummaryModal';
 import { useEffect, useState } from 'react';
@@ -76,7 +68,12 @@ const ColorSelectedImg = styled.div`
   width: 16px;
   height: 16px;
   border-radius: 100%;
-  background-color: black;
+  /* background-color: black; */
+  img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
 `;
 const ColorSelectedInfoEachWrap = styled.div`
   display: flex;
@@ -182,12 +179,14 @@ function DivisionStroke() {
     </svg>
   );
 }
-function ColorComponents({ category, color }) {
+function ColorComponents({ category, color, src }) {
   return (
     <ColorOptionWrap>
       <ColorOptionCategory>{category}</ColorOptionCategory>
       <ColorSelectedInfoEachWrap>
-        <ColorSelectedImg />
+        <ColorSelectedImg>
+          <img alt="carColor" src={src} />
+        </ColorSelectedImg>
         <ColorSelectedEachInfo>{color}</ColorSelectedEachInfo>
       </ColorSelectedInfoEachWrap>
     </ColorOptionWrap>
@@ -220,6 +219,7 @@ function Footer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  console.log(userCar);
   return (
     <Container>
       <OptionInfoWrap $isShow={!isCompletePage}>
@@ -255,8 +255,16 @@ function Footer({
 
         <ColorWrap>
           <OptionCategory>선택 색상</OptionCategory>
-          <ColorComponents category="외장" color={userCar?.outerColor?.name} />
-          <ColorComponents category="내장" color={userCar?.innerColor?.name} />
+          <ColorComponents
+            category="외장"
+            color={userCar?.outerColor?.name}
+            src={userCar.outerColor?.color_image}
+          />
+          <ColorComponents
+            category="내장"
+            color={userCar?.innerColor?.name}
+            src={userCar.innerColor?.color_image}
+          />
         </ColorWrap>
 
         <DivisionStroke />
