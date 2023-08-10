@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
-
+import { Link } from 'react-router-dom';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: 0;
@@ -75,23 +75,44 @@ function closeAlert(setShowCommonAlert) {
   setShowCommonAlert(false);
 }
 
-function Alert({ showCommonAlert, setShowCommonAlert }) {
+function movePage(setShowCommonAlert) {
+  setShowCommonAlert(false);
+}
+
+function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
   if (showCommonAlert === true) {
     return (
       <AlertBgDiv>
         <AlertDiv>
           <AlertMsgDiv>
-            <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg>
-            <AlertMsg>
-              만들던 차량은 아카이빙 내가 만든 차량 에 저장해둘게요
-            </AlertMsg>
+            {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
+            {isMain && <AlertMsg>메인 페이지로 이동하시겠습니까?</AlertMsg>}
+            {isAchiving && (
+              <AlertMsg>
+                {/* 만들던 차량은 아카이빙 내가 만든 차량 에 저장해둘게요 */}
+                아카이빙으로 이동하시겠습니까?
+              </AlertMsg>
+            )}
           </AlertMsgDiv>
 
           <AlertBtnDiv>
             <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
               취소
             </BtnCancel>
-            <BtnConfirm>내 차 만들기 종료</BtnConfirm>
+            {isMain && (
+              <Link to="/main">
+                <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+                  확인
+                </BtnConfirm>
+              </Link>
+            )}
+            {isAchiving && (
+              <Link to="/archiving">
+                <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+                  확인
+                </BtnConfirm>
+              </Link>
+            )}
           </AlertBtnDiv>
         </AlertDiv>
       </AlertBgDiv>
