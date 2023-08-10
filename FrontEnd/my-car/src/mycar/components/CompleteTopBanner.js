@@ -1,5 +1,6 @@
 import { css, styled, keyframes } from 'styled-components';
 import palette from '../../style/styleVariable';
+import { Link } from 'react-router-dom';
 import {
   CaptionRegular,
   Heading1Medium,
@@ -108,8 +109,12 @@ function CompleteTopBanner() {
           <DetailDiv>
             <DetailText>완성된 차량은 마이카이빙에서 볼 수 있어요</DetailText>
             <BtnDiv>
-              <MychivingBtn>마이카이빙 바로가기</MychivingBtn>
-              <MychivingBtn>홈 바로가기</MychivingBtn>
+              <Link to="/mychiving">
+                <MychivingBtn>마이카이빙 바로가기</MychivingBtn>
+              </Link>
+              <Link to="/main">
+                <MychivingBtn>홈 바로가기</MychivingBtn>
+              </Link>
             </BtnDiv>
           </DetailDiv>
         </TextDiv>

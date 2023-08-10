@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../style/typo';
 import { headerPageName } from '../constant';
-
+import { useState } from 'react';
 const HeaderDiv = styled.div`
   width: calc(100% - 180px);
   height: 60px;
@@ -77,15 +77,21 @@ const HyundaiLogo = styled.div`
   cursor: pointer;
 `;
 
-function showAlert(setShowCommonAlert) {
+function showAlert(setShowCommonAlert, setIsAchiving, setIsMain, flag) {
   setShowCommonAlert(true);
+  setIsMain(flag);
+  setIsAchiving(!flag);
 }
 
-function Header({ setShowCommonAlert }) {
+function Header({ setShowCommonAlert, setIsAchiving, setIsMain }) {
   return (
     <HeaderDiv>
       <HeaderElements>
-        <HyundaiLogo onClick={() => showAlert(setShowCommonAlert)}>
+        <HyundaiLogo
+          onClick={() =>
+            showAlert(setShowCommonAlert, setIsAchiving, setIsMain, true)
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="84"
@@ -192,7 +198,12 @@ function Header({ setShowCommonAlert }) {
         >
           <path d="M1 0V18" stroke="#232323" />
         </svg>
-        <ToCarivingBtn onClick={() => showAlert(setShowCommonAlert)}>
+
+        <ToCarivingBtn
+          onClick={() =>
+            showAlert(setShowCommonAlert, setIsAchiving, setIsMain, false)
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="23.267px"

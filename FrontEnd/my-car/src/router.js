@@ -5,7 +5,7 @@ import Archiving from './archiving/Achiving';
 import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
-import Login from './login/Login';
+import Main from './main/Main';
 // import fetchOption from './api';
 import fetchData from './api';
 import BodyType from './mycar/routers/BodyType';
@@ -23,9 +23,13 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     children: [
+      // {
+      //   path: '',
+      //   element: <Login />,
+      // },
       {
-        path: '',
-        element: <Login />,
+        path: 'main',
+        element: <Main />,
       },
       {
         path: 'mycar',
@@ -92,7 +96,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'achieving',
+        path: 'archiving',
         element: <Archiving />,
         children: [],
       },
