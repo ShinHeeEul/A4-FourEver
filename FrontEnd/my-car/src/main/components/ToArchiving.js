@@ -1,4 +1,5 @@
-import { css, styled, keyframes } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Heading1Bold, Heading3Medium } from '../../style/typo';
 import { Link } from 'react-router-dom';
@@ -13,7 +14,7 @@ const TextDiv = styled.div`
 `;
 
 const TitleText = styled.span`
-  ${Heading1Bold}
+  ${Heading1Bold};
   font-size: 60px;
   padding-bottom: 40px;
   height: 40px;
@@ -21,39 +22,50 @@ const TitleText = styled.span`
 `;
 
 const DetailText = styled.span`
-  ${Heading1Bold}
+  ${Heading1Bold};
+  font-weight: 500;
   font-size: 20px;
   height: 40px;
   color: ${palette.LightGray};
 `;
+
 const BtnDiv = styled.div`
   width: 200px;
   height: 50px;
+  margin-top: 18px;
 `;
+
 const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
   font-size: 16px;
   border: none;
-  width: 200px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${palette.LightSand};
-  border: 2px solid ${palette.DarkGray};
-  color: ${palette.DarkGray};
-  margin-top: 18px;
+  background-color: transparent;
+  border: 2px solid ${palette.LightSand};
+  color: ${palette.LightSand};
   cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
   &:hover {
-    color: ${palette.LightSand};
-    background-color: ${palette.DarkGray};
+    background-color: ${palette.LightSand};
+    color: ${palette.DarkGray};
   }
+`;
+
+const ToArchivingContainer = styled.div`
+  position: relative;
 `;
 
 function ToArchiving() {
   return (
-    <>
+    <ToArchivingContainer>
       <TextDiv>
         <TitleText>다른 사람들이 만든</TitleText>
         <TitleText>다양한 스펙의 차를 확인해보세요</TitleText>
@@ -67,7 +79,7 @@ function ToArchiving() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </>
+    </ToArchivingContainer>
   );
 }
 
