@@ -11,7 +11,20 @@ import { useOutletContext } from 'react-router-dom';
 
 const ExplainHeaderWrap = styled.div``;
 const ExplainHeaderTitle = styled.div``;
-const ExplainHeaderPage = styled.div``;
+export const ExplainNumber = styled.div`
+  width: 22px;
+  height: 22px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background-color: ${palette.Primary};
+  color: ${palette.LightSand};
+  ${Body4Regular}
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 1px 0px;
+`;
 const ExplainHeaderPageInfo = styled.div``;
 const ExplainDetail = styled.div`
   ${Body3Regular}
@@ -43,19 +56,6 @@ const ExplainWrap = styled.div`
       display: flex;
       align-items: center;
       gap: 8px;
-      ${ExplainHeaderPage} {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background-color: ${palette.Primary};
-        color: ${palette.LightSand};
-        ${Body4Regular}
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1px 1px 0px;
-      }
       span {
         ${Heading4Medium}
         max-width: 350px;
@@ -193,7 +193,7 @@ function DetailExplainCard({
       <ExplainHeaderWrap>
         <ExplainHeaderTitle>
           {selectedOption.subExtraOptionInfoDTOs.length > 1 && (
-            <ExplainHeaderPage>0{explainPage + 1}</ExplainHeaderPage>
+            <ExplainNumber>0{explainPage + 1}</ExplainNumber>
           )}
 
           <span>
