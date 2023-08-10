@@ -6,7 +6,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
 
 import { navCategoryName } from '../../constant';
-import DetailExplainCard from '../components/DetailExplainCard';
+import DetailExplainCard, {
+  ExplainNumber,
+} from '../components/DetailExplainCard';
 import OptionTabs from '../components/OptionTabs';
 import OptionCard from '../components/OptionCard';
 import BasicOptionModal from '../components/BasicOptionModal';
@@ -34,7 +36,6 @@ const OptionImgWrap = styled.div`
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background-color: blue;
 `;
 const OptionLocateImgWrap = styled.div`
   position: absolute;
@@ -48,14 +49,12 @@ const OptionLocateImgWrap = styled.div`
 `;
 
 const SelectedOptionImgWrap = styled.div`
-  background-color: brown;
   transform-style: preserve-3d;
 
   transition: transform 0.5s ease;
 
   width: 479px;
   height: 304px;
-  /* background-color: beige; */
   position: relative;
   border-radius: 4px;
   img {
@@ -98,6 +97,14 @@ const SelectOptionWrap = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 1020px;
+`;
+
+const LocateSpot = styled(ExplainNumber)`
+  position: absolute;
+  ${({ $x_position, $y_position }) => css`
+    top: ${$y_position}%;
+    left: ${$x_position}%;
+  `}
 `;
 
 function ReturnIcon() {
@@ -201,8 +208,12 @@ function SelectOption() {
     setOptionList(currentOptions.options);
     setSelected(0);
     setIsBasicTab(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+  useEffect(() => {
+    setFlipped(false);
+  }, [selected]);
 
   return (
     <SelectOptionContainer>
@@ -210,20 +221,23 @@ function SelectOption() {
         <>
           <TopContentsWrap>
             <LeftWrap style={{ position: 'relative' }}>
-              <ViewLocationBtn onClick={() => setFlipped((prev) => !prev)}>
-                {flipped ? (
-                  <ReturnTextWrap>
-                    <ReturnIcon />
-                    <span>돌아가기</span>
-                  </ReturnTextWrap>
-                ) : (
-                  '옵션 위치 보기'
-                )}
-              </ViewLocationBtn>
+              {optionList[selected].x_position !== -1 && (
+                <ViewLocationBtn onClick={() => setFlipped((prev) => !prev)}>
+                  {flipped ? (
+                    <ReturnTextWrap>
+                      <ReturnIcon />
+                      <span>돌아가기</span>
+                    </ReturnTextWrap>
+                  ) : (
+                    '옵션 위치 보기'
+                  )}
+                </ViewLocationBtn>
+              )}
+
               <SelectedOptionImgWrap $flipped={flipped}>
                 <OptionImgWrap>
                   <img
-                    alt=""
+                    alt="optionImage"
                     src={
                       optionList[selected].subExtraOptionInfoDTOs[explainPage]
                         .image || optionList[selected].image
@@ -232,8 +246,12 @@ function SelectOption() {
                 </OptionImgWrap>
                 <OptionLocateImgWrap>
                   <img
-                    alt=""
-                    src="https://s3-alpha-sig.figma.com/img/8393/0344/a45c56d116498f699d90049279310d50?Expires=1692576000&Signature=bz2eyfq~SFxnY~qyFccPifFVpuERyaS3aFV00a-5-Ft6CV7ksMY48q1Xy8UjvbDbE950sUtmt~cvZqxY2E9IEyTEOZAevw05TcJRnZp20snXxw8KYNWOlHlFpsgWE-3tKJHu6Xk2vynfUMCZqbUsQNh-RCl5anxbxz7z-Q52uoF3IbwCHQczQ5-DvBg5lVYUjzr5NzCbgVEuiDe57gncTCqPbdcTACMkF0nU4eyUeyv7GMSSiHrQsf88XqgDU7UdMMkmBYABqU-I3PZv57l-~2Ufj0WfFye~B2787NEF~BkTZD8wXsVswpVf6OcAJgHmCkmpvGKNG2wUPPvWuY~8Wg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                    alt="locateImage"
+                    src="http://hyundaimycar.store/rotation/abyss/1.png"
+                  />
+                  <LocateSpot
+                    $x_position={optionList[selected].x_position}
+                    $y_position={optionList[selected].y_position}
                   />
                 </OptionLocateImgWrap>
               </SelectedOptionImgWrap>
