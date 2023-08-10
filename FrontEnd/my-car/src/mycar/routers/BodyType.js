@@ -3,67 +3,50 @@ import { Container } from './Model';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/TitlePriceTag';
 import MandatoryCard from '../components/MandatoryCard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { bodyTypeInfo } from '../../constant';
-import ImgSelect from '../components/ImgSelect';
-import { SelectedIndex } from '../util/SelectedIndex';
+import { MYCAR } from '../../constant';
+import TrimImg from '../components/TrimImg';
+import { useSelect } from '../useSelect';
 
 const BodyTypeContainer = styled(Container)`
   flex-direction: row;
   gap: 40px;
 `;
+
 function BodyType() {
-  const { setUserCar, userCar, page } = useOutletContext();
-  const [selected, setSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.bodyType?.id || bodyTypeInfo[0].id,
-      optionInfo: bodyTypeInfo,
-    }),
-  );
+  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
   const [imgSelected, setImgSelected] = useState(0);
-  const setEngineOption = ({ selectOption, index }) => {
-    const Price = [...userCar.price];
-    Price[page] = parseInt(selectOption.price.replace(/,/g, ''), 10);
-    setUserCar((prevState) => ({
-      ...prevState,
-      bodyType: selectOption,
-      price: Price,
-    }));
-    setSelected(index || 0);
-  };
 
-  useEffect(() => {
-    setImgSelected(0);
-  }, [selected]);
+  const bodyTypeOptions = trimOptions[MYCAR.TRIM.FILED.BODY];
 
-  useEffect(() => {
-    if (!userCar.bodyType?.id) {
-      setEngineOption({ selectOption: bodyTypeInfo[0] });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [selected, setSelectedOption] = useSelect({
+    setUserCar,
+    userCar,
+    option: bodyTypeOptions,
+    field: 'bodyType',
+    page,
+  });
 
   return (
     <BodyTypeContainer>
       <LeftWrap style={{ position: 'relative' }}>
-        <ImgSelect
+        {/* <ImgSelect
           selected={selected}
           setImgSelected={setImgSelected}
           imgSelected={imgSelected}
-        />
-        <OptionImgWrap>
-          <img src={bodyTypeInfo[selected].src[imgSelected]} alt="car" />
-        </OptionImgWrap>
-        <TitlePriceTag selectedOption={bodyTypeInfo[selected]} />
+        /> */}
+        <TrimImg src={bodyTypeOptions[selected].image} />
+
+        <TitlePriceTag selectedOption={bodyTypeOptions[selected]} />
       </LeftWrap>
       <RightWrap>
-        {bodyTypeInfo.map((option, index) => (
+        {bodyTypeOptions.map((option, index) => (
           <MandatoryCard
             key={index}
             index={index}
             isActive={selected === index}
-            clickHandler={setEngineOption}
+            clickHandler={setSelectedOption}
             option={option}
           />
         ))}

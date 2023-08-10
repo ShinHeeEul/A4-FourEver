@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../../style/typo';
 import { basicOptionInfo } from '../../constant';
+import { useOutletContext } from 'react-router-dom';
 
 const TabWrap = styled.div`
   display: flex;
@@ -35,6 +36,8 @@ const BasicSubCategoryWrap = styled.div`
 `;
 
 function OptionTabs({ isBasicTab, setIsBasicTab, basicIndex, categoryClick }) {
+  const { basicOptions } = useOutletContext();
+
   const tabClick = (state) => {
     setIsBasicTab(state);
   };
@@ -50,7 +53,7 @@ function OptionTabs({ isBasicTab, setIsBasicTab, basicIndex, categoryClick }) {
       </TabWrap>
       {isBasicTab && (
         <BasicSubCategoryWrap>
-          {basicOptionInfo.map((option, index) => (
+          {basicOptions.map((option, index) => (
             <CategoryTab
               $isActive={index === basicIndex}
               onClick={() => categoryClick(index)}

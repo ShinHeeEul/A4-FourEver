@@ -1,22 +1,24 @@
 import { styled } from 'styled-components';
 import TrimCard from '../components/TrimCard';
-import { useLoaderData } from 'react-router-dom';
-import { useContext } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { MYCAR } from '../../constant';
+import TrimModelImg from '../components/TrimModelImg';
 
 export const Container = styled.div`
   width: 1280px;
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin: 50px auto;
+  /* gap: 10px; */
+  margin: 27px auto;
   flex-direction: column;
 `;
 
 function Model() {
+  const { trimOptions } = useOutletContext();
   return (
     <Container>
-      <div style={{ height: '355px' }} />
-      <TrimCard />
+      <TrimModelImg src={trimOptions[MYCAR.TRIM.FILED.MODEL][0].image} />
+      <TrimCard options={trimOptions[MYCAR.TRIM.FILED.MODEL]} />
     </Container>
   );
 }

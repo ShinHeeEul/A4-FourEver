@@ -4,14 +4,6 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ToolTip from './components/ToolTip';
 import SummaryModal from './components/SummaryModal';
-import {
-  bodyTypeInfo,
-  carCardInfo,
-  engineInfo,
-  innerColorInfo,
-  outerColorInfo,
-  wheelDriveInfo,
-} from '../constant';
 
 function Mycar() {
   const [page, setPage] = useState(0);
@@ -23,9 +15,10 @@ function Mycar() {
     outerColor: {},
     innerColor: {},
     selectedOptions: [],
-    price: [47720000],
+    price: [],
     optionPrice: [],
   });
+
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   return (

@@ -5,17 +5,14 @@ import { Container } from './Model';
 import { useEffect, useState } from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
 
-import {
-  basicOptionInfo,
-  navCategoryName,
-  selectOptionInfo,
-} from '../../constant';
+import { navCategoryName } from '../../constant';
 import DetailExplainCard from '../components/DetailExplainCard';
 import OptionTabs from '../components/OptionTabs';
 import OptionCard from '../components/OptionCard';
 import BasicOptionModal from '../components/BasicOptionModal';
 import palette from '../../style/styleVariable';
 import { Body3Regular } from '../../style/typo';
+import { MYCAR } from '../../constant';
 
 const SelectOptionContainer = styled(Container)`
   align-items: center;
@@ -129,11 +126,14 @@ function ReturnIcon() {
 }
 
 function SelectOption() {
-  const { setUserCar, userCar, page } = useOutletContext();
+  const { setUserCar, userCar, page, basicOptions, selectOptions } =
+    useOutletContext();
 
   //선택 옵션 관련
   const [optionList, setOptionList] = useState();
   const [selected, setSelected] = useState(0);
+
+  const [explainPage, setExplainPage] = useState(0);
 
   //기본 옵션 관련
   const [basicIndex, setBasicIndex] = useState(0);
@@ -151,10 +151,11 @@ function SelectOption() {
   };
   const optionClick = (index) => {
     setSelected(index);
+    setExplainPage(0);
   };
 
   const addOption = (index) => {
-    const price = parseInt(optionList[index].price.replace(/,/g, ''), 10);
+    const price = optionList[index].price;
     const OptionPrice = [...userCar.optionPrice];
     OptionPrice.push(price);
     const SelectOptions = [...userCar.selectedOptions];
@@ -193,11 +194,13 @@ function SelectOption() {
 
   useEffect(() => {
     const categoryName = navCategoryName[titlePathName].value[subPathName];
-    const currentOptions = selectOptionInfo.filter(
+
+    const currentOptions = selectOptions.find(
       (option) => option.category === categoryName,
     );
-    setOptionList(currentOptions);
+    setOptionList(currentOptions.options);
     setSelected(0);
+    setIsBasicTab(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -221,7 +224,10 @@ function SelectOption() {
                 <OptionImgWrap>
                   <img
                     alt=""
-                    src="https://s3-alpha-sig.figma.com/img/d81b/9fe1/12d8ad7ada41a91ea51b8407998483bc?Expires=1692576000&Signature=o9XxfUqeu6pcFW69l-~AQps-OAbMbSZWWozW5tve1WrEbSATk-3~in7C6HmtnQnesiy5QMkrB30gedEQBSTPPy1EXfLVgtWMatnE6cnBgBAamu5wR7xdHm1Nf92LW6J~KB4Epp1Mo~wsz8rtPW18ZBBr6aiTSr1TdCIMmJXwvKEheALytuK3DYPh93yavUV2Hr0eeQvb1SP3VbPuu9d0os8WEGZBPx17WFpfIeGYLwdF4nj~DFdZDQNeCQSHgiF74PojAPV7XUKX-Qus4N4rG2OVh7ohL5hLz-V5TjxQTeRM9hx-W5GFa-P7lUSy6keeDBzfViSroHAWfejoAdWe~w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                    src={
+                      optionList[selected].subExtraOptionInfoDTOs[explainPage]
+                        .image || optionList[selected].image
+                    }
                   />
                 </OptionImgWrap>
                 <OptionLocateImgWrap>
@@ -235,9 +241,15 @@ function SelectOption() {
             <RightWrap>
               <TitlePriceTag
                 isSmall={true}
+                tagFiled={MYCAR.SELECTED.FILED.TAGS}
                 selectedOption={optionList[selected]}
               />
-              <DetailExplainCard selectedOption={optionList[selected]} />
+              <DetailExplainCard
+                selected={selected}
+                selectedOption={optionList[selected]}
+                explainPage={explainPage}
+                setExplainPage={setExplainPage}
+              />
             </RightWrap>
           </TopContentsWrap>
           <SelectOptionWrap>
@@ -249,10 +261,11 @@ function SelectOption() {
             />
             <OptionCard
               optionInfo={
-                !isBasicTab ? optionList : basicOptionInfo[basicIndex].options
+                !isBasicTab ? optionList : basicOptions[basicIndex].options
               }
               selected={selected}
               isBasicTab={isBasicTab}
+              basicIndex={basicIndex}
               optionClick={optionClick}
               setModal={setModal}
               addOption={addOption}
@@ -262,7 +275,7 @@ function SelectOption() {
           <BasicOptionModal
             modal={modal}
             setModal={setModal}
-            option={basicOptionInfo[basicIndex].options}
+            option={basicOptions[basicIndex].options}
           />
         </>
       )}

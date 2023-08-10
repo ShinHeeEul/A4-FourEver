@@ -91,6 +91,7 @@ function MandatoryCard({ option, isActive, clickHandler, index }) {
       </svg>
     );
   }
+
   return (
     <MandatoryCardDiv
       $isActive={isActive}
@@ -99,11 +100,11 @@ function MandatoryCard({ option, isActive, clickHandler, index }) {
       <CardNamePriceDiv>
         <CardName>{option.name}</CardName>
         <CardPriceDiv>
-          <CardName>+{option.price}</CardName>
+          <CardName>+{option.price.toLocaleString()}</CardName>
           <CardOne>원</CardOne>
         </CardPriceDiv>
       </CardNamePriceDiv>
-      <CardText>{option.explanation}</CardText>
+      <CardText>{option.description}</CardText>
 
       {page === 1 && (
         <>
@@ -112,11 +113,11 @@ function MandatoryCard({ option, isActive, clickHandler, index }) {
           </CardLineDiv>
           <DetailOptionWrap $isFirst>
             <EngineMaxInfo>최고출력</EngineMaxInfo>
-            <CardText>{option.maxOutput}</CardText>
+            <CardText>{option.max_output}</CardText>
           </DetailOptionWrap>
           <DetailOptionWrap>
             <EngineMaxInfo>최대토크</EngineMaxInfo>
-            <CardText>{option.maxTalk}</CardText>
+            <CardText>{option.max_tok}</CardText>
           </DetailOptionWrap>
         </>
       )}

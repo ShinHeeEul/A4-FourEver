@@ -17,7 +17,10 @@ const ExplainDetail = styled.div`
   ${Body3Regular}
 `;
 const ExplainWrap = styled.div`
-  position: relative;
+  /* position: relative; */
+  position: absolute;
+  bottom: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,20 +77,23 @@ const ExplainWrap = styled.div`
     }
   }
   ${ExplainDetail} {
-    padding: 0 13px;
+    padding: 0 3px;
     height: 66px;
     overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   svg {
     position: absolute;
     top: 50%;
     cursor: pointer;
     &:first-of-type {
-      left: -5px;
+      left: -7px;
       display: none;
     }
     &:last-child {
-      right: -5px;
+      right: 0px;
     }
   }
 `;
@@ -98,9 +104,9 @@ function LeftArrow({ reference, clickHandler, explainPage }) {
       ref={reference}
       onClick={() => clickHandler(explainPage - 1)}
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
-      viewBox="0 0 48 48"
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
       fill="none"
     >
       <g clipPath="url(#clip0_577_15836)">
@@ -114,7 +120,7 @@ function LeftArrow({ reference, clickHandler, explainPage }) {
       </g>
       <defs>
         <clipPath id="clip0_577_15836">
-          <rect width="48" height="48" fill="white" />
+          <rect width="40" height="40" fill="white" />
         </clipPath>
       </defs>
     </svg>
@@ -126,9 +132,9 @@ function RightArrow({ reference, clickHandler, explainPage }) {
       ref={reference}
       onClick={() => clickHandler(explainPage + 1)}
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
-      viewBox="0 0 48 48"
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
       fill="none"
     >
       <g clipPath="url(#clip0_577_15837)">
@@ -143,10 +149,10 @@ function RightArrow({ reference, clickHandler, explainPage }) {
       <defs>
         <clipPath id="clip0_577_15837">
           <rect
-            width="48"
-            height="48"
+            width="40"
+            height="40"
             fill="white"
-            transform="matrix(-1 0 0 1 48 0)"
+            transform="matrix(-1 0 0 1 40 0)"
           />
         </clipPath>
       </defs>
@@ -154,42 +160,54 @@ function RightArrow({ reference, clickHandler, explainPage }) {
   );
 }
 
-function DetailExplainCard({ selectedOption }) {
+function DetailExplainCard({
+  selectedOption,
+  explainPage,
+  setExplainPage,
+  selected,
+}) {
   const { page } = useOutletContext();
 
   const leftArrow = useRef();
   const rightArrow = useRef();
 
-  const [explainPage, setExplainPage] = useState(0);
-
   const changeExplainPage = (page) => {
     setExplainPage(page);
     leftArrow.current.style.display = page === 0 ? 'none' : ' block';
     rightArrow.current.style.display =
-      page === selectedOption.explain.length - 1 ? 'none' : ' block';
+      page === selectedOption.subExtraOptionInfoDTOs.length - 1
+        ? 'none'
+        : ' block';
   };
 
   useEffect(() => {
     setExplainPage(0);
     leftArrow.current.style.display = 'none';
     rightArrow.current.style.display =
-      selectedOption.explain.length - 1 !== 0 ? 'block' : 'none';
+      selectedOption.subExtraOptionInfoDTOs.length - 1 !== 0 ? 'block' : 'none';
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, selected]);
 
   return (
     <ExplainWrap>
       <ExplainHeaderWrap>
         <ExplainHeaderTitle>
-          <ExplainHeaderPage>0{explainPage + 1}</ExplainHeaderPage>
-          <span>{selectedOption.explain[explainPage].main}</span>
+          {selectedOption.subExtraOptionInfoDTOs.length > 1 && (
+            <ExplainHeaderPage>0{explainPage + 1}</ExplainHeaderPage>
+          )}
+
+          <span>
+            {selectedOption.subExtraOptionInfoDTOs[explainPage].name ||
+              selectedOption.name}
+          </span>
         </ExplainHeaderTitle>
         <ExplainHeaderPageInfo>
-          {explainPage + 1}/{selectedOption.explain.length}
+          {explainPage + 1}/{selectedOption.subExtraOptionInfoDTOs.length}
         </ExplainHeaderPageInfo>
       </ExplainHeaderWrap>
       <ExplainDetail>
-        {selectedOption.explain[explainPage].detail}
+        {selectedOption.subExtraOptionInfoDTOs[explainPage].description ||
+          selectedOption.description}
       </ExplainDetail>
       <LeftArrow
         reference={leftArrow}

@@ -22,7 +22,6 @@ const HtmlWrap = styled.div`
 
 const ModalContainer = styled.div`
   width: 800px;
-  height: 510px;
   flex-shrink: 0;
   position: absolute;
   top: 50%;
@@ -59,8 +58,9 @@ const ContentWrap = styled.div`
   margin: 0 auto;
   ${ContentImg} {
     width: 100%;
-    height: 263px;
+    height: 280px;
     border-radius: 8px;
+    object-fit: cover;
   }
   span {
     ${Body4Regular}
@@ -85,8 +85,8 @@ function BasicOptionModal({ modal, setModal, option }) {
       <ModalContainer $showModal={modal.show}>
         <ModalHeader>{option[modal.optionId]?.name}</ModalHeader>
         <ContentWrap>
-          <ContentImg />
-          <span>{option[modal.optionId].explain}</span>
+          <ContentImg src={option[modal.optionId]?.image} />
+          <span>{option[modal.optionId]?.description}</span>
           <ConfirmButton
             onClick={() => setModal((prev) => ({ ...prev, show: false }))}
           >

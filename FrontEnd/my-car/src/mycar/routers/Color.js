@@ -8,6 +8,9 @@ import { useOutletContext } from 'react-router-dom';
 import { Body4Regular, Heading3Medium } from '../../style/typo';
 import palette from '../../style/styleVariable';
 import { SelectedIndex } from '../util/SelectedIndex';
+import { MYCAR } from '../../constant';
+
+import TrimImg from '../components/TrimImg';
 
 const ColorContainer = styled(Container)`
   flex-direction: row;
@@ -102,6 +105,119 @@ const CheckIconWrap = styled.div`
     `}
 `;
 
+function ColorComponents({ title, selected, options, optionClick }) {
+  return (
+    <EachColorWrap>
+      <ColorTitleWrap>
+        <h2>{title}</h2>
+        <span>{options[selected].name}</span>
+      </ColorTitleWrap>
+      <UnderLine />
+      <ColorOptionsWrap $title={title}>
+        {options.map((option, index) => {
+          return (
+            <ColorImgWrap
+              key={index}
+              onClick={() => optionClick({ index, option })}
+            >
+              <CheckIconWrap $isActive={index === selected} src={option.src}>
+                <CheckIcon />
+              </CheckIconWrap>
+              <ColorImg
+                $isActive={index === selected}
+                src={option.color_image}
+              />
+              {title === '외장 색상' && <span>{option.name}</span>}
+            </ColorImgWrap>
+          );
+        })}
+      </ColorOptionsWrap>
+    </EachColorWrap>
+  );
+}
+
+function Color() {
+  const { setUserCar, userCar, page, inColorOptions, exColorOptions } =
+    useOutletContext();
+
+  const [selectedOption, setSelectedOption] = useState(
+    userCar.outerColor.id ? userCar.outerColor : exColorOptions[2],
+  );
+  const [outerSelected, setOuterSelected] = useState(
+    userCar.outerColor?.id ? userCar.outerColor?.id - 1 : 2,
+  );
+
+  const [innerSelected, setInnerSelected] = useState(
+    userCar.innerColor?.id ? userCar.innerColor?.id - 1 : 0,
+  );
+  const [activeColorFiled, setActiveColorFiled] = useState(
+    MYCAR.COLOR.FILED.EXCOLOR,
+  );
+
+  const outerClick = ({ option, index }) => {
+    const Price = [...userCar.price];
+    Price[page] = option.price;
+    setUserCar((prevState) => ({
+      ...prevState,
+      outerColor: option,
+      price: Price,
+    }));
+    setOuterSelected(index);
+    setSelectedOption(option);
+    setActiveColorFiled(MYCAR.COLOR.FILED.EXCOLOR);
+  };
+
+  const innerClick = ({ option, index }) => {
+    setUserCar((prevState) => ({
+      ...prevState,
+      innerColor: option,
+    }));
+    setInnerSelected(index);
+    setSelectedOption(option);
+    setActiveColorFiled(MYCAR.COLOR.FILED.INCOLOR);
+  };
+
+  useEffect(() => {
+    if (!userCar.outerColor?.name && !userCar.innerColor?.name) {
+      console.log('초기화');
+      setUserCar((prevState) => ({
+        ...prevState,
+        outerColor: exColorOptions[2],
+        innerColor: inColorOptions[0],
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <ColorContainer>
+      <LeftWrap>
+        <TrimImg
+          src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}
+        />
+        <TitlePriceTag
+          selectedOption={selectedOption}
+          tagFiled={MYCAR.COLOR.FILED.TAGS[activeColorFiled]}
+        />
+      </LeftWrap>
+      <ColorRightWrap>
+        <ColorComponents
+          title="외장 색상"
+          options={exColorOptions}
+          selected={outerSelected}
+          optionClick={outerClick}
+        />
+        <ColorComponents
+          title="내장 색상"
+          options={inColorOptions}
+          selected={innerSelected}
+          optionClick={innerClick}
+        />
+      </ColorRightWrap>
+    </ColorContainer>
+  );
+}
+
 function UnderLine() {
   return (
     <svg
@@ -115,7 +231,7 @@ function UnderLine() {
     </svg>
   );
 }
-function CheckIcon({ $isActive }) {
+function CheckIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -128,112 +244,12 @@ function CheckIcon({ $isActive }) {
       <path
         d="M6 11.5L9.33333 15L16 8"
         stroke="#F6F3F2"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 }
 
-function ColorComponents({ title, selected, options, optionClick }) {
-  return (
-    <EachColorWrap>
-      <ColorTitleWrap>
-        <h2>{title}</h2>
-        <span>{options[selected].name}</span>
-      </ColorTitleWrap>
-      <UnderLine />
-      <ColorOptionsWrap $title={title}>
-        {options.map(({ src, name }, index) => {
-          return (
-            <>
-              <ColorImgWrap onClick={() => optionClick(index)}>
-                <CheckIconWrap $isActive={index === selected} src={src}>
-                  <CheckIcon />
-                </CheckIconWrap>
-                <ColorImg $isActive={index === selected} src={src} />
-                {title === '외장 색상' && <span>{name}</span>}
-              </ColorImgWrap>
-            </>
-          );
-        })}
-      </ColorOptionsWrap>
-    </EachColorWrap>
-  );
-}
-
-function Color() {
-  const { setUserCar, userCar, page } = useOutletContext();
-  const [selectedOption, setSelectedOption] = useState(
-    userCar.outerColor.id ? userCar.outerColor : outerColorInfo[2],
-  );
-  const [outerSelected, setOuterSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.outerColor?.id || outerColorInfo[2].id,
-      optionInfo: outerColorInfo,
-    }),
-  );
-  const [innerSelected, setInnerSelected] = useState(
-    SelectedIndex({
-      userOptionID: userCar.innerColor?.id || innerColorInfo[0].id,
-      optionInfo: innerColorInfo,
-    }),
-  );
-
-  const outerClick = (index) => {
-    const Price = [...userCar.price];
-    Price[page] = parseInt(outerColorInfo[index].price.replace(/,/g, ''), 10);
-    setUserCar((prevState) => ({
-      ...prevState,
-      outerColor: outerColorInfo[index],
-      price: Price,
-    }));
-    setOuterSelected(index);
-    setSelectedOption(outerColorInfo[index]);
-  };
-
-  const innerClick = (index) => {
-    setUserCar((prevState) => ({
-      ...prevState,
-      innerColor: innerColorInfo[index],
-    }));
-    setInnerSelected(index);
-    setSelectedOption(innerColorInfo[index]);
-  };
-
-  useEffect(() => {
-    if (!userCar.outerColor?.id && !userCar.innerColor?.id) {
-      setUserCar((prevState) => ({
-        ...prevState,
-        outerColor: outerColorInfo[2],
-        innerColor: innerColorInfo[0],
-      }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <ColorContainer>
-      <LeftWrap>
-        <OptionImgWrap></OptionImgWrap>
-        <TitlePriceTag selectedOption={selectedOption} />
-      </LeftWrap>
-      <ColorRightWrap>
-        <ColorComponents
-          title="외장 색상"
-          options={outerColorInfo}
-          selected={outerSelected}
-          optionClick={outerClick}
-        />
-        <ColorComponents
-          title="내장 색상"
-          options={innerColorInfo}
-          selected={innerSelected}
-          optionClick={innerClick}
-        />
-      </ColorRightWrap>
-    </ColorContainer>
-  );
-}
 export default Color;
