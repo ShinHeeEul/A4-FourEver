@@ -4,6 +4,7 @@ import ToMycar from './components/ToMycar';
 import ToArchiving from './components/ToArchiving';
 import ToMychiving from './components/ToMychiving';
 import MainHeader from './components/MainHeader';
+import Pagination from './components/Pagination';
 import { useState, useEffect } from 'react';
 
 const BgDiv = styled.div`
@@ -32,6 +33,7 @@ function Main() {
       {currentDisplay === 1 && <ToMycar />}
       {currentDisplay === 2 && <ToArchiving />}
       {currentDisplay === 3 && <ToMychiving />}
+      <Pagination $currentDisplay={currentDisplay} />
     </BgDiv>
   );
 }
