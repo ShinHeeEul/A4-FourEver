@@ -26,6 +26,7 @@ const DetailText = styled.span`
   font-size: 20px;
   height: 40px;
   color: ${palette.LightGray};
+  transition-delay: 0.2s;
 `;
 const BtnDiv = styled.div`
   width: 200px;
@@ -59,11 +60,18 @@ const ToPageBtn = styled.button`
 
 const ToMycarContainer = styled.div`
   position: relative;
+  transition: all 0.5s ease;
+  ${(props) => {
+    if (props.$currentDisplay === 1) {
+      return `opacity: 1;`;
+    }
+    return `opacity:0;`;
+  }}
 `;
 
-function ToMycar() {
+function ToMycar({ $currentDisplay }) {
   return (
-    <ToMycarContainer>
+    <ToMycarContainer $currentDisplay={$currentDisplay}>
       <TextDiv>
         <TitleText>내가 타고 싶은</TitleText>
         <TitleText>나만의 차를 만들어보세요</TitleText>

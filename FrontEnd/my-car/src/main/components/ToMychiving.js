@@ -58,11 +58,18 @@ const ToPageBtn = styled.button`
 
 const ToMychivingContainer = styled.div`
   position: relative;
+  transition: all 0.5s ease;
+  ${(props) => {
+    if (props.$currentDisplay === 3) {
+      return `opacity: 1;`;
+    }
+    return `opacity:0;`;
+  }}
 `;
 
-function ToMychiving() {
+function ToMychiving({ $currentDisplay }) {
   return (
-    <ToMychivingContainer>
+    <ToMychivingContainer $currentDisplay={$currentDisplay}>
       <TextDiv>
         <TitleText>지난번에 직접 만들었던</TitleText>
         <TitleText>나만의 차를 언제든지 볼 수 있어요</TitleText>

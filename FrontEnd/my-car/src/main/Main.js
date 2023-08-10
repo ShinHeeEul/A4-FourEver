@@ -14,6 +14,7 @@ const BgDiv = styled.div`
   width: 100%;
   height: 100%;
 `;
+const AnimationDiv = styled.div``;
 
 function Main() {
   const [currentDisplay, setCurrentDisplay] = useState(1);
@@ -25,15 +26,21 @@ function Main() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [currentDisplay]);
 
   return (
     <BgDiv>
       <MainHeader />
-      {currentDisplay === 1 && <ToMycar />}
-      {currentDisplay === 2 && <ToArchiving />}
-      {currentDisplay === 3 && <ToMychiving />}
-      <Pagination $currentDisplay={currentDisplay} />
+      <AnimationDiv>
+        <ToMycar $currentDisplay={currentDisplay} />
+        <ToArchiving $currentDisplay={currentDisplay} />
+        <ToMychiving $currentDisplay={currentDisplay} />
+      </AnimationDiv>
+
+      <Pagination
+        $currentDisplay={currentDisplay}
+        $setCurrentDisplay={setCurrentDisplay}
+      />
     </BgDiv>
   );
 }

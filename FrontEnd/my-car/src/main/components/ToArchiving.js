@@ -61,11 +61,18 @@ const ToPageBtn = styled.button`
 
 const ToArchivingContainer = styled.div`
   position: relative;
+  transition: all 0.5s ease;
+  ${(props) => {
+    if (props.$currentDisplay === 2) {
+      return `opacity: 1;`;
+    }
+    return `opacity:0;`;
+  }}
 `;
 
-function ToArchiving() {
+function ToArchiving({ $currentDisplay }) {
   return (
-    <ToArchivingContainer>
+    <ToArchivingContainer $currentDisplay={$currentDisplay}>
       <TextDiv>
         <TitleText>다른 사람들이 만든</TitleText>
         <TitleText>다양한 스펙의 차를 확인해보세요</TitleText>

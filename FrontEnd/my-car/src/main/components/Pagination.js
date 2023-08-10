@@ -23,22 +23,32 @@ const EachPageSymbol = styled.div`
     if (props.$currentDisplay) {
       return `background-color: ${palette.LightSand};
         outline: 1px solid ${palette.LightSand};
-        outline-offset:3px;
+        opacity: 0.5;
+        outline-offset:2px;
       `;
     }
     return `background-color: transparent;
              outline: 1px solid ${palette.LightSand};
-                     outline-offset:2px;`;
+      `;
   }}
 `;
 
-function Pagination({ $currentDisplay }) {
+function Pagination({ $currentDisplay, $setCurrentDisplay }) {
   console.log($currentDisplay);
   return (
     <PaginationContainer>
-      <EachPageSymbol $currentDisplay={$currentDisplay === 1} />
-      <EachPageSymbol $currentDisplay={$currentDisplay === 2} />
-      <EachPageSymbol $currentDisplay={$currentDisplay === 3} />
+      <EachPageSymbol
+        onClick={() => $setCurrentDisplay(1)}
+        $currentDisplay={$currentDisplay === 1}
+      />
+      <EachPageSymbol
+        onClick={() => $setCurrentDisplay(2)}
+        $currentDisplay={$currentDisplay === 2}
+      />
+      <EachPageSymbol
+        onClick={() => $setCurrentDisplay(3)}
+        $currentDisplay={$currentDisplay === 3}
+      />
     </PaginationContainer>
   );
 }
