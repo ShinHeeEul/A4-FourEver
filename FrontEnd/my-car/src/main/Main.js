@@ -6,6 +6,14 @@ import ToMychiving from './components/ToMychiving';
 import MainHeader from './components/MainHeader';
 import { useState, useEffect } from 'react';
 
+const BgDiv = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
 function Main() {
   const [currentDisplay, setCurrentDisplay] = useState(1);
   useEffect(() => {
@@ -19,12 +27,13 @@ function Main() {
   }, []);
 
   return (
-    <>
-      <MainHeader $DisplayOrder={currentDisplay} />
+    <BgDiv>
+      <MainHeader />
+
       {currentDisplay === 1 && <ToMycar />}
       {currentDisplay === 2 && <ToArchiving />}
       {currentDisplay === 3 && <ToMychiving />}
-    </>
+    </BgDiv>
   );
 }
 export default Main;

@@ -3,21 +3,13 @@ import palette from '../../style/styleVariable';
 import { Heading1Bold, Heading3Medium } from '../../style/typo';
 import { Link } from 'react-router-dom';
 
-const BgDiv = styled.div`
-  background-color: ${palette.Sand};
-  position: absolute;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
-`;
-
 const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 250px;
   left: 100px;
+  z-index: 1;
 `;
 
 const TitleText = styled.span`
@@ -25,12 +17,14 @@ const TitleText = styled.span`
   font-size: 60px;
   padding-bottom: 40px;
   height: 40px;
+  color: white;
 `;
 
 const DetailText = styled.span`
   ${Heading1Bold}
   font-size: 20px;
   height: 40px;
+  color: ${palette.LightGray};
 `;
 const BtnDiv = styled.div`
   width: 200px;
@@ -59,7 +53,7 @@ const ToPageBtn = styled.button`
 
 function ToArchiving() {
   return (
-    <BgDiv>
+    <>
       <TextDiv>
         <TitleText>다른 사람들이 만든</TitleText>
         <TitleText>다양한 스펙의 차를 확인해보세요</TitleText>
@@ -73,7 +67,7 @@ function ToArchiving() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </BgDiv>
+    </>
   );
 }
 
