@@ -1,25 +1,25 @@
 import { css, styled, keyframes } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body4Medium, Heading3Medium } from '../../style/typo';
+import BgVideo from '../assets/palisadeVideo.mp4';
 
 const HeaderDiv = styled.div`
-  height: 60px;
-  opacity: 1;
-  ${Body4Medium};
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 90px 0 90px;
+  opacity: 1;
+  z-index: 1;
+`;
 
-  ${(props) => {
-    if (props.$DisplayOrder === 1) {
-      return `background-color: ${palette.LightSand};`;
-    } else if (props.$DisplayOrder === 2) {
-      return `background-color: ${palette.Sand};`;
-    } else {
-      return `background-color: ${palette.Primary};`;
-    }
-  }}
+const BackgroundVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const LogoutDiv = styled.button`
@@ -29,7 +29,7 @@ const LogoutDiv = styled.button`
   border: none;
   width: 110px;
   height: 34px;
-
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,9 +42,18 @@ const LogoutDiv = styled.button`
     background-color: ${palette.DarkGray};
   }
 `;
+const BgDiv = styled.div`
+  background-color: ${palette.LightSand};
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
 
 const LogoDiv = styled.div`
   cursor: pointer;
+  z-index: 1;
 `;
 
 function HyundaiLogoWhite() {
@@ -177,22 +186,20 @@ function HyundaiLogoBlack() {
   );
 }
 
-function MainHeader({ $DisplayOrder }) {
+function MainHeader() {
   return (
-    <HeaderDiv $DisplayOrder={$DisplayOrder}>
-      {$DisplayOrder === 3 && (
+    <>
+      <BackgroundVideo autoPlay muted loop>
+        <source src={BgVideo} type="video/mp4" />
+      </BackgroundVideo>
+      <HeaderDiv>
         <LogoDiv>
           <HyundaiLogoWhite onClick={() => window.location.reload} />
         </LogoDiv>
-      )}
-      {$DisplayOrder !== 3 && (
-        <LogoDiv>
-          <HyundaiLogoBlack onClick={() => window.location.reload} />
-        </LogoDiv>
-      )}
 
-      <LogoutDiv>로그아웃</LogoutDiv>
-    </HeaderDiv>
+        <LogoutDiv>로그아웃</LogoutDiv>
+      </HeaderDiv>
+    </>
   );
 }
 

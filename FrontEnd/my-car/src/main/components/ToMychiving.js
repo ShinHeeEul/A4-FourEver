@@ -3,21 +3,13 @@ import palette from '../../style/styleVariable';
 import { Heading1Bold, Heading3Medium } from '../../style/typo';
 import { Link } from 'react-router-dom';
 
-const BgDiv = styled.div`
-  background-color: ${palette.Primary};
-  position: absolute;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
-`;
-
 const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 250px;
   left: 100px;
+  z-index: 1;
 `;
 
 const TitleText = styled.span`
@@ -31,9 +23,8 @@ const TitleText = styled.span`
 const DetailText = styled.span`
   ${Heading1Bold}
   font-size: 20px;
-  height: 30px;
+  height: 40px;
   color: ${palette.LightGray};
-  padding-bottom: 30px;
 `;
 const BtnDiv = styled.div`
   width: 200px;
@@ -43,27 +34,26 @@ const ToPageBtn = styled.button`
   ${Heading3Medium};
   font-weight: 600;
   font-size: 16px;
+  border: none;
   width: 200px;
   height: 50px;
-  border: none;
-
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${palette.LightSand};
   border: 2px solid ${palette.DarkGray};
   color: ${palette.DarkGray};
-
+  margin-top: 18px;
+  cursor: pointer;
   &:hover {
     color: ${palette.LightSand};
     background-color: ${palette.DarkGray};
-    cursor: pointer;
   }
 `;
 
 function ToMychiving() {
   return (
-    <BgDiv>
+    <>
       <TextDiv>
         <TitleText>지난번에 직접 만들었던</TitleText>
         <TitleText>나만의 차를 언제든지 볼 수 있어요</TitleText>
@@ -78,7 +68,7 @@ function ToMychiving() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </BgDiv>
+    </>
   );
 }
 

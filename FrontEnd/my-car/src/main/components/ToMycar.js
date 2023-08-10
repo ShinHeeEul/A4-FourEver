@@ -3,21 +3,13 @@ import palette from '../../style/styleVariable';
 import { Heading1Bold, Heading3Medium } from '../../style/typo';
 import { Link } from 'react-router-dom';
 
-const BgDiv = styled.div`
-  background-color: ${palette.LightSand};
-  position: absolute;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
-`;
-
 const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 250px;
   left: 100px;
+  z-index: 1;
 `;
 
 const TitleText = styled.span`
@@ -25,13 +17,14 @@ const TitleText = styled.span`
   font-size: 60px;
   padding-bottom: 40px;
   height: 40px;
+  color: white;
 `;
 
 const DetailText = styled.span`
   ${Heading1Bold}
   font-size: 20px;
   height: 40px;
-  color: ${palette.DarkGray};
+  color: ${palette.LightGray};
 `;
 const BtnDiv = styled.div`
   width: 200px;
@@ -60,7 +53,7 @@ const ToPageBtn = styled.button`
 
 function ToMycar() {
   return (
-    <BgDiv>
+    <>
       <TextDiv>
         <TitleText>내가 타고 싶은</TitleText>
         <TitleText>나만의 차를 만들어보세요</TitleText>
@@ -74,7 +67,7 @@ function ToMycar() {
           </Link>
         </BtnDiv>
       </TextDiv>
-    </BgDiv>
+    </>
   );
 }
 
