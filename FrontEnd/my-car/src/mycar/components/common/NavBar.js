@@ -127,13 +127,15 @@ function NavBar() {
           {Object.keys(navCategoryName).map((_, navFullIdx) => {
             return (
               <>
-                <CategoryNumSubDiv
-                  $isSelected={
-                    Object.keys(navCategoryName)[navFullIdx] === titlePathName
-                  }
-                >
-                  <CategoryNumText>{navFullIdx + 1}</CategoryNumText>
-                </CategoryNumSubDiv>
+                {navFullIdx + 1 < Object.keys(navCategoryName).length && (
+                  <CategoryNumSubDiv
+                    $isSelected={
+                      Object.keys(navCategoryName)[navFullIdx] === titlePathName
+                    }
+                  >
+                    <CategoryNumText>{navFullIdx + 1}</CategoryNumText>
+                  </CategoryNumSubDiv>
+                )}
 
                 <CategoryTextMain
                   $show={
