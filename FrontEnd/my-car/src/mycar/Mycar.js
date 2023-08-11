@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import ToolTip from './components/ToolTip';
-import SummaryModal from './components/SummaryModal';
+import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
+import ToolTip from './components/common/ToolTip';
+import SummaryModal from './components/common/SummaryModal';
 
 function Mycar() {
   const [page, setPage] = useState(0);
@@ -15,10 +15,9 @@ function Mycar() {
     outerColor: {},
     innerColor: {},
     selectedOptions: [],
-    price: [],
+    price: [47720000],
     optionPrice: [],
   });
-
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   return (

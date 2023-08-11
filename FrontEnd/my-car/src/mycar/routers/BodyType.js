@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
+import { useState } from 'react';
 import { Container } from './Model';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
-import TitlePriceTag from '../components/TitlePriceTag';
-import MandatoryCard from '../components/MandatoryCard';
-import { useState } from 'react';
+import TitlePriceTag from '../components/common/TitlePriceTag';
+import MandatoryCard from '../components/common/MandatoryCard';
 import { useOutletContext } from 'react-router-dom';
 import { MYCAR } from '../../constant';
-import TrimImg from '../components/TrimImg';
-import { useSelect } from '../useSelect';
+import TrimImg from '../components/common/TrimImg';
+import { useSelect } from '../hook/useSelect';
 
 const BodyTypeContainer = styled(Container)`
   flex-direction: row;

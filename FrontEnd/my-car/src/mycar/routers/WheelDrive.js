@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 import { useOutletContext } from 'react-router-dom';
 import { Container } from './Model';
-import { styled } from 'styled-components';
 import { LeftWrap, OptionImgWrap, RightWrap } from './Engine';
-import TitlePriceTag from '../components/TitlePriceTag';
-import MandatoryCard from '../components/MandatoryCard';
-import { MYCAR, wheelDriveInfo } from '../../constant';
-import { SelectedIndex } from '../util/SelectedIndex';
-import { useSelect } from '../useSelect';
-import TrimImg from '../components/TrimImg';
+import TitlePriceTag from '../components/common/TitlePriceTag';
+import MandatoryCard from '../components/common/MandatoryCard';
+import { MYCAR } from '../../constant';
+import { useSelect } from '../hook/useSelect';
+import TrimImg from '../components/common/TrimImg';
 
 const WheelDriveContainer = styled(Container)`
   flex-direction: row;
@@ -17,10 +15,8 @@ const WheelDriveContainer = styled(Container)`
 
 function WheelDrive() {
   const { setUserCar, userCar, trimOptions, page } = useOutletContext();
+  const wheelOptions = trimOptions[MYCAR.TRIM.FILED.WHEEL];
 
-  const wheelOptions = trimOptions[MYCAR.TRIM.FILED.WHEEL].sort(
-    (a, b) => a.id - b.id,
-  );
   const [selected, setSelectedOption] = useSelect({
     setUserCar,
     userCar,

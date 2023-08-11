@@ -1,8 +1,8 @@
-import { styled } from 'styled-components';
-import TrimCard from '../components/TrimCard';
 import { useOutletContext } from 'react-router-dom';
+import { styled } from 'styled-components';
+import TrimCard from '../components/trimPage/TrimCard';
 import { MYCAR } from '../../constant';
-import TrimModelImg from '../components/TrimModelImg';
+import TrimModelImg from '../components/trimPage/TrimModelImg';
 
 export const Container = styled.div`
   width: 1280px;

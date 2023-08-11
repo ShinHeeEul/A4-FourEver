@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
+import palette from '../../../style/styleVariable';
 import {
   Body3Medium,
   Body3Regular,
   Heading3Bold,
   Heading4Bold,
   Heading2Medium,
-} from '../../style/typo';
+} from '../../../style/typo';
 const BannerWrap = styled.div`
   margin-top: 400px;
   display: flex;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body2Medium, Body3Medium, Body4Medium } from '../../style/typo';
-import { navCategoryName } from '../../constant';
+import palette from '../../../style/styleVariable';
+import { Body2Medium, Body3Medium, Body4Medium } from '../../../style/typo';
+import { navCategoryName } from '../../../constant';
 import { useLocation } from 'react-router-dom';
 const NavBarDiv = styled.div`
   width: 100%;

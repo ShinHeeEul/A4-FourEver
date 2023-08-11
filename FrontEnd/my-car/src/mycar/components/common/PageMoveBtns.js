@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Heading4Bold } from '../../style/typo';
-import palette from '../../style/styleVariable';
-import { myCarPagePath } from '../../constant';
+import { Heading4Bold } from '../../../style/typo';
+import palette from '../../../style/styleVariable';
+import { myCarPagePath } from '../../../constant';
 
 const ButtonContainer = styled.div`
   display: flex;

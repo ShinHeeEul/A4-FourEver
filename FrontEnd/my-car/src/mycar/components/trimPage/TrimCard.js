@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body3Medium, CaptionMedium, Heading3Bold } from '../../style/typo';
-import { carCardInfo } from '../../constant';
+import palette from '../../../style/styleVariable';
+import { Body3Medium, CaptionMedium, Heading3Bold } from '../../../style/typo';
+import { carCardInfo } from '../../../constant';
 import { useOutletContext } from 'react-router-dom';
-import { useSelect } from '../useSelect';
+import { useSelect } from '../../hook/useSelect';
 
 const CarCardDiv = styled.div`
   display: flex;

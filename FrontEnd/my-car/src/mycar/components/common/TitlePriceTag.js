@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { Body3Regular, Heading1Bold, Heading2Bold } from '../../style/typo';
-import palette from '../../style/styleVariable';
+import { Body3Regular, Heading1Bold, Heading2Bold } from '../../../style/typo';
+import palette from '../../../style/styleVariable';
 
 const Container = styled.div`
   color: ${palette.Black};

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body4Regular } from '../../style/typo';
+import palette from '../../../style/styleVariable';
+import { Body4Regular } from '../../../style/typo';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 

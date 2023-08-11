@@ -1,13 +1,13 @@
-import { css, styled } from 'styled-components';
-import palette from '../../style/styleVariable';
+import { styled } from 'styled-components';
+import palette from '../../../style/styleVariable';
 import {
   Body3Medium,
   Body3Regular,
   Heading1Medium,
   Heading4Medium,
-} from '../../style/typo';
+} from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
-import { CardsWrap } from './OptionCard';
+import { CardsWrap } from '../selectOptionPage/OptionCard';
 const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
@@ -91,8 +91,16 @@ const Card = styled.div`
   flex-shrink: 0;
   overflow: hidden;
   padding-bottom: 5px;
+  text-align: center;
+  width: 184px;
   img {
     width: 180px;
+  }
+  ${CardTitleText} {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -119,7 +127,9 @@ function SelectedOption() {
                   <CardImg src={option.image} />
                   <DetailWrap>
                     <CardTitleText>{option.name}</CardTitleText>
-                    <CardPriceText>{option.price}원</CardPriceText>
+                    <CardPriceText>
+                      {option.price.toLocaleString()}원
+                    </CardPriceText>
                   </DetailWrap>
                 </Card>
               );

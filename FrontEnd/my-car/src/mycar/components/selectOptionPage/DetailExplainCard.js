@@ -4,8 +4,8 @@ import {
   Body4Regular,
   CaptionRegular,
   Heading4Medium,
-} from '../../style/typo';
-import palette from '../../style/styleVariable';
+} from '../../../style/typo';
+import palette from '../../../style/styleVariable';
 import { useEffect, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 

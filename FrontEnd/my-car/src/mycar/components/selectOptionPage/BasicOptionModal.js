@@ -1,6 +1,10 @@
 import { css, styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body4Regular, Heading4Bold, Heading4Medium } from '../../style/typo';
+import palette from '../../../style/styleVariable';
+import {
+  Body4Regular,
+  Heading4Bold,
+  Heading4Medium,
+} from '../../../style/typo';
 
 const HtmlWrap = styled.div`
   position: fixed;

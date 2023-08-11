@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
-import palette from '../../style/styleVariable';
+import palette from '../../../style/styleVariable';
 import {
   Body3Medium,
   Body3Regular,
   Heading3Bold,
   Heading4Bold,
-} from '../../style/typo';
+} from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 
 const MandatoryCardDiv = styled.div`

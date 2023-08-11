@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { bodyTypeInfo } from '../../constant';
+import palette from '../../../style/styleVariable';
+import { bodyTypeInfo } from '../../../constant';
 import { useState } from 'react';
 
 const ImgsContainer = styled.div`

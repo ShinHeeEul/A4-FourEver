@@ -1,17 +1,17 @@
 import { css, styled } from 'styled-components';
-import TitlePriceTag from '../components/TitlePriceTag';
-import { LeftWrap, RightWrap } from './Engine';
-import { Container } from './Model';
 import { useEffect, useState } from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
+import TitlePriceTag from '../components/common/TitlePriceTag';
+import { LeftWrap, RightWrap } from './Engine';
+import { Container } from './Model';
 
 import { navCategoryName } from '../../constant';
 import DetailExplainCard, {
   ExplainNumber,
-} from '../components/DetailExplainCard';
-import OptionTabs from '../components/OptionTabs';
-import OptionCard from '../components/OptionCard';
-import BasicOptionModal from '../components/BasicOptionModal';
+} from '../components/selectOptionPage/DetailExplainCard';
+import OptionTabs from '../components/selectOptionPage/OptionTabs';
+import OptionCard from '../components/selectOptionPage/OptionCard';
+import BasicOptionModal from '../components/selectOptionPage/BasicOptionModal';
 import palette from '../../style/styleVariable';
 import { Body3Regular } from '../../style/typo';
 import { MYCAR } from '../../constant';

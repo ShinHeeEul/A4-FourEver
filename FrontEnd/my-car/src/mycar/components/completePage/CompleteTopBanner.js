@@ -1,11 +1,11 @@
 import { css, styled, keyframes } from 'styled-components';
-import palette from '../../style/styleVariable';
+import palette from '../../../style/styleVariable';
 import { Link } from 'react-router-dom';
 import {
   CaptionRegular,
   Heading1Medium,
   Heading3Medium,
-} from '../../style/typo';
+} from '../../../style/typo';
 import carImg from './image-91.png';
 
 const AllDiv = styled.div`

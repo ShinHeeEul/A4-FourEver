@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import palette from '../../style/styleVariable';
+import palette from '../../../style/styleVariable';
 import {
   Heading4Medium,
   Heading4Bold,
   Body3Medium,
   Body3Regular,
-} from '../../style/typo';
+} from '../../../style/typo';
 
 const ModalBgDiv = styled.div`
   position: absolute;

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { CaptionRegular } from '../../style/typo';
+import palette from '../../../style/styleVariable';
+import { CaptionRegular } from '../../../style/typo';
 
 const BtnDiv = styled.div`
   width: 42px;

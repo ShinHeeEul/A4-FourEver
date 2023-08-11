@@ -7,8 +7,8 @@ import {
   Body4Regular,
   Heading1Bold,
   Heading4Bold,
-} from '../../style/typo';
-import palette from '../../style/styleVariable';
+} from '../../../style/typo';
+import palette from '../../../style/styleVariable';
 
 import Buttons from './PageMoveBtns';
 import SummaryModal from './SummaryModal';
@@ -219,7 +219,6 @@ function Footer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  console.log(userCar);
   return (
     <Container>
       <OptionInfoWrap $isShow={!isCompletePage}>

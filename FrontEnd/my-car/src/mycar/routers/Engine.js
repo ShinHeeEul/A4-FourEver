@@ -1,11 +1,11 @@
-import { styled } from 'styled-components';
-import TitlePriceTag from '../components/TitlePriceTag';
-import MandatoryCard from '../components/MandatoryCard';
-import { Container } from './Model';
 import { useOutletContext } from 'react-router-dom';
+import { styled } from 'styled-components';
+import TitlePriceTag from '../components/common/TitlePriceTag';
+import MandatoryCard from '../components/common/MandatoryCard';
+import { Container } from './Model';
 import { MYCAR } from '../../constant';
-import TrimImg from '../components/TrimImg';
-import { useSelect } from '../useSelect';
+import TrimImg from '../components/common/TrimImg';
+import { useSelect } from '../hook/useSelect';
 
 const EngineContainer = styled(Container)`
   flex-direction: row;

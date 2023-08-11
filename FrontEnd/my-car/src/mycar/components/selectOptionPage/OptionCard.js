@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body3Medium, Body4Regular } from '../../style/typo';
+import palette from '../../../style/styleVariable';
+import { Body3Medium, Body4Regular } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 

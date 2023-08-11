@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body4Medium, Heading4Bold } from '../../style/typo';
-import { basicOptionInfo } from '../../constant';
+import palette from '../../../style/styleVariable';
+import { Body4Medium, Heading4Bold } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 
 const TabWrap = styled.div`

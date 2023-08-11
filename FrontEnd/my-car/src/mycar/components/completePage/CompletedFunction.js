@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
+import palette from '../../../style/styleVariable';
 import {
   Body1Regular,
   Heading1Medium,
   Heading2Medium,
   Heading4Medium,
-} from '../../style/typo';
+} from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 import SelectedOption from './SelectedOption';
 import AddProcessBtn from './AddProcessBtn';

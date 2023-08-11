@@ -1,6 +1,10 @@
 import { styled } from 'styled-components';
-import palette from '../../style/styleVariable';
-import { Body3Medium, Heading1Medium, Heading3Medium } from '../../style/typo';
+import palette from '../../../style/styleVariable';
+import {
+  Body3Medium,
+  Heading1Medium,
+  Heading3Medium,
+} from '../../../style/typo';
 
 const BgDiv = styled.div`
   width: 1024px;
