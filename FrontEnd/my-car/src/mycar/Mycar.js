@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from './components/common/NavBar';
 import Footer from './components/common/Footer';
 import ToolTip from './components/common/ToolTip';
@@ -7,17 +7,28 @@ import SummaryModal from './components/common/SummaryModal';
 
 function Mycar() {
   const [page, setPage] = useState(0);
-  const [userCar, setUserCar] = useState({
-    trim: {},
-    engine: {},
-    bodyType: {},
-    wheelDrive: {},
-    outerColor: {},
-    innerColor: {},
-    selectedOptions: [],
-    price: [47720000],
-    optionPrice: [],
-  });
+
+  const savedUserCar = localStorage.getItem('userCar');
+  const initialUserCar = savedUserCar
+    ? JSON.parse(savedUserCar)
+    : {
+        trim: {},
+        engine: {},
+        bodyType: {},
+        wheelDrive: {},
+        outerColor: {},
+        innerColor: {},
+        selectedOptions: [],
+        price: [47720000],
+        optionPrice: [],
+      };
+
+  const [userCar, setUserCar] = useState(initialUserCar);
+
+  useEffect(() => {
+    localStorage.setItem('userCar', JSON.stringify(userCar));
+  }, [userCar]);
+
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   return (
