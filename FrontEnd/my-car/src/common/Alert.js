@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 const AlertBgDiv = styled.div`
   position: absolute;
-  top: 0;
+  top: ${({ $top }) => ($top ? `${$top}px` : 0)};
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 5;
   backdrop-filter: blur(6px);
+  display: ${({ $showCommonAlert }) => ($showCommonAlert ? 'block' : 'none')};
 `;
 
 const AlertDiv = styled.div`
@@ -89,53 +91,69 @@ function movePage(setShowCommonAlert) {
 }
 
 function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
-  if (showCommonAlert === true) {
-    return (
-      <AlertBgDiv>
-        <AlertDiv>
-          <AlertMsgDiv>
-            {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
-            {isMain && (
-              <>
-                <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
-                <AlertMsg>
-                  <AlertMsgBold>메인 페이지</AlertMsgBold>로 이동하시겠습니까?
-                </AlertMsg>
-              </>
-            )}
-            {isAchiving && (
-              <>
-                <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
-                <AlertMsg>
-                  <AlertMsgBold>아카이빙</AlertMsgBold>으로 이동하시겠습니까?
-                </AlertMsg>
-              </>
-            )}
-          </AlertMsgDiv>
+  useEffect(() => {
+    const body = document.querySelector('body');
 
-          <AlertBtnDiv>
-            <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
-              <AlertMsgBold>취소</AlertMsgBold>
-            </BtnCancel>
-            {isMain && (
-              <Link to="/main">
-                <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                  <AlertMsgBold>확인</AlertMsgBold>
-                </BtnConfirm>
-              </Link>
-            )}
-            {isAchiving && (
-              <Link to="/archiving">
-                <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                  <AlertMsgBold>확인</AlertMsgBold>
-                </BtnConfirm>
-              </Link>
-            )}
-          </AlertBtnDiv>
-        </AlertDiv>
-      </AlertBgDiv>
-    );
-  }
+    if (showCommonAlert) {
+      body.classList.add('no-scroll');
+    } else {
+      body.classList.remove('no-scroll');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showCommonAlert]);
+
+  const alertBg = useRef();
+  const scrollTop = document.documentElement.scrollTop;
+
+  return (
+    <AlertBgDiv
+      $showCommonAlert={showCommonAlert}
+      ref={alertBg}
+      $top={scrollTop}
+    >
+      <AlertDiv>
+        <AlertMsgDiv>
+          {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
+          {isMain && (
+            <>
+              <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
+              <AlertMsg>
+                <AlertMsgBold>메인 페이지</AlertMsgBold>로 이동하시겠습니까?
+              </AlertMsg>
+            </>
+          )}
+          {isAchiving && (
+            <>
+              <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
+              <AlertMsg>
+                <AlertMsgBold>아카이빙</AlertMsgBold>으로 이동하시겠습니까?
+              </AlertMsg>
+            </>
+          )}
+        </AlertMsgDiv>
+
+        <AlertBtnDiv>
+          <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
+            <AlertMsgBold>취소</AlertMsgBold>
+          </BtnCancel>
+          {isMain && (
+            <Link to="/main">
+              <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+                <AlertMsgBold>확인</AlertMsgBold>
+              </BtnConfirm>
+            </Link>
+          )}
+          {isAchiving && (
+            <Link to="/archiving">
+              <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+                <AlertMsgBold>확인</AlertMsgBold>
+              </BtnConfirm>
+            </Link>
+          )}
+        </AlertBtnDiv>
+      </AlertDiv>
+    </AlertBgDiv>
+  );
 }
 
 export default Alert;
