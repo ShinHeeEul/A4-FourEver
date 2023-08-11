@@ -9,7 +9,7 @@ const AlertBgDiv = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 5;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
 `;
 
 const AlertDiv = styled.div`
@@ -18,8 +18,8 @@ const AlertDiv = styled.div`
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 
-  width: 343px;
-  height: 186px;
+  width: 300px;
+  height: 160px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #fff;
@@ -27,7 +27,7 @@ const AlertDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  filter: drop-shadow(0 0 0.5rem #a3a3a3);
 `;
 
 const AlertMsgDiv = styled.div`
@@ -39,35 +39,44 @@ const AlertMsgDiv = styled.div`
   flex-direction: column;
 `;
 
-const AlertMsg = styled.div``;
+const AlertMsg = styled.div`
+  padding-top: 10px;
+`;
+
+const AlertMsgBold = styled.span`
+  font-weight: 600;
+`;
 
 const AlertBtnDiv = styled.div`
   display: flex;
   gap: 6px;
+  padding-top: 20px;
 `;
 
 const BtnCancel = styled.button`
   width: 126px;
-  height: 56px;
+  height: 50px;
   flex-shrink: 0;
   border-radius: 8px;
-  background: ${palette.LightGray};
+  background: transparent;
   text-align: center;
   ${palette.heading4Bold}
-  border: 0;
+  border: 2px solid ${palette.DarkGray};
   color: ${palette.DarkGray};
   cursor: pointer;
 `;
 const BtnConfirm = styled.button`
-  width: 187px;
-  height: 56px;
+  width: 126px;
+  height: 50px;
   flex-shrink: 0;
   border: 0;
   border-radius: 8px;
   background: ${palette.Primary};
+
+  border: 2px solid ${palette.Primary};
   text-align: center;
   ${palette.heading4Bold}
-  color: #fff;
+  color: white;
   cursor: pointer;
 `;
 
@@ -86,30 +95,39 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
         <AlertDiv>
           <AlertMsgDiv>
             {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
-            {isMain && <AlertMsg>메인 페이지로 이동하시겠습니까?</AlertMsg>}
+            {isMain && (
+              <>
+                <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
+                <AlertMsg>
+                  <AlertMsgBold>메인 페이지</AlertMsgBold>로 이동하시겠습니까?
+                </AlertMsg>
+              </>
+            )}
             {isAchiving && (
-              <AlertMsg>
-                {/* 만들던 차량은 아카이빙 내가 만든 차량 에 저장해둘게요 */}
-                아카이빙으로 이동하시겠습니까?
-              </AlertMsg>
+              <>
+                <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
+                <AlertMsg>
+                  <AlertMsgBold>아카이빙</AlertMsgBold>으로 이동하시겠습니까?
+                </AlertMsg>
+              </>
             )}
           </AlertMsgDiv>
 
           <AlertBtnDiv>
             <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
-              취소
+              <AlertMsgBold>취소</AlertMsgBold>
             </BtnCancel>
             {isMain && (
               <Link to="/main">
                 <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                  확인
+                  <AlertMsgBold>확인</AlertMsgBold>
                 </BtnConfirm>
               </Link>
             )}
             {isAchiving && (
               <Link to="/archiving">
                 <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                  확인
+                  <AlertMsgBold>확인</AlertMsgBold>
                 </BtnConfirm>
               </Link>
             )}
