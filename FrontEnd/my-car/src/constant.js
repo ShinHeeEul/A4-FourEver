@@ -73,11 +73,8 @@ export const navCategoryName = {
     },
   },
   complete: {
-    id: '색상',
-    value: {
-      outer: '외장 색상',
-      inner: '내장 색상',
-    },
+    id: '완성',
+    value: {},
   },
 };
 
