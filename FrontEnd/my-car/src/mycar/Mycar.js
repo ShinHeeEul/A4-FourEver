@@ -37,7 +37,7 @@ function Mycar() {
     const mycarPath = currentPath.match(/\/mycar\/(.*)/)[1];
     const currentPage = myCarPagePath.findIndex((url) => url === mycarPath);
     setPage(currentPage);
-  });
+  }, []);
 
   return (
     <>
