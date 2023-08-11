@@ -1,6 +1,6 @@
 import { css, styled, keyframes } from 'styled-components';
 import palette from '../../../style/styleVariable';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import {
   CaptionRegular,
   Heading1Medium,
@@ -99,6 +99,8 @@ function Line() {
 }
 
 function CompleteTopBanner() {
+  const { userCar } = useOutletContext();
+
   return (
     <AllDiv>
       <BannerDiv>
@@ -119,7 +121,7 @@ function CompleteTopBanner() {
           </DetailDiv>
         </TextDiv>
         <BgDiv>
-          <CarImg src={carImg} />
+          <CarImg src={userCar.outerColor.rotation_image} />
         </BgDiv>
       </BannerDiv>
     </AllDiv>
