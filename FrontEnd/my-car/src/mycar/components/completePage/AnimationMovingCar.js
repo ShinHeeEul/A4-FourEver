@@ -85,7 +85,10 @@ function AnimationMovingCar() {
   const { userCar } = useOutletContext();
 
   useEffect(() => {
+    const body = document.querySelector('body');
+    body.classList.add('no-scroll');
     const timer = setTimeout(() => {
+      body.classList.remove('no-scroll');
       setRemoveModal(true);
     }, 2800);
 

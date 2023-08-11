@@ -23,6 +23,10 @@ time, mark, audio, video,input, textarea,select,option {
   vertical-align: baseline;
   scroll-behavior: smooth;
 }
+body.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
 
 img{
   -webkit-user-drag: none;
