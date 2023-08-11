@@ -1,5 +1,6 @@
 # A4-FourEver
 ### 📝 프로젝트 목적
+기존 현대닷컴 페이지 보완 (사용자 이탈률 줄임)
 
 ### 🧑🏻‍💻👩🏻‍💻 팀원 소개
 <table style="border: 0.5px solid gray">
@@ -11,10 +12,10 @@
 
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/westofsky"><b>김민지</b></td>
-    <td align="center"style="border-right : 0.5px solid gray"><a href="https://github.com/JungHun98" ><b>황지나</b></td>
-    <td align="center"><a href="https://github.com/eigen98"><b>신희을</b></td>
-    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/sangyeon3"><b>이병찬</b></td>
+    <td align="center"><a href="https://github.com/meanz1"><b>김민지</b></td>
+    <td align="center"style="border-right : 0.5px solid gray"><a href="https://github.com/hwangJN" ><b>황지나</b></td>
+    <td align="center"><a href="https://github.com/ShinHeeEul"><b>신희을</b></td>
+    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/LBC11"><b>이병찬</b></td>
   </tr>
 
   <tr>
@@ -40,7 +41,7 @@
 
 **✔️ 이슈 관리** 
 ```bash
-- 이슈에 담겨진 task 단위로 commit
+- 이슈에 담겨진 task 단위로 하위 브랜치 생성
 - 라벨 : bug / feature / document
 ```
 
