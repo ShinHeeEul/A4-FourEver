@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import carImage from './image-91.png';
 import { Heading1Medium } from '../../../style/typo';
+import { useOutletContext } from 'react-router-dom';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -81,6 +82,7 @@ const CarImage = styled.img`
 
 function AnimationMovingCar() {
   const [removeModal, setRemoveModal] = useState(false);
+  const { userCar } = useOutletContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -94,7 +96,7 @@ function AnimationMovingCar() {
     return (
       <ModalBgDiv $removeModal={removeModal}>
         <Container $removeModal={removeModal}>
-          <CarImage src={carImage} alt="Car Image" />
+          <CarImage src={userCar.outerColor.rotation_image} alt="Car Image" />
           <TitleDiv>
             <div>
               <TitleText>당신만의 세상을 위한,</TitleText>
