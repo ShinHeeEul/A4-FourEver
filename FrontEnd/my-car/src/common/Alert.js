@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
@@ -90,12 +91,7 @@ function movePage(setShowCommonAlert) {
   setShowCommonAlert(false);
 }
 
-function Alert({
-  showCommonAlert,
-  setShowCommonAlert,
-  isMainBtn,
-  isAchivingBtn,
-}) {
+function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -109,6 +105,37 @@ function Alert({
 
   const alertBg = useRef();
   const scrollTop = document.documentElement.scrollTop;
+  const currentPath = useLocation().pathname.split('/')[1];
+  let title;
+  let content;
+  let link;
+
+  switch (currentPath) {
+    case 'mycar':
+      title = '마이카이빙에 저장되었습니다.';
+      content = isMainBtn
+        ? '메인으로 이동하시겠습니까?'
+        : '아카이빙으로 이동하시겠습니까?';
+      link = isMainBtn ? '/main' : '/archiving';
+
+      break;
+    case 'archiving':
+      title = isMainBtn
+        ? '메인으로 이동하시겠습니까?'
+        : '마이카이빙으로 이동하시겠습니까?';
+      content = '';
+      link = isMainBtn ? '/main' : '/mychiving';
+      break;
+    case 'mychiving':
+      title = isMainBtn
+        ? '메인으로 이동하시겠습니까?'
+        : '아카이빙으로 이동하시겠습니까?';
+      content = '';
+      link = isMainBtn ? '/main' : '/archiving';
+      break;
+    default:
+      return;
+  }
 
   return (
     <AlertBgDiv
@@ -118,43 +145,19 @@ function Alert({
     >
       <AlertDiv>
         <AlertMsgDiv>
-          {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
-          {isMainBtn && (
-            <>
-              <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
-              <AlertMsg>
-                <AlertMsgBold>메인 페이지</AlertMsgBold>로 이동하시겠습니까?
-              </AlertMsg>
-            </>
-          )}
-          {isAchivingBtn && (
-            <>
-              <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
-              <AlertMsg>
-                <AlertMsgBold>아카이빙</AlertMsgBold>으로 이동하시겠습니까?
-              </AlertMsg>
-            </>
-          )}
+          <AlertMsg>{title}</AlertMsg>
+          <AlertMsg>{content}</AlertMsg>
         </AlertMsgDiv>
 
         <AlertBtnDiv>
           <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
-          {isMainBtn && (
-            <Link to="/main">
-              <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                <AlertMsgBold>확인</AlertMsgBold>
-              </BtnConfirm>
-            </Link>
-          )}
-          {isAchivingBtn && (
-            <Link to="/archiving">
-              <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-                <AlertMsgBold>확인</AlertMsgBold>
-              </BtnConfirm>
-            </Link>
-          )}
+          <Link to={link}>
+            <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+              <AlertMsgBold>확인</AlertMsgBold>
+            </BtnConfirm>
+          </Link>
         </AlertBtnDiv>
       </AlertDiv>
     </AlertBgDiv>

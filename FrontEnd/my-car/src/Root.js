@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Header from './common/Header';
 import Alert from './common/Alert';
-import { useState } from 'react';
+import { useState, createContext } from 'react';
+
+export const HeaderContext = createContext();
 
 function Root() {
   const [showCommonAlert, setShowCommonAlert] = useState(false);
   const [isMainBtn, setIsMainBtn] = useState(false);
-  const [isAchivingBtn, setIsAchivingBtn] = useState(false);
-  const [isMychivingBtn, setIsMychivingBtn] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0); //main, mycar, archiving, mychiving
+  const [isAccess, setIsAccess] = useState(true);
   return (
     <>
       <Alert
@@ -16,15 +16,14 @@ function Root() {
         setShowCommonAlert={setShowCommonAlert}
         isMainBtn={isMainBtn}
         setIsMainBtn={setIsMainBtn}
-        isAchivingBtn={isAchivingBtn}
-        setIsAchivingBtn={setIsAchivingBtn}
       />
-      <Header
-        setShowCommonAlert={setShowCommonAlert}
-        setIsAchivingBtn={setIsAchivingBtn}
-        setIsMainBtn={setIsMainBtn}
-      />
-      <Outlet />
+      <HeaderContext.Provider value={{ isAccess, setIsAccess }}>
+        <Header
+          setShowCommonAlert={setShowCommonAlert}
+          setIsMainBtn={setIsMainBtn}
+        />
+        <Outlet />
+      </HeaderContext.Provider>
     </>
   );
 }
