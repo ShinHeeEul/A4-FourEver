@@ -90,7 +90,12 @@ function movePage(setShowCommonAlert) {
   setShowCommonAlert(false);
 }
 
-function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
+function Alert({
+  showCommonAlert,
+  setShowCommonAlert,
+  isMainBtn,
+  isAchivingBtn,
+}) {
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -114,7 +119,7 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
       <AlertDiv>
         <AlertMsgDiv>
           {/* <AlertMsg>내 차 만들기를 그만하시겠어요?</AlertMsg> */}
-          {isMain && (
+          {isMainBtn && (
             <>
               <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
               <AlertMsg>
@@ -122,7 +127,7 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
               </AlertMsg>
             </>
           )}
-          {isAchiving && (
+          {isAchivingBtn && (
             <>
               <AlertMsg>마이카이빙에 저장되었습니다.</AlertMsg>
               <AlertMsg>
@@ -136,14 +141,14 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMain, isAchiving }) {
           <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
-          {isMain && (
+          {isMainBtn && (
             <Link to="/main">
               <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
                 <AlertMsgBold>확인</AlertMsgBold>
               </BtnConfirm>
             </Link>
           )}
-          {isAchiving && (
+          {isAchivingBtn && (
             <Link to="/archiving">
               <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
                 <AlertMsgBold>확인</AlertMsgBold>

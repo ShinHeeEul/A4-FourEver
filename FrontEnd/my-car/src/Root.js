@@ -5,22 +5,24 @@ import { useState } from 'react';
 
 function Root() {
   const [showCommonAlert, setShowCommonAlert] = useState(false);
-  const [isMain, setIsMain] = useState(false);
-  const [isAchiving, setIsAchiving] = useState(false);
+  const [isMainBtn, setIsMainBtn] = useState(false);
+  const [isAchivingBtn, setIsAchivingBtn] = useState(false);
+  const [isMychivingBtn, setIsMychivingBtn] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0); //main, mycar, archiving, mychiving
   return (
     <>
       <Alert
         showCommonAlert={showCommonAlert}
         setShowCommonAlert={setShowCommonAlert}
-        isMain={isMain}
-        setIsMain={setIsMain}
-        isAchiving={isAchiving}
-        setIsAchiving={setIsAchiving}
+        isMainBtn={isMainBtn}
+        setIsMainBtn={setIsMainBtn}
+        isAchivingBtn={isAchivingBtn}
+        setIsAchivingBtn={setIsAchivingBtn}
       />
       <Header
         setShowCommonAlert={setShowCommonAlert}
-        setIsAchiving={setIsAchiving}
-        setIsMain={setIsMain}
+        setIsAchivingBtn={setIsAchivingBtn}
+        setIsMainBtn={setIsMainBtn}
       />
       <Outlet />
     </>

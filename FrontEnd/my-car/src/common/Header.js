@@ -78,20 +78,25 @@ const HyundaiLogo = styled.div`
   cursor: pointer;
 `;
 
-function showAlert(setShowCommonAlert, setIsAchiving, setIsMain, flag) {
+function showAlert(setShowCommonAlert, setIsAchivingBtn, setIsMainBtn, flag) {
   setShowCommonAlert(true);
-  setIsMain(flag);
-  setIsAchiving(!flag);
+  setIsMainBtn(flag);
+  setIsAchivingBtn(!flag);
 }
 
-function Header({ setShowCommonAlert, setIsAchiving, setIsMain }) {
+function Header({ setShowCommonAlert, setIsAchivingBtn, setIsMainBtn }) {
   if (useLocation().pathname !== '/main') {
     return (
       <HeaderDiv>
         <HeaderElements>
           <HyundaiLogo
             onClick={() =>
-              showAlert(setShowCommonAlert, setIsAchiving, setIsMain, true)
+              showAlert(
+                setShowCommonAlert,
+                setIsAchivingBtn,
+                setIsMainBtn,
+                true,
+              )
             }
           >
             <svg
@@ -203,7 +208,12 @@ function Header({ setShowCommonAlert, setIsAchiving, setIsMain }) {
 
           <ToCarivingBtn
             onClick={() =>
-              showAlert(setShowCommonAlert, setIsAchiving, setIsMain, false)
+              showAlert(
+                setShowCommonAlert,
+                setIsAchivingBtn,
+                setIsMainBtn,
+                false,
+              )
             }
           >
             <svg
