@@ -8,6 +8,18 @@ const TabWrap = styled.div`
   gap: 23px;
   border-bottom: 2px solid ${palette.LightSand};
   padding-bottom: 4px;
+  position: relative;
+  &::after {
+    content: '';
+    width: ${({ $isBasicTab }) => ($isBasicTab ? '100px' : '70px')};
+    border-radius: 10px;
+    background-color: black;
+    height: 6px;
+    position: absolute;
+    left: ${({ $isBasicTab }) => ($isBasicTab ? '110px' : '5px')};
+    bottom: -5px;
+    transition: all 0.4s ease-in-out;
+  }
 `;
 const TabBtn = styled.button`
   border: 0;
@@ -42,7 +54,7 @@ function OptionTabs({ isBasicTab, setIsBasicTab, basicIndex, categoryClick }) {
   };
   return (
     <>
-      <TabWrap>
+      <TabWrap $isBasicTab={isBasicTab}>
         <TabBtn $isActive={!isBasicTab} onClick={() => tabClick(false)}>
           선택 항목
         </TabBtn>
