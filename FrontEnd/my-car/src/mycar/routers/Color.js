@@ -8,6 +8,7 @@ import { MYCAR } from '../../constant';
 
 import TrimImg from '../components/common/TrimImg';
 import ColorComponents from '../components/colorPage/ColorSelect';
+import RotateImg from '../components/colorPage/RotateImg';
 
 const ColorContainer = styled(Container)`
   flex-direction: row;
@@ -72,9 +73,7 @@ function Color() {
   return (
     <ColorContainer>
       <LeftWrap>
-        <TrimImg
-          src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}
-        />
+        <RotateImg selectedOption={selectedOption}></RotateImg>
         <TitlePriceTag
           selectedOption={selectedOption}
           tagFiled={MYCAR.COLOR.FILED.TAGS[activeColorFiled]}
