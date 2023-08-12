@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import backgroundImage from './asset/backgroundImg.jpeg';
 import { Body1Medium, Heading1Bold } from '../style/typo';
 import whiteLogo from './asset/whiteLogo.png';
+import { OutlineButton } from './NotFoundPage';
+import { useNavigate } from 'react-router-dom';
 
 const Logo = styled.img`
   position: absolute;
@@ -25,8 +27,10 @@ export const ErrorWrap = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 40px;
   z-index: 5;
   ${TextWrap} {
     display: flex;
@@ -54,6 +58,10 @@ export const ErrorWrap = styled.div`
 `;
 
 function ServerErrorPage() {
+  const navigate = useNavigate();
+  const buttonClick = () => {
+    navigate('/main');
+  };
   return (
     <ErrorWrap $backImg={backgroundImage}>
       <Logo src={whiteLogo} />
@@ -64,6 +72,7 @@ function ServerErrorPage() {
           <span>잠시 후 다시 시도해주세요</span>
         </ExplainWrap>
       </TextWrap>
+      <OutlineButton onClick={buttonClick}>메인으로 가기</OutlineButton>
     </ErrorWrap>
   );
 }

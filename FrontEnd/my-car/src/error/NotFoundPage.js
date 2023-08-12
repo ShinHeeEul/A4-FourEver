@@ -16,7 +16,7 @@ const Logo = styled.img`
 const easeInOutQuint = 'cubic-bezier(0.86, 0, 0.07, 1)';
 const timing = '0.4s';
 
-const OutlineButton = styled.button`
+export const OutlineButton = styled.button`
   border: 3px solid white;
   background-color: transparent;
   color: white;
@@ -116,6 +116,7 @@ function NotFound() {
   const buttonClick = () => {
     navigate('/main');
   };
+
   return (
     <ErrorWrap $backImg={autoBg}>
       <Logo src={whiteLogo} />

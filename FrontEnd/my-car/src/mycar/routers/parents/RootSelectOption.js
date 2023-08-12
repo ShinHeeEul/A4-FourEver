@@ -1,5 +1,6 @@
 import { Outlet, useLoaderData, useOutletContext } from 'react-router-dom';
 import { MYCAR } from '../../../constant';
+import ServerErrorPage from '../../../error/ServerErrorPage';
 
 function OptionClassify(options) {
   const groupedObjects = {};
@@ -23,7 +24,10 @@ function OptionClassify(options) {
 
 function RootSelectOption() {
   const { page, userCar, setUserCar } = useOutletContext();
-  const { data } = useLoaderData();
+  const { data, error } = useLoaderData();
+
+  if (error) return <ServerErrorPage />;
+
   const basicOptions = OptionClassify(data[MYCAR.SELECTED.FILED.BASIC]);
   const selectOptions = OptionClassify(data[MYCAR.SELECTED.FILED.SELECT]);
 
