@@ -18,6 +18,8 @@ import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 import MyCarOptionAPI from './api';
 import { MYCAR } from './constant';
 import RootColor from './mycar/routers/parents/RootColor';
+import ServerErrorPage from './error/ServerErrorPage';
+import NotFound from './error/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,7 @@ const router = createBrowserRouter([
             path: 'trim',
             loader: () => MyCarOptionAPI(MYCAR.TRIM.URL),
             element: <RootTrim />,
+            errorElement: <ServerErrorPage />,
             children: [
               {
                 path: 'model',
@@ -66,11 +69,13 @@ const router = createBrowserRouter([
             path: 'color',
             loader: () => MyCarOptionAPI(MYCAR.COLOR.URL),
             element: <RootColor />,
+            errorElement: <ServerErrorPage />,
             children: [{ path: '', element: <Color /> }],
           },
           {
             path: 'option',
             loader: () => MyCarOptionAPI(MYCAR.SELECTED.URL),
+            errorElement: <ServerErrorPage />,
             element: <RootSelectOption />,
             children: [
               {
@@ -108,6 +113,10 @@ const router = createBrowserRouter([
         children: [],
       },
     ],
+  },
+  {
+    path: '/*',
+    element: <NotFound />,
   },
 ]);
 
