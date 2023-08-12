@@ -26,6 +26,7 @@ function Mycar() {
 
   const [userCar, setUserCar] = useState(initialUserCar);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem('userCar', JSON.stringify(userCar));
@@ -37,7 +38,7 @@ function Mycar() {
     const mycarPath = currentPath.match(/\/mycar\/(.*)/)[1];
     const currentPage = myCarPagePath.findIndex((url) => url === mycarPath);
     setPage(currentPage);
-  }, []);
+  }, [location]);
 
   return (
     <>
