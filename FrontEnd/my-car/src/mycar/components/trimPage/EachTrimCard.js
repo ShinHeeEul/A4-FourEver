@@ -63,140 +63,24 @@ const CarCardLogoName = styled.div`
 `;
 
 function EachTrimCard({ car, isActive }) {
-  function render(name) {
-    switch (name) {
-      case 'Le Blanc(르블랑)':
-        return (
-          <>
-            <CarCardLogoImg $isActive={isActive}>
-              <Leblanc1 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][0]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][1]}
-              </CarCardLogoName>
+  return (
+    <>
+      {logoTextInfo.map((model) =>
+        model.value.map((item, idx) => {
+          return (
+            <CarCardLogoImg key={idx} $isActive={isActive}>
+              <img
+                alt="logoImage"
+                src={`../../../../assets/${model.name}Logo${idx + 1}.svg`}
+              />
+              <CarCardLogoName $isActive={isActive}>{item[0]}</CarCardLogoName>
+              <CarCardLogoName $isActive={isActive}>{item[1]}</CarCardLogoName>
             </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Leblanc2 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][2]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][3]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Leblanc3 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][4]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][5]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-          </>
-        );
-      case 'Exclusive':
-        return (
-          <>
-            <CarCardLogoImg>
-              <Exclusive1 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][0]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][1]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Exclusive2 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][2]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][3]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Exclusive3 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][4]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][5]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-          </>
-        );
-      case 'Prestige':
-        return (
-          <>
-            <CarCardLogoImg>
-              <Prestige1 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][0]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][1]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Prestige2 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][2]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][3]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Prestige3 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][4]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][5]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-          </>
-        );
-      default:
-        return (
-          <>
-            <CarCardLogoImg>
-              <Calligraphy1 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][0]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][1]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Calligraphy2 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][2]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][3]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-            <CarCardLogoImg>
-              <Calligraphy3 />
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][4]}
-              </CarCardLogoName>
-              <CarCardLogoName $isActive={isActive}>
-                {logoTextInfo[name][5]}
-              </CarCardLogoName>
-            </CarCardLogoImg>
-          </>
-        );
-    }
-  }
-
-  return render(car.name);
+          );
+        }),
+      )}
+    </>
+  );
 }
 
 export default EachTrimCard;
