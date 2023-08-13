@@ -3,8 +3,8 @@ import Header from './common/Header';
 import Alert from './common/Alert';
 import { useState, createContext } from 'react';
 
-export const HeaderContext = createContext();
-
+export const HeaderValueContext = createContext();
+export const HeaderActionContext = createContext();
 function Root() {
   const [showCommonAlert, setShowCommonAlert] = useState(false);
   const [isMainBtn, setIsMainBtn] = useState(false);
@@ -17,13 +17,15 @@ function Root() {
         isMainBtn={isMainBtn}
         setIsMainBtn={setIsMainBtn}
       />
-      <HeaderContext.Provider value={{ isAccess, setIsAccess }}>
-        <Header
-          setShowCommonAlert={setShowCommonAlert}
-          setIsMainBtn={setIsMainBtn}
-        />
-        <Outlet />
-      </HeaderContext.Provider>
+      <HeaderValueContext.Provider value={{ isAccess }}>
+        <HeaderActionContext.Provider value={{ setIsAccess }}>
+          <Header
+            setShowCommonAlert={setShowCommonAlert}
+            setIsMainBtn={setIsMainBtn}
+          />
+          <Outlet />
+        </HeaderActionContext.Provider>
+      </HeaderValueContext.Provider>
     </>
   );
 }

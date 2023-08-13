@@ -4,7 +4,7 @@ import TrimCard from '../components/trimPage/TrimCard';
 import { MYCAR } from '../../constant';
 import TrimModelImg from '../components/trimPage/TrimModelImg';
 import { useContext } from 'react';
-import { HeaderContext } from '../../Root';
+import { HeaderActionContext } from '../../Root';
 
 export const Container = styled.div`
   width: 1280px;
@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 function Model() {
   const { trimOptions } = useOutletContext();
-  const { setIsAccess } = useContext(HeaderContext);
+  const { setIsAccess } = useContext(HeaderActionContext);
   setIsAccess(false);
   return (
     <Container>

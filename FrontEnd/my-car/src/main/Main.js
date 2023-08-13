@@ -6,7 +6,7 @@ import ToMychiving from './components/ToMychiving';
 import MainHeader from './components/MainHeader';
 import Pagination from './components/Pagination';
 import { useState, useEffect, useContext } from 'react';
-import { HeaderContext } from '../Root';
+import { HeaderActionContext } from '../Root';
 
 const BgDiv = styled.div`
   position: absolute;
@@ -18,7 +18,7 @@ const BgDiv = styled.div`
 const AnimationDiv = styled.div``;
 
 function Main() {
-  const { setIsAccess } = useContext(HeaderContext);
+  const { setIsAccess } = useContext(HeaderActionContext);
   setIsAccess(true);
   const [currentDisplay, setCurrentDisplay] = useState(1);
   useEffect(() => {

@@ -4,7 +4,7 @@ import { Body4Medium, Heading4Bold } from '../style/typo';
 import { headerPageName } from '../constant';
 import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { HeaderContext } from '../Root';
+import { HeaderActionContext, HeaderValueContext } from '../Root';
 const HeaderDiv = styled.div`
   width: calc(100% - 180px);
   height: 60px;
@@ -71,7 +71,8 @@ function showAlert(setShowCommonAlert, setIsMainBtn, flag) {
 
 function Header({ setShowCommonAlert, setIsMainBtn }) {
   const currentPath = useLocation().pathname.split('/')[1];
-  const { isAccess, setIsAccess } = useContext(HeaderContext);
+  const { isAccess } = useContext(HeaderValueContext);
+  const { setIsAccess } = useContext(HeaderActionContext);
   if (useLocation().pathname !== '/main') {
     return (
       <HeaderDiv>
