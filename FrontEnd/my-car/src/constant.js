@@ -1146,3 +1146,10 @@ export const carCardInfo = [
     ],
   },
 ];
+
+export const PALISADE_URL = {
+  catalogue:
+    'https://www.hyundai.com/contents/repn-car/catalog/palisade-catalog.pdf',
+  price:
+    'https://www.hyundai.com/contents/repn-car/catalog/palisade-2024-price.pdf',
+};

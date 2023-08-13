@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import TrimCard from '../components/trimPage/TrimCard';
 import { MYCAR } from '../../constant';
 import TrimModelImg from '../components/trimPage/TrimModelImg';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { HeaderActionContext } from '../../Root';
 
 export const Container = styled.div`
@@ -19,6 +19,7 @@ function Model() {
   const { trimOptions } = useOutletContext();
   const { setIsAccess } = useContext(HeaderActionContext);
   setIsAccess(false);
+
   return (
     <Container>
       <TrimModelImg src={trimOptions[MYCAR.TRIM.FILED.MODEL][0].image} />
