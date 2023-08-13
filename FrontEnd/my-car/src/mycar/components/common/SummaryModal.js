@@ -37,6 +37,9 @@ const ModalDiv = styled.div`
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const TitleDiv = styled.div`
