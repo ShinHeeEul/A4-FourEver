@@ -5,7 +5,8 @@ import ToArchiving from './components/ToArchiving';
 import ToMychiving from './components/ToMychiving';
 import MainHeader from './components/MainHeader';
 import Pagination from './components/Pagination';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { HeaderContext } from '../Root';
 
 const BgDiv = styled.div`
   position: absolute;
@@ -17,6 +18,8 @@ const BgDiv = styled.div`
 const AnimationDiv = styled.div``;
 
 function Main() {
+  const { setIsAccess } = useContext(HeaderContext);
+  setIsAccess(true);
   const [currentDisplay, setCurrentDisplay] = useState(1);
   useEffect(() => {
     const interval = setInterval(() => {
