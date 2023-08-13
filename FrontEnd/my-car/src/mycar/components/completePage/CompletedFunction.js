@@ -100,7 +100,7 @@ function Line() {
       viewBox="0 0 1040 4"
       fill="none"
     >
-      <path d="M0 2L1040 2.00009" stroke="#F3F2F5" stroke-width="4" />
+      <path d="M0 2L1040 2.00009" stroke="#F3F2F5" strokeWidth="4" />
     </svg>
   );
 }
@@ -114,7 +114,7 @@ function BannerLine() {
       viewBox="0 0 910 4"
       fill="none"
     >
-      <path d="M0 1.88086L910 1.88078" stroke="#E4DCD3" stroke-width="3" />
+      <path d="M0 1.88086L910 1.88078" stroke="#E4DCD3" strokeWidth="3" />
     </svg>
   );
 }
