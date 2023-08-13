@@ -8,6 +8,7 @@ import {
 import palette from '../../../style/styleVariable';
 import { useEffect, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { useSelectAction, useSelectValue } from '../../hook/useUserCar';
 
 const ExplainHeaderWrap = styled.div``;
 const ExplainHeaderTitle = styled.div``;
@@ -160,19 +161,18 @@ function RightArrow({ reference, clickHandler, explainPage }) {
   );
 }
 
-function DetailExplainCard({
-  selectedOption,
-  explainPage,
-  setExplainPage,
-  selected,
-}) {
+function DetailExplainCard() {
   const { page } = useOutletContext();
+
+  const { setPage } = useSelectAction();
+  const { selected, optionList, explainPage } = useSelectValue();
+  const selectedOption = optionList[selected];
 
   const leftArrow = useRef();
   const rightArrow = useRef();
 
   const changeExplainPage = (page) => {
-    setExplainPage(page);
+    setPage(page);
     leftArrow.current.style.display = page === 0 ? 'none' : ' block';
     rightArrow.current.style.display =
       page === selectedOption.subExtraOptionInfoDTOs.length - 1
@@ -181,7 +181,7 @@ function DetailExplainCard({
   };
 
   useEffect(() => {
-    setExplainPage(0);
+    setPage(0);
     leftArrow.current.style.display = 'none';
     rightArrow.current.style.display =
       selectedOption.subExtraOptionInfoDTOs.length - 1 !== 0 ? 'block' : 'none';

@@ -5,9 +5,10 @@ import { useContext, useEffect } from 'react';
 import NotFound from '../../error/NotFoundPage';
 import { useOutletContext } from 'react-router-dom';
 import { HeaderContext } from '../../Root';
-
+import { useUserCarState } from '../hook/useUserCar';
 function Complete() {
-  const { userCar } = useOutletContext();
+   const userCar = useUserCarState();
+
   const { setIsAccess } = useContext(HeaderContext);
   setIsAccess(true);
   useEffect(() => {

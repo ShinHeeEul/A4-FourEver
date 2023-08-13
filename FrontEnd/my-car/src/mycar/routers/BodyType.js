@@ -15,14 +15,11 @@ const BodyTypeContainer = styled(Container)`
 `;
 
 function BodyType() {
-  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
-  const [imgSelected, setImgSelected] = useState(0);
+  const { trimOptions, page } = useOutletContext();
 
   const bodyTypeOptions = trimOptions[MYCAR.TRIM.FILED.BODY];
 
   const [selected, setSelectedOption] = useSelect({
-    setUserCar,
-    userCar,
     option: bodyTypeOptions,
     field: 'bodyType',
     page,
@@ -31,11 +28,6 @@ function BodyType() {
   return (
     <BodyTypeContainer>
       <LeftWrap style={{ position: 'relative' }}>
-        {/* <ImgSelect
-          selected={selected}
-          setImgSelected={setImgSelected}
-          imgSelected={imgSelected}
-        /> */}
         <TrimImg src={bodyTypeOptions[selected].image} />
 
         <TitlePriceTag selectedOption={bodyTypeOptions[selected]} />

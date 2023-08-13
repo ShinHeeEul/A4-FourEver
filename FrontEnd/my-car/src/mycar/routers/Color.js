@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Container } from './Model';
 import { LeftWrap, RightWrap } from './Engine';
 import TitlePriceTag from '../components/common/TitlePriceTag';
-import { MYCAR } from '../../constant';
+import { MYCAR, USER_CAR_ACTIONS } from '../../constant';
 
 import TrimImg from '../components/common/TrimImg';
 import ColorComponents from '../components/colorPage/ColorSelect';
+
+import { ColorValueContext } from '../../context/mycar/color/ColorPrivider';
+import { useUserCarAction, useUserCarState } from '../hook/useUserCar';
 import RotateImg from '../components/colorPage/RotateImg';
+
 
 const ColorContainer = styled(Container)`
   flex-direction: row;
@@ -19,53 +23,27 @@ const ColorRightWrap = styled(RightWrap)`
 `;
 
 function Color() {
-  const { setUserCar, userCar, page, inColorOptions, exColorOptions } =
-    useOutletContext();
+  const { page, inColorOptions, exColorOptions } = useOutletContext();
 
-  const [selectedOption, setSelectedOption] = useState(
-    userCar.outerColor.id ? userCar.outerColor : exColorOptions[2],
-  );
-  const [outerSelected, setOuterSelected] = useState(
-    userCar.outerColor?.id ? userCar.outerColor?.id - 1 : 2,
-  );
+  const { selected, selectedOption, activeColorFiled } =
+    useContext(ColorValueContext);
 
-  const [innerSelected, setInnerSelected] = useState(
-    userCar.innerColor?.id ? userCar.innerColor?.id - 1 : 0,
-  );
-  const [activeColorFiled, setActiveColorFiled] = useState(
-    MYCAR.COLOR.FILED.EXCOLOR,
-  );
-
-  const outerClick = ({ option, index }) => {
-    const Price = [...userCar.price];
-    Price[page] = option.price;
-    setUserCar((prevState) => ({
-      ...prevState,
-      outerColor: option,
-      price: Price,
-    }));
-    setOuterSelected(index);
-    setSelectedOption(option);
-    setActiveColorFiled(MYCAR.COLOR.FILED.EXCOLOR);
-  };
-
-  const innerClick = ({ option, index }) => {
-    setUserCar((prevState) => ({
-      ...prevState,
-      innerColor: option,
-    }));
-    setInnerSelected(index);
-    setSelectedOption(option);
-    setActiveColorFiled(MYCAR.COLOR.FILED.INCOLOR);
-  };
+  const dispatch = useUserCarAction();
+  const userCar = useUserCarState();
 
   useEffect(() => {
     if (!userCar.outerColor?.name && !userCar.innerColor?.name) {
-      setUserCar((prevState) => ({
-        ...prevState,
-        outerColor: exColorOptions[2],
-        innerColor: inColorOptions[0],
-      }));
+      const Price = [...userCar.price];
+      Price[page] = exColorOptions[0].price;
+      dispatch({
+        type: USER_CAR_ACTIONS.EXCOLOR,
+        select: exColorOptions[0],
+        price: Price,
+      });
+      dispatch({
+        type: USER_CAR_ACTIONS.INCOLOR,
+        select: inColorOptions[0],
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -83,14 +61,14 @@ function Color() {
         <ColorComponents
           title="외장 색상"
           options={exColorOptions}
-          selected={outerSelected}
-          optionClick={outerClick}
+          selected={selected.ex}
+          isExColor={true}
         />
         <ColorComponents
           title="내장 색상"
           options={inColorOptions}
-          selected={innerSelected}
-          optionClick={innerClick}
+          selected={selected.in}
+          isExColor={false}
         />
       </ColorRightWrap>
     </ColorContainer>

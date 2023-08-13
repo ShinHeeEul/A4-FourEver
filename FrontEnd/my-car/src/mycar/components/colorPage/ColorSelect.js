@@ -1,6 +1,10 @@
 import { css, styled } from 'styled-components';
 import palette from '../../../style/styleVariable';
 import { Body4Regular, Heading3Medium } from '../../../style/typo';
+import { useContext } from 'react';
+import { ColorActionContext } from '../../../context/mycar/color/ColorPrivider';
+import { useOutletContext } from 'react-router-dom';
+import { MYCAR } from '../../../constant';
 
 const EachColorWrap = styled.div`
   width: 333px;
@@ -88,7 +92,10 @@ const CheckIconWrap = styled.div`
     `}
 `;
 
-function ColorComponents({ title, selected, options, optionClick }) {
+function ColorComponents({ title, selected, options, isExColor }) {
+  const action = useContext(ColorActionContext);
+  const { page } = useOutletContext();
+
   return (
     <EachColorWrap>
       <ColorTitleWrap>
@@ -101,7 +108,14 @@ function ColorComponents({ title, selected, options, optionClick }) {
           return (
             <ColorImgWrap
               key={index}
-              onClick={() => optionClick({ index, option })}
+              onClick={() =>
+                action.onClick({
+                  index,
+                  option,
+                  page,
+                  isExColor,
+                })
+              }
             >
               <CheckIconWrap $isActive={index === selected} src={option.src}>
                 <CheckIcon />

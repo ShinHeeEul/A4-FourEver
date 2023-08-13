@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useUserCarAction, useUserCarState } from './useUserCar';
 
-export const useSelect = ({ userCar, setUserCar, option, field, page }) => {
+export const useSelect = ({ option, field, page }) => {
+  const dispatch = useUserCarAction();
+  const userCar = useUserCarState();
+
   const [selected, setSelected] = useState(
     userCar[field]?.id ? userCar[field]?.id - 1 : 0,
   );
@@ -8,11 +12,7 @@ export const useSelect = ({ userCar, setUserCar, option, field, page }) => {
   const setSelectedOption = ({ selectOption, index = 0 }) => {
     const Price = [...userCar.price];
     Price[page] = selectOption.price;
-    setUserCar((prevState) => ({
-      ...prevState,
-      [field]: selectOption,
-      price: Price,
-    }));
+    dispatch({ type: field, select: selectOption, price: Price });
     setSelected(index);
   };
 

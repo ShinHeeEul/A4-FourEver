@@ -9,6 +9,7 @@ import {
 import { useOutletContext } from 'react-router-dom';
 import SelectedOption from './SelectedOption';
 import AddProcessBtn from './AddProcessBtn';
+import { useUserCarState } from '../../hook/useUserCar';
 
 const BgDiv = styled.div`
   display: flex;
@@ -119,7 +120,8 @@ function BannerLine() {
 }
 
 function CompletedFunction() {
-  const { userCar } = useOutletContext();
+  const userCar = useUserCarState();
+
   const trimPrice = userCar.price.reduce((acc, current) => acc + current, 0);
   const optPrice = userCar.optionPrice.reduce(
     (acc, current) => acc + current,

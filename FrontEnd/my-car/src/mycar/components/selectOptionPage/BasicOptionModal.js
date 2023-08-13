@@ -5,6 +5,7 @@ import {
   Heading4Bold,
   Heading4Medium,
 } from '../../../style/typo';
+import { useSelectAction, useSelectValue } from '../../hook/useUserCar';
 
 const HtmlWrap = styled.div`
   position: fixed;
@@ -82,7 +83,10 @@ const ContentWrap = styled.div`
   }
 `;
 
-function BasicOptionModal({ modal, setModal, option }) {
+function BasicOptionModal({ option }) {
+  const { setModal } = useSelectAction();
+  const { modal } = useSelectValue();
+
   return (
     <>
       <HtmlWrap $showModal={modal.show}></HtmlWrap>
@@ -91,9 +95,7 @@ function BasicOptionModal({ modal, setModal, option }) {
         <ContentWrap>
           <ContentImg src={option[modal.optionId]?.image} />
           <span>{option[modal.optionId]?.description}</span>
-          <ConfirmButton
-            onClick={() => setModal((prev) => ({ ...prev, show: false }))}
-          >
+          <ConfirmButton onClick={() => setModal({ show: false })}>
             확인
           </ConfirmButton>
         </ContentWrap>

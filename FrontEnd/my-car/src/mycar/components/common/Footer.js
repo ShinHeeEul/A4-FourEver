@@ -12,8 +12,10 @@ import palette from '../../../style/styleVariable';
 
 import Buttons from './PageMoveBtns';
 import SummaryModal from './SummaryModal';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useUserCarState } from '../../hook/useUserCar';
+import { UserCarActionContext } from '../../../context/mycar/UserCarProvider';
 
 const Container = styled.div`
   height: calc(108px - 24px);
@@ -193,21 +195,19 @@ function ColorComponents({ category, color, src }) {
   );
 }
 
-function showModal(setShowSummaryModal) {
-  setShowSummaryModal(true);
-}
+function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
+  const userCar = useUserCarState();
+  const trimPrice = userCar.price.reduce((acc, current) => acc + current, 0);
+  const optionPrice = userCar.optionPrice.reduce(
+    (acc, current) => acc + current,
+    0,
+  );
 
-function Footer({
-  userCar,
-  page,
-  setPage,
-  price,
-  showSummaryModal,
-  setShowSummaryModal,
-}) {
-  const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
-  const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
+  const { summaryModalAction } = useContext(UserCarActionContext);
 
+  function showModal() {
+    summaryModalAction.showModal();
+  }
   const location = useLocation().pathname;
 
   const [isCompletePage, setIsCompletePage] = useState(false);
@@ -275,10 +275,7 @@ function Footer({
         <SelectedOptionWrap>
           <SelectedOptionTitleWrap>
             <OptionCategory>선택 옵션</OptionCategory>
-            <OptionCategory
-              style={{ cursor: 'pointer' }}
-              onClick={() => showModal(setShowSummaryModal)}
-            >
+            <OptionCategory style={{ cursor: 'pointer' }} onClick={showModal}>
               {showSummaryModal && (
                 <SummaryModal
                   userCar={userCar}

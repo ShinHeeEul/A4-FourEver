@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import palette from '../../../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
+import { useSelectAction, useSelectValue } from '../../hook/useUserCar';
 
 const TabWrap = styled.div`
   display: flex;
@@ -46,11 +47,17 @@ const BasicSubCategoryWrap = styled.div`
   }
 `;
 
-function OptionTabs({ isBasicTab, setIsBasicTab, basicIndex, categoryClick }) {
+function OptionTabs() {
   const { basicOptions } = useOutletContext();
 
+  const { changeTab, setBasicIndex } = useSelectAction();
+  const { isBasicTab, basicIndex } = useSelectValue();
+
   const tabClick = (state) => {
-    setIsBasicTab(state);
+    changeTab(state);
+  };
+  const categoryClick = (index) => {
+    setBasicIndex(index);
   };
   return (
     <>
