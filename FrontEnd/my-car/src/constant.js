@@ -1,4 +1,8 @@
-export const headerPageName = ['내 차 만들기', '아카이빙', '마이카이빙'];
+export const headerPageName = {
+  mycar: '내 차 만들기',
+  archiving: '아카이빙',
+  mychiving: '마이카이빙',
+};
 export const myCarPagePath = [
   'trim/model',
   'trim/engine',

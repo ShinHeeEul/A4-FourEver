@@ -3,6 +3,8 @@ import { styled } from 'styled-components';
 import TrimCard from '../components/trimPage/TrimCard';
 import { MYCAR } from '../../constant';
 import TrimModelImg from '../components/trimPage/TrimModelImg';
+import { useContext } from 'react';
+import { HeaderContext } from '../../Root';
 
 export const Container = styled.div`
   width: 1280px;
@@ -15,6 +17,8 @@ export const Container = styled.div`
 
 function Model() {
   const { trimOptions } = useOutletContext();
+  const { setIsAccess } = useContext(HeaderContext);
+  setIsAccess(false);
   return (
     <Container>
       <TrimModelImg src={trimOptions[MYCAR.TRIM.FILED.MODEL][0].image} />

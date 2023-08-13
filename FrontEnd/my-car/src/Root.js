@@ -1,28 +1,29 @@
 import { Outlet } from 'react-router-dom';
 import Header from './common/Header';
 import Alert from './common/Alert';
-import { useState } from 'react';
+import { useState, createContext } from 'react';
+
+export const HeaderContext = createContext();
 
 function Root() {
   const [showCommonAlert, setShowCommonAlert] = useState(false);
-  const [isMain, setIsMain] = useState(false);
-  const [isAchiving, setIsAchiving] = useState(false);
+  const [isMainBtn, setIsMainBtn] = useState(false);
+  const [isAccess, setIsAccess] = useState(true);
   return (
     <>
       <Alert
         showCommonAlert={showCommonAlert}
         setShowCommonAlert={setShowCommonAlert}
-        isMain={isMain}
-        setIsMain={setIsMain}
-        isAchiving={isAchiving}
-        setIsAchiving={setIsAchiving}
+        isMainBtn={isMainBtn}
+        setIsMainBtn={setIsMainBtn}
       />
-      <Header
-        setShowCommonAlert={setShowCommonAlert}
-        setIsAchiving={setIsAchiving}
-        setIsMain={setIsMain}
-      />
-      <Outlet />
+      <HeaderContext.Provider value={{ isAccess, setIsAccess }}>
+        <Header
+          setShowCommonAlert={setShowCommonAlert}
+          setIsMainBtn={setIsMainBtn}
+        />
+        <Outlet />
+      </HeaderContext.Provider>
     </>
   );
 }

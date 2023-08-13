@@ -8,8 +8,11 @@ import { MYCAR, USER_CAR_ACTIONS } from '../../constant';
 
 import TrimImg from '../components/common/TrimImg';
 import ColorComponents from '../components/colorPage/ColorSelect';
+
 import { ColorValueContext } from '../../context/mycar/color/ColorPrivider';
 import { useUserCarAction, useUserCarState } from '../hook/useUserCar';
+import RotateImg from '../components/colorPage/RotateImg';
+
 
 const ColorContainer = styled(Container)`
   flex-direction: row;
@@ -48,9 +51,7 @@ function Color() {
   return (
     <ColorContainer>
       <LeftWrap>
-        <TrimImg
-          src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}
-        />
+        <RotateImg selectedOption={selectedOption}></RotateImg>
         <TitlePriceTag
           selectedOption={selectedOption}
           tagFiled={MYCAR.COLOR.FILED.TAGS[activeColorFiled]}
