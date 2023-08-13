@@ -13,7 +13,6 @@ import { ColorValueContext } from '../../context/mycar/color/ColorPrivider';
 import { useUserCarAction, useUserCarState } from '../hook/useUserCar';
 import RotateImg from '../components/colorPage/RotateImg';
 
-
 const ColorContainer = styled(Container)`
   flex-direction: row;
   gap: 75px;

@@ -13,8 +13,9 @@ import { useSelectAction, useSelectValue } from '../../hook/useUserCar';
 const ExplainHeaderWrap = styled.div``;
 const ExplainHeaderTitle = styled.div``;
 export const ExplainNumber = styled.div`
-  width: 22px;
-  height: 22px;
+  box-sizing: border-box;
+  width: 25px;
+  height: 25px;
   border: 3px solid white;
   border-radius: 50%;
   background-color: ${palette.Primary};
