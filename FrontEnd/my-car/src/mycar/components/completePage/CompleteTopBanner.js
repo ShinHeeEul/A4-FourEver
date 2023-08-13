@@ -7,6 +7,7 @@ import {
   Heading3Medium,
 } from '../../../style/typo';
 import carImg from './image-91.png';
+import { useUserCarState } from '../../hook/useUserCar';
 
 const AllDiv = styled.div`
   display: flex;
@@ -99,7 +100,7 @@ function Line() {
 }
 
 function CompleteTopBanner() {
-  const { userCar } = useOutletContext();
+  const userCar = useUserCarState();
 
   return (
     <AllDiv>

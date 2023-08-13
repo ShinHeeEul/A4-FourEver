@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import palette from '../../../style/styleVariable';
 import { Body3Medium, CaptionMedium, Heading3Bold } from '../../../style/typo';
-import { carCardInfo } from '../../../constant';
+import { USER_CAR_ACTIONS, carCardInfo } from '../../../constant';
 import { useOutletContext } from 'react-router-dom';
 import { useSelect } from '../../hook/useSelect';
+import { useUserCarAction, useUserCarState } from '../../hook/useUserCar';
 
 const CarCardDiv = styled.div`
   display: flex;
@@ -144,13 +145,10 @@ function CarCardLine({ $isActive }) {
 }
 
 function TrimCard({ options }) {
-  const { userCar, setUserCar, page } = useOutletContext();
-
+  const { page } = useOutletContext();
   const [selected, setSelectedOption] = useSelect({
-    setUserCar,
-    userCar,
     option: options,
-    field: 'trim',
+    field: USER_CAR_ACTIONS.MODEL,
     page,
   });
 
@@ -162,6 +160,7 @@ function TrimCard({ options }) {
             key={index}
             $isActive={selected === index}
             onClick={() => setSelectedOption({ selectOption: car, index })}
+            // onClick={() => optionClick({ model: car, index })}
           >
             <CarCardName $isActive={selected === index}>{car.name}</CarCardName>
             <CarCardLine $isActive={selected === index} />

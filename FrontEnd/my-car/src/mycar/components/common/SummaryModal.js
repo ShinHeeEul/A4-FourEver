@@ -6,6 +6,12 @@ import {
   Body3Medium,
   Body3Regular,
 } from '../../../style/typo';
+import { useUserCarState } from '../../hook/useUserCar';
+import { useContext } from 'react';
+import {
+  UserCarActionContext,
+  UserCarValueContext,
+} from '../../../context/mycar/UserCarProvider';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -85,25 +91,27 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-function closeModal(setShowSummaryModal) {
-  setShowSummaryModal(false);
-}
+function SummaryModal() {
+  const userCar = useUserCarState();
+  const { summaryModalAction } = useContext(UserCarActionContext);
+  const { showSummaryModal } = useContext(UserCarValueContext);
 
-function SummaryModal({
-  userCar,
-  price,
-  setShowSummaryModal,
-  showSummaryModal,
-}) {
-  const trimPrice = price.trim.reduce((acc, current) => acc + current, 0);
-  const optionPrice = price.option.reduce((acc, current) => acc + current, 0);
+  const trimPrice = userCar.price.reduce((acc, current) => acc + current, 0);
+  const optionPrice = userCar.optionPrice.reduce(
+    (acc, current) => acc + current,
+    0,
+  );
+  function closeModal() {
+    summaryModalAction.closeModal();
+  }
+
   if (showSummaryModal) {
     return (
       <ModalBgDiv>
         <ModalDiv>
           <TitleDiv>
             <TitleText>견적요약보기</TitleText>
-            <CloseBtn onClick={() => closeModal(setShowSummaryModal)}>
+            <CloseBtn onClick={closeModal}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

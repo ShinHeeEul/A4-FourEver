@@ -3,11 +3,11 @@ import ServerErrorPage from '../../../error/ServerErrorPage';
 
 function RootTrim() {
   const { data, error } = useLoaderData();
-  const { page, userCar, setUserCar } = useOutletContext();
+  const { page } = useOutletContext();
 
   if (error) return <ServerErrorPage />;
 
-  return <Outlet context={{ page, userCar, setUserCar, trimOptions: data }} />;
+  return <Outlet context={{ page, trimOptions: data }} />;
 }
 
 export default RootTrim;

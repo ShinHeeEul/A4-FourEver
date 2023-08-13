@@ -5,34 +5,13 @@ import Footer from './components/common/Footer';
 import ToolTip from './components/common/ToolTip';
 import SummaryModal from './components/common/SummaryModal';
 import { myCarPagePath } from '../constant';
+import UserCarProvider from '../context/mycar/UserCarProvider';
 
 function Mycar() {
   const [page, setPage] = useState(0);
 
-  const savedUserCar = localStorage.getItem('userCar');
-  const initialUserCar = savedUserCar
-    ? JSON.parse(savedUserCar)
-    : {
-        trim: {},
-        engine: {},
-        bodyType: {},
-        wheelDrive: {},
-        outerColor: {},
-        innerColor: {},
-        selectedOptions: [],
-        price: [47720000],
-        optionPrice: [],
-      };
-
-  const [userCar, setUserCar] = useState(initialUserCar);
-  const [showSummaryModal, setShowSummaryModal] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    localStorage.setItem('userCar', JSON.stringify(userCar));
-  }, [userCar]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const currentPath = window.location.pathname; // 현재 경로 가져오기
     const mycarPath = currentPath.match(/\/mycar\/(.*)/)[1];
@@ -41,25 +20,13 @@ function Mycar() {
   }, [location]);
 
   return (
-    <>
-      <SummaryModal
-        showSummaryModal={showSummaryModal}
-        userCar={userCar}
-        price={{ trim: userCar.price, option: userCar.optionPrice }}
-        setShowSummaryModal={setShowSummaryModal}
-      />
+    <UserCarProvider>
+      <SummaryModal />
       <ToolTip />
       <NavBar page={page} />
-      <Outlet context={{ page, userCar, setUserCar }} />
-      <Footer
-        userCar={userCar}
-        price={{ trim: userCar.price, option: userCar.optionPrice }}
-        setPage={setPage}
-        page={page}
-        showSummaryModal={showSummaryModal}
-        setShowSummaryModal={setShowSummaryModal}
-      />
-    </>
+      <Outlet context={{ page }} />
+      <Footer setPage={setPage} page={page} />
+    </UserCarProvider>
   );
 }
 export default Mycar;

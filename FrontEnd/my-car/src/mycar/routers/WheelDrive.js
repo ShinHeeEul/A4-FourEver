@@ -14,12 +14,10 @@ const WheelDriveContainer = styled(Container)`
 `;
 
 function WheelDrive() {
-  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
+  const { trimOptions, page } = useOutletContext();
   const wheelOptions = trimOptions[MYCAR.TRIM.FILED.WHEEL];
 
   const [selected, setSelectedOption] = useSelect({
-    setUserCar,
-    userCar,
     option: wheelOptions,
     field: 'wheelDrive',
     page,

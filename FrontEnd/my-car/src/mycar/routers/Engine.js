@@ -36,11 +36,10 @@ export const RightWrap = styled.div`
 `;
 
 function Engine() {
-  const { setUserCar, userCar, trimOptions, page } = useOutletContext();
+  const { trimOptions, page } = useOutletContext();
   const engineOption = trimOptions[MYCAR.TRIM.FILED.ENGINE];
+
   const [selected, setSelectedOption] = useSelect({
-    setUserCar,
-    userCar,
     option: engineOption,
     field: 'engine',
     page,

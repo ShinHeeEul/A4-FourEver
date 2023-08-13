@@ -1,10 +1,11 @@
 import { Outlet, useLoaderData, useOutletContext } from 'react-router-dom';
 import { MYCAR } from '../../../constant';
 import ServerErrorPage from '../../../error/ServerErrorPage';
+import ColorProvider from '../../../context/mycar/color/ColorPrivider';
 
 function RootColor() {
   const { data, error } = useLoaderData();
-  const { page, userCar, setUserCar } = useOutletContext();
+  const { page } = useOutletContext();
 
   if (error) return <ServerErrorPage />;
 
@@ -12,15 +13,15 @@ function RootColor() {
   const exColorOptions = data[MYCAR.COLOR.FILED.EXCOLOR];
 
   return (
-    <Outlet
-      context={{
-        page,
-        userCar,
-        setUserCar,
-        inColorOptions,
-        exColorOptions,
-      }}
-    />
+    <ColorProvider exColorOptions={exColorOptions}>
+      <Outlet
+        context={{
+          page,
+          inColorOptions,
+          exColorOptions,
+        }}
+      />
+    </ColorProvider>
   );
 }
 export default RootColor;

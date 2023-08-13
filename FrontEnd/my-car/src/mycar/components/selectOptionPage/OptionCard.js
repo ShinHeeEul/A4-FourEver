@@ -1,8 +1,12 @@
 import { css, styled } from 'styled-components';
 import palette from '../../../style/styleVariable';
 import { Body3Medium, Body4Regular } from '../../../style/typo';
-import { useOutletContext } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import {
+  useSelectAction,
+  useSelectValue,
+  useUserCarState,
+} from '../../hook/useUserCar';
 
 export const DimmedOverlay = styled.div`
   width: 100%;
@@ -215,21 +219,21 @@ function RightArrow({ reference, clickHandler }) {
   );
 }
 
-function OptionCard({
-  optionInfo,
-  selected,
-  optionClick,
-  isBasicTab,
-  addOption,
-  removeOption,
-  setModal,
-  basicIndex,
-}) {
-  const { userCar } = useOutletContext();
+function OptionCard({ optionInfo }) {
   const leftArrow = useRef();
   const rightArrow = useRef();
   const scrollWrap = useRef();
   const cardWrap = useRef();
+
+  const userCar = useUserCarState();
+  const { removeOption, addOption, select, setPage, setModal } =
+    useSelectAction();
+  const { selected, isBasicTab, basicIndex } = useSelectValue();
+
+  const optionClick = (index) => {
+    select(index);
+    setPage(0);
+  };
 
   const isAdded = (eachOption) => {
     const found = userCar.selectedOptions.some(
@@ -257,9 +261,6 @@ function OptionCard({
       direction === 'left' ? cardWrapWidth : Number(`-${cardWrapWidth}`);
     const newScrollPosition = scrollPosition + scrollAmount;
 
-    console.log(newScrollPosition);
-    console.log(cardWrapWidth);
-    console.log(scrollWrapWidth);
     if (newScrollPosition === 0) {
       rightArrow.current.style.display = 'block';
       leftArrow.current.style.display = 'none';
@@ -280,11 +281,7 @@ function OptionCard({
   return (
     <Container>
       <CardsWrap ref={cardWrap}>
-        <ScrollWrapper
-          ref={scrollWrap}
-          $scroll={scrollPosition}
-          // style={{ transform: `translateX(${scrollPosition}px)` }}
-        >
+        <ScrollWrapper ref={scrollWrap} $scroll={scrollPosition}>
           {optionInfo.map((option, index) => {
             const addState = isAdded(option);
             return (
@@ -296,7 +293,7 @@ function OptionCard({
                 onClick={() => {
                   if (!isBasicTab) optionClick(index);
                   else {
-                    setModal(() => ({ show: true, optionId: index }));
+                    setModal({ show: true, optionId: index });
                   }
                 }}
               >
@@ -328,9 +325,9 @@ function OptionCard({
                       $isAdded={addState}
                       onClick={() => {
                         if (addState) {
-                          removeOption(index);
+                          removeOption({ index });
                         } else {
-                          addOption(index);
+                          addOption({ index });
                         }
                       }}
                     >

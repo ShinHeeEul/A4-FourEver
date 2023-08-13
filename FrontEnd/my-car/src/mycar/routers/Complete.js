@@ -4,9 +4,11 @@ import AnimationMovingCar from '../components/completePage/AnimationMovingCar';
 import { useEffect } from 'react';
 import NotFound from '../../error/NotFoundPage';
 import { useOutletContext } from 'react-router-dom';
+import { useUserCarState } from '../hook/useUserCar';
 
 function Complete() {
-  const { userCar } = useOutletContext();
+  const userCar = useUserCarState();
+
   useEffect(() => {
     localStorage.removeItem('userCar');
   }, []);

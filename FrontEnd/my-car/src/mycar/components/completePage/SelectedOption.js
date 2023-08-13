@@ -8,6 +8,7 @@ import {
 } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 import { CardsWrap } from '../selectOptionPage/OptionCard';
+import { useUserCarState } from '../../hook/useUserCar';
 const BgDiv = styled.div`
   width: 1024px;
   align-items: center;
@@ -110,7 +111,8 @@ const CardImg = styled.img`
 `;
 
 function SelectedOption() {
-  const { userCar } = useOutletContext();
+  const userCar = useUserCarState();
+
   if (userCar.selectedOptions.length > 0) {
     return (
       <BgDiv>

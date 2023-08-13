@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import carImage from './image-91.png';
 import { Heading1Medium } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
+import { useUserCarState } from '../../hook/useUserCar';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -82,7 +83,7 @@ const CarImage = styled.img`
 
 function AnimationMovingCar() {
   const [removeModal, setRemoveModal] = useState(false);
-  const { userCar } = useOutletContext();
+  const userCar = useUserCarState();
 
   useEffect(() => {
     const body = document.querySelector('body');
