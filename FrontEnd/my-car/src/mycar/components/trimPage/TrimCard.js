@@ -5,6 +5,7 @@ import { USER_CAR_ACTIONS, carCardInfo } from '../../../constant';
 import { useOutletContext } from 'react-router-dom';
 import { useSelect } from '../../hook/useSelect';
 import { useUserCarAction, useUserCarState } from '../../hook/useUserCar';
+import EachTrimCard from './EachTrimCard';
 
 const CarCardDiv = styled.div`
   display: flex;
@@ -55,50 +56,6 @@ const CarCardLogoDiv = styled.div`
   justify-content: center;
   align-items: center;
   gap: 25px;
-`;
-
-const CarCardLogo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
-const CarCardLogoNameDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 10px;
-`;
-
-const CarCardLogoImg = styled.div`
-  /* ${(props) => {
-    if (props.$isActive === true) {
-      return `
-        stroke: ${palette.Primary};
-      `;
-    }
-    return `
-      stroke: ${palette.DarkGray};
-    `;
-  }} */
-`;
-
-const CarCardLogoName = styled.div`
-  ${CaptionMedium};
-  display: flex;
-  text-align: center;
-  align-items: center;
-  ${(props) => {
-    if (props.isActive === true) {
-      return `
-        color: ${palette.Primary};
-      `;
-    }
-    return `
-      color: ${palette.DarkGray};
-    `;
-  }}
 `;
 const CarCardPriceDiv = styled.div``;
 const CarCardPriceWon = styled.span`
@@ -160,12 +117,12 @@ function TrimCard({ options }) {
             key={index}
             $isActive={selected === index}
             onClick={() => setSelectedOption({ selectOption: car, index })}
-            // onClick={() => optionClick({ model: car, index })}
           >
             <CarCardName $isActive={selected === index}>{car.name}</CarCardName>
             <CarCardLine $isActive={selected === index} />
             <CarCardLogoDiv>
-              {carCardInfo[index].logo.map((item, key) => (
+              <EachTrimCard car={car} isActive={selected === index} />
+              {/* {carCardInfo[index].logo.map((item, key) => (
                 <CarCardLogoNameDiv key={key}>
                   <CarCardLogoImg> {item}</CarCardLogoImg>
                   <CarCardLogoName $isActive={selected === index}>
@@ -175,7 +132,7 @@ function TrimCard({ options }) {
                     {carCardInfo[index].logoText[1]}
                   </CarCardLogoName>
                 </CarCardLogoNameDiv>
-              ))}
+              ))} */}
             </CarCardLogoDiv>
             <CarCardLine $isActive={selected === index} />
             <CarCardPriceDiv>

@@ -9,7 +9,7 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   background-color: transparent;
-  /* background-color: beige; */
+
   img {
   }
 `;
