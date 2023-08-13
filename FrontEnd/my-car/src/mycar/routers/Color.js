@@ -50,7 +50,14 @@ function Color() {
   return (
     <ColorContainer>
       <LeftWrap>
-        <RotateImg selectedOption={selectedOption}></RotateImg>
+        {activeColorFiled === MYCAR.COLOR.FILED.EXCOLOR ? (
+          <RotateImg selectedOption={selectedOption}></RotateImg>
+        ) : (
+          <TrimImg
+            src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}
+          />
+        )}
+
         <TitlePriceTag
           selectedOption={selectedOption}
           tagFiled={MYCAR.COLOR.FILED.TAGS[activeColorFiled]}
