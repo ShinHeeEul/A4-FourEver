@@ -21,6 +21,7 @@ function Model() {
   useEffect(() => {
     setIsAccess(false);
   }, []);
+
   return (
     <Container>
       <TrimModelImg src={trimOptions[MYCAR.TRIM.FILED.MODEL][0].image} />
