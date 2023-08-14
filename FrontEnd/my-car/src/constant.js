@@ -97,7 +97,7 @@ export const navCategoryName = {
 
 export const logoTextInfo = [
   {
-    name: 'Leblanc',
+    name: 'leblanc',
     value: [
       ['20인치', '알로이 휠'],
       ['서라운드 뷰', '모니터'],
@@ -105,7 +105,7 @@ export const logoTextInfo = [
     ],
   },
   {
-    name: 'Exclusive',
+    name: 'exclusive',
     value: [
       ['12.3인치', '내비게이션'],
       ['내비게이션', '스마트 컨트롤'],
@@ -113,7 +113,7 @@ export const logoTextInfo = [
     ],
   },
   {
-    name: 'Prestige',
+    name: 'prestige',
     value: [
       ['2열 수동식', '도어 커튼'],
       ['스마트', '자세제어'],
@@ -121,7 +121,7 @@ export const logoTextInfo = [
     ],
   },
   {
-    name: 'Calligraphy',
+    name: 'calligraphy',
     value: [
       ['KRELL', '프리미엄 사운드'],
       ['원격 스마트', '주차보조'],

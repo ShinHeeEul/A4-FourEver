@@ -10,7 +10,6 @@ export const Container = styled.div`
   width: 1280px;
   display: flex;
   justify-content: center;
-  /* gap: 10px; */
   margin: 27px auto;
   flex-direction: column;
 `;
