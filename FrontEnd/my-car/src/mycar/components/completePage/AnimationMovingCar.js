@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import carImage from './image-91.png';
+
 import { Heading1Medium } from '../../../style/typo';
 import { useOutletContext } from 'react-router-dom';
 import { useUserCarState } from '../../hook/useUserCar';

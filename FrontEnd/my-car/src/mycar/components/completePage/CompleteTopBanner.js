@@ -6,7 +6,7 @@ import {
   Heading1Medium,
   Heading3Medium,
 } from '../../../style/typo';
-import carImg from './image-91.png';
+
 import { useUserCarState } from '../../hook/useUserCar';
 
 const AllDiv = styled.div`
