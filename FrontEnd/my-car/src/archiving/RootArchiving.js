@@ -6,8 +6,7 @@ function RootArchiving() {
   return (
     <>
       <ChivingHeader />
-      <Outlet />;
-
+      <Outlet />
     </>
   );
 }
