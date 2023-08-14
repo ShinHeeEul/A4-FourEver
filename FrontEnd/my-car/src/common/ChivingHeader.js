@@ -29,7 +29,8 @@ const ArchivingSymbolDiv = styled.div`
   gap: 6px;
 
   position: absolute;
-  left: 45.5%;
+  left: 50%;
+  transform: translate(-50%, 0);
 `;
 const ArchivingSymbolText = styled.span`
   ${Heading3Medium}
