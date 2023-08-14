@@ -93,7 +93,7 @@ const ImgDiv = styled.div`
   align-items: center;
   position: absolute;
   left: 60%;
-  transform: translate(-30%, -10%);
+  transform: translate(-30%, 0%) scale(1.1);
   z-index: 1;
 `;
 
