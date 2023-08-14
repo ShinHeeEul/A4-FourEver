@@ -3,7 +3,7 @@ const Test = styled.h2`
   margin-top: 200px;
 `;
 
-function Archiving() {
+function RootArchiving() {
   return <Test>아카이빙페이지입니다</Test>;
 }
-export default Archiving;
+export default RootArchiving;

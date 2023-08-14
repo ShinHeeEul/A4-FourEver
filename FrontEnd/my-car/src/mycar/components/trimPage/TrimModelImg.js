@@ -218,7 +218,8 @@ function TrimModelImg({ src }) {
 
   useEffect(() => {
     const id = userCar.trim.id;
-    setLocation(MockLocation[id - 1].location);
+    console.log(id);
+    setLocation(MockLocation[id ? id - 1 : 0].location);
   }, [userCar]);
 
   const openExternalLink = (url) => {
