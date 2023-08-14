@@ -13,7 +13,7 @@ const EngineContainer = styled(Container)`
 `;
 
 export const OptionImgWrap = styled.div`
-  width: 620px;
+  width: 700px;
   height: 400px;
   flex-shrink: 0;
   background-color: black;

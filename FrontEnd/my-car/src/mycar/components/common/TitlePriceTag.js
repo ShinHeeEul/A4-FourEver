@@ -4,7 +4,7 @@ import palette from '../../../style/styleVariable';
 
 const Container = styled.div`
   color: ${palette.Black};
-  width: ${(props) => (props.$isSmall ? '500px' : '620px')};
+  width: ${(props) => (props.$isSmall ? '500px' : '700px')};
 `;
 
 const Header = styled.header`

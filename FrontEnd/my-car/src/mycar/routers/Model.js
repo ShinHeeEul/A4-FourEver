@@ -10,7 +10,6 @@ export const Container = styled.div`
   width: 1280px;
   display: flex;
   justify-content: center;
-  /* gap: 10px; */
   margin: 27px auto;
   flex-direction: column;
 `;
@@ -18,7 +17,10 @@ export const Container = styled.div`
 function Model() {
   const { trimOptions } = useOutletContext();
   const { setIsAccess } = useContext(HeaderActionContext);
-  setIsAccess(false);
+
+  useEffect(() => {
+    setIsAccess(false);
+  }, []);
 
   return (
     <Container>
