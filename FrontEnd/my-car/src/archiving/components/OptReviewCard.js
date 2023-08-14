@@ -23,7 +23,9 @@ const CardWrap = styled.div`
   width: calc(470px - 60px);
   height: 270px;
   border-radius: 8px;
-  border: 1px solid var(--hyundai-sand, #e4dcd3);
+  /* border: 1px solid var(--hyundai-sand, #e4dcd3); */
+  border: 2px solid #e4dcd3;
+
   background: #fff;
   padding: 30px;
   &:nth-child(2n + 1) {

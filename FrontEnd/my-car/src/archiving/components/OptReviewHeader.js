@@ -8,7 +8,8 @@ export const Container = styled.div`
 `;
 
 const HeaderWrap = styled.div`
-  border-bottom: 1px solid ${palette.LightGray};
+  /* border-bottom: 1px solid ${palette.LightGray}; */
+  border-bottom: 2px solid #e4dcd396;
   gap: 20px;
   display: flex;
   align-items: flex-end;
