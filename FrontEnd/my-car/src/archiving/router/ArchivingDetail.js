@@ -6,7 +6,6 @@ function ArchivingDetail() {
   const { id } = useParams();
   return (
     <>
-      <ChivingHeader />
       <DetailBanner />
     </>
   );
