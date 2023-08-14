@@ -5,7 +5,7 @@ import { ReactComponent as ArchivingLogo } from '../assets/archivingLogoBlack.sv
 import { ReactComponent as CarLogo } from '../assets/carLogo.svg';
 import { Heading3Medium, Heading4Medium } from '../style/typo';
 const ChivingHeaderDiv = styled.div`
-  width: calc(100%-200px);
+  width: calc(100% - 200px);
   height: 91px;
   flex-shrink: 0;
 
