@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import Mycar from './mycar/Mycar';
-import Archiving from './archiving/RootArchiving';
 import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
@@ -22,6 +21,7 @@ import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
 import RootArchiving from './archiving/RootArchiving';
 import ArchivingDetail from './archiving/router/ArchivingDetail';
+import Archiving from './archiving/router/Archiving';
 
 const router = createBrowserRouter([
   {
@@ -109,12 +109,13 @@ const router = createBrowserRouter([
         element: <RootArchiving />,
         children: [
           {
-            path: '',
-            element: <Archiving />,
-          },
-          {
             path: ':id',
             element: <ArchivingDetail />,
+          },
+          {
+            path: '',
+
+            element: <Archiving />,
           },
         ],
       },

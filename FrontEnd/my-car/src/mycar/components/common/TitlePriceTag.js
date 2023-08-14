@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
-import { Body3Regular, Heading1Bold, Heading2Bold } from '../../../style/typo';
+import { Heading1Bold, Heading2Bold } from '../../../style/typo';
 import palette from '../../../style/styleVariable';
+import { Tag } from '../../../common/Tag';
 
 const Container = styled.div`
   color: ${palette.Black};
@@ -33,16 +34,6 @@ const TagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-`;
-const Tag = styled.div`
-  display: inline-flex;
-  padding: 4px 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  background: #f6f3f2;
-  ${Body3Regular}
 `;
 
 function TitlePriceTag({ selectedOption, tagFiled, isSmall = false }) {

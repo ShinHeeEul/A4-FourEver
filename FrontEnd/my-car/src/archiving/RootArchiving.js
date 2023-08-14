@@ -7,7 +7,7 @@ const Test = styled.h2`
 function RootArchiving() {
   return (
     <Test>
-      아카이빙페이지입니다
+      {/* 아카이빙페이지입니다 */}
       <Outlet />
     </Test>
   );
