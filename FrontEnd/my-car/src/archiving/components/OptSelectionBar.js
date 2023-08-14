@@ -4,7 +4,7 @@ import { Body3Regular } from '../../style/typo';
 
 const Container = styled.div`
   background-color: ${palette.Neutral};
-  height: 122px;
+  height: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
