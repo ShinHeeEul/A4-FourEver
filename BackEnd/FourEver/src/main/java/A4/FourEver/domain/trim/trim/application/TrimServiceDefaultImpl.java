@@ -5,7 +5,6 @@ import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimColorsAndTagsDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimMapper;
 import A4.FourEver.domain.trim.trim.repository.TrimRepository;
-import A4.FourEver.domain.trim.trim.repository.TrimRepositoryDefaultImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -16,8 +15,8 @@ public class TrimServiceDefaultImpl implements TrimService{
     private final TrimRepository trimRepository;
     private final TrimMapper trimMapper;
 
-    public TrimServiceDefaultImpl(TrimRepositoryDefaultImpl trimRepositoryDefaultImpl, TrimMapper trimMapper) {
-        this.trimRepository = trimRepositoryDefaultImpl;
+    public TrimServiceDefaultImpl(TrimRepository trimRepository, TrimMapper trimMapper) {
+        this.trimRepository = trimRepository;
         this.trimMapper = trimMapper;
     }
 

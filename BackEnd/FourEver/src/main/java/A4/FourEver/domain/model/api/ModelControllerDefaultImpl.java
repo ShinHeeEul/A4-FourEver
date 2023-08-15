@@ -1,7 +1,6 @@
 package A4.FourEver.domain.model.api;
 
 import A4.FourEver.domain.model.application.ModelService;
-import A4.FourEver.domain.model.application.ModelServiceDefaultImpl;
 import A4.FourEver.domain.model.dto.ModelOptionsSortedDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,8 +16,8 @@ public class ModelControllerDefaultImpl implements ModelController {
 
     private final ModelService modelService;
 
-    public ModelControllerDefaultImpl(ModelServiceDefaultImpl modelServiceDefaultImpl) {
-        this.modelService = modelServiceDefaultImpl;
+    public ModelControllerDefaultImpl(ModelService modelService) {
+        this.modelService = modelService;
     }
 
     @Override

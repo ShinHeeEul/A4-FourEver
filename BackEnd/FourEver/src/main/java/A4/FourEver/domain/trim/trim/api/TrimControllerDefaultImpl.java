@@ -1,7 +1,6 @@
 package A4.FourEver.domain.trim.trim.api;
 
 import A4.FourEver.domain.trim.trim.application.TrimService;
-import A4.FourEver.domain.trim.trim.application.TrimServiceDefaultImpl;
 import A4.FourEver.domain.trim.trim.dto.TrimColorsAndTagsDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,8 +16,8 @@ public class TrimControllerDefaultImpl implements TrimController {
 
     private final TrimService trimService;
 
-    public TrimControllerDefaultImpl(TrimServiceDefaultImpl trimServiceDefaultImpl) {
-        this.trimService = trimServiceDefaultImpl;
+    public TrimControllerDefaultImpl(TrimService trimService) {
+        this.trimService = trimService;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package A4.FourEver.domain.car.dto;
 
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
+import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewSortedDTO;
+import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
@@ -35,6 +39,40 @@ public class CarMapper {
                 .bodyInfoDTOs(bodyList)
                 .driveInfoDTOs(driveList)
                 .engineInfoDTOs(engineList)
+                .build();
+    }
+
+    public CarReviewOverviewSortedListDTO convertToSortedDTO(CarReviewOverviewListDTO dto) {
+        List<CarReviewOverviewSortedDTO> overviewDTOList = dto.getCarReviewOverviewDTOs().stream()
+                .sorted(Comparator.comparingLong(CarReviewOverviewDTO::getCar_review_id))
+                .map(this::convertCarReview)
+                .collect(Collectors.toList());
+
+        return CarReviewOverviewSortedListDTO.builder()
+                .carReviewOverviewDTOs(overviewDTOList)
+                .build();
+    }
+
+    private CarReviewOverviewSortedDTO convertCarReview(CarReviewOverviewDTO dto) {
+        List<ExtraOptionNameDTO> extraOptionNameDTOs = dto.getExtraOptionNameDTOs().stream()
+                .sorted(Comparator.comparingLong(ExtraOptionNameDTO::getId))
+                .collect(Collectors.toList());
+
+        List<TotalTagInfoDTO> totalTagInfoDTOs = dto.getTotalTagInfoDTOs().stream()
+                .sorted(Comparator.comparingLong(TotalTagInfoDTO::getId))
+                .collect(Collectors.toList());
+
+        return CarReviewOverviewSortedDTO.builder()
+                .car_review_id(dto.getCar_review_id())
+                .trim_name(dto.getTrim_name())
+                .drive_name(dto.getDrive_name())
+                .engine_name(dto.getEngine_name())
+                .body_name(dto.getBody_name())
+                .exterior_color_name(dto.getExterior_color_name())
+                .interior_color_name(dto.getInterior_color_name())
+                .created_at(dto.getCreated_at())
+                .extraOptionNameDTOs(extraOptionNameDTOs)
+                .totalTagInfoDTOs(totalTagInfoDTOs)
                 .build();
     }
 }
