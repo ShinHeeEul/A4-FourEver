@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../style/typo';
-import { headerPageName } from '../constant';
+import { headerPageName, myCarPagePath } from '../constant';
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { HeaderValueContext } from '../Root';
 import { ReactComponent as HyundaiLogo } from '../../src/assets/hyundaiLogo.svg';
 import { ReactComponent as HyundaiLeftDiv } from '../../src/assets/leftDivisionBar.svg';
@@ -68,14 +68,11 @@ const HyundaiLogoDiv = styled.div`
   cursor: pointer;
 `;
 
-function showAlert(setShowCommonAlert, setIsMainBtn, flag) {
-  setShowCommonAlert(true);
-  setIsMainBtn(flag);
-}
-
 function Header({ setShowCommonAlert, setIsMainBtn }) {
+  const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
-  const { isAccess } = useContext(HeaderValueContext);
+  const currentSubPath = useLocation().pathname.split('/')[2];
+  const { isAccess, isMainBtn } = useContext(HeaderValueContext);
   let btnText;
 
   switch (currentPath) {
@@ -91,13 +88,24 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
     default:
   }
 
+  function showAlert(flag) {
+    if (
+      currentPath === 'mycar' &&
+      currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+    ) {
+      isMainBtn ? navigate('/main') : navigate('/archiving');
+      return;
+    }
+
+    setShowCommonAlert(true);
+    setIsMainBtn(flag);
+  }
+
   if (useLocation().pathname !== '/main') {
     return (
       <HeaderDiv>
         <HeaderElements>
-          <HyundaiLogoDiv
-            onClick={() => showAlert(setShowCommonAlert, setIsMainBtn, true)}
-          >
+          <HyundaiLogoDiv onClick={() => showAlert(true)}>
             <HyundaiLogo />
           </HyundaiLogoDiv>
           <HyundaiLeftDiv />
@@ -110,9 +118,7 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
           {currentPath === 'archiving' && !isAccess ? (
             <></>
           ) : (
-            <ToCarivingBtn
-              onClick={() => showAlert(setShowCommonAlert, setIsMainBtn, false)}
-            >
+            <ToCarivingBtn onClick={() => showAlert(false)}>
               <ArchivingLogo />
               <ToCarivingBtnText>{btnText}</ToCarivingBtnText>
             </ToCarivingBtn>

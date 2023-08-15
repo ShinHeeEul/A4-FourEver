@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 const AlertBgDiv = styled.div`
@@ -83,15 +83,8 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function closeAlert(setShowCommonAlert) {
-  setShowCommonAlert(false);
-}
-
-function movePage(setShowCommonAlert) {
-  setShowCommonAlert(false);
-}
-
 function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
+  const navigate = useNavigate();
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -137,6 +130,11 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
       return;
   }
 
+  const closeAlert = () => {
+    setShowCommonAlert(false);
+    navigate(link, { state: { from: 'mycar' } });
+  };
+
   return (
     <AlertBgDiv
       $showCommonAlert={showCommonAlert}
@@ -153,11 +151,10 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
           <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
-          <Link to={link}>
-            <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
-              <AlertMsgBold>확인</AlertMsgBold>
-            </BtnConfirm>
-          </Link>
+
+          <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+            <AlertMsgBold>확인</AlertMsgBold>
+          </BtnConfirm>
         </AlertBtnDiv>
       </AlertDiv>
     </AlertBgDiv>

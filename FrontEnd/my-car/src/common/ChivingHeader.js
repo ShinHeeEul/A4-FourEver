@@ -1,9 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../style/styleVariable';
-import { ReactComponent as ToBackSymbol } from '../assets/leftArrow.svg';
+import ToBackSymbol from '../assets/leftArrow.svg';
 import { ReactComponent as ArchivingLogo } from '../assets/archivingLogoBlack.svg';
 import { ReactComponent as CarLogo } from '../assets/carLogo.svg';
 import { Heading3Medium, Heading4Medium } from '../style/typo';
+import { useNavigate } from 'react-router-dom';
+import { myCarPagePath } from '../constant';
 const ChivingHeaderDiv = styled.div`
   width: calc(100% - 180px);
   height: 91px;
@@ -38,6 +40,7 @@ const ArchivingSymbolText = styled.span`
   ${Heading3Medium}
 `;
 const ToMycarDiv = styled.div`
+  visibility: ${({ $isShow }) => ($isShow ? 'visible' : 'hidden')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,17 +51,43 @@ const ToMycarText = styled.span`
   ${Heading4Medium}
 `;
 
-function ChivingHeader() {
+const GoBack = styled.img`
+  cursor: pointer;
+  ${({ $isShow }) =>
+    $isShow
+      ? css`
+          visibility: visible;
+          cursor: pointer;
+        `
+      : css`
+          visibility: hidden;
+          cursor: auto;
+        `};
+`;
+
+function ChivingHeader({ fromMycar }) {
+  const navigate = useNavigate();
+  const BackClick = () => {
+    navigate(-1);
+  };
+  const GoMyCar = () => {
+    navigate(`/mycar/${myCarPagePath[0]}`);
+  };
+
   return (
     <ChivingHeaderDiv>
-      <ToBackSymbol style={{ cursor: 'pointer' }} />
+      <GoBack
+        onClick={BackClick}
+        src={ToBackSymbol}
+        $isShow={fromMycar !== null}
+      />
       <ArchivingSymbolDiv>
         <ArchivingLogo />
         <ArchivingSymbolText>아카이빙</ArchivingSymbolText>
       </ArchivingSymbolDiv>
-      <ToMycarDiv>
+      <ToMycarDiv onClick={GoMyCar} $isShow={fromMycar === null}>
         <CarLogo />
-        <ToMycarText>내 차 만들기 바로가기</ToMycarText>
+        <ToMycarText> 내 차 만들기 바로가기</ToMycarText>
       </ToMycarDiv>
     </ChivingHeaderDiv>
   );
