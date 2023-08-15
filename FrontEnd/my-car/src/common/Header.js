@@ -72,7 +72,7 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
   const currentSubPath = useLocation().pathname.split('/')[2];
-  const { isAccess } = useContext(HeaderValueContext);
+  const { isAccess, isMainBtn } = useContext(HeaderValueContext);
   let btnText;
 
   switch (currentPath) {
@@ -93,7 +93,7 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
       currentPath === 'mycar' &&
       currentSubPath === myCarPagePath[myCarPagePath.length - 1]
     ) {
-      navigate('/archiving');
+      isMainBtn ? navigate('/main') : navigate('/archiving');
       return;
     }
 
@@ -105,9 +105,7 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
     return (
       <HeaderDiv>
         <HeaderElements>
-          <HyundaiLogoDiv
-            onClick={() => showAlert(setShowCommonAlert, setIsMainBtn, true)}
-          >
+          <HyundaiLogoDiv onClick={() => showAlert(true)}>
             <HyundaiLogo />
           </HyundaiLogoDiv>
           <HyundaiLeftDiv />

@@ -17,7 +17,7 @@ function Root() {
         isMainBtn={isMainBtn}
         setIsMainBtn={setIsMainBtn}
       />
-      <HeaderValueContext.Provider value={{ isAccess }}>
+      <HeaderValueContext.Provider value={{ isAccess, isMainBtn }}>
         <HeaderActionContext.Provider value={{ setIsAccess }}>
           <Header
             setShowCommonAlert={setShowCommonAlert}
