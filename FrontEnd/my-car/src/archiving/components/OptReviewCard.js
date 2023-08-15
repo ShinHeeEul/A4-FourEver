@@ -32,6 +32,11 @@ const CardWrap = styled.div`
     margin-left: 30px;
   }
   cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    border: 2px solid #aea6a0;
+    background: #fafafa;
+  }
 `;
 
 const CardHeader = styled.div`
