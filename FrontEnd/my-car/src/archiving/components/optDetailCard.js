@@ -2,30 +2,34 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
 import { ReactComponent as CardDivisionSvg } from '../../assets/optionCardDivision.svg';
-const AllDiv = styled.div`
-  display: flex;
-  margin: 50px auto;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  width: 1048px;
-`;
+import { useState } from 'react';
 
 const CardDiv = styled.div`
   width: 331px;
   height: 263px;
   flex-shrink: 0;
   border-radius: 8px;
-  border: 1px solid ${palette.Sand};
+  border: 2px solid
+    ${({ $isSelected }) =>
+      $isSelected ? `${palette.Primary}` : `${palette.Sand}`};
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 20px 0;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ $isSelected }) =>
+      $isSelected ? 'rgba(0, 44, 95, 0.1)' : `${palette.Neutral}`};
+  }
+
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? 'aliceblue' : 'white'};
 `;
 const CardImgdiv = styled.div`
   width: 320px;
   height: 150px;
-  background-color: aliceblue;
+  background-color: lightgrey;
   margin: 5px auto;
 `;
 
@@ -78,75 +82,23 @@ const EachTagDiv = styled.div`
   width: max-content;
 `;
 
-function OptDetailCard() {
+function OptDetailCard({ data, idx, isSelected, onClick }) {
   return (
-    <AllDiv>
-      <CardDiv>
-        <CardImgdiv></CardImgdiv>
-        <CardTitleDiv>
-          <CardNumber>01</CardNumber>
-          <CardText>컴포트 || 패키지 </CardText>
-        </CardTitleDiv>
-        <CardDivisionSvg style={{ margin: '0 auto' }} />
-        <CardTagDiv>
-          <EachTagDiv>편리해요😉</EachTagDiv>
-          <EachTagDiv>출퇴근용으로 딱🚶</EachTagDiv>
-          <EachTagDiv> 어린이👶</EachTagDiv>
-        </CardTagDiv>
-      </CardDiv>
-      <CardDiv>
-        <CardImgdiv></CardImgdiv>
-        <CardTitleDiv>
-          <CardNumber>02</CardNumber>
-          <CardText>현대 스마트센스Ⅰ패키지</CardText>
-        </CardTitleDiv>
-        <CardDivisionSvg style={{ margin: '0 auto' }} />
-        <CardTagDiv>
-          <EachTagDiv>편리해요😉</EachTagDiv>
-          <EachTagDiv>출퇴근용으로 딱🚶</EachTagDiv>
-          <EachTagDiv> 어린이👶</EachTagDiv>
-        </CardTagDiv>
-      </CardDiv>
-      <CardDiv>
-        <CardImgdiv></CardImgdiv>
-        <CardTitleDiv>
-          <CardNumber>03</CardNumber>
-          <CardText>2열 통풍시트</CardText>
-        </CardTitleDiv>
-        <CardDivisionSvg style={{ margin: '0 auto' }} />
-        <CardTagDiv>
-          <EachTagDiv>편리해요😉</EachTagDiv>
-          <EachTagDiv>출퇴근용으로 딱🚶</EachTagDiv>
-          <EachTagDiv> 어린이👶</EachTagDiv>
-        </CardTagDiv>
-      </CardDiv>
-      <CardDiv>
-        <CardImgdiv></CardImgdiv>
-        <CardTitleDiv>
-          <CardNumber>04</CardNumber>
-          <CardText>빌트인 캠(보조배터리 포함)</CardText>
-        </CardTitleDiv>
-        <CardDivisionSvg style={{ margin: '0 auto' }} />
-        <CardTagDiv>
-          <EachTagDiv>편리해요😉</EachTagDiv>
-          <EachTagDiv>출퇴근용으로 딱🚶</EachTagDiv>
-          <EachTagDiv> 어린이👶</EachTagDiv>
-        </CardTagDiv>
-      </CardDiv>
-      <CardDiv>
-        <CardImgdiv></CardImgdiv>
-        <CardTitleDiv>
-          <CardNumber>05</CardNumber>
-          <CardText>사이드스텝</CardText>
-        </CardTitleDiv>
-        <CardDivisionSvg style={{ margin: '0 auto' }} />
-        <CardTagDiv>
-          <EachTagDiv>편리해요😉</EachTagDiv>
-          <EachTagDiv>출퇴근용으로 딱🚶</EachTagDiv>
-          <EachTagDiv> 어린이👶</EachTagDiv>
-        </CardTagDiv>
-      </CardDiv>
-    </AllDiv>
+    <CardDiv onClick={onClick} $isSelected={isSelected}>
+      <CardImgdiv></CardImgdiv>
+      <CardTitleDiv>
+        <CardNumber>
+          {idx.toString().length < 2 ? '0' + (idx + 1) : idx + 1}
+        </CardNumber>
+        <CardText>{data.title}</CardText>
+      </CardTitleDiv>
+      <CardDivisionSvg style={{ margin: '0 auto' }} />
+      <CardTagDiv>
+        {data.tags.map((data) => {
+          return <EachTagDiv>{data}</EachTagDiv>;
+        })}
+      </CardTagDiv>
+    </CardDiv>
   );
 }
 
