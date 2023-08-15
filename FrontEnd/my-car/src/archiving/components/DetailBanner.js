@@ -11,7 +11,6 @@ import {
 } from '../../style/typo';
 const AllDiv = styled.div`
   display: flex;
-
   justify-content: center;
   width: 100%;
 `;
@@ -26,11 +25,9 @@ const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  position: absolute;
-  left: 30%;
-  transform: translate(-50%, 0);
-  margin-top: 30px;
-  margin-left: 50px;
+  width: 1040px;
+  margin: 0 auto;
+  padding-top: 30px;
 `;
 
 const TrimDiv = styled.div``;
@@ -90,11 +87,11 @@ const ColorContentText = styled.span`
 
 const ImgDiv = styled.div`
   display: flex;
-  align-items: center;
-  position: absolute;
-  left: 60%;
-  transform: translate(-30%, 0%) scale(1.1);
+  transform: translate(0%, -65%);
   z-index: 1;
+  margin: 0 auto;
+  width: 1350px;
+  justify-content: flex-end;
 `;
 
 const DescriptiveReviewDiv = styled.div`

@@ -21,7 +21,7 @@ const PriceDiv = styled.div`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  width: 1044px;
+  width: 1040px;
 `;
 const PriceText = styled.span`
   ${Body1Regular}
@@ -31,7 +31,7 @@ const PriceBold = styled.span`
 `;
 const AdditionalInfoDiv = styled.div`
   display: flex;
-  width: 1044px;
+  width: 1040px;
   justify-content: space-between;
   align-items: center;
   gap: 89px;
