@@ -5,16 +5,18 @@ import { ReactComponent as ArchivingLogo } from '../assets/archivingLogoBlack.sv
 import { ReactComponent as CarLogo } from '../assets/carLogo.svg';
 import { Heading3Medium, Heading4Medium } from '../style/typo';
 const ChivingHeaderDiv = styled.div`
-  width: calc(100% - 200px);
+  width: calc(100% - 180px);
   height: 91px;
   flex-shrink: 0;
-
+  background-color: white;
   display: flex;
   align-items: center;
   margin-top: 60px;
-  position: relative;
+
   justify-content: space-between;
-  padding: 0 100px;
+  padding: 0 90px;
+  /* position: absolute; */
+  z-index: 2;
 `;
 
 const ArchivingSymbolDiv = styled.div`
