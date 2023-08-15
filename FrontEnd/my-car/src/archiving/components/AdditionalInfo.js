@@ -53,7 +53,7 @@ const TagReviewsDiv = styled.div`
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  max-height: 70px;
+  max-height: 74px;
   overflow: hidden;
 `;
 
