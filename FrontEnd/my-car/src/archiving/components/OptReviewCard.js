@@ -9,6 +9,8 @@ import palette from '../../style/styleVariable';
 import { OptTag } from './OptSelectionBar';
 import { Tag } from '../../common/Tag';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { OptionSelectValue } from '../../context/archiving/ArchivingProvider';
 
 const Container = styled.div`
   width: calc(1280px - 240px);
@@ -115,6 +117,7 @@ const CategoryWrap = styled.div`
 `;
 
 function OptReviewCard() {
+  const { activeStates } = useContext(OptionSelectValue);
   const navigate = useNavigate();
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`);
@@ -129,7 +132,6 @@ function OptReviewCard() {
               <div>
                 <h1>펠리세이드 Le Blanc</h1>
                 <RestInfoChip>시승</RestInfoChip>
-                {/* <RestInfoChip>23년 7월 19일</RestInfoChip> */}
               </div>
               <span>디젤 2.2 / 4WD / 7인승</span>
             </TrimInfo>
@@ -148,9 +150,11 @@ function OptReviewCard() {
           <CategoryWrap>
             <h3>선택옵션</h3>
             <div>
-              <OptTag>컴포트 || 패키지</OptTag>
-              <OptTag>듀얼 와이드 선루프</OptTag>
-              <OptTag>20인치 블랙톤 전면 가공휠</OptTag>
+              <OptTag $isActive={activeStates[1]}>컴포트 || 패키지</OptTag>
+              <OptTag $isActive={activeStates[4]}>듀얼 와이드 선루프</OptTag>
+              <OptTag $isActive={activeStates[14]}>
+                20인치 블랙톤 전면 가공휠
+              </OptTag>
               {/* <OptTag>현대 스마트 센스</OptTag>
             <OptTag>현대 스마트 센스</OptTag> */}
             </div>
