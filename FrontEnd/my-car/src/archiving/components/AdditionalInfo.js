@@ -8,7 +8,8 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import { ReactComponent as SaveLogoSvg } from '../../assets/saveLogo.svg';
-
+import { useContext } from 'react';
+import { DataLoaderContext } from '../router/ArchivingDetail';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -103,6 +104,7 @@ const MakingMycarBtn = styled.div`
 `;
 
 function AdditionalInfo() {
+  const data = useContext(DataLoaderContext);
   return (
     <AllDiv>
       <PriceDiv>

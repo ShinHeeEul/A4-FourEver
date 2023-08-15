@@ -1,12 +1,14 @@
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import ChivingHeader from '../../common/ChivingHeader';
 import DetailBanner from '../components/DetailBanner';
 import { styled } from 'styled-components';
 import { Body1Regular, Heading1Bold } from '../../style/typo';
 import AdditionalInfo from '../components/AdditionalInfo';
-import OptDetailCard from '../components/optDetailCard';
+import OptDetailCard from '../components/OptDetailCard';
 import { useState } from 'react';
+import { createContext } from 'react';
 
+export const DataLoaderContext = createContext();
 const Container = styled.div`
   width: 100%;
   min-width: 1350px;
@@ -56,6 +58,8 @@ const dummyData = [
 ];
 function ArchivingDetail() {
   const { id } = useParams();
+  const data = useLoaderData();
+
   const [selectedIdx, setSelectedIdx] = useState(null);
 
   function toggleSelect(idx) {
@@ -67,20 +71,22 @@ function ArchivingDetail() {
   }
 
   return (
-    <Container>
-      <DetailBanner />
-      <AdditionalInfo />
-      <AllDiv>
-        {dummyData.map((elem, idx) => (
-          <OptDetailCard
-            data={elem}
-            idx={idx}
-            isSelected={selectedIdx === idx}
-            onClick={() => handleCardClick(idx)}
-          />
-        ))}
-      </AllDiv>
-    </Container>
+    <DataLoaderContext.Provider value={data}>
+      <Container>
+        <DetailBanner />
+        <AdditionalInfo />
+        <AllDiv>
+          {/* {dummyData.map((elem, idx) => (
+            <OptDetailCard
+              data={elem}
+              idx={idx}
+              isSelected={selectedIdx === idx}
+              onClick={() => handleCardClick(idx)}
+            />
+          ))} */}
+        </AllDiv>
+      </Container>
+    </DataLoaderContext.Provider>
   );
 }
 export default ArchivingDetail;

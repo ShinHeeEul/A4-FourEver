@@ -9,6 +9,8 @@ import {
   Body4Medium,
   Heading1Bold,
 } from '../../style/typo';
+import { useContext } from 'react';
+import { DataLoaderContext } from '../router/ArchivingDetail';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -128,6 +130,8 @@ const DescriptiveReviewSpan = styled.span`
 `;
 
 function DetailBanner() {
+  const data = useContext(DataLoaderContext);
+
   return (
     <AllDiv>
       <BannerDiv>

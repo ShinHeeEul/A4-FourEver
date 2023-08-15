@@ -2,8 +2,8 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
 import { ReactComponent as CardDivisionSvg } from '../../assets/optionCardDivision.svg';
-import { useState } from 'react';
-
+import { useContext, useState } from 'react';
+import { DataLoaderContext } from '../router/ArchivingDetail';
 const CardDiv = styled.div`
   width: 331px;
   height: 263px;
