@@ -136,3 +136,5 @@ export const PALISADE_URL = {
   price:
     'https://www.hyundai.com/contents/repn-car/catalog/palisade-2024-price.pdf',
 };
+
+export const ArchivingTabMenu = ['전체', '구매', '시승'];

@@ -1,10 +1,28 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import { Body2Medium, Body2Regular, Heading2Bold } from '../../style/typo';
 import palette from '../../style/styleVariable';
+import {
+  OptionSelectAction,
+  OptionSelectValue,
+} from '../../context/archiving/ArchivingProvider';
+import { useContext } from 'react';
+import { ArchivingTabMenu } from '../../constant';
 
 export const Container = styled.div`
   width: 1280px;
   margin: 20px auto;
+`;
+
+const TabText = styled.span`
+  ${({ $isActive }) =>
+    $isActive
+      ? css`
+          ${Body2Medium}
+          font-weight: bolder;
+        `
+      : css`
+          ${Body2Regular}
+        `}
 `;
 
 const HeaderWrap = styled.div`
@@ -26,7 +44,7 @@ const TabWrap = styled.div`
 
   span {
     cursor: pointer;
-    ${Body2Regular}
+
     padding: 0 10px;
     &:first-child {
       padding-left: 0;
@@ -38,14 +56,27 @@ const TabWrap = styled.div`
 `;
 
 function OptReviewHeader() {
+  const { action } = useContext(OptionSelectAction);
+  const { activeTab } = useContext(OptionSelectValue);
+
+  const TabClick = ({ index }) => {
+    action.tab({ index });
+  };
+
   return (
     <Container>
       <HeaderWrap>
         <h1>사용후기</h1>
         <TabWrap>
-          <span>전체</span>
-          <span>구매</span>
-          <span>시승</span>
+          {ArchivingTabMenu.map((tab, index) => (
+            <TabText
+              $isActive={activeTab === index}
+              key={index}
+              onClick={() => TabClick({ index })}
+            >
+              {tab}
+            </TabText>
+          ))}
         </TabWrap>
       </HeaderWrap>
     </Container>
