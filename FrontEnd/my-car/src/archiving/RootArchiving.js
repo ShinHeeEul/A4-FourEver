@@ -1,11 +1,11 @@
-import { Outlet } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { Outlet, useLocation } from 'react-router-dom';
 import ChivingHeader from '../common/ChivingHeader';
 
 function RootArchiving() {
+  const { state } = useLocation();
   return (
     <>
-      <ChivingHeader />
+      <ChivingHeader fromMycar={state} />
       <Outlet />
     </>
   );
