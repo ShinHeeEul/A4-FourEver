@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Container } from './Model';
@@ -44,6 +44,26 @@ function Color() {
         select: inColorOptions[0],
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const CarColor = ['abyss', 'silver', 'blue', 'brown', 'gray', 'white'];
+
+  const preloadCarImg = () => {
+    CarColor.forEach((color) => {
+      const imagePaths = Array.from(
+        { length: 60 },
+        (_, index) =>
+          `http://hyundaimycar.store/rotation/${color}/${index + 1}.png`,
+      );
+      imagePaths.forEach((path) => {
+        const img = new Image();
+        img.src = path;
+      });
+    });
+  };
+  useLayoutEffect(() => {
+    preloadCarImg();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
