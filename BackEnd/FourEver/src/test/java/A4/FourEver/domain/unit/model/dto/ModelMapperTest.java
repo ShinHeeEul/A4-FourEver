@@ -8,6 +8,7 @@ import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -19,6 +20,7 @@ class ModelMapperTest extends UnitTestBase {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Test
+    @DisplayName("ModelOptionsDTO 가 성공적으로 ModelOptionsSortedDTO 로 변환되어야 한다.")
     void convertToSortedDTO() {
         ExtraOptionTagInfoDTO extraOptionTagInfoDTO1 = ExtraOptionTagInfoDTO.builder()
                 .id(1L)
