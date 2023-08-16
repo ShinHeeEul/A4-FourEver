@@ -36,7 +36,7 @@ class CarServiceDefaultImplTest extends UnitTestBase {
     }
 
     @Test
-    @DisplayName("차 아이디가 주어졌을 때 정상적으로 차의 트림에 속한 정보들을 반환해야 한다.")
+    @DisplayName("CarService 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
     void getCarTrimsById() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();

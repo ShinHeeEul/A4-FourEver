@@ -9,6 +9,7 @@ import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimInfoDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -33,6 +34,7 @@ class CarRepositoryDefaultImplTest extends UnitTestBase {
     }
 
     @Test
+    @DisplayName("CarRepository 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
     void findCarTrimsById() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();
