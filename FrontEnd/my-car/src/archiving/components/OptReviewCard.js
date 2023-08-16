@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { OptionSelectValue } from '../../context/archiving/ArchivingProvider';
 import { ARCHIVING } from '../../constant';
+import { formatDate } from '../../util/DateFomat';
 
 const Container = styled.div`
   width: calc(1280px - 240px);
@@ -123,6 +124,7 @@ function OptReviewCard() {
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`);
   };
+
   return (
     <Container>
       {reviewList[ARCHIVING.FILED.REVIEW] ? (
@@ -145,7 +147,7 @@ function OptReviewCard() {
                     {review.body_name}
                   </span>
                 </TrimInfo>
-                <RestInfoChip>23년 7월 19일</RestInfoChip>
+                <RestInfoChip>{formatDate(review.created_at)}</RestInfoChip>
               </CardHeader>
               <ColorWrap>
                 <div>
