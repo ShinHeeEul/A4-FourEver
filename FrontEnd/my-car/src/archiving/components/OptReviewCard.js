@@ -11,6 +11,7 @@ import { Tag } from '../../common/Tag';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { OptionSelectValue } from '../../context/archiving/ArchivingProvider';
+import { ARCHIVING } from '../../constant';
 
 const Container = styled.div`
   width: calc(1280px - 240px);
@@ -117,59 +118,73 @@ const CategoryWrap = styled.div`
 `;
 
 function OptReviewCard() {
-  const { activeStates } = useContext(OptionSelectValue);
+  const { activeStates, reviewList } = useContext(OptionSelectValue);
   const navigate = useNavigate();
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`);
   };
-
   return (
     <Container>
-      {Array.from({ length: 9 }, (_, index) => (
-        <CardWrap onClick={() => CardClick({ id: index + 1 })} key={index}>
-          <CardHeader>
-            <TrimInfo>
-              <div>
-                <h1>펠리세이드 Le Blanc</h1>
-                <RestInfoChip>시승</RestInfoChip>
-              </div>
-              <span>디젤 2.2 / 4WD / 7인승</span>
-            </TrimInfo>
-            <RestInfoChip>23년 7월 19일</RestInfoChip>
-          </CardHeader>
-          <ColorWrap>
-            <div>
-              <h3>외장색상</h3>
-              <span>문라이트 블루펄</span>
-            </div>
-            <div>
-              <h3>내장색상</h3>
-              <span>퀄팅 천연(블랙)</span>
-            </div>
-          </ColorWrap>
-          <CategoryWrap>
-            <h3>선택옵션</h3>
-            <div>
-              <OptTag $isActive={activeStates[1]}>컴포트 || 패키지</OptTag>
-              <OptTag $isActive={activeStates[4]}>듀얼 와이드 선루프</OptTag>
-              <OptTag $isActive={activeStates[14]}>
-                20인치 블랙톤 전면 가공휠
-              </OptTag>
-              {/* <OptTag>현대 스마트 센스</OptTag>
-            <OptTag>현대 스마트 센스</OptTag> */}
-            </div>
-          </CategoryWrap>
-          <CategoryWrap>
-            <h3>태그후기</h3>
-            <div>
-              <Tag>편리해요😉</Tag>
-              <Tag>이것만 있으면 나도 주차고수🚘</Tag>
-              <Tag>대형견도 문제 없어요🐶</Tag>
-              {/* <Tag>편리해요😉</Tag> */}
-            </div>
-          </CategoryWrap>
-        </CardWrap>
-      ))}
+      {reviewList[ARCHIVING.FILED.REVIEW] ? (
+        reviewList[ARCHIVING.FILED.REVIEW].length > 0 ? (
+          reviewList[ARCHIVING.FILED.REVIEW].map((review, index) => (
+            <CardWrap
+              onClick={() => CardClick({ id: review.car_review_id })}
+              key={index}
+            >
+              <CardHeader>
+                <TrimInfo>
+                  <div>
+                    <h1>펠리세이드 {review.trim_name}</h1>
+                    <RestInfoChip>
+                      {review.is_purchased ? '구매' : '시승'}
+                    </RestInfoChip>
+                  </div>
+                  <span>
+                    {review.engine_name} / {review.drive_name} /{' '}
+                    {review.body_name}
+                  </span>
+                </TrimInfo>
+                <RestInfoChip>23년 7월 19일</RestInfoChip>
+              </CardHeader>
+              <ColorWrap>
+                <div>
+                  <h3>외장색상</h3>
+                  <span>{review.exterior_color_name}</span>
+                </div>
+                <div>
+                  <h3>내장색상</h3>
+                  <span>{review.interior_color_name}</span>
+                </div>
+              </ColorWrap>
+              <CategoryWrap>
+                <h3>선택옵션</h3>
+                <div>
+                  {review.extraOptionNameDTOs
+                    .slice(0, 4)
+                    .map((option, index) => (
+                      <OptTag key={index} $isActive={activeStates[option.id]}>
+                        {option.name}
+                      </OptTag>
+                    ))}
+                </div>
+              </CategoryWrap>
+              <CategoryWrap>
+                <h3>태그후기</h3>
+                <div>
+                  {review.totalTagInfoDTOs.slice(0, 3).map((tag, index) => (
+                    <Tag key={index}>{tag.name}</Tag>
+                  ))}
+                </div>
+              </CategoryWrap>
+            </CardWrap>
+          ))
+        ) : (
+          <div>후기가 존재하지 않습니다</div>
+        )
+      ) : (
+        <div> 옵션칩을 선택해주세요</div>
+      )}
     </Container>
   );
 }

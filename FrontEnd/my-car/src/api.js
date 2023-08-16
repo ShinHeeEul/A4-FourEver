@@ -1,19 +1,19 @@
 import { BASIC_SERVER_URL } from './constant';
 
-async function fetchData({ path }) {
-  return fetch(path).then((res) => res.json());
+async function fetchData({ path, method = 'GET' }) {
+  return fetch(path, { method }).then((res) => res.json());
 }
 
-//내차만들기 페이지 API PATH 생성
-const MyCarApiPath = {
+// API PATH 생성
+export const MakePath = {
   base: BASIC_SERVER_URL,
-  option: (option) => `${MyCarApiPath.base}/${option}`,
+  option: (option) => `${MakePath.base}/${option}`,
 };
 //내차만들기 페이지 API
-async function MyCarOptionAPI(option) {
+export async function MyCarOptionAPI(option) {
   try {
     const data = await fetchData({
-      path: MyCarApiPath.option(option),
+      path: MakePath.option(option),
     });
     return { data };
   } catch (error) {
@@ -21,4 +21,15 @@ async function MyCarOptionAPI(option) {
     return { error };
   }
 }
-export default MyCarOptionAPI;
+//아카이빙 API
+export async function ArchivingAPI(option) {
+  try {
+    const data = await fetchData({
+      path: MakePath.option(option),
+      method: 'POST',
+    });
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+}
