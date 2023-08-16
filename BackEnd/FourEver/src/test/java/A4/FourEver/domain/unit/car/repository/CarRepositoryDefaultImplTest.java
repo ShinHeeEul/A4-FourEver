@@ -96,7 +96,8 @@ class CarRepositoryDefaultImplTest extends UnitTestBase {
         CarTrimsDTO result = carRepository.findCarTrimsById(1L);
 
         // Then
-        softAssertions.assertThat(result).usingRecursiveComparison()
+        softAssertions.assertThat(result)
+                .usingRecursiveComparison()
                 .isEqualTo(carTrimsDTO);
     }
 }
