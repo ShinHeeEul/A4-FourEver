@@ -169,4 +169,8 @@ export const ARCHIVING = {
     OPTIONS: 'extraOptionNameDTOs',
     REVIEW: 'carReviewOverviewDTOs',
   },
+  NO_ITEM: {
+    NO_REVIEW: ' 후기가 존재하지 않습니다',
+    NO_SELECT: '옵션칩을 선택해주세요',
+  },
 };

@@ -5,6 +5,7 @@ import OptReviewCard from '../components/OptReviewCard';
 import ArchivingProvider from '../../context/archiving/ArchivingProvider';
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const Container = styled.div`
   width: 100%;
@@ -18,7 +19,7 @@ function Archiving() {
   return (
     <>
       {loading ? (
-        <div>로딩중.........</div>
+        <Loading />
       ) : (
         <Container>
           <OptSelectionBar />
