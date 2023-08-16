@@ -84,7 +84,7 @@ export const navCategoryName = {
   option: {
     id: '옵션',
     value: {
-      selection: '선택 옵션',
+      selection: '상세 품목',
       accessories: 'H Genuine Accessories',
       performance: 'N Performance',
     },
@@ -138,3 +138,16 @@ export const PALISADE_URL = {
 };
 
 export const ArchivingTabMenu = ['전체', '구매', '시승'];
+
+export const ARCHIVING = {
+  URL: {
+    OPTIONS: 'cars/1/option-names',
+    REVIEW: 'cars/1/car-review',
+    ISPURCHASED: 'cars/1/car-review/',
+    DETAIL: 'reviews/1/car-review',
+  },
+  FILED: {
+    OPTIONS: 'extraOptionNameDTOs',
+    REVIEW: 'carReviewOverviewDTOs',
+  },
+};
