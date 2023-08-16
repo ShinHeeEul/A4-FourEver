@@ -4,6 +4,7 @@ import OptReviewHeader from '../components/OptReviewHeader';
 import OptReviewCard from '../components/OptReviewCard';
 import ArchivingProvider from '../../context/archiving/ArchivingProvider';
 import { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -11,10 +12,11 @@ const Container = styled.div`
 `;
 
 function Archiving() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const { loading } = useOutletContext();
 
   return (
-    <ArchivingProvider setLoading={setLoading}>
+    <>
       {loading ? (
         <div>로딩중.........</div>
       ) : (
@@ -24,7 +26,7 @@ function Archiving() {
           <OptReviewCard />
         </Container>
       )}
-    </ArchivingProvider>
+    </>
   );
 }
 export default Archiving;

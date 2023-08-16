@@ -23,7 +23,6 @@ function ArchivingProvider({ children, setLoading }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(optionSelect),
     },
-    setLoading,
     optionSelect,
     activeTab,
   });
