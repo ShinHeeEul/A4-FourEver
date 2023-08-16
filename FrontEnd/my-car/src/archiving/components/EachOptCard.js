@@ -132,8 +132,7 @@ const PkgSubOptText = styled.span`
   color: ${palette.Primary};
 `;
 
-function OptDetailCard({ data, idx, isSelected, onClick }) {
-  console.log(data);
+function EachOptCard({ data, idx, isSelected, onClick }) {
   return (
     <CardDiv onClick={onClick} $isSelected={isSelected}>
       <CardImgDiv>
@@ -173,4 +172,4 @@ function OptDetailCard({ data, idx, isSelected, onClick }) {
   );
 }
 
-export default OptDetailCard;
+export default EachOptCard;

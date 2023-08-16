@@ -2,7 +2,7 @@ import { useLoaderData, useParams } from 'react-router-dom';
 import DetailBanner from '../components/DetailBanner';
 import { styled } from 'styled-components';
 import AdditionalInfo from '../components/AdditionalInfo';
-import OptDetailCard from '../components/OptDetailCard';
+import EachOptCard from '../components/EachOptCard';
 import { useState } from 'react';
 import { createContext } from 'react';
 import { ARCHIVINGDETAIL } from '../../constant';
@@ -79,7 +79,7 @@ function ArchivingDetail() {
             data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
               (item, idx) => {
                 return (
-                  <OptDetailCard
+                  <EachOptCard
                     data={item}
                     idx={idx}
                     isSelected={selectedIdx === idx}
@@ -88,14 +88,6 @@ function ArchivingDetail() {
                 );
               },
             )}
-          {/* {dummyData.map((elem, idx) => (
-            <OptDetailCard
-              data={elem}
-              idx={idx}
-              isSelected={selectedIdx === idx}
-              onClick={() => handleCardClick(idx)}
-            />
-          ))} */}
         </AllDiv>
       </Container>
     </DataLoaderContext.Provider>
