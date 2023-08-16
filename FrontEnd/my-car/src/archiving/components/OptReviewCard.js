@@ -136,7 +136,9 @@ function OptReviewCard() {
                 <TrimInfo>
                   <div>
                     <h1>펠리세이드 {review.trim_name}</h1>
-                    <RestInfoChip>시승</RestInfoChip>
+                    <RestInfoChip>
+                      {review.is_purchased ? '구매' : '시승'}
+                    </RestInfoChip>
                   </div>
                   <span>
                     {review.engine_name} / {review.drive_name} /{' '}

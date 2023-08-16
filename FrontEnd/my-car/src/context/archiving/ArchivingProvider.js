@@ -15,7 +15,9 @@ function ArchivingProvider({ children, setLoading }) {
   });
 
   const { data: reviewList, loading: reviewLoading } = useFetch({
-    url: MakePath.option(ARCHIVING.URL.REVIEW),
+    url: `${MakePath.option(ARCHIVING.URL.REVIEW)}${
+      activeTab !== 0 ? (activeTab === 1 ? '/1' : '/0') : ''
+    }`,
     config: {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -23,6 +25,7 @@ function ArchivingProvider({ children, setLoading }) {
     },
     setLoading,
     optionSelect,
+    activeTab,
   });
 
   const { data: optionList, loading: optionLoading } = useFetch({

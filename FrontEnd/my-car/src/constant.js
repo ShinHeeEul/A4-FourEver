@@ -143,6 +143,7 @@ export const ARCHIVING = {
   URL: {
     OPTIONS: 'cars/1/option-names',
     REVIEW: 'cars/1/car-review',
+    ISPURCHASED: 'cars/1/car-review/',
     DETAIL: 'reviews/1/car-review',
   },
   FILED: {
