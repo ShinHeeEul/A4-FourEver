@@ -7,7 +7,7 @@ import AdditionalInfo from '../components/AdditionalInfo';
 import OptDetailCard from '../components/OptDetailCard';
 import { useState } from 'react';
 import { createContext } from 'react';
-
+import { ARCHIVINGDETAIL } from '../../constant';
 export const DataLoaderContext = createContext();
 const Container = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ const AllDiv = styled.div`
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  width: 1050px;
+  width: 1055px;
 `;
 
 const dummyData = [
@@ -58,7 +58,7 @@ const dummyData = [
 ];
 function ArchivingDetail() {
   const { id } = useParams();
-  const data = useLoaderData();
+  const { data } = useLoaderData();
 
   const [selectedIdx, setSelectedIdx] = useState(null);
 
@@ -76,6 +76,20 @@ function ArchivingDetail() {
         <DetailBanner />
         <AdditionalInfo />
         <AllDiv>
+          {/* {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] && } */}
+          {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
+            data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
+              (item, idx) => {
+                return (
+                  <OptDetailCard
+                    data={item}
+                    idx={idx}
+                    isSelected={selectedIdx === idx}
+                    onClick={() => handleCardClick(idx)}
+                  />
+                );
+              },
+            )}
           {/* {dummyData.map((elem, idx) => (
             <OptDetailCard
               data={elem}

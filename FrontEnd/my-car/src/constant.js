@@ -72,12 +72,13 @@ export const ARCHIVINGDETAIL = {
       COMMENT: 'comment',
       TRIM: 'trim_name',
       ENGINE: 'engine_name',
-      DRIVE: 'drivie_name',
+      DRIVE: 'drive_name',
       BODY: 'body_name',
       INCOLOR: 'interior_color_name',
       EXCOLOR: 'exterior_color_name',
       DATE: 'created_at',
       EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
+      IMG: {},
     },
   },
 };
@@ -102,7 +103,7 @@ export const navCategoryName = {
   option: {
     id: '옵션',
     value: {
-      selection: '선택 옵션',
+      selection: '상세 품목',
       accessories: 'H Genuine Accessories',
       performance: 'N Performance',
     },

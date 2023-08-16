@@ -218,7 +218,7 @@ function TrimModelImg({ src }) {
 
   useEffect(() => {
     const id = userCar.trim.id;
-    console.log(id);
+
     setLocation(MockLocation[id ? id - 1 : 0].location);
   }, [userCar]);
 
