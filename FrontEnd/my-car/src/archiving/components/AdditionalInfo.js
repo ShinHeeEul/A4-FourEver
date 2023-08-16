@@ -8,7 +8,9 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import { ReactComponent as SaveLogoSvg } from '../../assets/saveLogo.svg';
-
+import { useContext } from 'react';
+import { DataLoaderContext } from '../router/ArchivingDetail';
+import { ARCHIVINGDETAIL } from '../../constant';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -103,22 +105,29 @@ const MakingMycarBtn = styled.div`
 `;
 
 function AdditionalInfo() {
+  const data = useContext(DataLoaderContext);
+
   return (
     <AllDiv>
       <PriceDiv>
         <PriceText>총 가격</PriceText>
-        <PriceBold>47,720,000원</PriceBold>
+        <PriceBold>
+          {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
+        </PriceBold>
       </PriceDiv>
       <AdditionalInfoDiv>
         <TagReviewDiv>
-          <TagReviewTitle>선택옵션</TagReviewTitle>
+          <TagReviewTitle>
+            선택옵션{' '}
+            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+          </TagReviewTitle>
           <TagReviewsDiv>
-            <EachTagReviewDiv>컴포트 || 패키지</EachTagReviewDiv>
-            <EachTagReviewDiv>현대스마트센스 | 패키지</EachTagReviewDiv>
-            <EachTagReviewDiv>2열 통풍시트</EachTagReviewDiv>
-            <EachTagReviewDiv>빌트인 캠(보조배터리 포함)</EachTagReviewDiv>
-            <EachTagReviewDiv>사이드스텝</EachTagReviewDiv>
-            <EachTagReviewDiv>적외선 무릎워머</EachTagReviewDiv>
+            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
+              data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
+                (item) => {
+                  return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
+                },
+              )}
           </TagReviewsDiv>
         </TagReviewDiv>
         <WithThisCarDiv>

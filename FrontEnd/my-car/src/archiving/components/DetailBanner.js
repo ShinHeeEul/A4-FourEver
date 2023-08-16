@@ -9,6 +9,9 @@ import {
   Body4Medium,
   Heading1Bold,
 } from '../../style/typo';
+import { useContext } from 'react';
+import { ARCHIVINGDETAIL } from '../../constant';
+import { DataLoaderContext } from '../router/ArchivingDetail';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -128,36 +131,45 @@ const DescriptiveReviewSpan = styled.span`
 `;
 
 function DetailBanner() {
+  const data = useContext(DataLoaderContext);
+
   return (
     <AllDiv>
       <BannerDiv>
         <TextDiv>
           <TrimDiv>
             <TrimTitleDiv>
-              <TrimTitleText>펠리세이드 Le Blanc</TrimTitleText>
+              <TrimTitleText>
+                펠리세이드 {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM]}
+              </TrimTitleText>
               <ReviewDate>23년 7월 19일</ReviewDate>
               <ReviewGroup>시승</ReviewGroup>
             </TrimTitleDiv>
-            <TrimDetailText>디젤2.2 / 4WD / 7인승</TrimDetailText>
+            <TrimDetailText>
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.ENGINE]} /{' '}
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DRIVE]} /{' '}
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.BODY]}
+            </TrimDetailText>
           </TrimDiv>
           <ColorDiv>
             <ColorDetailDiv>
               <ColorTitleText>외장</ColorTitleText>
-              <ColorContentText>문라이트 블루펄</ColorContentText>
+              <ColorContentText>
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR]}
+              </ColorContentText>
             </ColorDetailDiv>
             <ColorDivisionDiv />
             <ColorDetailDiv>
               <ColorTitleText>내장</ColorTitleText>
-              <ColorContentText>퀄팅 천연(블랙)</ColorContentText>
+              <ColorContentText>
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR]}
+              </ColorContentText>
             </ColorDetailDiv>
           </ColorDiv>
           <DetailDivisionSvg />
           <DescriptiveReviewDiv>
             <DescriptiveReviewSpan>
-              승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는
-              13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다. 다른
-              주차 관련 옵션도 괜찮아요.승차감이 좋아요 차가 크고 운전하는
-              시야도 높아서 좋았어요.
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.COMMENT]}
             </DescriptiveReviewSpan>
           </DescriptiveReviewDiv>
         </TextDiv>

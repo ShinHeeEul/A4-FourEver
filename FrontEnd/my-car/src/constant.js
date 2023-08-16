@@ -64,6 +64,25 @@ export const MYCAR = {
   },
 };
 
+export const ARCHIVINGDETAIL = {
+  SELECTEDCAR: {
+    URL: 'reviews/',
+    FILED: {
+      PRICE: 'price',
+      COMMENT: 'comment',
+      TRIM: 'trim_name',
+      ENGINE: 'engine_name',
+      DRIVE: 'drive_name',
+      BODY: 'body_name',
+      INCOLOR: 'interior_color_name',
+      EXCOLOR: 'exterior_color_name',
+      DATE: 'created_at',
+      EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
+      IMG: {},
+    },
+  },
+};
+
 export const navCategoryName = {
   trim: {
     id: '트림',

@@ -12,14 +12,19 @@ import Complete from './mycar/routers/Complete';
 import Model from './mycar/routers/Model';
 import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
-import { ARCHIVING, MYCAR } from './constant';
+
+import MyCarOptionAPI from './api';
+import { ARCHIVING, MYCAR, ARCHIVINGDETAIL } from './constant';
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
 import RootArchiving from './archiving/RootArchiving';
 import ArchivingDetail from './archiving/router/ArchivingDetail';
 import Archiving from './archiving/router/Archiving';
+
+import { useParams } from 'react-router-dom';
 import { MyCarOptionAPI, ArchivingAPI } from './api';
+
 
 const router = createBrowserRouter([
   {
@@ -108,6 +113,10 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':id',
+            loader: (item) =>
+              MyCarOptionAPI(
+                `${ARCHIVINGDETAIL.SELECTEDCAR.URL}${item.params.id}/car-review`,
+              ),
             element: <ArchivingDetail />,
           },
           {

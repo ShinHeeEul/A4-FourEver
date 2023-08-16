@@ -34,7 +34,6 @@ const EachPageSymbol = styled.div`
 `;
 
 function Pagination({ $currentDisplay, $setCurrentDisplay }) {
-  console.log($currentDisplay);
   return (
     <PaginationContainer>
       <EachPageSymbol
