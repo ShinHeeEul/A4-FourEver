@@ -138,7 +138,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
                 "AND cr.is_purchased = :isPurchase " +
                 "ORDER BY cr.created_at DESC " +
-                "LIMIT 100;";
+                "LIMIT 1400;";
 
 
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -192,7 +192,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
                 "ORDER BY cr.created_at DESC " +
-                "LIMIT 100;";
+                "LIMIT 1400;";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("car_id", id);

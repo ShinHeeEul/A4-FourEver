@@ -44,7 +44,8 @@ public class CarMapper {
 
     public CarReviewOverviewSortedListDTO convertToSortedDTO(CarReviewOverviewListDTO dto) {
         List<CarReviewOverviewSortedDTO> overviewDTOList = dto.getCarReviewOverviewDTOs().stream()
-                .sorted(Comparator.comparingLong(CarReviewOverviewDTO::getCar_review_id))
+                .sorted(Comparator.comparing(CarReviewOverviewDTO::getCreated_at).reversed())
+                .limit(100)
                 .map(this::convertCarReview)
                 .collect(Collectors.toList());
 
