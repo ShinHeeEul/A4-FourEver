@@ -20,12 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarMapperTest extends UnitTestBase {
 
-    private CarMapper carMapper;
-
-    @BeforeEach
-    void setup() {
-        carMapper = new CarMapper();
-    }
+    private final CarMapper carMapper = new CarMapper();
 
     @Test
     @DisplayName("carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
