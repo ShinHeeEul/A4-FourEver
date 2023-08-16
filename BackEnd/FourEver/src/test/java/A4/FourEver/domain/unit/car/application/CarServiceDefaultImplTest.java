@@ -30,13 +30,13 @@ class CarServiceDefaultImplTest extends UnitTestBase {
     @BeforeEach
     void setUp() {
         carRepository = mock(CarRepository.class);
-        carMapper = new CarMapper();
+        carMapper = mock(CarMapper.class);
         carService = new CarServiceDefaultImpl(carRepository, carMapper);
     }
 
     @Test
-    @DisplayName("차 아이디가 주어졌을 때 정상적으로 차의 트림에 속한 정보들을 반환해야 한다. ")
-    void getCarTrimsById() throws Exception {
+    @DisplayName("차 아이디가 주어졌을 때 정상적으로 차의 트림에 속한 정보들을 반환해야 한다.")
+    void getCarTrimsById() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();
         BodyInfoDTO bodyInfo = BodyInfoDTO.builder().id(1L).name("BodyName").image("BodyImage").description("BodyDesc").price(20000.0).build();
@@ -58,6 +58,7 @@ class CarServiceDefaultImplTest extends UnitTestBase {
                 .build();
 
         given(carRepository.findCarTrimsById(1L)).willReturn(carTrimsDTO);
+        given(carMapper.convertToSortedDTO(carTrimsDTO)).willReturn(carTrimsSortedDTO);
 
         // When
         CarTrimsSortedDTO result = carService.getCarTrimsById(1L);
