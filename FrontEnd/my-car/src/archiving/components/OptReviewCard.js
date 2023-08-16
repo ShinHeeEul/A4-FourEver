@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { OptionSelectValue } from '../../context/archiving/ArchivingProvider';
 import { ARCHIVING } from '../../constant';
 import { formatDate } from '../../util/DateFomat';
+import NoItem from './NoItem';
 
 const Container = styled.div`
   width: calc(1280px - 240px);
@@ -182,10 +183,10 @@ function OptReviewCard() {
             </CardWrap>
           ))
         ) : (
-          <div>후기가 존재하지 않습니다</div>
+          <NoItem text={ARCHIVING.NO_ITEM.NO_REVIEW} />
         )
       ) : (
-        <div> 옵션칩을 선택해주세요</div>
+        <NoItem text={ARCHIVING.NO_ITEM.NO_SELECT} />
       )}
     </Container>
   );

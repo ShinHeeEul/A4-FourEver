@@ -27,10 +27,10 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
 
   useEffect(() => {
     const entire = { ...optionSelect, activeTab };
-    console.log(entire);
     const localData = localStorage.getItem(JSON.stringify(entire));
     if (localData) {
       setData(JSON.parse(localData));
+      setLoading(false);
     } else {
       setLoading(true);
       fetchData();
