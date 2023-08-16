@@ -155,14 +155,14 @@ function DetailBanner() {
             <ColorDetailDiv>
               <ColorTitleText>외장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR]}
               </ColorContentText>
             </ColorDetailDiv>
             <ColorDivisionDiv />
             <ColorDetailDiv>
               <ColorTitleText>내장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR]}
               </ColorContentText>
             </ColorDetailDiv>
           </ColorDiv>

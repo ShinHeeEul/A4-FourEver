@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
-import { ReactComponent as CardDivisionSvg } from '../../assets/optionCardDivision.svg';
+// import { ReactComponent as CardDivisionSvg } from '../../assets/optionCardDivision.svg';
 import { useContext, useState } from 'react';
 import { DataLoaderContext } from '../router/ArchivingDetail';
 import { ARCHIVINGDETAIL } from '../../constant';
 const CardDiv = styled.div`
   width: 307px;
-  height: 263px;
+  height: 320px;
   flex-shrink: 0;
   border-radius: 8px;
   border: 2px solid
@@ -16,7 +16,7 @@ const CardDiv = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   padding: 20px 12px;
   cursor: pointer;
   &:hover {
@@ -52,10 +52,15 @@ const CardImg = styled.img`
   height: auto;
 `;
 
+const CardTitleOptDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const CardTitleDiv = styled.div`
   display: flex;
   gap: 6px;
-  margin: 8px 15px;
+  margin: 10px 2px;
 `;
 
 const CardNumber = styled.div`
@@ -77,6 +82,14 @@ const CardNumber = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const CardDivisionSvg = styled.div`
+  width: 307px;
+  height: 1.5px;
+  background-color: #e4dcd3;
+  margin-bottom: 5px;
+`;
+
 const CardText = styled.span`
   ${Heading3Medium}
 `;
@@ -85,10 +98,9 @@ const CardTagDiv = styled.div`
   display: flex;
   width: 300px;
   flex-wrap: wrap;
-  height: 30px;
-  gap: 8px;
   align-items: center;
-  padding: 14px;
+  padding: 5px;
+  height: 80px;
   overflow: auto;
 `;
 const EachTagDiv = styled.div`
@@ -100,6 +112,24 @@ const EachTagDiv = styled.div`
   border-radius: 8px;
   background-color: ${palette.LightSand};
   width: max-content;
+  margin: 0 6px 6px 0;
+`;
+
+const PkgSubOptDiv = styled.div`
+  opacity: ${({ $isSelected }) => ($isSelected ? '1' : '0')};
+  height: ${({ $isSelected }) => ($isSelected ? '70px' : '0px')};
+  overflow: hidden;
+  margin: 0 8px 8px;
+  transition: all 0.4s ease;
+`;
+const PkgSubOptText = styled.span`
+  ${Heading3Medium}
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.32px;
+  color: ${palette.Primary};
 `;
 
 function OptDetailCard({ data, idx, isSelected, onClick }) {
@@ -110,16 +140,33 @@ function OptDetailCard({ data, idx, isSelected, onClick }) {
         <CardImg src={data.image}></CardImg>
       </CardImgDiv>
 
-      <CardTitleDiv>
-        <CardNumber>
-          {idx.toString().length < 2 ? '0' + (idx + 1) : idx + 1}
-        </CardNumber>
-        <CardText>{data.name}</CardText>
-      </CardTitleDiv>
-      <CardDivisionSvg style={{ margin: '0 auto' }} />
+      <CardTitleOptDiv>
+        <CardTitleDiv>
+          <CardNumber>
+            {idx.toString().length < 2 ? '0' + (idx + 1) : idx + 1}
+          </CardNumber>
+          <CardText>{data.name}</CardText>
+        </CardTitleDiv>
+        {data.subExtraOptionNameDTOs.length > 1 && (
+          <PkgSubOptDiv $isSelected={isSelected}>
+            {data.subExtraOptionNameDTOs.map((elem, idx) => {
+              return (
+                <span key={idx}>
+                  <PkgSubOptText>
+                    {elem.name}{' '}
+                    {idx < data.subExtraOptionNameDTOs.length - 1 && `•`}{' '}
+                  </PkgSubOptText>
+                </span>
+              );
+            })}
+          </PkgSubOptDiv>
+        )}
+      </CardTitleOptDiv>
+
+      <CardDivisionSvg />
       <CardTagDiv>
         {data.extraOptionTagInfoDTOS.map((item) => {
-          return <EachTagDiv>{item.name}</EachTagDiv>;
+          return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;
         })}
       </CardTagDiv>
     </CardDiv>
