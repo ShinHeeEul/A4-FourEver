@@ -64,6 +64,7 @@ public class CarMapper {
 
         return CarReviewOverviewSortedDTO.builder()
                 .car_review_id(dto.getCar_review_id())
+                .car_name(dto.getCar_name())
                 .trim_name(dto.getTrim_name())
                 .drive_name(dto.getDrive_name())
                 .engine_name(dto.getEngine_name())
@@ -71,6 +72,7 @@ public class CarMapper {
                 .exterior_color_name(dto.getExterior_color_name())
                 .interior_color_name(dto.getInterior_color_name())
                 .created_at(dto.getCreated_at())
+                .is_purchased(dto.getIs_purchased())
                 .extraOptionNameDTOs(extraOptionNameDTOs)
                 .totalTagInfoDTOs(totalTagInfoDTOs)
                 .build();

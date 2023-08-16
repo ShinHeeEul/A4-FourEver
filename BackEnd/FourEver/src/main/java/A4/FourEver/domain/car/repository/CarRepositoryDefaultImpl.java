@@ -107,6 +107,8 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 "SELECT " +
                 "cr.id AS car_review_id, " +
+                "cr.is_purchased, " +
+                "c.name AS car_name, " +
                 "t.name AS trim_name, " +
                 "e.name AS engine_name, " +
                 "d.name AS drive_name, " +
@@ -125,6 +127,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN car c ON d.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
@@ -133,7 +136,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
-                "AND cr.is_purchase = :isPurchase " +
+                "AND cr.is_purchased = :isPurchase " +
                 "ORDER BY cr.created_at DESC " +
                 "LIMIT 100;";
 
@@ -159,6 +162,8 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 "SELECT " +
                 "cr.id AS car_review_id, " +
+                "cr.is_purchased, " +
+                "c.name AS car_name, " +
                 "t.name AS trim_name, " +
                 "e.name AS engine_name, " +
                 "d.name AS drive_name, " +
@@ -177,6 +182,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN car c ON d.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
@@ -287,6 +293,8 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 if (overviewDTO == null) {
                     overviewDTO = CarReviewOverviewDTO.builder()
                             .car_review_id(id)
+                            .is_purchased(rs.getInt("is_purchased"))
+                            .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))
                             .engine_name(rs.getString("engine_name"))
                             .drive_name(rs.getString("drive_name"))
@@ -307,14 +315,10 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                         .build();
                 overviewDTO.getExtraOptionNameDTOs().add(extraOptionNameDTO);
 
-                System.out.println(extraOptionNameDTO.getName());
-
                 TotalTagInfoDTO totalTagInfoDTO = TotalTagInfoDTO.builder()
                         .id(rs.getLong("total_tag_id"))
                         .name(rs.getString("total_tag_name"))
                         .build();
-
-                System.out.println(totalTagInfoDTO.getName());
 
                 overviewDTO.getTotalTagInfoDTOs().add(totalTagInfoDTO);
             }
