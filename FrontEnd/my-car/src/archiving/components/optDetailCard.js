@@ -116,7 +116,11 @@ const EachTagDiv = styled.div`
 `;
 
 const PkgSubOptDiv = styled.div`
-  display: ${({ $isSelected }) => ($isSelected ? 'block' : 'none')};
+  opacity: ${({ $isSelected }) => ($isSelected ? '1' : '0')};
+  height: ${({ $isSelected }) => ($isSelected ? '70px' : '0px')};
+  overflow: hidden;
+  margin: 0 8px 8px;
+  transition: all 0.4s ease;
 `;
 const PkgSubOptText = styled.span`
   ${Heading3Medium}
@@ -143,11 +147,11 @@ function OptDetailCard({ data, idx, isSelected, onClick }) {
           </CardNumber>
           <CardText>{data.name}</CardText>
         </CardTitleDiv>
-        <PkgSubOptDiv $isSelected={isSelected}>
-          {data.subExtraOptionNameDTOs.length > 1 &&
-            data.subExtraOptionNameDTOs.map((elem, idx) => {
+        {data.subExtraOptionNameDTOs.length > 1 && (
+          <PkgSubOptDiv $isSelected={isSelected}>
+            {data.subExtraOptionNameDTOs.map((elem, idx) => {
               return (
-                <span>
+                <span key={idx}>
                   <PkgSubOptText>
                     {elem.name}{' '}
                     {idx < data.subExtraOptionNameDTOs.length - 1 && `•`}{' '}
@@ -155,13 +159,14 @@ function OptDetailCard({ data, idx, isSelected, onClick }) {
                 </span>
               );
             })}
-        </PkgSubOptDiv>
+          </PkgSubOptDiv>
+        )}
       </CardTitleOptDiv>
 
       <CardDivisionSvg />
       <CardTagDiv>
         {data.extraOptionTagInfoDTOS.map((item) => {
-          return <EachTagDiv>{item.name}</EachTagDiv>;
+          return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;
         })}
       </CardTagDiv>
     </CardDiv>
