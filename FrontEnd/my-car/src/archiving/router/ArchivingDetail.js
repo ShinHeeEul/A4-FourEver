@@ -74,7 +74,6 @@ function ArchivingDetail() {
         <DetailBanner />
         <AdditionalInfo />
         <AllDiv>
-          {/* {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] && } */}
           {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
             data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
               (item, idx) => {
@@ -88,14 +87,6 @@ function ArchivingDetail() {
                 );
               },
             )}
-          {/* {dummyData.map((elem, idx) => (
-            <OptDetailCard
-              data={elem}
-              idx={idx}
-              isSelected={selectedIdx === idx}
-              onClick={() => handleCardClick(idx)}
-            />
-          ))} */}
         </AllDiv>
       </Container>
     </DataLoaderContext.Provider>

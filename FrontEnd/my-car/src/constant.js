@@ -78,7 +78,7 @@ export const ARCHIVINGDETAIL = {
       EXCOLOR: 'exterior_color_name',
       DATE: 'created_at',
       EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
-      IMG: {},
+      PURCHASE: 'is_purchased',
     },
   },
 };
