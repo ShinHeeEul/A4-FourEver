@@ -36,7 +36,7 @@ class CarControllerDefaultImplTest {
 
     @BeforeEach
     void setup() {
-        carService = mock(CarServiceDefaultImpl.class);
+        carService = mock(CarService.class);
         carController = new CarControllerDefaultImpl(carService);
         mockMvc = MockMvcBuilders.standaloneSetup(carController).build();
     }
