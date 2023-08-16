@@ -1,8 +1,6 @@
 import { useLoaderData, useParams } from 'react-router-dom';
-import ChivingHeader from '../../common/ChivingHeader';
 import DetailBanner from '../components/DetailBanner';
 import { styled } from 'styled-components';
-import { Body1Regular, Heading1Bold } from '../../style/typo';
 import AdditionalInfo from '../components/AdditionalInfo';
 import OptDetailCard from '../components/OptDetailCard';
 import { useState } from 'react';

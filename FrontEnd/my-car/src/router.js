@@ -13,7 +13,7 @@ import Model from './mycar/routers/Model';
 import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
-import MyCarOptionAPI from './api';
+import { MyCarOptionAPI } from './api';
 import { ARCHIVING, MYCAR, ARCHIVINGDETAIL } from './constant';
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
@@ -23,8 +23,7 @@ import ArchivingDetail from './archiving/router/ArchivingDetail';
 import Archiving from './archiving/router/Archiving';
 
 import { useParams } from 'react-router-dom';
-import { MyCarOptionAPI, ArchivingAPI } from './api';
-
+import { ArchivingAPI } from './api';
 
 const router = createBrowserRouter([
   {
