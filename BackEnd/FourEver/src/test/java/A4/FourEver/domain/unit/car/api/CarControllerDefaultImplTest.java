@@ -42,7 +42,7 @@ class CarControllerDefaultImplTest {
     }
 
     @Test
-    @DisplayName("CarController 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) CarController 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
     void getCarTrimsById() throws Exception {
         // Given
         Long carId = 1L;

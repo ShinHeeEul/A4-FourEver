@@ -23,7 +23,7 @@ class CarMapperTest extends UnitTestBase {
     private final CarMapper carMapper = new CarMapper();
 
     @Test
-    @DisplayName("carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
+    @DisplayName("(단위) carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
     void convertToSortedDTO() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();

@@ -33,7 +33,7 @@ class ModelRepositoryDefaultImplTest extends UnitTestBase {
     }
 
     @Test
-    @DisplayName("ModelRepository 에서 트림, 구동방식 등의 아이디로 기본 품목 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) ModelRepository 에서 트림, 구동방식 등의 아이디로 기본 품목 정보가 성공적으로 조회 되어야한다.")
     void findModelDefaultOption() {
         // Given
         DefaultOptionInfoDTO defaultOptionInfoDTO1 = DefaultOptionInfoDTO.builder()
@@ -82,7 +82,7 @@ class ModelRepositoryDefaultImplTest extends UnitTestBase {
     }
 
     @Test
-    @DisplayName("ModelRepository 에서 트림, 구동방식 등의 아이디로 선택 품목 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) ModelRepository 에서 트림, 구동방식 등의 아이디로 선택 품목 정보가 성공적으로 조회 되어야한다.")
     void findModelExtraOption() {
         // Given
         ExtraOptionTagInfoDTO extraOptionTagInfoDTO1 = ExtraOptionTagInfoDTO.builder()

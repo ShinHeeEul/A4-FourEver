@@ -13,6 +13,7 @@ import A4.FourEver.domain.trim.trim.dto.TrimColorsAndTagsDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -45,6 +46,7 @@ class TrimControllerDefaultImplTest extends UnitTestBase {
     }
 
     @Test
+    @DisplayName("(단위) TrimController 에서 트림의 아이디로 내외장 생상 정보가 성공적으로 조회 되어야한다.")
     void getTrimColorsAndTagsById() throws Exception {
         // Given
         Long trimId = 1L;

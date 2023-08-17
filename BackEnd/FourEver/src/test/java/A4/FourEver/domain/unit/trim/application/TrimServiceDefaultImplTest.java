@@ -13,6 +13,7 @@ import A4.FourEver.domain.trim.trim.dto.TrimMapper;
 import A4.FourEver.domain.trim.trim.repository.TrimRepository;
 import A4.FourEver.domain.unit.UnitTestBase;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
@@ -38,6 +39,7 @@ class TrimServiceDefaultImplTest extends UnitTestBase {
     }
 
     @Test
+    @DisplayName("(단위) TrimService 에서 트림의 아이디로 내외장 생상 정보가 성공적으로 조회 되어야한다.")
     void getTrimColorsAndTagsById() {
         // Given
         InColorTagInfoDTO tagInstance1 = InColorTagInfoDTO.builder()

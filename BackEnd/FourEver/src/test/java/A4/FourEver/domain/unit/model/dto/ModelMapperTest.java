@@ -20,7 +20,7 @@ class ModelMapperTest extends UnitTestBase {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Test
-    @DisplayName("ModelOptionsDTO 가 성공적으로 ModelOptionsSortedDTO 로 변환되어야 한다.")
+    @DisplayName("(단위) ModelOptionsDTO 가 성공적으로 ModelOptionsSortedDTO 로 변환되어야 한다.")
     void convertToSortedDTO() {
         ExtraOptionTagInfoDTO extraOptionTagInfoDTO1 = ExtraOptionTagInfoDTO.builder()
                 .id(1L)
