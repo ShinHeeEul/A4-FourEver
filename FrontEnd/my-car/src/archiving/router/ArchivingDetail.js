@@ -74,7 +74,6 @@ function ArchivingDetail() {
         <DetailBanner />
         <AdditionalInfo />
         <AllDiv>
-          {/* {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] && } */}
           {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
             data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
               (item, idx) => {
