@@ -1,11 +1,11 @@
 import { BASIC_SERVER_URL } from './constant';
 
 async function fetchData({ path, method = 'GET' }) {
-  // const accessToken = localStorage.getItem('');
+  const accessToken = localStorage.getItem('jwtToken');
   return fetch(path, {
     method,
     headers: {
-      // 'Authorization': `Bearer ${''}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   }).then((res) => res.json());
 }

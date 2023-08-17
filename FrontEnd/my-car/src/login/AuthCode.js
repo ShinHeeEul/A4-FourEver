@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { Heading1Bold } from '../style/typo';
 import Loading from '../archiving/components/Loading';
 import ServerErrorPage from '../error/ServerErrorPage';
+import { BASIC_SERVER_URL } from '../constant';
 
 const Container = styled.div`
   width: 100vw;
@@ -17,18 +18,31 @@ const Container = styled.div`
 function AuthCode() {
   const [error, setError] = useState(false);
   const code = new URL(window.location.href).searchParams.get('code');
+  const [accessToken, setAccessToken] = useState();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch('', { method: 'POST', body: { code: code } })
-      .then((res) => {
-        //토큰 저장
-        //   localStorage.setItem("accessToken", res.access_token)
-        // navigate('/main');
-      })
+    fetch(
+      `${BASIC_SERVER_URL}/user/login?code=${code}&state=${process.env.REACT_APP_STATE}`,
+      {
+        headers: { 'Content-type': 'application/json' },
+        method: 'GET',
+      },
+    )
+      .then((res) => res.json())
+      .then((json) => setAccessToken(json.jwtToken))
       .catch((e) => {
         setError(e);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, navigate]);
+
+  useEffect(() => {
+    if (accessToken) {
+      localStorage.setItem('jwtToken', accessToken);
+      navigate('/main');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   if (error) return <ServerErrorPage />;
 
