@@ -14,13 +14,13 @@ const HeaderDiv = styled.div`
   height: 60px;
   background-color: ${palette.Sand};
   ${{ Body4Medium }};
-  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 90px 0 90px;
   position: fixed;
   top: 0;
   z-index: 3;
+  display: ${({ $isLoginPage }) => ($isLoginPage ? 'none' : 'flex')};
 `;
 
 const HeaderElements = styled.div`
@@ -68,7 +68,7 @@ const HyundaiLogoDiv = styled.div`
   cursor: pointer;
 `;
 
-function Header({ setShowCommonAlert, setIsMainBtn }) {
+function Header({ setShowCommonAlert, setIsMainBtn, isLoginPage }) {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
   const currentSubPath = useLocation().pathname.split('/')[2];
@@ -103,7 +103,7 @@ function Header({ setShowCommonAlert, setIsMainBtn }) {
 
   if (useLocation().pathname !== '/main') {
     return (
-      <HeaderDiv>
+      <HeaderDiv $isLoginPage={isLoginPage}>
         <HeaderElements>
           <HyundaiLogoDiv onClick={() => showAlert(true)}>
             <HyundaiLogo />
