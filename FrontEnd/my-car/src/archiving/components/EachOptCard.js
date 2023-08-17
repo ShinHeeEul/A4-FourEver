@@ -1,10 +1,7 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
-// import { ReactComponent as CardDivisionSvg } from '../../assets/optionCardDivision.svg';
-import { useContext, useState } from 'react';
-import { DataLoaderContext } from '../router/ArchivingDetail';
-import { ARCHIVINGDETAIL } from '../../constant';
+
 const CardDiv = styled.div`
   width: 307px;
   height: 320px;
@@ -19,12 +16,13 @@ const CardDiv = styled.div`
 
   padding: 20px 12px;
   cursor: pointer;
+
   &:hover {
     background-color: ${({ $isSelected }) =>
       $isSelected ? 'rgba(0, 44, 95, 0.1)' : `${palette.Neutral}`};
 
     & img {
-      transform: scale(1.2);
+      transform: scale(1.1);
       transition: 0.5s ease;
     }
   }

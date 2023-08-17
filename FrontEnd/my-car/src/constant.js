@@ -68,6 +68,7 @@ export const ARCHIVINGDETAIL = {
   SELECTEDCAR: {
     URL: 'reviews/',
     FILED: {
+      NAMEL: 'car_name',
       PRICE: 'price',
       COMMENT: 'comment',
       TRIM: 'trim_name',
