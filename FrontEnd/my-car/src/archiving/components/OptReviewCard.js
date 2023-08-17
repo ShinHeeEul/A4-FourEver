@@ -126,6 +126,14 @@ function OptReviewCard() {
     navigate(`/archiving/${id}`);
   };
 
+  function optChipSort(selectOptions) {
+    const filtered = selectOptions.filter((option) => activeStates[option.id]);
+    const remaining = selectOptions.filter(
+      (option) => !activeStates[option.id],
+    );
+    return [...filtered, ...remaining];
+  }
+
   return (
     <Container>
       {reviewList[ARCHIVING.FILED.REVIEW] ? (
@@ -163,7 +171,7 @@ function OptReviewCard() {
               <CategoryWrap>
                 <h3>선택옵션</h3>
                 <div>
-                  {review.extraOptionNameDTOs
+                  {optChipSort(review.extraOptionNameDTOs)
                     .slice(0, 4)
                     .map((option, index) => (
                       <OptTag key={index} $isActive={activeStates[option.id]}>
