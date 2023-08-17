@@ -89,6 +89,7 @@ class TrimRepositoryDefaultImplTest extends UnitTestBase {
     }
 
     @Test
+    @DisplayName("(단위) 트림의 아이디로 외장 색상 정보가 성공적으로 조회 되어야한다.")
     void findTrimExColorsAndTagsById() {
         ExColorTagInfoDTO exTagInstance1 = ExColorTagInfoDTO.builder()
                 .id(1L)
