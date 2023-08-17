@@ -5,7 +5,6 @@ import A4.FourEver.domain.model.api.ModelControllerDefaultImpl;
 import A4.FourEver.domain.model.application.ModelService;
 import A4.FourEver.domain.model.dto.ModelOptionsSortedDTO;
 import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,32 +70,6 @@ class ModelControllerDefaultImplTest {
                 .image("SubOptionImage2")
                 .build();
 
-        ExtraOptionInfoDTO extraOptionInfoDTO1 = ExtraOptionInfoDTO.builder()
-                .id(1L)
-                .name("Option1")
-                .description("Description for Option1")
-                .category("Category1")
-                .image("image1.png")
-                .price(10000.0)
-                .x_position(10)
-                .y_position(20)
-                .extraOptionTagInfoDTOS(Set.of(extraOptionTagInfoDTO1, extraOptionTagInfoDTO2))
-                .subExtraOptionInfoDTOs(Set.of(subExtraOptionInfoDTO1, subExtraOptionInfoDTO2))
-                .build();
-
-        ExtraOptionInfoDTO extraOptionInfoDTO2 = ExtraOptionInfoDTO.builder()
-                .id(2L)
-                .name("Option2")
-                .description("Description for Option2")
-                .category("Category2")
-                .image("image2.png")
-                .price(15000.0)
-                .x_position(30)
-                .y_position(40)
-                .extraOptionTagInfoDTOS(Set.of(extraOptionTagInfoDTO1, extraOptionTagInfoDTO2))
-                .subExtraOptionInfoDTOs(Set.of(subExtraOptionInfoDTO1, subExtraOptionInfoDTO2))
-                .build();
-
         DefaultOptionInfoDTO defaultOptionInfoDTO1 = DefaultOptionInfoDTO.builder()
                 .id(1L)
                 .name("DefaultOptionName1")
@@ -113,9 +85,6 @@ class ModelControllerDefaultImplTest {
                 .category("DefaultCategory2")
                 .image("DefaultImageURL2")
                 .build();
-
-        Set<ExtraOptionInfoDTO> extraOptionInfoDTOs = Set.of(extraOptionInfoDTO1, extraOptionInfoDTO2);
-        Set<DefaultOptionInfoDTO> defaultOptionInfoDTOs = Set.of(defaultOptionInfoDTO1, defaultOptionInfoDTO2);
 
         List<ExtraOptionTagInfoDTO> extraOptionTagInfoDTOList = Stream.of(extraOptionTagInfoDTO1, extraOptionTagInfoDTO2)
                 .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
