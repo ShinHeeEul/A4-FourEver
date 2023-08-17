@@ -17,24 +17,25 @@ import NoItem from './NoItem';
 
 const Container = styled.div`
   width: calc(1280px - 240px);
-  margin: 0 auto 50px;
+  margin: 25px auto;
   padding: 0 120px;
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
+  justify-content: center;
 `;
 
 const CardWrap = styled.div`
   width: calc(470px - 60px);
-  height: 270px;
+  height: 220px;
   border-radius: 8px;
   /* border: 1px solid var(--hyundai-sand, #e4dcd3); */
   border: 2px solid #e4dcd3;
 
   background: #fff;
-  padding: 30px;
+  padding: 26px;
   &:nth-child(2n + 1) {
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
   cursor: pointer;
   transition: all 0.2s;
@@ -47,7 +48,6 @@ const CardWrap = styled.div`
 const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
-
   margin-bottom: 20px;
 `;
 const TrimInfo = styled.div`
@@ -69,10 +69,10 @@ const TrimInfo = styled.div`
 
 const RestInfoChip = styled.div`
   color: ${palette.Gold};
-  background-color: ${palette.LightSand};
+  background-color: ${palette.Sand};
   height: 20px;
   padding: 2px 8px;
-  border-radius: 15px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,16 +106,20 @@ const ColorWrap = styled.div`
 const CategoryWrap = styled.div`
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+
   h3 {
     ${Body3Medium}
     color: #3F3F3F;
     flex-shrink: 0;
+    padding-top: 4px;
   }
   div {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    height: ${({ $isTags }) => ($isTags ? '22px' : 'auto')};
+    overflow-y: ${({ $isTags }) => ($isTags ? 'hidden' : 'none')};
   }
 `;
 
@@ -180,9 +184,9 @@ function OptReviewCard() {
                     ))}
                 </div>
               </CategoryWrap>
-              <CategoryWrap>
+              <CategoryWrap $isTags={true}>
                 <h3>태그후기</h3>
-                <div>
+                <div style={{ height: '30px' }}>
                   {review.totalTagInfoDTOs.slice(0, 3).map((tag, index) => (
                     <Tag key={index}>{tag.name}</Tag>
                   ))}

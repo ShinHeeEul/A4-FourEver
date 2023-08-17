@@ -315,8 +315,7 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
                   $top={item.y_position}
                   $selected={selectedIdx === idx}
                 >
-                  {'0'}
-                  {idx + 1}
+                  {String(idx + 1).padStart(2, '0')}
                 </OptionPositionDiv>
               ) : (
                 <></>

@@ -24,6 +24,7 @@ const TagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+  justify-content: center;
 `;
 
 export const OptTag = styled.button`
