@@ -19,8 +19,10 @@ const HeaderDiv = styled.div`
   padding: 0 90px 0 90px;
   position: fixed;
   top: 0;
-  z-index: 3;
+
+  z-index: 5;
   display: ${({ $isLoginPage }) => ($isLoginPage ? 'none' : 'flex')};
+
 `;
 
 const HeaderElements = styled.div`

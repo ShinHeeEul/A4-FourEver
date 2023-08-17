@@ -3,27 +3,30 @@ import palette from '../../style/styleVariable';
 import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
 
 const CardDiv = styled.div`
-  width: 307px;
-  height: 320px;
+  width: 302px;
+  height: 300px;
   flex-shrink: 0;
   border-radius: 8px;
   border: 2px solid
     ${({ $isSelected }) =>
-      $isSelected ? `${palette.Primary}` : `${palette.Sand}`};
+      $isSelected ? `${palette.Blue500}` : `${palette.Sand}`};
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  padding: 20px 12px;
+  padding: 12px;
   cursor: pointer;
+  img {
+    transition: 0.3s ease;
+  }
 
   &:hover {
+    filter: brightness(0.96);
+    transition: filter 0.3s ease;
     background-color: ${({ $isSelected }) =>
       $isSelected ? 'rgba(0, 44, 95, 0.1)' : `${palette.Neutral}`};
 
     & img {
       transform: scale(1.1);
-      transition: 0.5s ease;
     }
   }
 
@@ -36,6 +39,7 @@ const CardImgDiv = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  border-radius: 8px;
   &:hover {
     overflow: hidden;
   }
@@ -43,9 +47,9 @@ const CardImgDiv = styled.div`
 
 const CardImg = styled.img`
   background-color: lightgrey;
-  margin: 7px 12px;
-  object-fit: cover;
 
+  object-fit: cover;
+  border-radius: 8px;
   width: 100%;
   height: auto;
 `;
@@ -82,9 +86,11 @@ const CardNumber = styled.div`
 `;
 
 const CardDivisionSvg = styled.div`
-  width: 307px;
+  width: 302px;
   height: 1.5px;
-  background-color: #e4dcd3;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? `${palette.Blue500}` : `#e4dcd3`};
+
   margin-bottom: 5px;
 `;
 
@@ -97,8 +103,8 @@ const CardTagDiv = styled.div`
   width: 300px;
   flex-wrap: wrap;
   align-items: center;
-  padding: 5px;
-  height: 80px;
+  margin: 10px 0;
+  height: 65px;
   overflow: auto;
 `;
 const EachTagDiv = styled.div`
@@ -160,7 +166,7 @@ function EachOptCard({ data, idx, isSelected, onClick }) {
         )}
       </CardTitleOptDiv>
 
-      <CardDivisionSvg />
+      <CardDivisionSvg $isSelected={isSelected} />
       <CardTagDiv>
         {data.extraOptionTagInfoDTOS.map((item) => {
           return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;

@@ -14,11 +14,11 @@ const Container = styled.div`
 
 const AllDiv = styled.div`
   display: flex;
-  margin: 50px auto;
+  margin: 20px auto;
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  width: 1055px;
+  width: 1040px;
 `;
 
 function ArchivingDetail() {

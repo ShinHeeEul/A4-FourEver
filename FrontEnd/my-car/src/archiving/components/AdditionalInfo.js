@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import {
+  Body1Medium,
   Body1Regular,
   Body3Medium,
   Body3Regular,
@@ -35,7 +36,6 @@ const AdditionalInfoDiv = styled.div`
   display: flex;
   width: 1040px;
   justify-content: space-between;
-  align-items: center;
   gap: 89px;
   padding-top: 54px;
 `;
@@ -65,9 +65,10 @@ const EachTagReviewDiv = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 0.5px solid ${palette.LightGray};
   color: ${palette.DarkGray};
+  background-color: ${palette.LightSand};
   ${Body3Regular}
   width: max-content;
   height: 22px;
@@ -77,7 +78,7 @@ const WithThisCarDiv = styled.div`
   display: flex;
   gap: 14px;
   justify-content: center;
-  align-items: center;
+  height: fit-content;
 `;
 const SaveCarDiv = styled.div`
   width: 52px;
@@ -97,6 +98,7 @@ const MakingMycarBtn = styled.div`
   border: none;
   background-color: ${palette.Primary};
   ${Heading4Bold}
+  font-weight: 400;
   color: ${palette.LightSand};
   display: flex;
   justify-content: center;
@@ -104,9 +106,17 @@ const MakingMycarBtn = styled.div`
   cursor: pointer;
 `;
 
+const SelectedOptTitle = styled.div`
+  ${Body1Medium}
+  padding-top: 100px;
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+`;
+
 function AdditionalInfo() {
   const data = useContext(DataLoaderContext);
-
+  console.log(data);
   return (
     <AllDiv>
       <PriceDiv>
@@ -117,18 +127,17 @@ function AdditionalInfo() {
       </PriceDiv>
       <AdditionalInfoDiv>
         <TagReviewDiv>
-          <TagReviewTitle>
-            선택옵션{' '}
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
-          </TagReviewTitle>
+          <TagReviewTitle>차량 사용 후기</TagReviewTitle>
           <TagReviewsDiv>
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
-              data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
-                (item) => {
-                  return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
-                },
-              )}
+            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS] &&
+              data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
+                return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
+              })}
           </TagReviewsDiv>
+          <SelectedOptTitle>
+            선택 옵션{' '}
+            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+          </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
           <SaveCarDiv>
