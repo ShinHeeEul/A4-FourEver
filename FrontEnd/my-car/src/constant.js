@@ -80,6 +80,7 @@ export const ARCHIVINGDETAIL = {
       DATE: 'created_at',
       EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
       PURCHASE: 'is_purchased',
+      TOTALTAGS: 'totalTagInfoDTOs',
     },
   },
 };

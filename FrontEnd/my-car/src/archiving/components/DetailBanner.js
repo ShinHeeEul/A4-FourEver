@@ -111,7 +111,7 @@ const DescriptiveReviewDiv = styled.div`
   flex-direction: column;
   gap: 10px;
   border-radius: 8px;
-  border: 1.3px solid ${palette.LightGray};
+  border: 2px solid ${palette.LightGray};
   overflow: hidden;
   white-space: normal;
   padding: 12px 17px 12px 17px;
@@ -121,7 +121,7 @@ const OptReviewDiv = styled.div`
   width: 381px;
   height: 130px;
   border-radius: 8px;
-  border: 1.3px solid ${palette.Primary};
+  border: 2px solid ${palette.Blue500};
   background-color: ${palette.Neutral};
   padding: 12px 17px 12px 17px;
   display: flex;
@@ -160,14 +160,14 @@ const OptionPositionDiv = styled.div`
   font-weight: 700;
   line-height: 40px; /* 166.667% */
   letter-spacing: -1.2px;
-  z-index: 3;
+  z-index: 2;
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   transform: translate(-50%, -50%);
-
+  transition: all 0.2s ease;
   background-color: white;
   border: 4px solid
     ${({ $selected }) => ($selected ? 'white' : `${palette.Primary}`)};
@@ -178,6 +178,10 @@ const OptionPositionDiv = styled.div`
     top: ${$top}%;
     left: ${$left}%;
   `}
+
+  &:hover {
+    filter: brightness(0.85);
+  }
 `;
 
 const ImgOptWrap = styled.div`
@@ -205,14 +209,14 @@ const CardText = styled.span`
   ${Body1Medium}
   font-size: 18px;
   color: ${({ $isDetailReview }) =>
-    $isDetailReview ? `${palette.DarkGray}` : `${palette.Primary}`};
+    $isDetailReview ? `${palette.DarkGray}` : `${palette.Blue500}`};
 `;
 
 const CardLineSvg = styled.div`
   width: 100%;
   height: 1.3px;
   background-color: ${({ $isDetailReview }) =>
-    $isDetailReview ? `${palette.LightGray}` : `${palette.Primary}`};
+    $isDetailReview ? `${palette.LightGray}` : `${palette.Blue500}`};
 `;
 
 const CardTagsDiv = styled.div`

@@ -20,7 +20,7 @@ const HeaderDiv = styled.div`
   padding: 0 90px 0 90px;
   position: fixed;
   top: 0;
-  z-index: 3;
+  z-index: 5;
 `;
 
 const HeaderElements = styled.div`
