@@ -3,11 +3,13 @@ import palette from '../../style/styleVariable';
 import PalisadeImg from '../../assets/palisadeImg.png';
 import { ReactComponent as DetailDivisionSvg } from '../../assets/archivingDetailDivision.svg';
 import {
+  Body1Medium,
   Body1Regular,
   Body3Medium,
   Body3Regular,
   Body4Medium,
   Heading1Bold,
+  Heading3Medium,
 } from '../../style/typo';
 import { useContext } from 'react';
 import { ARCHIVINGDETAIL } from '../../constant';
@@ -90,7 +92,7 @@ const ColorContentText = styled.span`
 
 const ImgDiv = styled.div`
   display: flex;
-  transform: translate(0%, -65%);
+  transform: translate(0%, -70%);
   z-index: 1;
   margin: 0 auto;
   width: 1350px;
@@ -99,21 +101,35 @@ const ImgDiv = styled.div`
 
 const DescriptiveReviewDiv = styled.div`
   width: 381px;
+  height: 130px;
   color: ${palette.DarkGray};
   ${Body3Regular};
-  background-color: ${palette.Neutral};
-  height: 100px;
+  background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
   border-radius: 8px;
-  border: 1px solid ${palette.LightGray};
+  border: 1.3px solid ${palette.LightGray};
   overflow: hidden;
   white-space: normal;
   padding: 12px 17px 12px 17px;
 `;
-const DescriptiveReviewSpan = styled.span`
-  overflow-y: auto;
 
+const OptReviewDiv = styled.div`
+  width: 381px;
+  height: 130px;
+  border-radius: 8px;
+  border: 1.3px solid ${palette.Primary};
+  background-color: ${palette.Neutral};
+  padding: 12px 17px 12px 17px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+`;
+const DescriptiveReviewSpan = styled.span`
+  color: ${palette.DarkGray};
+  overflow-y: auto;
+  margin: 5px 2px 0 2px;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -168,13 +184,51 @@ const ImgOptWrap = styled.div`
   position: relative;
 `;
 
+const EachTagDiv = styled.div`
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${Body3Regular};
+  border-radius: 8px;
+  background-color: ${palette.LightSand};
+  width: max-content;
+  height: max-content;
+  margin: 0 7px 7px 0;
+`;
+
+const EachTagSpan = styled.span``;
+const CardText = styled.span`
+  padding-top: 5px;
+  ${Body1Medium}
+  font-size: 18px;
+  color: ${({ $isDetailReview }) =>
+    $isDetailReview ? `${palette.DarkGray}` : `${palette.Primary}`};
+`;
+
+const CardLineSvg = styled.div`
+  width: 100%;
+  height: 1.3px;
+  background-color: ${({ $isDetailReview }) =>
+    $isDetailReview ? `${palette.LightGray}` : `${palette.Primary}`};
+`;
+
+const CardTagsDiv = styled.div`
+  display: flex;
+  overflow: auto;
+  flex-wrap: wrap;
+  z-index: 3;
+  margin-top: 5px;
+`;
+
 function DetailBanner({ selectedIdx, setSelectedIdx }) {
   const data = useContext(DataLoaderContext);
-  console.log(selectedIdx);
 
   function toggleSelect(idx) {
     setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   }
+  const extraOptData = data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS];
+  console.log(extraOptData);
   return (
     <AllDiv>
       <BannerDiv>
@@ -210,11 +264,32 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
             </ColorDetailDiv>
           </ColorDiv>
           <DetailDivisionSvg />
-          <DescriptiveReviewDiv>
-            <DescriptiveReviewSpan>
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.COMMENT]}
-            </DescriptiveReviewSpan>
-          </DescriptiveReviewDiv>
+
+          {selectedIdx === null ? (
+            <DescriptiveReviewDiv>
+              <CardText $isDetailReview={true}>상세 후기</CardText>
+              <CardLineSvg $isDetailReview={true} />
+              <DescriptiveReviewSpan>
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.COMMENT]}
+              </DescriptiveReviewSpan>
+            </DescriptiveReviewDiv>
+          ) : (
+            <OptReviewDiv>
+              <CardText>{extraOptData[selectedIdx].name}</CardText>
+              <CardLineSvg />
+              <CardTagsDiv>
+                {extraOptData[selectedIdx].extraOptionTagInfoDTOS.map(
+                  (item) => {
+                    return (
+                      <EachTagDiv>
+                        <EachTagSpan key={item.id}>{item.name}</EachTagSpan>
+                      </EachTagDiv>
+                    );
+                  },
+                )}
+              </CardTagsDiv>
+            </OptReviewDiv>
+          )}
         </TextDiv>
         <ImgDiv>
           <ImgOptWrap>
