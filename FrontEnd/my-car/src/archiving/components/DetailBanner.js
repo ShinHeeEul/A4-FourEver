@@ -14,6 +14,8 @@ import {
 import { useContext } from 'react';
 import { ARCHIVINGDETAIL } from '../../constant';
 import { DataLoaderContext } from '../router/ArchivingDetail';
+import { formatDate } from '../../util/DateFomat';
+
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -239,8 +241,14 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
                 {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.NAME]}{' '}
                 {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM]}
               </TrimTitleText>
-              <ReviewDate>23년 7월 19일</ReviewDate>
-              <ReviewGroup>시승</ReviewGroup>
+              <ReviewDate>
+                {formatDate(data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DATE])}
+              </ReviewDate>
+              <ReviewGroup>
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.PURCHASE]
+                  ? '구매'
+                  : '시승'}
+              </ReviewGroup>
             </TrimTitleDiv>
             <TrimDetailText>
               {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.ENGINE]} /{' '}

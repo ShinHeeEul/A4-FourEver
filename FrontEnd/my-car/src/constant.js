@@ -79,6 +79,7 @@ export const ARCHIVINGDETAIL = {
       EXCOLOR: 'exterior_color_name',
       DATE: 'created_at',
       EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
+      PURCHASE: 'is_purchased',
     },
   },
 };
