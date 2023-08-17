@@ -4,6 +4,7 @@ import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.review.carReview.dto.CarReviewDetailDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
+import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -50,7 +51,9 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "seo.name AS sub_extra_option_name, " +
                 "eot.id AS extra_option_tag_id, " +
                 "eot.name AS extra_option_tag_name, " +
-                "eot.count AS extra_option_tag_count " +
+                "eot.count AS extra_option_tag_count, " +
+                "tt.id AS total_tag_id, " +
+                "tt.name AS total_tag_name " +
 
                 "FROM car_review cr " +
                 "JOIN model m ON cr.model_id = m.id " +
@@ -63,6 +66,8 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
                 "LEFT JOIN extra_option eo ON orv.extra_option_id = eo.id " +
+                "LEFT JOIN total_tag_car_review ttcr ON cr.id = ttcr.car_review_id " +
+                "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
                 "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
                 "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
 
@@ -96,9 +101,17 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .is_purchased(rs.getInt("is_purchased"))
                             .created_at(rs.getTimestamp("created_at"))
                             .price(rs.getDouble("price"))
+                            .totalTagInfoDTOs(new HashSet<>())
                             .extraOptionForCarReviewDTOs(new HashSet<>())
                             .build();
                 }
+
+                TotalTagInfoDTO totalTagInfoDTO = TotalTagInfoDTO.builder()
+                        .id(rs.getLong("total_tag_id"))
+                        .name(rs.getString("total_tag_name"))
+                        .build();
+
+                detailDTO.getTotalTagInfoDTOs().add(totalTagInfoDTO);
 
                 Long extraOptionId = rs.getLong("extra_option_id");
                 ExtraOptionForCarReviewDTO extraOptionDTO = extraOptionMap.get(extraOptionId);

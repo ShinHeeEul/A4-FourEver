@@ -1,6 +1,7 @@
 package A4.FourEver.domain.review.carReview.dto;
 
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
+import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -22,5 +23,6 @@ public class CarReviewDetailDTO {
     private String exterior_color_name;
     private String interior_color_name;
     private Timestamp created_at;
+    private Set<TotalTagInfoDTO> totalTagInfoDTOs;
     private Set<ExtraOptionForCarReviewDTO> extraOptionForCarReviewDTOs;
 }

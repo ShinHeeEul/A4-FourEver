@@ -4,6 +4,7 @@ import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
+import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
@@ -14,8 +15,12 @@ import java.util.stream.Collectors;
 public class CarReviewMapper {
 
     public CarReviewDetailSortedDTO convertToSortedDTO(CarReviewDetailDTO dto) {
-        List<ExtraOptionForCarReviewSortedDTO> dtoList = dto.getExtraOptionForCarReviewDTOs().stream()
+        List<ExtraOptionForCarReviewSortedDTO> extraOptionDTOList = dto.getExtraOptionForCarReviewDTOs().stream()
                 .map(this::convertExtraOption)
+                .collect(Collectors.toList());
+
+        List<TotalTagInfoDTO> totalTagList = dto.getTotalTagInfoDTOs().stream()
+                .sorted(Comparator.comparingLong(TotalTagInfoDTO::getId))
                 .collect(Collectors.toList());
 
         return CarReviewDetailSortedDTO.builder()
@@ -31,7 +36,8 @@ public class CarReviewMapper {
                 .interior_color_name(dto.getInterior_color_name())
                 .is_purchased(dto.getIs_purchased())
                 .created_at(dto.getCreated_at())
-                .extraOptionForCarReviewDTOs(dtoList)
+                .totalTagInfoDTOs(totalTagList)
+                .extraOptionForCarReviewDTOs(extraOptionDTOList)
                 .build();
     }
 
