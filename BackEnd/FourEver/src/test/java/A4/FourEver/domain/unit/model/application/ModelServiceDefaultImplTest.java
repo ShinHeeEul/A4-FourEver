@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -39,7 +38,7 @@ class ModelServiceDefaultImplTest extends UnitTestBase {
     }
 
     @Test
-    @DisplayName("ModelService 에서 트림, 구동방식 등의 아이디로 기본 혹은 선택 품목의 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) ModelService 에서 트림, 구동방식 등의 아이디로 기본 혹은 선택 품목의 정보가 성공적으로 조회 되어야한다.")
     void getModelOptions() {
         // Given
         ExtraOptionTagInfoDTO extraOptionTagInfoDTO1 = ExtraOptionTagInfoDTO.builder()

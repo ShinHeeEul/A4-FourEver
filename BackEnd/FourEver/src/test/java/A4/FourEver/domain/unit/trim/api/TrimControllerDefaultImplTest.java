@@ -1,8 +1,6 @@
 package A4.FourEver.domain.unit.trim.api;
 
-import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
 import A4.FourEver.domain.color.exColor.dto.ExColorInfoSortedDTO;
-import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorInfoSortedDTO;
 import A4.FourEver.domain.tag.exColorTag.dto.ExColorTagInfoDTO;
 import A4.FourEver.domain.tag.inColorTag.dto.InColorTagInfoDTO;
@@ -13,17 +11,16 @@ import A4.FourEver.domain.trim.trim.dto.TrimColorsAndTagsDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,7 +32,7 @@ class TrimControllerDefaultImplTest extends UnitTestBase {
     private TrimService trimService;
     private TrimController trimController;
     private MockMvc mockMvc;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void setup() {
@@ -45,6 +42,7 @@ class TrimControllerDefaultImplTest extends UnitTestBase {
     }
 
     @Test
+    @DisplayName("(단위) TrimController 에서 트림의 아이디로 내외장 생상 정보가 성공적으로 조회 되어야한다.")
     void getTrimColorsAndTagsById() throws Exception {
         // Given
         Long trimId = 1L;
@@ -60,22 +58,6 @@ class TrimControllerDefaultImplTest extends UnitTestBase {
                 .count(20L)
                 .build();
 
-        InColorInfoDTO inColorInfoInstance1 = InColorInfoDTO.builder()
-                .id(1L)
-                .name("colorName1")
-                .color_image("colorImageURL1")
-                .in_image("inImageURL1")
-                .inColorTagInfoDTOS(Set.of(tagInstance1, tagInstance2))
-                .build();
-
-        InColorInfoDTO inColorInfoInstance2 = InColorInfoDTO.builder()
-                .id(2L)
-                .name("colorName2")
-                .color_image("colorImageURL2")
-                .in_image("inImageURL2")
-                .inColorTagInfoDTOS(Set.of(tagInstance1, tagInstance2))
-                .build();
-
         ExColorTagInfoDTO exTagInstance1 = ExColorTagInfoDTO.builder()
                 .id(1L)
                 .name("exTagName1")
@@ -87,27 +69,6 @@ class TrimControllerDefaultImplTest extends UnitTestBase {
                 .name("exTagName2")
                 .count(20L)
                 .build();
-
-        ExColorInfoDTO exColorInfoInstance1 = ExColorInfoDTO.builder()
-                .id(1L)
-                .name("exColorName1")
-                .color_image("exColorImageURL1")
-                .rotation_image("rotationImageURL1")
-                .price(1000.50)
-                .exColorTagInfoDTOS(Set.of(exTagInstance1, exTagInstance2))
-                .build();
-
-        ExColorInfoDTO exColorInfoInstance2 = ExColorInfoDTO.builder()
-                .id(2L)
-                .name("exColorName2")
-                .color_image("exColorImageURL2")
-                .rotation_image("rotationImageURL2")
-                .price(2000.75)
-                .exColorTagInfoDTOS(Set.of(exTagInstance1, exTagInstance2))
-                .build();
-
-        Set<ExColorInfoDTO> exColorInfoDTOs = Set.of(exColorInfoInstance1, exColorInfoInstance2);
-        Set<InColorInfoDTO> inColorInfoDTOs = Set.of(inColorInfoInstance1, inColorInfoInstance2);
 
         List<ExColorTagInfoDTO> exColorTagInfoDTOList = Stream.of(exTagInstance1, exTagInstance2)
                 .sorted(Comparator.comparingLong(ExColorTagInfoDTO::getId))

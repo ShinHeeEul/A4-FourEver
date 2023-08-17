@@ -3,7 +3,6 @@ package A4.FourEver.domain.unit.car.api;
 import A4.FourEver.domain.car.api.CarController;
 import A4.FourEver.domain.car.api.CarControllerDefaultImpl;
 import A4.FourEver.domain.car.application.CarService;
-import A4.FourEver.domain.car.application.CarServiceDefaultImpl;
 import A4.FourEver.domain.car.dto.CarTrimsSortedDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
@@ -42,7 +41,7 @@ class CarControllerDefaultImplTest {
     }
 
     @Test
-    @DisplayName("CarController 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) CarController 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
     void getCarTrimsById() throws Exception {
         // Given
         Long carId = 1L;

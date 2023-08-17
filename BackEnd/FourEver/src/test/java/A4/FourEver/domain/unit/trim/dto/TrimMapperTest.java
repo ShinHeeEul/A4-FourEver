@@ -23,7 +23,7 @@ class TrimMapperTest extends UnitTestBase {
     private final TrimMapper trimMapper = new TrimMapper();
 
     @Test
-    @DisplayName("두 개의 Set 을 이용해서 TrimColorsAndTagsDTO 가 정상적으로 생성되어야 한다.")
+    @DisplayName("(단위) 두 개의 Set 을 이용해서 TrimColorsAndTagsDTO 가 정상적으로 생성되어야 한다.")
     void convertToSortedDTO() {
         InColorTagInfoDTO tagInstance1 = InColorTagInfoDTO.builder()
                 .id(1L)

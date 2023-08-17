@@ -8,7 +8,6 @@ import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimInfoDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,14 +15,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CarMapperTest extends UnitTestBase {
 
     private final CarMapper carMapper = new CarMapper();
 
     @Test
-    @DisplayName("carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
+    @DisplayName("(단위) carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
     void convertToSortedDTO() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();

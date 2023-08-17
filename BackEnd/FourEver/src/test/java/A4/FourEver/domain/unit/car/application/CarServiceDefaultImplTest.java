@@ -36,7 +36,7 @@ class CarServiceDefaultImplTest extends UnitTestBase {
     }
 
     @Test
-    @DisplayName("CarService 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
+    @DisplayName("(단위) CarService 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
     void getCarTrimsById() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();
