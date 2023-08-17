@@ -6,6 +6,7 @@ import A4.FourEver.domain.car.dto.CarReviewOverviewSortedListDTO;
 import A4.FourEver.domain.car.dto.CarTrimsSortedDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionListDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class CarControllerDefaultImpl implements CarController {
 
     @Override
     @Operation(summary = "특정 차량의 트림 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/{id}/trim")
     public CarTrimsSortedDTO getCarTrimsById(@PathVariable final Long id) {
         return carService.getCarTrimsById(id);
@@ -32,6 +34,7 @@ public class CarControllerDefaultImpl implements CarController {
 
     @Override
     @Operation(summary = "특정 차량의 선택 가능한 옵션 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/{id}/option-names")
     public CarExtraOptionNameDTO getCarExtraOptionNameById(@PathVariable final Long id) {
         return carService.getCarExtraOptionNameById(id);

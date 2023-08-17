@@ -3,6 +3,7 @@ package A4.FourEver.domain.model.api;
 import A4.FourEver.domain.model.application.ModelService;
 import A4.FourEver.domain.model.dto.ModelOptionsSortedDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class ModelControllerDefaultImpl implements ModelController {
 
     @Override
     @Operation(summary = "특정 모델의 옵션 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/option")
     public ModelOptionsSortedDTO getModelOption(
             @RequestParam("trim_id") final Long trim_id,
