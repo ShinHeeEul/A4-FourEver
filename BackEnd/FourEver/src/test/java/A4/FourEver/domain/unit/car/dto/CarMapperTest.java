@@ -8,15 +8,12 @@ import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimInfoDTO;
 import A4.FourEver.domain.unit.UnitTestBase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarMapperTest extends UnitTestBase {
 
