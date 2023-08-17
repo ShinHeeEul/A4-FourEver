@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 import palette from '../../style/styleVariable';
 import PalisadeImg from '../../assets/palisadeImg.png';
 import { ReactComponent as DetailDivisionSvg } from '../../assets/archivingDetailDivision.svg';
@@ -130,9 +130,51 @@ const DescriptiveReviewSpan = styled.span`
   }
 `;
 
-function DetailBanner() {
-  const data = useContext(DataLoaderContext);
+const OptionPositionDiv = styled.div`
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
 
+  ${Body3Medium}
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 166.667% */
+  letter-spacing: -1.2px;
+  z-index: 3;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+  border: 4px solid
+    ${({ $selected }) => ($selected ? 'white' : `${palette.Primary}`)};
+  color: ${({ $selected }) => ($selected ? 'white' : `${palette.Primary}`)};
+  background-color: ${({ $selected }) =>
+    $selected ? `${palette.Primary}` : 'white'};
+  ${({ $left, $top }) => css`
+    top: ${$top}%;
+    left: ${$left}%;
+  `}
+`;
+
+const ImgOptWrap = styled.div`
+  width: 850px;
+  height: 465px;
+  position: relative;
+`;
+
+function DetailBanner({ selectedIdx, setSelectedIdx }) {
+  const data = useContext(DataLoaderContext);
+  console.log(selectedIdx);
+
+  function toggleSelect(idx) {
+    setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
+  }
   return (
     <AllDiv>
       <BannerDiv>
@@ -140,7 +182,8 @@ function DetailBanner() {
           <TrimDiv>
             <TrimTitleDiv>
               <TrimTitleText>
-                펠리세이드 {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.NAME]}{' '}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM]}
               </TrimTitleText>
               <ReviewDate>23년 7월 19일</ReviewDate>
               <ReviewGroup>시승</ReviewGroup>
@@ -174,7 +217,25 @@ function DetailBanner() {
           </DescriptiveReviewDiv>
         </TextDiv>
         <ImgDiv>
-          <img alt="img" src={PalisadeImg}></img>
+          <ImgOptWrap>
+            <img alt="img" src={PalisadeImg} />
+            {data.extraOptionForCarReviewDTOs.map((item, idx) => {
+              return item.x_position !== -1 ? (
+                <OptionPositionDiv
+                  onClick={() => toggleSelect(idx)}
+                  key={idx + 1}
+                  $left={item.x_position}
+                  $top={item.y_position}
+                  $selected={selectedIdx === idx}
+                >
+                  {'0'}
+                  {idx + 1}
+                </OptionPositionDiv>
+              ) : (
+                <></>
+              );
+            })}
+          </ImgOptWrap>
         </ImgDiv>
       </BannerDiv>
     </AllDiv>

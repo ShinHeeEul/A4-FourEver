@@ -68,6 +68,7 @@ export const ARCHIVINGDETAIL = {
   SELECTEDCAR: {
     URL: 'reviews/',
     FILED: {
+      NAMEL: 'car_name',
       PRICE: 'price',
       COMMENT: 'comment',
       TRIM: 'trim_name',
@@ -78,7 +79,6 @@ export const ARCHIVINGDETAIL = {
       EXCOLOR: 'exterior_color_name',
       DATE: 'created_at',
       EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
-      IMG: {},
     },
   },
 };

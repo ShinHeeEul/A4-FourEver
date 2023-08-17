@@ -71,10 +71,12 @@ function ArchivingDetail() {
   return (
     <DataLoaderContext.Provider value={data}>
       <Container>
-        <DetailBanner />
+        <DetailBanner
+          selectedIdx={selectedIdx}
+          setSelectedIdx={setSelectedIdx}
+        />
         <AdditionalInfo />
         <AllDiv>
-          {/* {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] && } */}
           {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
             data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
               (item, idx) => {
