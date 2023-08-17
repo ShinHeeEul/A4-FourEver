@@ -9,7 +9,6 @@ import A4.FourEver.domain.tag.inColorTag.dto.InColorTagInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimColorsAndTagsDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimMapper;
 import A4.FourEver.domain.unit.UnitTestBase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +17,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TrimMapperTest extends UnitTestBase {
 
