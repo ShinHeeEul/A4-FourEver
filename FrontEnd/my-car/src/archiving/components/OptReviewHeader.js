@@ -14,9 +14,8 @@ export const Container = styled.div`
 `;
 
 const TabText = styled.span`
-  border-radius: 8px;
-  height: 25px;
-
+  height: 24px;
+  border-radius: 3px;
   ${({ $isActive }) =>
     $isActive
       ? css`
