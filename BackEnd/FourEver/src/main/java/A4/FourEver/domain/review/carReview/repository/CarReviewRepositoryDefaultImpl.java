@@ -32,7 +32,9 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "cr.id AS car_review_id, " +
                 "cr.comment, " +
                 "cr.price, " +
+                "cr.is_purchased, " +
                 "cr.created_at, " +
+                "c.name AS car_name, " +
                 "t.name AS trim_name, " +
                 "e.name AS engine_name, " +
                 "b.name AS body_name, " +
@@ -56,6 +58,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN car c ON d.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
@@ -82,6 +85,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 if (detailDTO == null) {
                     detailDTO = CarReviewDetailDTO.builder()
                             .car_review_id(rs.getLong("car_review_id"))
+                            .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))
                             .engine_name(rs.getString("engine_name"))
                             .drive_name(rs.getString("drive_name"))
@@ -89,6 +93,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .exterior_color_name(rs.getString("exterior_color_name"))
                             .interior_color_name(rs.getString("interior_color_name"))
                             .comment(rs.getString("comment"))
+                            .is_purchased(rs.getInt("is_purchased"))
                             .created_at(rs.getTimestamp("created_at"))
                             .price(rs.getDouble("price"))
                             .extraOptionForCarReviewDTOs(new HashSet<>())
