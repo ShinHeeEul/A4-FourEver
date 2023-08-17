@@ -11,7 +11,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SoftAssertionsExtension.class)
-class IntegrationBaseTest {
+public class IntegrationBaseTest {
 
     @LocalServerPort
     public int port;
