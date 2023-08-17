@@ -19,7 +19,7 @@ function Archiving() {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading text={'후기를 불러오는 중입니다'} />
       ) : (
         <Container>
           <OptSelectionBar />
