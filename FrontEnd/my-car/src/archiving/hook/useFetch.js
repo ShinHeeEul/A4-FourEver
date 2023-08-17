@@ -14,7 +14,6 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
       if (config?.body) {
         const body = JSON.parse(config.body);
         const entire = { ...body, activeTab };
-        console.log(entire);
         localStorage.setItem(JSON.stringify(entire), JSON.stringify(jsonData));
       }
       setData(jsonData);

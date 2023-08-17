@@ -7,6 +7,8 @@ export const OptionSelectValue = createContext();
 export const OptionSelectAction = createContext();
 
 function ArchivingProvider({ children, setLoading }) {
+  const accessToken = localStorage.getItem('jwtToken');
+
   const [activeStates, setActiveStates] = useState({}); //선택 옵션
   const [activeTab, setActiveTab] = useState(0); // 선택 탭(전체/시승/구매)
 
@@ -20,7 +22,10 @@ function ArchivingProvider({ children, setLoading }) {
     }`,
     config: {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify(optionSelect),
     },
     optionSelect,

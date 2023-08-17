@@ -14,26 +14,29 @@ import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
 import { MyCarOptionAPI } from './api';
-import { ARCHIVING, MYCAR, ARCHIVINGDETAIL } from './constant';
+import { MYCAR, ARCHIVINGDETAIL } from './constant';
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
 import RootArchiving from './archiving/RootArchiving';
 import ArchivingDetail from './archiving/router/ArchivingDetail';
 import Archiving from './archiving/router/Archiving';
-
-import { useParams } from 'react-router-dom';
-import { ArchivingAPI } from './api';
+import Login from './login/Login';
+import AuthCode from './login/AuthCode';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
     children: [
-      // {
-      //   path: '',
-      //   element: <Login />,
-      // },
+      {
+        path: '',
+        element: <Login />,
+      },
+      {
+        path: 'auth',
+        element: <AuthCode />,
+      },
       {
         path: 'main',
         element: <Main />,
@@ -54,17 +57,15 @@ const router = createBrowserRouter([
               },
               {
                 path: 'engine',
-                // loader: fetchOption,
+
                 element: <Engine />,
               },
               {
                 path: 'bodytype',
-                // loader: fetchOption,
                 element: <BodyType />,
               },
               {
                 path: 'wheeldrive',
-                // loader: fetchOption,
                 element: <WheelDrive />,
               },
             ],
@@ -84,17 +85,14 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'selection',
-                // loader: fetchOption,
                 element: <SelectOption />,
               },
               {
                 path: 'accessories',
-                // loader: fetchOption,
                 element: <SelectOption />,
               },
               {
                 path: 'performance',
-                // loader: fetchOption,
                 element: <SelectOption />,
               },
             ],
