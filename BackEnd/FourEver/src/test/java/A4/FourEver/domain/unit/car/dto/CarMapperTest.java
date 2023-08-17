@@ -1,11 +1,8 @@
-package A4.FourEver.domain.unit.car.application;
+package A4.FourEver.domain.unit.car.dto;
 
-import A4.FourEver.domain.car.application.CarService;
-import A4.FourEver.domain.car.application.CarServiceDefaultImpl;
 import A4.FourEver.domain.car.dto.CarMapper;
 import A4.FourEver.domain.car.dto.CarTrimsDTO;
 import A4.FourEver.domain.car.dto.CarTrimsSortedDTO;
-import A4.FourEver.domain.car.repository.CarRepository;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
@@ -19,25 +16,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CarServiceDefaultImplTest extends UnitTestBase {
+class CarMapperTest extends UnitTestBase {
 
-    private CarRepository carRepository;
-    private CarMapper carMapper;
-    private CarService carService;
-
-    @BeforeEach
-    void setUp() {
-        carRepository = mock(CarRepository.class);
-        carMapper = mock(CarMapper.class);
-        carService = new CarServiceDefaultImpl(carRepository, carMapper);
-    }
+    private final CarMapper carMapper = new CarMapper();
 
     @Test
-    @DisplayName("CarService 에서 차량의 아이디로 트림 정보가 성공적으로 조회 되어야한다.")
-    void getCarTrimsById() {
+    @DisplayName("carTrimsDTO 가 성공적으로 carTrimsSortedDTO 로 변환되어야 한다.")
+    void convertToSortedDTO() {
         // Given
         TrimInfoDTO trimInfo = TrimInfoDTO.builder().id(1L).name("TrimName").image("TrimImage").price(10000.0).build();
         TrimInfoDTO trimInfo2 = TrimInfoDTO.builder().id(2L).name("TrimName").image("TrimImage").price(10000.0).build();
@@ -78,11 +65,8 @@ class CarServiceDefaultImplTest extends UnitTestBase {
                 .engineInfoDTOs(engineInfoDTOList)
                 .build();
 
-        given(carRepository.findCarTrimsById(1L)).willReturn(carTrimsDTO);
-        given(carMapper.convertToSortedDTO(carTrimsDTO)).willReturn(carTrimsSortedDTO);
-
         // When
-        CarTrimsSortedDTO result = carService.getCarTrimsById(1L);
+        CarTrimsSortedDTO result = carMapper.convertToSortedDTO(carTrimsDTO);
 
         // Then
         softAssertions.assertThat(result)
