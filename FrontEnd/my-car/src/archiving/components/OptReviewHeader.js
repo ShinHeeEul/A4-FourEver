@@ -14,29 +14,35 @@ export const Container = styled.div`
 `;
 
 const TabText = styled.span`
+  height: 24px;
+
   ${({ $isActive }) =>
     $isActive
       ? css`
           ${Body2Medium}
           font-weight: bolder;
+          color: ${palette.DarkGray};
+          border-bottom: 2px solid;
         `
       : css`
           ${Body2Regular}
+          color: ${palette.MediumGray};
         `}
 `;
 
 const HeaderWrap = styled.div`
-  /* border-bottom: 1px solid ${palette.LightGray}; */
-  border-bottom: 2px solid #e4dcd396;
-  gap: 20px;
+  gap: 16px;
   display: flex;
   align-items: flex-end;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  padding: 15px 0 0 0;
+  width: 960px;
+  margin: 0 auto;
   h1 {
     ${Heading2Bold}
   }
-
-  padding: 15px 0;
-  margin: 0 150px;
 `;
 
 const TabWrap = styled.div`
@@ -44,14 +50,9 @@ const TabWrap = styled.div`
 
   span {
     cursor: pointer;
-
-    padding: 0 10px;
-    &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
+    margin: 0 5px;
+    padding: 0 3px;
+    width: 28px;
   }
 `;
 
@@ -66,7 +67,7 @@ function OptReviewHeader() {
   return (
     <Container>
       <HeaderWrap>
-        <h1>사용후기</h1>
+        <h1>사용후기 </h1>
         <TabWrap>
           {ArchivingTabMenu.map((tab, index) => (
             <TabText
