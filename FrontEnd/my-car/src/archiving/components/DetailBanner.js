@@ -1,6 +1,5 @@
 import { styled, css } from 'styled-components';
 import palette from '../../style/styleVariable';
-import PalisadeImg from '../../assets/palisadeImg.png';
 import { ReactComponent as DetailDivisionSvg } from '../../assets/archivingDetailDivision.svg';
 import {
   Body1Medium,
@@ -94,7 +93,7 @@ const ColorContentText = styled.span`
 
 const ImgDiv = styled.div`
   display: flex;
-  transform: translate(0%, -70%);
+  transform: translate(4%, -65%);
   z-index: 1;
   margin: 0 auto;
   width: 1350px;
@@ -185,8 +184,8 @@ const OptionPositionDiv = styled.div`
 `;
 
 const ImgOptWrap = styled.div`
-  width: 850px;
-  height: 465px;
+  width: 940px;
+  height: 515px;
   position: relative;
 `;
 
@@ -305,7 +304,10 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
         </TextDiv>
         <ImgDiv>
           <ImgOptWrap>
-            <img alt="img" src={PalisadeImg} />
+            <img
+              alt="img"
+              src={data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR].color_image}
+            />
             {data.extraOptionForCarReviewDTOs.map((item, idx) => {
               return item.x_position !== -1 ? (
                 <OptionPositionDiv
