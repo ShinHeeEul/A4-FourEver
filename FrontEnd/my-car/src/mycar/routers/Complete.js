@@ -13,7 +13,7 @@ function Complete() {
     return () => localStorage.removeItem('userCar');
   }, []);
 
-  if (!localStorage.getItem('userCar') || !userCar.trim?.id) {
+  if (!localStorage.getItem('userCar') && !userCar.trim?.id) {
     return <NotFound />;
   }
 
