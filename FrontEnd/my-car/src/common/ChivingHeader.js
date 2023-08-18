@@ -4,7 +4,7 @@ import ToBackSymbol from '../assets/leftArrow.svg';
 import { ReactComponent as ArchivingLogo } from '../assets/archivingLogoBlack.svg';
 import { ReactComponent as CarLogo } from '../assets/carLogo.svg';
 import { Heading3Medium, Heading4Medium } from '../style/typo';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { myCarPagePath } from '../constant';
 const ChivingHeaderDiv = styled.div`
   width: calc(100% - 180px);
@@ -66,6 +66,8 @@ const GoBack = styled.img`
 `;
 
 function ChivingHeader({ fromMycar }) {
+  const { state } = useLocation();
+
   const navigate = useNavigate();
   const BackClick = () => {
     navigate(-1);
