@@ -105,7 +105,7 @@ const CardTagDiv = styled.div`
   align-items: center;
   margin: 10px 0;
   height: 65px;
-  overflow: auto;
+  overflow: hidden;
 `;
 const EachTagDiv = styled.div`
   padding: 4px 8px;
