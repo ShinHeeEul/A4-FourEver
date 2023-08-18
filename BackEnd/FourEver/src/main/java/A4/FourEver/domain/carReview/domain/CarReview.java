@@ -1,4 +1,4 @@
-package A4.FourEver.domain.review.carReview.domain;
+package A4.FourEver.domain.carReview.domain;
 
 import lombok.Getter;
 import nonapi.io.github.classgraph.json.Id;

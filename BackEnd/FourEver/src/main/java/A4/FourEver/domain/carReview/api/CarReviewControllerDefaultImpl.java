@@ -1,7 +1,7 @@
-package A4.FourEver.domain.review.carReview.api;
+package A4.FourEver.domain.carReview.api;
 
-import A4.FourEver.domain.review.carReview.application.CarReviewService;
-import A4.FourEver.domain.review.carReview.dto.CarReviewDetailSortedDTO;
+import A4.FourEver.domain.carReview.application.CarReviewService;
+import A4.FourEver.domain.carReview.dto.CarReviewDetailSortedDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;

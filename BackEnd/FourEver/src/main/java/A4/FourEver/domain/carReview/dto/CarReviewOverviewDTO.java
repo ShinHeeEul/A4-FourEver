@@ -1,4 +1,4 @@
-package A4.FourEver.domain.review.carReview.dto;
+package A4.FourEver.domain.carReview.dto;
 
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;

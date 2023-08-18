@@ -1,10 +1,10 @@
-package A4.FourEver.domain.review.carReview.repository;
+package A4.FourEver.domain.carReview.repository;
 
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewDetailDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewDetailDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
