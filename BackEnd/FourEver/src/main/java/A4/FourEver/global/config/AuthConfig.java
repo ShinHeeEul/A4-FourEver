@@ -19,10 +19,8 @@ public class AuthConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/model/option",
-                        "/cars/{id}/option-names",
-                        "/cars/{id}/trim",
-                        "/cars/{id}/color");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/user/login");
     }
 
     @Override
