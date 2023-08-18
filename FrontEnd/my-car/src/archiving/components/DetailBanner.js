@@ -243,7 +243,7 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
             <TrimTitleDiv>
               <TrimTitleText>
                 {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.NAME]}{' '}
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM].name}
               </TrimTitleText>
               <ReviewDate>
                 {formatDate(data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DATE])}
@@ -255,23 +255,23 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
               </ReviewGroup>
             </TrimTitleDiv>
             <TrimDetailText>
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.ENGINE]} /{' '}
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DRIVE]} /{' '}
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.BODY]}
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.ENGINE].name} /{' '}
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DRIVE].name} /{' '}
+              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.BODY].name}
             </TrimDetailText>
           </TrimDiv>
           <ColorDiv>
             <ColorDetailDiv>
               <ColorTitleText>외장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR].name}
               </ColorContentText>
             </ColorDetailDiv>
             <ColorDivisionDiv />
             <ColorDetailDiv>
               <ColorTitleText>내장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR]}
+                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR].name}
               </ColorContentText>
             </ColorDetailDiv>
           </ColorDiv>
