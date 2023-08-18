@@ -38,8 +38,7 @@ const CardWrap = styled.div`
   transition: all 0.2s;
   &:hover {
     border: 2px solid #aea6a0;
-    /* background: #fafafa; */
-    filter: brightness(0.93);
+    background: #f0f0f0;
   }
 `;
 
