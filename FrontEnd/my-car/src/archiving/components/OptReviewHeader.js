@@ -15,7 +15,6 @@ export const Container = styled.div`
 
 const TabText = styled.span`
   height: 24px;
-  /* border-radius: 3px; */
 
   ${({ $isActive }) =>
     $isActive
@@ -32,8 +31,6 @@ const TabText = styled.span`
 `;
 
 const HeaderWrap = styled.div`
-  /* border-bottom: 1px solid ${palette.LightGray}; */
-  /* border-bottom: 2px solid #e4dcd396; */
   gap: 16px;
   display: flex;
   align-items: flex-end;
@@ -56,12 +53,6 @@ const TabWrap = styled.div`
     margin: 0 5px;
     padding: 0 3px;
     width: 28px;
-    /* &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    } */
   }
 `;
 

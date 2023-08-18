@@ -29,14 +29,11 @@ const CardWrap = styled.div`
   width: calc(470px - 60px);
   height: 220px;
   border-radius: 8px;
-  /* border: 1px solid var(--hyundai-sand, #e4dcd3); */
   border: 2px solid #e4dcd3;
 
   background: #fff;
   padding: 26px;
-  &:nth-child(2n + 1) {
-    /* margin-left: 30px; */
-  }
+
   cursor: pointer;
   transition: all 0.2s;
   &:hover {
