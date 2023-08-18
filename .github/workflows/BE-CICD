@@ -1,0 +1,85 @@
+name: BackEnd-CICD
+
+on:
+  push:
+    branches:  
+      - "main"
+      - "BE/dev"
+      
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+      - name: Write properties
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "CLINET_ID=${{ secrets.CLIENT_ID }}" >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}"  >> BackEnd/FourEver/src/main/resources/application.properties
+          echo "JWT_EXPIRED=${{ secrets.JWT_EXPIRED }}"  >> BackEnd/FourEver/src/main/resources/application.properties
+      - name: Build with Gradle
+        run: ./gradlew build
+        working-directory: BackEnd/FourEver/
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Grant execute permisson for gradlew
+        run: chmod +x gradlew
+        working-directory: BackEnd/FourEver/
+
+      - name: Build with Gradle (without Test)
+        run: ./gradlew build
+        working-directory: BackEnd/FourEver/
+
+      - name: Docker Hub login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Hub build & push
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_BE_REPO }} .
+          docker images
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_BE_REPO }}
+        working-directory: BackEnd/FourEver/
+
+      - name: Deploy to Prod WAS Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.WAS_HOST }}
+          username: ${{ secrets.WAS_USERNAME }}
+          key: ${{ secrets.WAS_KEY }}
+          port: ${{ secrets.WAS_SSH_PORT }}
+          script: |
+            cd /home/ubuntu/
+            sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            sudo docker rm -f $(sudo docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_BE_REPO }}
+            sudo docker-compose up -d
+            sudo docker image prune -f
