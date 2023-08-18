@@ -1,10 +1,16 @@
 package A4.FourEver.domain.review.carReview.repository;
 
+import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.review.carReview.dto.CarReviewDetailDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
+import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
+import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
+import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
+import A4.FourEver.domain.trim.trim.dto.TrimNameDTO;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -36,11 +42,18 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "cr.is_purchased, " +
                 "cr.created_at, " +
                 "c.name AS car_name, " +
+                "t.id AS trim_id, " +
                 "t.name AS trim_name, " +
+                "e.id AS engine_id, " +
                 "e.name AS engine_name, " +
+                "b.id AS body_id, " +
                 "b.name AS body_name, " +
+                "d.id AS drive_id, " +
                 "d.name AS drive_name, " +
+                "exc.id AS exterior_color_id, " +
                 "exc.name AS exterior_color_name, " +
+                "exc.rotation_image AS exterior_color_rotation_image, " +
+                "inc.id AS interior_color_id, " +
                 "inc.name AS interior_color_name, " +
                 "eo.id AS extra_option_id, " +
                 "eo.name AS extra_option_name, " +
@@ -88,15 +101,46 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
 
             while (rs.next()) {
                 if (detailDTO == null) {
+                    TrimNameDTO trimNameDTO = TrimNameDTO.builder()
+                            .id(rs.getLong("trim_id"))
+                            .name(rs.getString("trim_name"))
+                            .build();
+
+                    EngineNameDTO engineNameDTO = EngineNameDTO.builder()
+                            .id(rs.getLong("engine_id"))
+                            .name(rs.getString("engine_name"))
+                            .build();
+
+                    BodyNameDTO bodyNameDTO = BodyNameDTO.builder()
+                            .id(rs.getLong("body_id"))
+                            .name(rs.getString("body_name"))
+                            .build();
+
+                    DriveNameDTO driveNameDTO = DriveNameDTO.builder()
+                            .id(rs.getLong("drive_id"))
+                            .name(rs.getString("drive_name"))
+                            .build();
+
+                    ExColorNameAndImageDTO exColorNameAndImageDTO = ExColorNameAndImageDTO.builder()
+                            .id(rs.getLong("exterior_color_id"))
+                            .name(rs.getString("exterior_color_name"))
+                            .color_image(rs.getString("exterior_color_rotation_image"))
+                            .build();
+
+                    InColorNameDTO inColorNameDTO = InColorNameDTO.builder()
+                            .id(rs.getLong("interior_color_id"))
+                            .name(rs.getString("interior_color_name"))
+                            .build();
+
                     detailDTO = CarReviewDetailDTO.builder()
                             .car_review_id(rs.getLong("car_review_id"))
                             .car_name(rs.getString("car_name"))
-                            .trim_name(rs.getString("trim_name"))
-                            .engine_name(rs.getString("engine_name"))
-                            .drive_name(rs.getString("drive_name"))
-                            .body_name(rs.getString("body_name"))
-                            .exterior_color_name(rs.getString("exterior_color_name"))
-                            .interior_color_name(rs.getString("interior_color_name"))
+                            .trimNameDTO(trimNameDTO)
+                            .engineNameDTO(engineNameDTO)
+                            .bodyNameDTO(bodyNameDTO)
+                            .driveNameDTO(driveNameDTO)
+                            .exColorDTO(exColorNameAndImageDTO)
+                            .inColorDTO(inColorNameDTO)
                             .comment(rs.getString("comment"))
                             .is_purchased(rs.getInt("is_purchased"))
                             .created_at(rs.getTimestamp("created_at"))
