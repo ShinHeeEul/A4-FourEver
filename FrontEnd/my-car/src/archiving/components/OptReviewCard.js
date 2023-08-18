@@ -38,7 +38,8 @@ const CardWrap = styled.div`
   transition: all 0.2s;
   &:hover {
     border: 2px solid #aea6a0;
-    background: #fafafa;
+    /* background: #fafafa; */
+    filter: brightness(0.93);
   }
 `;
 
@@ -115,8 +116,11 @@ const CategoryWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    height: ${({ $isTags }) => ($isTags ? '22px' : 'auto')};
-    overflow-y: ${({ $isTags }) => ($isTags ? 'hidden' : 'none')};
+    height: ${({ $isTags }) => ($isTags ? '22px' : '70px')};
+    overflow-y: hidden;
+    button {
+      height: 30px;
+    }
   }
 `;
 

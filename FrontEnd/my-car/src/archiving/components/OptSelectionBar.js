@@ -1,15 +1,12 @@
 import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular } from '../../style/typo';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import {
   OptionSelectAction,
   OptionSelectValue,
 } from '../../context/archiving/ArchivingProvider';
-import useFetch from '../hook/useFetch';
 import { ARCHIVING } from '../../constant';
-import ServerErrorPage from '../../error/ServerErrorPage';
-import { MakePath } from '../../api';
 
 const Container = styled.div`
   background-color: ${palette.Neutral};
@@ -29,7 +26,10 @@ const TagWrap = styled.div`
 
 export const OptTag = styled.button`
   border: 0;
-
+  transition: filter 0.2s ease;
+  &:hover {
+    filter: ${({ $inNavbar }) => ($inNavbar ? 'brightness(0.93)' : 'none')};
+  }
   ${({ $isActive }) =>
     $isActive
       ? css`
@@ -64,6 +64,7 @@ function OptSelectionBar() {
             onClick={() => ClickOption({ id: list.id })}
             key={index}
             $isActive={activeStates[list.id]}
+            $inNavbar={true}
           >
             {list.name}
           </OptTag>
