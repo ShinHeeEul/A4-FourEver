@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@Tag(name = "치량 정보")
+@Tag(name = "차량 정보")
 @RestController
 @RequestMapping("/cars")
 public class CarControllerDefaultImpl implements CarController {
