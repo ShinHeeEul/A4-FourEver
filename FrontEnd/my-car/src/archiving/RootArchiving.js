@@ -9,7 +9,7 @@ function RootArchiving() {
   return (
     <ArchivingProvider setLoading={setLoading}>
       <ChivingHeader fromMycar={state} />
-      <Outlet context={{ loading }} />
+      <Outlet context={{ loading, fromMycar: state }} />
     </ArchivingProvider>
   );
 }

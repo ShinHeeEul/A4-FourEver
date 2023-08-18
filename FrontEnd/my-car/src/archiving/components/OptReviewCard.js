@@ -8,7 +8,7 @@ import {
 import palette from '../../style/styleVariable';
 import { OptTag } from './OptSelectionBar';
 import { Tag } from '../../common/Tag';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useContext } from 'react';
 import { OptionSelectValue } from '../../context/archiving/ArchivingProvider';
 import { ARCHIVING } from '../../constant';
@@ -120,10 +120,11 @@ const CategoryWrap = styled.div`
 `;
 
 function OptReviewCard() {
+  const { fromMycar } = useOutletContext();
   const { activeStates, reviewList } = useContext(OptionSelectValue);
   const navigate = useNavigate();
   const CardClick = ({ id }) => {
-    navigate(`/archiving/${id}`);
+    navigate(`/archiving/${id}`, { state: { fromMycar } });
   };
 
   function optChipSort(selectOptions) {
