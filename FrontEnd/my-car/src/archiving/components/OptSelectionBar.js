@@ -1,12 +1,13 @@
 import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular } from '../../style/typo';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   OptionSelectAction,
   OptionSelectValue,
 } from '../../context/archiving/ArchivingProvider';
 import { ARCHIVING } from '../../constant';
+import WarningTooltip from './WarningTooltip';
 
 const Container = styled.div`
   background-color: ${palette.Neutral};
@@ -49,15 +50,29 @@ export const OptTag = styled.button`
 `;
 
 function OptSelectionBar() {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   const { action } = useContext(OptionSelectAction);
   const { activeStates, optionList } = useContext(OptionSelectValue);
 
-  const ClickOption = ({ id }) => {
-    action.select({ id });
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const ClickOption = async ({ id }) => {
+    const activeLength = Object.values(activeStates).filter(
+      (value) => value === true,
+    ).length;
+    if (activeLength === 4 && !activeStates[id]) {
+      setShowTooltip(true);
+      await delay(3000);
+      setShowTooltip(false);
+    } else {
+      action.select({ id });
+    }
   };
 
   return (
     <Container>
+      <WarningTooltip showTooltip={showTooltip} />
       <TagWrap>
         {optionList[ARCHIVING.FILED.OPTIONS].map((list, index) => (
           <OptTag
