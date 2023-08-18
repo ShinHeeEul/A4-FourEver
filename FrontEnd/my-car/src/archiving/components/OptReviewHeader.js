@@ -15,30 +15,31 @@ export const Container = styled.div`
 
 const TabText = styled.span`
   height: 24px;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+
   ${({ $isActive }) =>
     $isActive
       ? css`
           ${Body2Medium}
           font-weight: bolder;
           color: ${palette.DarkGray};
-          background-color: ${palette.LightSand};
+          border-bottom: 2px solid;
         `
       : css`
           ${Body2Regular}
-          color: ${palette.DarkGray};
+          color: ${palette.MediumGray};
         `}
 `;
 
 const HeaderWrap = styled.div`
   /* border-bottom: 1px solid ${palette.LightGray}; */
   /* border-bottom: 2px solid #e4dcd396; */
-  gap: 20px;
+  gap: 16px;
   display: flex;
   align-items: flex-end;
   gap: 20px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   padding: 15px 0 0 0;
   width: 960px;
   margin: 0 auto;
@@ -52,7 +53,9 @@ const TabWrap = styled.div`
 
   span {
     cursor: pointer;
-    padding: 0 10px;
+    margin: 0 5px;
+    padding: 0 3px;
+    width: 28px;
     /* &:first-child {
       padding-left: 0;
     }
