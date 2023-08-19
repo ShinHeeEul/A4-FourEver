@@ -1,4 +1,4 @@
-package A4.FourEver.domain.user.application.auth;
+package A4.FourEver.global.Resolver;
 
 import A4.FourEver.domain.user.exception.BlankTokenException;
 import A4.FourEver.domain.user.exception.InvalidBearerException;

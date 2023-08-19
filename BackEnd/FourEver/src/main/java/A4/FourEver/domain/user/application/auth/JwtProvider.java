@@ -19,7 +19,7 @@ public class JwtProvider {
 
     @Value("${jwt.expired}")
     private long EXPIRATION_TIME;
-    public String getJWTToken(Long userId) {
+    public String getJwtToken(Long userId) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + EXPIRATION_TIME);
 

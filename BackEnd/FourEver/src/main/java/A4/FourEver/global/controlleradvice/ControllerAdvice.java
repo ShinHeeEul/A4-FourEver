@@ -1,4 +1,4 @@
-package A4.FourEver.controller;
+package A4.FourEver.global.controlleradvice;
 
 import A4.FourEver.dto.response.ErrorResponse;
 import A4.FourEver.global.exception.FourEverException;

@@ -1,6 +1,6 @@
 package A4.FourEver.global.config;
 
-import A4.FourEver.domain.user.application.auth.LoginInterceptor;
+import A4.FourEver.global.Interceptor.LoginInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

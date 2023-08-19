@@ -1,5 +1,7 @@
-package A4.FourEver.domain.user.application.auth;
+package A4.FourEver.global.Interceptor;
 
+import A4.FourEver.domain.user.application.auth.JwtProvider;
+import A4.FourEver.global.Resolver.AuthorizationExtractor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
