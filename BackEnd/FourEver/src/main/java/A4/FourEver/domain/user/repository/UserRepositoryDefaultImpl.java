@@ -8,7 +8,6 @@ import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.user.domain.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -52,6 +51,17 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("email", email);
         params.addValue("password", password);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public void removeUserCarReviewById(Long userId, Long carReviewId) {
+        String sql = "delete from users_car_review where userId = :user_id AND car_review_id = :carReviewId";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", userId);
+        params.addValue("carReviewId", carReviewId);
 
         namedParameterJdbcTemplate.update(sql, params);
     }
@@ -131,17 +141,6 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         params.addValue("userId", userId);
 
         return namedParameterJdbcTemplate.query(sql, params, carReviewOverviewExtractor);
-    }
-
-    private static class UserRowMapper implements RowMapper<User> {
-        @Override
-        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return User.builder()
-                    .id(rs.getLong("id"))
-                    .email(rs.getString("email"))
-                    .password(rs.getString("password"))
-                    .build();
-        }
     }
 
     private static class UserExtractor implements ResultSetExtractor<User> {
