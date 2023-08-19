@@ -20,9 +20,8 @@ const HeaderDiv = styled.div`
   position: fixed;
   top: 0;
 
-  z-index: 5;
+  z-index: 4;
   display: ${({ $isLoginPage }) => ($isLoginPage ? 'none' : 'flex')};
-
 `;
 
 const HeaderElements = styled.div`

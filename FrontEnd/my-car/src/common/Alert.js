@@ -3,6 +3,7 @@ import palette from '../style/styleVariable';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Body1Regular, Body2Regular, Body3Regular } from '../style/typo';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
@@ -22,9 +23,9 @@ const AlertDiv = styled.div`
   transform: translateY(-50%) translateX(-50%);
 
   width: 300px;
-  height: 160px;
+  height: 180px;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: 18px;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -36,14 +37,14 @@ const AlertDiv = styled.div`
 const AlertMsgDiv = styled.div`
   width: 234px;
   color: ${palette.Black};
-  ${palette.Body3Regular}
+  ${Body2Regular}
   display: flex;
   text-align: center;
   flex-direction: column;
 `;
 
 const AlertMsg = styled.div`
-  padding-top: 10px;
+  padding-top: 4px;
 `;
 
 const AlertMsgBold = styled.span`
@@ -53,7 +54,7 @@ const AlertMsgBold = styled.span`
 const AlertBtnDiv = styled.div`
   display: flex;
   gap: 6px;
-  padding-top: 20px;
+  padding-top: 27px;
 `;
 
 const BtnCancel = styled.button`
@@ -130,9 +131,9 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
       return;
   }
 
-  const closeAlert = () => {
+  const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
-    navigate(link, { state: { from: 'mycar' } });
+    if (!cancel) navigate(link, { state: { from: 'mycar' } });
   };
 
   return (
@@ -148,11 +149,11 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
         </AlertMsgDiv>
 
         <AlertBtnDiv>
-          <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
+          <BtnCancel onClick={() => closeAlert({ cancel: true })}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
 
-          <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+          <BtnConfirm onClick={() => closeAlert({})}>
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>
         </AlertBtnDiv>
