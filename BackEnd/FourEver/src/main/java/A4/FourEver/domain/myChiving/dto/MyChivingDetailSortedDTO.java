@@ -2,7 +2,7 @@ package A4.FourEver.domain.myChiving.dto;
 
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailSortedDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
@@ -11,11 +11,11 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 @Builder
 @Getter
-public class MyChivingDetailDTO {
+public class MyChivingDetailSortedDTO {
     private Long id;
     private Double price;
     private Integer is_end;
@@ -27,5 +27,5 @@ public class MyChivingDetailDTO {
     private DriveNameDTO driveNameDTO;
     private InColorNameDTO inColorDTO;
     private ExColorNameAndImageDTO exColorDTO;
-    private Set<ExtraOptionDetailDTO> extraOptionDTOs;
+    private List<ExtraOptionDetailSortedDTO> extraOptionDTOs;
 }
