@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class ExtraOptionForCarReviewSortedDTO {
+public class ExtraOptionDetailSortedDTO {
     private Long id;
     private String name;
     private String image;

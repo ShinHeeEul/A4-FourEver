@@ -292,7 +292,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 if (overviewDTO == null) {
                     overviewDTO = CarReviewOverviewDTO.builder()
-                            .car_review_id(id)
+                            .id(id)
                             .is_purchased(rs.getInt("is_purchased"))
                             .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))

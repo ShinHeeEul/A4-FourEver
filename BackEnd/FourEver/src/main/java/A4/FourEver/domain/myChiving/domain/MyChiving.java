@@ -1,4 +1,4 @@
-package A4.FourEver.domain.archiving.domain;
+package A4.FourEver.domain.myChiving.domain;
 
 import lombok.Getter;
 import nonapi.io.github.classgraph.json.Id;
