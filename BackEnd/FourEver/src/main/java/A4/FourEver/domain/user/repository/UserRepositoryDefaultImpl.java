@@ -22,27 +22,13 @@ import java.util.*;
 public class UserRepositoryDefaultImpl implements UserRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-//    private static final UserRowMapper userRowMapper = new UserRowMapper();
-    private static final UserExtractor userRowMapper = new UserExtractor();
+    private static final UserExtractor userExtractor = new UserExtractor();
     private static final CarReviewOverviewExtractor carReviewOverviewExtractor = new CarReviewOverviewExtractor();
     private static final MyChivingOverviewExtractor myChivingOverviewExtractor = new MyChivingOverviewExtractor();
 
 
     public UserRepositoryDefaultImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public User findUserById(final Long userId) {
-        String sql = "SELECT * FROM users WHERE id = :userId";
-
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("userId", userId);
-        try {
-            return namedParameterJdbcTemplate.query(sql, params, userRowMapper);
-        } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
-            return null; // 데이터가 없을 경우 null 반환
-        }
     }
 
     @Override
@@ -53,7 +39,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         params.addValue("email", email);
 
         try {
-            return namedParameterJdbcTemplate.query(sql, params, userRowMapper);
+            return namedParameterJdbcTemplate.query(sql, params, userExtractor);
         } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
             return null; // 데이터가 없을 경우 null 반환
         }

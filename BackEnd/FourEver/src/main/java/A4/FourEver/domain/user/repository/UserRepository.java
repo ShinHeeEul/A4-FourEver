@@ -7,7 +7,6 @@ import A4.FourEver.domain.user.domain.User;
 import java.util.Set;
 
 public interface UserRepository {
-    User findUserById(final Long userId);
     User findUserByEmail(final String userEmail);
     void saveUser(final String email, final String password);
     Set<MyChivingOverviewDTO> findMyChivingById(final Long userId);
