@@ -79,4 +79,11 @@ public class UserControllerDefaultImpl implements UserController  {
     public UserFeedDTO getUserFeedsById(@LoginUserId final Long userId) {
         return userService.getUserFeedsById(userId);
     }
+
+    @Override
+    @Operation(summary = "유저의 피드 목록에서 특정 후기 삭제")
+    @DeleteMapping("/feed/delete/{carReviewID}")
+    public void deleteUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
+        userService.deleteUserCarReviewById(userId, carReviewId);
+    }
 }
