@@ -3,12 +3,12 @@ package A4.FourEver.domain.myChiving.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class MyChivingSaveDTO {
+    private Long myChiving_id;
     private Integer is_end;
     private Long car_id;
     private Long trim_id;
@@ -18,6 +18,5 @@ public class MyChivingSaveDTO {
     private Long ex_color_id;
     private Long in_color_id;
     private Double price;
-    private Timestamp updated_at;
     private List<Long> optionIds;
 }
