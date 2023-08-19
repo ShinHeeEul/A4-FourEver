@@ -75,7 +75,18 @@ function ChivingHeader({ fromMycar }) {
   const GoMyCar = () => {
     navigate(`/mycar/${myCarPagePath[0]}`);
   };
+  const currentPath = useLocation().pathname.split('/')[1];
+  let titleText;
 
+  switch (currentPath) {
+    case 'archiving':
+      titleText = '아카이빙';
+      break;
+    case 'mychiving':
+      titleText = '마이카이빙';
+      break;
+    default:
+  }
   return (
     <ChivingHeaderDiv>
       <GoBack
@@ -85,7 +96,7 @@ function ChivingHeader({ fromMycar }) {
       />
       <ArchivingSymbolDiv>
         <ArchivingLogo />
-        <ArchivingSymbolText>아카이빙</ArchivingSymbolText>
+        <ArchivingSymbolText>{titleText}</ArchivingSymbolText>
       </ArchivingSymbolDiv>
       <ToMycarDiv onClick={GoMyCar} $isShow={fromMycar === null}>
         <CarLogo />
