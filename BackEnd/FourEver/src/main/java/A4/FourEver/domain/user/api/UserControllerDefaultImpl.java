@@ -82,7 +82,7 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 목록에서 특정 후기 삭제")
-    @DeleteMapping("/feed/delete/{carReviewID}")
+    @DeleteMapping("/feed/delete/{carReviewId}")
     public void deleteUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.deleteUserCarReviewById(userId, carReviewId);
     }
