@@ -29,6 +29,7 @@ public class MyChivingMapper {
                 .driveNameDTO(dto.getDriveNameDTO())
                 .exColorDTO(dto.getExColorDTO())
                 .inColorDTO(dto.getInColorDTO())
+                .updated_at(dto.getUpdated_at())
                 .extraOptionDTOs(extraOptionDTOList)
                 .build();
     }
