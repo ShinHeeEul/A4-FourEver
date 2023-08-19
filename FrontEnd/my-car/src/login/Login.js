@@ -213,6 +213,7 @@ function Login() {
             })}
             type="text"
             placeholder={'이메일'}
+            autoComplete="off"
           />
           <LoginInput
             {...register('password', {
