@@ -5,10 +5,11 @@ import A4.FourEver.domain.user.application.auth.AuthService;
 import A4.FourEver.domain.user.application.auth.JwtProvider;
 import A4.FourEver.domain.user.dto.LoginRequestDTO;
 import A4.FourEver.domain.user.dto.LoginResponseDTO;
+import A4.FourEver.domain.user.dto.UserFeedDTO;
 import A4.FourEver.domain.user.exception.InvalidLoginException;
+import A4.FourEver.global.annotation.LoginUserId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,6 @@ import java.time.LocalDateTime;
 
 @Tag(name = "유저 정보")
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/user")
 @Primary
 public class UserControllerDefaultImpl implements UserController  {
@@ -32,11 +32,17 @@ public class UserControllerDefaultImpl implements UserController  {
     @Value("${jwt.expired}")
     private int expired;
 
+    public UserControllerDefaultImpl(AuthService authService, UserService userService, JwtProvider jwtProvider) {
+        this.authService = authService;
+        this.userService = userService;
+        this.jwtProvider = jwtProvider;
+    }
+
     @Override
     @Operation(summary = "현대 통합 API 로그인")
-    @GetMapping("/oauth")
-    public LoginResponseDTO oauth(@RequestParam String code,
-                                  @RequestParam String state) {
+    @GetMapping("/hyundai-login")
+    public LoginResponseDTO oauth(@RequestParam final String code,
+                                  @RequestParam final String state) {
 
         String userEmail = authService.getToken(code,state);
         Long userId = userService.saveUser(userEmail, userEmail);
@@ -50,8 +56,8 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "자체 로그인 API")
-    @PostMapping("/")
-    public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {
+    @PostMapping("/self-login")
+    public LoginResponseDTO login(@Valid @RequestBody final LoginRequestDTO loginRequestDTO, final BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> {
@@ -65,5 +71,12 @@ public class UserControllerDefaultImpl implements UserController  {
                 .JwtToken(token)
                 .expired(Timestamp.valueOf(LocalDateTime.now().plusSeconds(expired)))
                 .build();
+    }
+
+    @Override
+    @Operation(summary = "유저의 피드 정보 조회")
+    @GetMapping("/feeds")
+    public UserFeedDTO getUserFeedsById(@LoginUserId final Long userId) {
+        return userService.getUserFeedsById(userId);
     }
 }
