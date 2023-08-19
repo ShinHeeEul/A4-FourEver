@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import palette from '../../style/styleVariable';
+import { useEffect } from 'react';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: 0;
@@ -79,7 +80,16 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function DeleteAlert({ setShowDeleteAlert }) {
+function DeleteAlert({ setShowDeleteAlert, showDeleteAlert }) {
+  useEffect(() => {
+    const body = document.querySelector('body');
+
+    if (showDeleteAlert) {
+      body.classList.add('no-scroll');
+    } else {
+      body.classList.remove('no-scroll');
+    }
+  }, [showDeleteAlert]);
   return (
     <AlertBgDiv>
       <AlertDiv>

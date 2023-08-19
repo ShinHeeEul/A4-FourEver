@@ -82,12 +82,12 @@ const EscSvg = styled(RemoveSvg)`
     filter: brightness(0.9);
   }
 `;
-function CardByMe({ setShowDeleteAlert }) {
+function CardByMe({ setShowDeleteAlert, setShowDetailModal }) {
   return (
     <Container>
       <CardDiv>
         <CardButtonDiv>
-          <PlusSvg />
+          <PlusSvg onClick={() => setShowDetailModal(true)} />
           <EscSvg onClick={() => setShowDeleteAlert(true)} />
         </CardButtonDiv>
         <CardTopDiv />
