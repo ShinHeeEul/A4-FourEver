@@ -1,6 +1,6 @@
-package A4.FourEver.domain.archiving.repository;
+package A4.FourEver.domain.myChiving.repository;
 
-import A4.FourEver.domain.archiving.dto.MyChivingRequestDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingRequestDTO;
 
 public interface MyChivingRepository {
     void saveMyChiving(final MyChivingRequestDTO dto, final Long userId);

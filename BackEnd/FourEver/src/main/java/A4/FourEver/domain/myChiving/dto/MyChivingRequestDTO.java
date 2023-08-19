@@ -1,6 +1,5 @@
-package A4.FourEver.domain.archiving.dto;
+package A4.FourEver.domain.myChiving.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

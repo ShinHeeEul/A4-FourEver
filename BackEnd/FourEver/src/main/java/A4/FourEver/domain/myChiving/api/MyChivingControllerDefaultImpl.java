@@ -1,7 +1,7 @@
-package A4.FourEver.domain.archiving.api;
+package A4.FourEver.domain.myChiving.api;
 
-import A4.FourEver.domain.archiving.application.MyChivingService;
-import A4.FourEver.domain.archiving.dto.MyChivingRequestDTO;
+import A4.FourEver.domain.myChiving.application.MyChivingService;
+import A4.FourEver.domain.myChiving.dto.MyChivingRequestDTO;
 import A4.FourEver.global.annotation.LoginUserId;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -1,4 +1,4 @@
-package A4.FourEver.domain.archiving.repository;
+package A4.FourEver.domain.myChiving.repository;
 
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -6,7 +6,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-import A4.FourEver.domain.archiving.dto.MyChivingRequestDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingRequestDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
