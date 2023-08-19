@@ -30,6 +30,8 @@ function Color() {
   const dispatch = useUserCarAction();
   const userCar = useUserCarState();
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (!userCar.outerColor?.name && !userCar.innerColor?.name) {
       const Price = [...userCar.price];
@@ -50,20 +52,26 @@ function Color() {
   const CarColor = ['abyss', 'silver', 'blue', 'brown', 'gray', 'white'];
 
   const preloadCarImg = () => {
-    CarColor.forEach((color) => {
-      const imagePaths = Array.from(
-        { length: 60 },
-        (_, index) =>
-          `http://hyundaimycar.store/rotation/${color}/${index + 1}.png`,
-      );
-      imagePaths.forEach((path) => {
-        const img = new Image();
-        img.src = path;
+    const promise = CarColor.map((color) => {
+      return new Promise((resolve) => {
+        const imagePaths = Array.from(
+          { length: 60 },
+          (_, index) =>
+            `http://hyundaimycar.store/rotation/${color}/${index + 1}.png`,
+        );
+        imagePaths.forEach((path) => {
+          const img = new Image();
+          img.src = path;
+          img.onload = resolve;
+        });
       });
     });
+    return Promise.all(promise);
   };
   useLayoutEffect(() => {
-    preloadCarImg();
+    preloadCarImg().then(() => {
+      setLoading(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,7 +79,10 @@ function Color() {
     <ColorContainer>
       <LeftWrap>
         {activeColorFiled === MYCAR.COLOR.FILED.EXCOLOR ? (
-          <RotateImg selectedOption={selectedOption}></RotateImg>
+          <RotateImg
+            loading={loading}
+            selectedOption={selectedOption}
+          ></RotateImg>
         ) : (
           <TrimImg
             src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}
