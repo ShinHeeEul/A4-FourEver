@@ -1,52 +1,151 @@
 package A4.FourEver.domain.user.repository;
 
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingOverviewDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameAndImageDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
+import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.user.domain.User;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 
 @Repository
 public class UserRepositoryDefaultImpl implements UserRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-    private static final UserRowMapper userRowMapper = new UserRowMapper();
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+//    private static final UserRowMapper userRowMapper = new UserRowMapper();
+    private static final UserExtractor userRowMapper = new UserExtractor();
+    private static final CarReviewOverviewExtractor carReviewOverviewExtractor = new CarReviewOverviewExtractor();
+    private static final MyChivingOverviewExtractor myChivingOverviewExtractor = new MyChivingOverviewExtractor();
 
-    public UserRepositoryDefaultImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+
+    public UserRepositoryDefaultImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
-    public User findUserById(Long id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
+    public User findUserById(final Long userId) {
+        String sql = "SELECT * FROM users WHERE id = :userId";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", userId);
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, userRowMapper);
-        } catch (EmptyResultDataAccessException ex) {
-            return null;
+            return namedParameterJdbcTemplate.query(sql, params, userRowMapper);
+        } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
+            return null; // 데이터가 없을 경우 null 반환
         }
     }
 
     @Override
-    public User findUserByEmail(String userEmail) {
-        String sql = "select * from users where email = ?";
+    public User findUserByEmail(final String email) {
+        String sql = "select * from users where email = :email";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("email", email);
+
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{userEmail}, userRowMapper);
-        } catch (EmptyResultDataAccessException ex) {
-            return null;
+            return namedParameterJdbcTemplate.query(sql, params, userRowMapper);
+        } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
+            return null; // 데이터가 없을 경우 null 반환
         }
     }
 
-
     @Override
-    public void saveUser(String email, String password) {
-        String sql = "insert into users(email, password) values (?, ?)";
-        jdbcTemplate.update(sql, email, password);
+    public void saveUser(final String email, final String password) {
+        String sql = "insert into users(email, password) values (:email, :password)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("email", email);
+        params.addValue("password", password);
+
+        namedParameterJdbcTemplate.update(sql, params);
     }
 
+    @Override
+    public Set<MyChivingOverviewDTO> findMyChivingById(final Long userId) {
+        String sql = "SELECT " +
+                "mc.id, " +
+                "mc.is_end, " +
+                "mc.updated_at, " +
+                "c.name AS car_name, " +
+                "t.name AS trim_name, " +
+                "e.name AS engine_name, " +
+                "d.name AS drive_name, " +
+                "b.name AS body_name, " +
+                "eo.id AS extra_option_id, " +
+                "eo.name AS extra_option_name, " +
+                "eo.image AS extra_option_image, " +
+
+                "FROM mychiving mc " +
+                "JOIN model m ON cr.model_id = m.id " +
+                "JOIN trim t ON m.trim_id = t.id " +
+                "JOIN engine e ON m.engine_id = e.id " +
+                "JOIN body b ON m.body_id = b.id " +
+                "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN car c ON d.car_id = c.id " +
+                "LEFT JOIN mychiving_extra_option meo ON mc.id = meo.mychiving_id " +
+                "LEFT JOIN extra_option eo ON meo.extra_option_id = eo.id " +
+                "LEFT JOIN users_car_review ucr ON cr.id = cur.car_review_id " +
+                "LEFT JOIN users u ON ucr.user_id = u.id " +
+
+                "WHERE u.id = :userId ";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", userId);
+
+        return namedParameterJdbcTemplate.query(sql, params, myChivingOverviewExtractor);
+    }
+
+    @Override
+    public Set<CarReviewOverviewDTO> findCarReviewById(final Long userId) {
+        String sql = "SELECT " +
+                "cr.id, " +
+                "cr.is_purchased, " +
+                "cr.created_at, " +
+                "c.name AS car_name, " +
+                "t.name AS trim_name, " +
+                "e.name AS engine_name, " +
+                "d.name AS drive_name, " +
+                "b.name AS body_name, " +
+                "exc.name AS exterior_color_name, " +
+                "inc.name AS interior_color_name, " +
+                "eo.id AS extra_option_id, " +
+                "eo.name AS extra_option_name, " +
+                "tt.id AS total_tag_id, " +
+                "tt.name AS total_tag_name " +
+
+                "FROM car_review cr " +
+                "JOIN model m ON cr.model_id = m.id " +
+                "JOIN trim t ON m.trim_id = t.id " +
+                "JOIN engine e ON m.engine_id = e.id " +
+                "JOIN body b ON m.body_id = b.id " +
+                "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN car c ON d.car_id = c.id " +
+                "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
+                "JOIN in_color inc ON cr.in_color_id = inc.id " +
+                "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
+                "LEFT JOIN extra_option eo ON orv.extra_option_id = eo.id " +
+                "LEFT JOIN total_tag_car_review ttcr ON cr.id = ttcr.car_review_id " +
+                "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
+                "LEFT JOIN users_car_review ucr ON cr.id = cur.car_review_id " +
+                "LEFT JOIN users u ON ucr.user_id = u.id " +
+
+                "WHERE u.id = :userId ";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", userId);
+
+        return namedParameterJdbcTemplate.query(sql, params, carReviewOverviewExtractor);
+    }
 
     private static class UserRowMapper implements RowMapper<User> {
         @Override
@@ -56,6 +155,108 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                     .email(rs.getString("email"))
                     .password(rs.getString("password"))
                     .build();
+        }
+    }
+
+    private static class UserExtractor implements ResultSetExtractor<User> {
+
+        @Override
+        public User extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+            User user = null;
+            while(rs.next()) {
+                user = User.builder()
+                        .id(rs.getLong("id"))
+                        .email(rs.getString("email"))
+                        .password(rs.getString("password"))
+                        .build();
+            }
+            return user;
+        }
+    }
+
+    private static class MyChivingOverviewExtractor implements ResultSetExtractor<Set<MyChivingOverviewDTO>> {
+
+        @Override
+        public Set<MyChivingOverviewDTO> extractData(ResultSet rs) throws SQLException {
+            Map<Long, MyChivingOverviewDTO> map = new HashMap<>();
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                MyChivingOverviewDTO overviewDTO = map.get(id);
+
+                if (overviewDTO == null) {
+                    overviewDTO = MyChivingOverviewDTO.builder()
+                            .id(id)
+                            .is_end(rs.getInt("is_end"))
+                            .updated_at(rs.getTimestamp("updated_at"))
+                            .car_name(rs.getString("car_name"))
+                            .trim_name(rs.getString("trim_name"))
+                            .engine_name(rs.getString("engine_name"))
+                            .drive_name(rs.getString("drive_name"))
+                            .body_name(rs.getString("body_name"))
+                            .extraOptionDTOs(new HashSet<>())
+                            .build();
+
+                    map.put(id, overviewDTO);
+                }
+
+                ExtraOptionNameAndImageDTO extraOptionNameDTO = ExtraOptionNameAndImageDTO.builder()
+                        .id(rs.getLong("extra_option_id"))
+                        .name(rs.getString("extra_option_name"))
+                        .image(rs.getString("extra_option_image"))
+                        .build();
+                overviewDTO.getExtraOptionDTOs().add(extraOptionNameDTO);
+            }
+
+            return new HashSet<>(map.values());
+        }
+    }
+
+    private static class CarReviewOverviewExtractor implements ResultSetExtractor<Set<CarReviewOverviewDTO>> {
+
+        @Override
+        public Set<CarReviewOverviewDTO> extractData(ResultSet rs) throws SQLException {
+            Map<Long, CarReviewOverviewDTO> map = new HashMap<>();
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                CarReviewOverviewDTO overviewDTO = map.get(id);
+
+                if (overviewDTO == null) {
+                    overviewDTO = CarReviewOverviewDTO.builder()
+                            .id(id)
+                            .is_purchased(rs.getInt("is_purchased"))
+                            .car_name(rs.getString("car_name"))
+                            .trim_name(rs.getString("trim_name"))
+                            .engine_name(rs.getString("engine_name"))
+                            .drive_name(rs.getString("drive_name"))
+                            .body_name(rs.getString("body_name"))
+                            .exterior_color_name(rs.getString("exterior_color_name"))
+                            .interior_color_name(rs.getString("interior_color_name"))
+                            .created_at(rs.getTimestamp("created_at"))
+                            .extraOptionNameDTOs(new HashSet<>())
+                            .totalTagInfoDTOs(new HashSet<>())
+                            .build();
+
+                    map.put(id, overviewDTO);
+                }
+
+                ExtraOptionNameDTO extraOptionNameDTO = ExtraOptionNameDTO.builder()
+                        .id(rs.getLong("extra_option_id"))
+                        .name(rs.getString("extra_option_name"))
+                        .build();
+                overviewDTO.getExtraOptionNameDTOs().add(extraOptionNameDTO);
+
+                TotalTagInfoDTO totalTagInfoDTO = TotalTagInfoDTO.builder()
+                        .id(rs.getLong("total_tag_id"))
+                        .name(rs.getString("total_tag_name"))
+                        .build();
+
+                overviewDTO.getTotalTagInfoDTOs().add(totalTagInfoDTO);
+            }
+
+            return new HashSet<>(map.values());
         }
     }
 }
