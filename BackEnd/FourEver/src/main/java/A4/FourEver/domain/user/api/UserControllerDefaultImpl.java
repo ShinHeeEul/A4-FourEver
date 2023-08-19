@@ -9,6 +9,7 @@ import A4.FourEver.domain.user.dto.UserFeedDTO;
 import A4.FourEver.domain.user.exception.InvalidLoginException;
 import A4.FourEver.global.annotation.LoginUserId;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
@@ -75,6 +76,7 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 정보 조회")
+    @SecurityRequirement(name="JWT")
     @GetMapping("/feeds")
     public UserFeedDTO getUserFeedsById(@LoginUserId final Long userId) {
         return userService.getUserFeedsById(userId);
@@ -82,7 +84,8 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 목록에서 특정 후기 삭제")
-    @DeleteMapping("/feed/delete/{carReviewID}")
+    @SecurityRequirement(name="JWT")
+    @DeleteMapping("/feed/delete/{carReviewId}")
     public void deleteUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.deleteUserCarReviewById(userId, carReviewId);
     }
