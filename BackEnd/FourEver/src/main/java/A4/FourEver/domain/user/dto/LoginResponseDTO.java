@@ -4,8 +4,7 @@ import lombok.*;
 
 import java.sql.Timestamp;
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@Builder
 public class LoginResponseDTO {
         private String JwtToken;
         private Timestamp expired;

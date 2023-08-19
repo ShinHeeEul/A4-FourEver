@@ -4,7 +4,7 @@ import A4.FourEver.domain.car.application.CarService;
 import A4.FourEver.domain.car.dto.CarExtraOptionNameDTO;
 import A4.FourEver.domain.car.dto.CarReviewOverviewSortedListDTO;
 import A4.FourEver.domain.car.dto.CarTrimsSortedDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionListDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionIdsRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +42,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 모든 차 리뷰 정보 조회")
     @PostMapping("/{id}/car-review")
-    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(@PathVariable final Long id, @RequestBody final ExtraOptionListDTO request) {
+    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(@PathVariable final Long id, @RequestBody final ExtraOptionIdsRequestDTO request) {
         List<Integer> extraOptionIds = request.getExtraOptionIds();
         return carService.getAllCarReviewOverviewList(id, extraOptionIds);
     }
@@ -50,7 +50,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 구매 혹은 시승 리뷰 정보 조회")
     @PostMapping("/{id}/car-review/{isPurchased}")
-    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(@PathVariable final Long id, @PathVariable final Integer isPurchased, @RequestBody final ExtraOptionListDTO request) {
+    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(@PathVariable final Long id, @PathVariable final Integer isPurchased, @RequestBody final ExtraOptionIdsRequestDTO request) {
         List<Integer> extraOptionIds = request.getExtraOptionIds();
         return carService.getPartialCarReviewOverviewList(id, isPurchased, extraOptionIds);
     }

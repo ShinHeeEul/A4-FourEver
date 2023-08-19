@@ -1,6 +1,5 @@
 package A4.FourEver.global.Resolver;
 
-import A4.FourEver.domain.user.application.auth.AuthorizationExtractor;
 import A4.FourEver.domain.user.application.auth.JwtProvider;
 import A4.FourEver.global.annotation.LoginUserId;
 import lombok.RequiredArgsConstructor;

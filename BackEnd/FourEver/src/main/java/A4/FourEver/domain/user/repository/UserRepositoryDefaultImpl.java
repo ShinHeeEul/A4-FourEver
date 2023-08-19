@@ -1,6 +1,7 @@
 package A4.FourEver.domain.user.repository;
 
 import A4.FourEver.domain.user.domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,47 +22,39 @@ public class UserRepositoryDefaultImpl implements UserRepository {
 
     @Override
     public User findUserById(Long id) {
-        String sql = "SELECT * FROM Users WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, userRowMapper);
-        } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
-            return null; // 데이터가 없을 경우 null 반환
-        }
-    }
-
-    public User findUserByEmail(String userEmail) {
-        String sql = "select * from Users where email = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{userEmail}, userRowMapper);
-        } catch (org.springframework.dao.EmptyResultDataAccessException ex) {
-            return null; // 데이터가 없을 경우 null 반환
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
         }
     }
 
     @Override
-    public Long saveOrFindUser(String userEmail) {
-        User user = findUserByEmail(userEmail);
-        if(user == null) {
-            saveUser(userEmail);
-            user = findUserByEmail(userEmail);
+    public User findUserByEmail(String userEmail) {
+        String sql = "select * from users where email = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userEmail}, userRowMapper);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
         }
-
-        return user.getId();
     }
 
-    private void saveUser(String userEmail) {
-        String sql = "insert into Users(email) values (?)";
-        jdbcTemplate.update(sql, userEmail);
+
+    @Override
+    public void saveUser(String email, String password) {
+        String sql = "insert into users(email, password) values (?, ?)";
+        jdbcTemplate.update(sql, email, password);
     }
 
 
     private static class UserRowMapper implements RowMapper<User> {
-
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             return User.builder()
                     .id(rs.getLong("id"))
                     .email(rs.getString("email"))
+                    .password(rs.getString("password"))
                     .build();
         }
     }

@@ -4,5 +4,8 @@ import A4.FourEver.domain.user.domain.User;
 
 public interface UserRepository {
     User findUserById(Long userId);
-    Long saveOrFindUser(String userEmail);
+
+    User findUserByEmail(String userEmail);
+
+    void saveUser(String email, String password);
 }

@@ -1,8 +1,8 @@
 package A4.FourEver.domain.car.dto;
 
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewSortedDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewSortedDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
