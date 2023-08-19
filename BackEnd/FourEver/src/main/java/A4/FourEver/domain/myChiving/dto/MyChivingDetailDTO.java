@@ -15,7 +15,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class MyChivingResponseDTO {
+public class MyChivingDetailDTO {
     private Long id;
     private Integer is_end;
     private String car_name;

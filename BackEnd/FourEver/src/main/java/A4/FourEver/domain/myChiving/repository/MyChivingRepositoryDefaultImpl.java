@@ -6,7 +6,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-import A4.FourEver.domain.myChiving.dto.MyChivingRequestDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingSaveDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +23,7 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
     }
 
     @Override
-    public void saveMyChiving(final MyChivingRequestDTO dto, final Long userId) {
+    public void saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         String myChivingSql = "INSERT INTO mychiving " +

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class MyChivingRequestDTO {
+public class MyChivingSaveDTO {
     private Integer is_end;
     private Long car_id;
     private Long trim_id;

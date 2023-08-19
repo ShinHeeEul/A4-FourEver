@@ -1,6 +1,6 @@
 package A4.FourEver.domain.myChiving.application;
 
-import A4.FourEver.domain.myChiving.dto.MyChivingRequestDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingSaveDTO;
 import A4.FourEver.domain.myChiving.repository.MyChivingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ public class MyChivingServiceDefaultImpl implements MyChivingService {
 
     @Override
     @Transactional
-    public void saveMyChiving(final MyChivingRequestDTO dto, final Long userId) {
+    public void saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
         myChivingRepository.saveMyChiving(dto, userId);
     }
 
