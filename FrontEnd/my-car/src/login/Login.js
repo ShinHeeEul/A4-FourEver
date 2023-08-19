@@ -177,7 +177,7 @@ function Login() {
 
   async function onValid({ email, password }) {
     try {
-      const res = await fetch(`${BASIC_SERVER_URL}/user/`, {
+      const res = await fetch(`${BASIC_SERVER_URL}/user/self-login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         body: JSON.stringify({ email, password }),

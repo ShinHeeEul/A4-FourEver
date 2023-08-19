@@ -22,7 +22,7 @@ function AuthCode() {
   const navigate = useNavigate();
   useEffect(() => {
     fetch(
-      `${BASIC_SERVER_URL}/user/login?code=${code}&state=${process.env.REACT_APP_STATE}`,
+      `${BASIC_SERVER_URL}/user/hyundai-login?code=${code}&state=${process.env.REACT_APP_STATE}`,
       {
         headers: { 'Content-type': 'application/json' },
         method: 'GET',
