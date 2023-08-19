@@ -17,18 +17,18 @@ import java.util.Set;
 @Builder
 @Getter
 public class CarReviewDetailDTO {
-    private Long car_review_id;
+    private Long id;
     private Double price;
     private String comment;
     private String car_name;
     private Integer is_purchased;
+    private Timestamp created_at;
     private TrimNameDTO trimNameDTO;
     private EngineNameDTO engineNameDTO;
     private BodyNameDTO bodyNameDTO;
     private DriveNameDTO driveNameDTO;
     private InColorNameDTO inColorDTO;
     private ExColorNameAndImageDTO exColorDTO;
-    private Timestamp created_at;
     private Set<TotalTagInfoDTO> totalTagInfoDTOs;
     private Set<ExtraOptionForCarReviewDTO> extraOptionForCarReviewDTOs;
 }

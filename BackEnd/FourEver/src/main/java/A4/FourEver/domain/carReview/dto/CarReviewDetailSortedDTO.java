@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 @Getter
 public class CarReviewDetailSortedDTO {
-    private Long car_review_id;
+    private Long id;
     private Double price;
     private String comment;
     private String car_name;

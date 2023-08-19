@@ -24,7 +24,7 @@ public class CarReviewMapper {
                 .collect(Collectors.toList());
 
         return CarReviewDetailSortedDTO.builder()
-                .car_review_id(dto.getCar_review_id())
+                .id(dto.getId())
                 .price(dto.getPrice())
                 .comment(dto.getComment())
                 .car_name(dto.getCar_name())

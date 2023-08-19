@@ -133,7 +133,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .build();
 
                     detailDTO = CarReviewDetailDTO.builder()
-                            .car_review_id(rs.getLong("car_review_id"))
+                            .id(rs.getLong("car_review_id"))
                             .car_name(rs.getString("car_name"))
                             .trimNameDTO(trimNameDTO)
                             .engineNameDTO(engineNameDTO)

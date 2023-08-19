@@ -12,7 +12,7 @@ import java.util.Set;
 @Builder
 @Getter
 public class CarReviewOverviewDTO {
-    private Long car_review_id;
+    private Long id;
     private String car_name;
     private String trim_name;
     private String engine_name;
@@ -30,7 +30,7 @@ public class CarReviewOverviewDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarReviewOverviewDTO that = (CarReviewOverviewDTO) o;
-        return Objects.equals(car_review_id, that.car_review_id) &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(trim_name, that.trim_name) &&
                 Objects.equals(engine_name, that.engine_name) &&
                 Objects.equals(drive_name, that.drive_name) &&
@@ -42,6 +42,6 @@ public class CarReviewOverviewDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(car_review_id, trim_name, engine_name, drive_name, body_name, exterior_color_name, interior_color_name, created_at);
+        return Objects.hash(id, trim_name, engine_name, drive_name, body_name, exterior_color_name, interior_color_name, created_at);
     }
 }
