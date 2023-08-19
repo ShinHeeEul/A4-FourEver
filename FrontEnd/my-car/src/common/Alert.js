@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Body1Regular, Body2Regular, Body3Regular } from '../style/typo';
+import { UserCarPostRequest } from '../mycar/UserCarPostAPI';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
@@ -133,6 +134,10 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
 
   const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
+    if (currentPath === 'mycar' && !cancel) {
+      //임시저장
+      UserCarPostRequest({ is_end: 0 });
+    }
     if (!cancel) navigate(link, { state: { from: 'mycar' } });
   };
 
