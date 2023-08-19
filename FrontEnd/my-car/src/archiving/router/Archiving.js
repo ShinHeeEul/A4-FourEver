@@ -5,8 +5,8 @@ import OptReviewCard from '../components/OptReviewCard';
 import ArchivingProvider from '../../context/archiving/ArchivingProvider';
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import Loading from '../components/Loading';
 import WarningTooltip from '../components/WarningTooltip';
+import Loading from '../../common/Loading';
 
 const Container = styled.div`
   width: 100%;
