@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import Mycar from './mycar/Mycar';
-import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
 import Main from './main/Main';
@@ -23,6 +22,8 @@ import ArchivingDetail from './archiving/router/ArchivingDetail';
 import Archiving from './archiving/router/Archiving';
 import Login from './login/Login';
 import AuthCode from './login/AuthCode';
+import RootMychiving from './mychiving/RootMychiving';
+import Mychiving from './mychiving/router/Mychiving';
 
 const router = createBrowserRouter([
   {
@@ -124,8 +125,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'mychiving',
-        element: <Mychiving />,
-        children: [],
+        element: <RootMychiving />,
+        children: [
+          {
+            path: '',
+            element: <Mychiving />,
+          },
+        ],
       },
     ],
   },
