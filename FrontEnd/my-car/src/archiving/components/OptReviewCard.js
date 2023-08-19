@@ -27,10 +27,9 @@ const Container = styled.div`
 
 const CardWrap = styled.div`
   width: calc(470px - 60px);
-  height: 220px;
+  height: 145px;
   border-radius: 8px;
   border: 2px solid #e4dcd3;
-
   background: #fff;
   padding: 26px;
 
@@ -66,13 +65,11 @@ const TrimInfo = styled.div`
 
 const RestInfoChip = styled.div`
   color: ${palette.Gold};
-  background-color: ${palette.Sand};
   height: 20px;
-  padding: 2px 8px;
   border-radius: 8px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   ${Body4Medium}
 `;
 
@@ -152,16 +149,18 @@ function OptReviewCard() {
                 <TrimInfo>
                   <div>
                     <h1>펠리세이드 {review.trim_name}</h1>
-                    <RestInfoChip>
-                      {review.is_purchased ? '구매' : '시승'}
-                    </RestInfoChip>
                   </div>
                   <span>
                     {review.engine_name} / {review.drive_name} /{' '}
                     {review.body_name}
                   </span>
                 </TrimInfo>
-                <RestInfoChip>{formatDate(review.created_at)}</RestInfoChip>
+                <div>
+                  <RestInfoChip>{formatDate(review.created_at)}</RestInfoChip>
+                  <RestInfoChip>
+                    {review.is_purchased ? '구매' : '시승'}
+                  </RestInfoChip>
+                </div>
               </CardHeader>
               <ColorWrap>
                 <div>
@@ -173,7 +172,7 @@ function OptReviewCard() {
                   <span>{review.interior_color_name}</span>
                 </div>
               </ColorWrap>
-              <CategoryWrap>
+              {/* <CategoryWrap>
                 <h3>선택옵션</h3>
                 <div>
                   {optChipSort(review.extraOptionNameDTOs)
@@ -184,7 +183,7 @@ function OptReviewCard() {
                       </OptTag>
                     ))}
                 </div>
-              </CategoryWrap>
+              </CategoryWrap> */}
               <CategoryWrap $isTags={true}>
                 <h3>태그후기</h3>
                 <div style={{ height: '30px' }}>
