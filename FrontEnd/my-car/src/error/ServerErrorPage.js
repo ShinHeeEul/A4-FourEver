@@ -5,7 +5,7 @@ import whiteLogo from './asset/whiteLogo.png';
 import { OutlineButton } from './NotFoundPage';
 import { useNavigate } from 'react-router-dom';
 
-const Logo = styled.img`
+export const Logo = styled.img`
   position: absolute;
   top: 25px;
   left: 25px;
