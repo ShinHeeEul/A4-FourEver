@@ -1,6 +1,6 @@
 package A4.FourEver.domain.car.dto;
 
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -5,8 +5,8 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ExtraOptionListDTO {
+public class ExtraOptionIdsRequestDTO {
     private List<Integer> extraOptionIds;
 
-    public ExtraOptionListDTO() {}
+    public ExtraOptionIdsRequestDTO() {}
 }

@@ -1,8 +1,8 @@
-package A4.FourEver.domain.review.carReview.application;
+package A4.FourEver.domain.carReview.application;
 
-import A4.FourEver.domain.review.carReview.dto.CarReviewDetailSortedDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewMapper;
-import A4.FourEver.domain.review.carReview.repository.CarReviewRepository;
+import A4.FourEver.domain.carReview.dto.CarReviewDetailSortedDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewMapper;
+import A4.FourEver.domain.carReview.repository.CarReviewRepository;
 import org.springframework.stereotype.Service;
 
 @Service
