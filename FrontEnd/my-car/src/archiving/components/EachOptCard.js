@@ -123,7 +123,7 @@ const PkgSubOptDiv = styled.div`
   opacity: ${({ $isSelected }) => ($isSelected ? '1' : '0')};
   height: ${({ $isSelected }) => ($isSelected ? '70px' : '0px')};
   overflow: hidden;
-  margin: 0 8px 8px;
+  margin: ${({ $isSelected }) => ($isSelected ? '0 8px 8px' : '0 8px')};
   transition: all 0.4s ease;
 `;
 const PkgSubOptText = styled.span`
