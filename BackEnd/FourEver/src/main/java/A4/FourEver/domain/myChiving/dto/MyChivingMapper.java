@@ -1,10 +1,9 @@
-package A4.FourEver.domain.carReview.dto;
+package A4.FourEver.domain.myChiving.dto;
 
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
-import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
@@ -12,21 +11,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CarReviewMapper {
+public class MyChivingMapper {
 
-    public CarReviewDetailSortedDTO convertToSortedDTO(CarReviewDetailDTO dto) {
-        List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDetailDTOS().stream()
+    public MyChivingDetailSortedDTO convertToSortedDTO(MyChivingDetailDTO dto) {
+        List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDTOs().stream()
                 .map(this::convertExtraOption)
                 .collect(Collectors.toList());
 
-        List<TotalTagInfoDTO> totalTagList = dto.getTotalTagInfoDTOs().stream()
-                .sorted(Comparator.comparingLong(TotalTagInfoDTO::getId))
-                .collect(Collectors.toList());
-
-        return CarReviewDetailSortedDTO.builder()
+        return MyChivingDetailSortedDTO.builder()
                 .id(dto.getId())
                 .price(dto.getPrice())
-                .comment(dto.getComment())
+                .is_end(dto.getIs_end())
                 .car_name(dto.getCar_name())
                 .trimNameDTO(dto.getTrimNameDTO())
                 .engineNameDTO(dto.getEngineNameDTO())
@@ -34,10 +29,7 @@ public class CarReviewMapper {
                 .driveNameDTO(dto.getDriveNameDTO())
                 .exColorDTO(dto.getExColorDTO())
                 .inColorDTO(dto.getInColorDTO())
-                .is_purchased(dto.getIs_purchased())
-                .created_at(dto.getCreated_at())
-                .totalTagInfoDTOs(totalTagList)
-                .extraOptionForCarReviewDTOs(extraOptionDTOList)
+                .extraOptionDTOs(extraOptionDTOList)
                 .build();
     }
 

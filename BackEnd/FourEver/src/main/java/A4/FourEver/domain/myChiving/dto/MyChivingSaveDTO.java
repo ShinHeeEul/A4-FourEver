@@ -1,6 +1,5 @@
-package A4.FourEver.domain.archiving.dto;
+package A4.FourEver.domain.myChiving.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class MyChivingRequestDTO {
+public class MyChivingSaveDTO {
     private Integer is_end;
     private Long car_id;
     private Long trim_id;

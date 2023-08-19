@@ -2,7 +2,7 @@ package A4.FourEver.domain.carReview.dto;
 
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
@@ -17,18 +17,18 @@ import java.util.Set;
 @Builder
 @Getter
 public class CarReviewDetailDTO {
-    private Long car_review_id;
+    private Long id;
     private Double price;
     private String comment;
     private String car_name;
     private Integer is_purchased;
+    private Timestamp created_at;
     private TrimNameDTO trimNameDTO;
     private EngineNameDTO engineNameDTO;
     private BodyNameDTO bodyNameDTO;
     private DriveNameDTO driveNameDTO;
     private InColorNameDTO inColorDTO;
     private ExColorNameAndImageDTO exColorDTO;
-    private Timestamp created_at;
     private Set<TotalTagInfoDTO> totalTagInfoDTOs;
-    private Set<ExtraOptionForCarReviewDTO> extraOptionForCarReviewDTOs;
+    private Set<ExtraOptionDetailDTO> extraOptionDetailDTOS;
 }

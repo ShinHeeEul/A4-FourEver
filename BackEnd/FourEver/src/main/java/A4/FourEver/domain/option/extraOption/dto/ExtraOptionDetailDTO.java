@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Builder
 @Getter
-public class ExtraOptionForCarReviewDTO {
+public class ExtraOptionDetailDTO {
     private Long id;
     private String name;
     private String image;
@@ -23,7 +23,7 @@ public class ExtraOptionForCarReviewDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExtraOptionForCarReviewDTO that = (ExtraOptionForCarReviewDTO) o;
+        ExtraOptionDetailDTO that = (ExtraOptionDetailDTO) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(image, that.image) &&

@@ -29,5 +29,4 @@ public class AuthConfig implements WebMvcConfigurer {
         resolvers.add(authorizationExtractor);
         WebMvcConfigurer.super.addArgumentResolvers(resolvers);
     }
-
 }
