@@ -27,7 +27,7 @@ const Container = styled.div`
 
 const CardWrap = styled.div`
   width: calc(470px - 60px);
-  height: 150px;
+  height: 145px;
   border-radius: 8px;
   border: 2px solid #e4dcd3;
   background: #fff;
