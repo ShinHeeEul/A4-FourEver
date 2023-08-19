@@ -5,8 +5,11 @@ export const UserCarActionContext = createContext();
 export const UserCarValueContext = createContext();
 export const PageContext = createContext();
 
-function UserCarProvider({ children }) {
+function UserCarProvider({ children, state }) {
   const savedUserCar = localStorage.getItem('userCar');
+
+  localStorage.setItem('MycarInstanceId', state?.id || -1);
+
   const initialUserCar = savedUserCar
     ? JSON.parse(savedUserCar)
     : {
