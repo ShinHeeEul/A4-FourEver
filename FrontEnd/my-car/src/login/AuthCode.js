@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Heading1Bold } from '../style/typo';
-import Loading from '../archiving/components/Loading';
 import ServerErrorPage from '../error/ServerErrorPage';
 import { BASIC_SERVER_URL } from '../constant';
+import Loading from '../common/Loading';
 
 const Container = styled.div`
   width: 100vw;

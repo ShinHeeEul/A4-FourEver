@@ -44,8 +44,6 @@ function Buttons({ page, setPage }) {
     if (!isCompletePage) {
       navigate(`/mycar/${myCarPagePath[page + 1]}`);
       setPage((prevPage) => prevPage + 1);
-    } else {
-      navigate('/');
     }
   };
 
