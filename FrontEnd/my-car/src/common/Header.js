@@ -22,7 +22,6 @@ const HeaderDiv = styled.div`
 
   z-index: 5;
   display: ${({ $isLoginPage }) => ($isLoginPage ? 'none' : 'flex')};
-
 `;
 
 const HeaderElements = styled.div`

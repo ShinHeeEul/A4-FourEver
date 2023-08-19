@@ -3,6 +3,8 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Heading3Medium } from '../../style/typo';
 import CardByMe from '../components/CardByMe';
+import { useState } from 'react';
+import DeleteAlert from '../components/DeleteAlert';
 
 const Container = styled.div`
   width: 1040px;
@@ -17,13 +19,16 @@ const TitleHeader = styled.div`
 `;
 
 function Mychiving() {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   return (
     <Container>
       <TitleHeader>
         <h2>내가 만든 차량 목록</h2>
       </TitleHeader>
-
-      <CardByMe />
+      {showDeleteAlert && (
+        <DeleteAlert setShowDeleteAlert={setShowDeleteAlert} />
+      )}
+      <CardByMe setShowDeleteAlert={setShowDeleteAlert} />
 
       <TitleHeader>
         <h2>피드에서 저장한 차량 목록</h2>
