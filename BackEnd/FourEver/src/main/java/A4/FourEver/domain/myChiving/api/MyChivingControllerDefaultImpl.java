@@ -28,7 +28,7 @@ public class MyChivingControllerDefaultImpl implements MyChivingController {
     }
 
     @Override
-    @Operation(summary = "마이카이빙 삭제")
+    @Operation(summary = "특정 마이카이빙 삭제")
     @DeleteMapping("/delete/{id}")
     @SecurityRequirement(name = "JWT")
     public void deleteMyChiving(@PathVariable final Long id) {
