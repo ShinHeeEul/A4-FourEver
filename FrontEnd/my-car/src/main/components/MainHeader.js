@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Heading3Medium } from '../../style/typo';
 import BgVideo from '../assets/palisadeVideo.mp4';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderDiv = styled.div`
   height: 80px;
@@ -119,6 +121,12 @@ function HyundaiLogoWhite() {
 }
 
 function MainHeader() {
+  const navigate = useNavigate();
+  const Logout = () => {
+    localStorage.removeItem('jwtToken');
+    navigate('/');
+  };
+
   return (
     <>
       <BackgroundVideo autoPlay muted loop>
@@ -129,7 +137,7 @@ function MainHeader() {
           <HyundaiLogoWhite onClick={() => window.location.reload} />
         </LogoDiv>
 
-        <LogoutDiv>로그아웃</LogoutDiv>
+        <LogoutDiv onClick={Logout}>로그아웃</LogoutDiv>
       </HeaderDiv>
     </>
   );

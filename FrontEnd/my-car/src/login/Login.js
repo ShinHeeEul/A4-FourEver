@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import palette from '../style/styleVariable';
@@ -161,6 +161,7 @@ const HyundaiLogin = styled(SubmitBtn)`
 `;
 
 function Login() {
+  const accessToken = localStorage.getItem('jwtToken');
   const navigate = useNavigate();
 
   const {
@@ -190,6 +191,15 @@ function Login() {
       setError('serverError', { message: '서버에러' });
     }
   }
+  if (accessToken) {
+  }
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/main');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   if (errors.setError) return <ServerErrorPage />;
 
