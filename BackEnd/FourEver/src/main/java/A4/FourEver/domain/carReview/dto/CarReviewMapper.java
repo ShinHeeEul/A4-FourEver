@@ -1,7 +1,7 @@
 package A4.FourEver.domain.carReview.dto;
 
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewSortedDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class CarReviewMapper {
 
     public CarReviewDetailSortedDTO convertToSortedDTO(CarReviewDetailDTO dto) {
-        List<ExtraOptionForCarReviewSortedDTO> extraOptionDTOList = dto.getExtraOptionForCarReviewDTOs().stream()
+        List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDetailDTOS().stream()
                 .map(this::convertExtraOption)
                 .collect(Collectors.toList());
 
@@ -41,7 +41,7 @@ public class CarReviewMapper {
                 .build();
     }
 
-    private ExtraOptionForCarReviewSortedDTO convertExtraOption(ExtraOptionForCarReviewDTO dto) {
+    private ExtraOptionDetailSortedDTO convertExtraOption(ExtraOptionDetailDTO dto) {
         List<ExtraOptionTagInfoDTO> tagInfoDTOList = dto.getExtraOptionTagInfoDTOS().stream()
                 .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
                 .collect(Collectors.toList());
@@ -50,7 +50,7 @@ public class CarReviewMapper {
                 .sorted(Comparator.comparingLong(SubExtraOptionNameDTO::getId))
                 .collect(Collectors.toList());
 
-        return ExtraOptionForCarReviewSortedDTO.builder()
+        return ExtraOptionDetailSortedDTO.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .image(dto.getImage())

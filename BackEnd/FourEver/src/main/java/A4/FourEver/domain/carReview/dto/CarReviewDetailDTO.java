@@ -2,7 +2,7 @@ package A4.FourEver.domain.carReview.dto;
 
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
@@ -30,5 +30,5 @@ public class CarReviewDetailDTO {
     private InColorNameDTO inColorDTO;
     private ExColorNameAndImageDTO exColorDTO;
     private Set<TotalTagInfoDTO> totalTagInfoDTOs;
-    private Set<ExtraOptionForCarReviewDTO> extraOptionForCarReviewDTOs;
+    private Set<ExtraOptionDetailDTO> extraOptionDetailDTOS;
 }

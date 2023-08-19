@@ -2,7 +2,7 @@ package A4.FourEver.domain.carReview.repository;
 
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
-import A4.FourEver.domain.option.extraOption.dto.ExtraOptionForCarReviewDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
@@ -97,7 +97,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
         @Override
         public CarReviewDetailDTO extractData(ResultSet rs) throws SQLException {
             CarReviewDetailDTO detailDTO = null;
-            Map<Long, ExtraOptionForCarReviewDTO> extraOptionMap = new HashMap<>();
+            Map<Long, ExtraOptionDetailDTO> extraOptionMap = new HashMap<>();
 
             while (rs.next()) {
                 if (detailDTO == null) {
@@ -146,7 +146,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .created_at(rs.getTimestamp("created_at"))
                             .price(rs.getDouble("price"))
                             .totalTagInfoDTOs(new HashSet<>())
-                            .extraOptionForCarReviewDTOs(new HashSet<>())
+                            .extraOptionDetailDTOS(new HashSet<>())
                             .build();
                 }
 
@@ -158,10 +158,10 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 detailDTO.getTotalTagInfoDTOs().add(totalTagInfoDTO);
 
                 Long extraOptionId = rs.getLong("extra_option_id");
-                ExtraOptionForCarReviewDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
+                ExtraOptionDetailDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
 
                 if (extraOptionDTO == null) {
-                    extraOptionDTO = ExtraOptionForCarReviewDTO.builder()
+                    extraOptionDTO = ExtraOptionDetailDTO.builder()
                             .id(extraOptionId)
                             .name(rs.getString("extra_option_name"))
                             .image(rs.getString("extra_option_image"))
@@ -171,7 +171,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .subExtraOptionNameDTOs(new HashSet<>())
                             .build();
                     extraOptionMap.put(extraOptionId, extraOptionDTO);
-                    detailDTO.getExtraOptionForCarReviewDTOs().add(extraOptionDTO);
+                    detailDTO.getExtraOptionDetailDTOS().add(extraOptionDTO);
                 }
 
                 SubExtraOptionNameDTO subExtraOptionNameDTO = SubExtraOptionNameDTO.builder()
