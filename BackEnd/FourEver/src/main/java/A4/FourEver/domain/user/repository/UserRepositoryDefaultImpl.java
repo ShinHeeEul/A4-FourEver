@@ -57,7 +57,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
 
     @Override
     public void removeUserCarReviewById(Long userId, Long carReviewId) {
-        String sql = "delete from users_car_review where userId = :user_id AND car_review_id = :carReviewId";
+        String sql = "delete from users_car_review where user_id = :userId AND car_review_id = :carReviewId";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", userId);
