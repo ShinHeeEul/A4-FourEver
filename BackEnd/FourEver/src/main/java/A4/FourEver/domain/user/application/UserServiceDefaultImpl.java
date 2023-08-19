@@ -46,4 +46,9 @@ public class UserServiceDefaultImpl implements UserService{
 
         return userMapper.generateUserFeedDTO(myChivingSet, carReviewSet);
     }
+
+    @Override
+    public void deleteUserCarReviewById(final Long userId, final Long carReviewId) {
+        userRepository.removeUserCarReviewById(userId, carReviewId);
+    }
 }

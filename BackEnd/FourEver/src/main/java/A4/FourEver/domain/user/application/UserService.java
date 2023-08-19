@@ -4,6 +4,7 @@ import A4.FourEver.domain.user.dto.UserFeedDTO;
 
 public interface UserService {
 
-    Long saveUser(String email, String password);
-    UserFeedDTO getUserFeedsById(Long userId);
+    Long saveUser(final String email, final String password);
+    UserFeedDTO getUserFeedsById(final Long userId);
+    void deleteUserCarReviewById(final Long userId, final Long carReviewId);
 }
