@@ -6,6 +6,7 @@ import { useCallback, useContext, useState } from 'react';
 import { MychivingContext } from '../router/Mychiving';
 import { formatDate } from '../../util/DateFomat';
 import OptDetailModal from './OptDetailModal';
+import DeleteAlert from './DeleteAlert';
 const Container = styled.div`
   height: 254px;
   margin: 30px 0;
@@ -88,10 +89,16 @@ const EscSvg = styled(RemoveSvg)`
   }
 `;
 
-function CardByMe({ setShowDeleteAlert, myList, extraOptions }) {
-  const data = useContext(MychivingContext);
+function CardByMe({
+  myList,
+  extraOptions,
+  isJustDeleted,
+  setIsJustDeleted,
+  setUpdate,
+}) {
   const [showDetailModal, setShowDetailModal] = useState(false);
-  console.log(myList);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
   return (
     <Container>
       {showDetailModal && (
@@ -101,6 +108,17 @@ function CardByMe({ setShowDeleteAlert, myList, extraOptions }) {
           extraOptions={extraOptions}
         />
       )}
+      {showDeleteAlert && (
+        <DeleteAlert
+          setShowDeleteAlert={setShowDeleteAlert}
+          showDeleteAlert={showDeleteAlert}
+          deleteId={myList.id}
+          setIsJustDeleted={setIsJustDeleted}
+          isJustDeleted={isJustDeleted}
+          setUpdate={setUpdate}
+        />
+      )}
+
       <CardDiv>
         <CardButtonDiv>
           {myList.is_end === 0 && (
