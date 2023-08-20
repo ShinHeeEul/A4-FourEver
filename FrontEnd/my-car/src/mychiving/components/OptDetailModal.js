@@ -129,16 +129,24 @@ function OptDetailModal({ setShowDetailModal, showDetailModal, extraOptions }) {
       <ModalDiv>
         <TitleDiv>상세 보기</TitleDiv>
         <ContentDiv>
-          <ContentTitle>선택 옵션 {extraOptions.length}</ContentTitle>
+          {extraOptions[0].name === null ? (
+            <ContentTitle style={{ justifyContent: 'center' }}>
+              선택된 옵션이 없습니다.
+            </ContentTitle>
+          ) : (
+            <ContentTitle>선택옵션 {extraOptions.length}</ContentTitle>
+          )}
           <OptDiv>
             {extraOptions.map((elem) => {
               return (
-                <EachOptDiv>
-                  <ImgDiv>
-                    <img alt={elem.id} src={elem.image} />
-                    <OptName>{elem.name}</OptName>
-                  </ImgDiv>
-                </EachOptDiv>
+                elem.name !== null && (
+                  <EachOptDiv>
+                    <ImgDiv>
+                      <img alt={elem.id} src={elem.image} />
+                      <OptName>{elem.name}</OptName>
+                    </ImgDiv>
+                  </EachOptDiv>
+                )
               );
             })}
           </OptDiv>
