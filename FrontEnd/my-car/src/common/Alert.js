@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Body1Regular, Body2Regular, Body3Regular } from '../style/typo';
 import { UserCarPostRequest } from '../mycar/UserCarPostAPI';
+import { archivingPath, myCarPagePath, mychivingPath } from '../constant';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
@@ -85,7 +86,12 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
+function Alert({
+  showCommonAlert,
+  setShowCommonAlert,
+  isMainBtn,
+  clickLinkBtn,
+}) {
   const navigate = useNavigate();
   useEffect(() => {
     const body = document.querySelector('body');
@@ -101,36 +107,103 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
   const alertBg = useRef();
   const scrollTop = document.documentElement.scrollTop;
   const currentPath = useLocation().pathname.split('/')[1];
-  let title;
-  let content;
-  let link;
+  const [state, setState] = useState({
+    title: '',
+    content: '',
+    link: '',
+  });
 
-  switch (currentPath) {
-    case 'mycar':
-      title = '마이카이빙에 저장되었습니다.';
-      content = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '아카이빙으로 이동하시겠습니까?';
-      link = isMainBtn ? '/main' : '/archiving';
+  // let title;
+  // let content;
+  // let link;
 
-      break;
-    case 'archiving':
-      title = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '마이카이빙으로 이동하시겠습니까?';
-      content = '';
-      link = isMainBtn ? '/main' : '/mychiving';
-      break;
-    case 'mychiving':
-      title = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '아카이빙으로 이동하시겠습니까?';
-      content = '';
-      link = isMainBtn ? '/main' : '/archiving';
-      break;
-    default:
-      return;
-  }
+  // switch (currentPath) {
+  //   case 'mycar':
+  //     title = '마이카이빙에 저장되었습니다.';
+  //     content = isMainBtn
+  //       ? '메인으로 이동하시겠습니까?'
+  //       : clickLinkBtn
+  //       ? '마아카이빙으로 이동하시겠습니까?'
+  //       : '아카이빙으로 이동하시겠습니까?';
+  //     link = isMainBtn ? '/main' : clickLinkBtn ? mychivingPath : archivingPath;
+  //     break;
+  //   case 'archiving':
+  //     title = isMainBtn
+  //       ? '메인으로 이동하시겠습니까?'
+  //       : clickLinkBtn
+  //       ? '마아카이빙으로 이동하시겠습니까?'
+  //       : '내차만들기로 이동하시겠습니까?';
+  //     content = '';
+  //     link = isMainBtn
+  //       ? '/main'
+  //       : clickLinkBtn
+  //       ? mychivingPath
+  //       : myCarPagePath[0];
+  //     break;
+  //   case 'mychiving':
+  //     title = isMainBtn
+  //       ? '메인으로 이동하시겠습니까?'
+  //       : clickLinkBtn
+  //       ? '아카이빙으로 이동하시겠습니까?'
+  //       : '내차만들기로 이동하시겠습니까?';
+  //     content = '';
+  //     link = isMainBtn
+  //       ? '/main'
+  //       : clickLinkBtn
+  //       ? archivingPath
+  //       : myCarPagePath[0];
+  //     break;
+  //   default:
+  // }
+
+  useEffect(() => {
+    if (currentPath === 'mycar') {
+      setState({
+        title: '마이카이빙에 저장되었습니다.',
+        content: isMainBtn
+          ? '메인으로 이동하시겠습니까?'
+          : clickLinkBtn
+          ? '아카이빙으로 이동하시겠습니까?'
+          : '이동하시겠습니까?',
+        link: isMainBtn
+          ? '/main'
+          : clickLinkBtn
+          ? archivingPath
+          : mychivingPath,
+      });
+    }
+    if (currentPath === 'archiving') {
+      setState({
+        content: '',
+        title: isMainBtn
+          ? '메인으로 이동하시겠습니까?'
+          : clickLinkBtn
+          ? '내차만들기로 이동하시겠습니까?'
+          : '마아카이빙으로 이동하시겠습니까?',
+        link: isMainBtn
+          ? '/main'
+          : clickLinkBtn
+          ? `/mycar/${myCarPagePath[0]}`
+          : mychivingPath,
+      });
+    }
+    if (currentPath === 'mychiving') {
+      setState({
+        content: '',
+        title: isMainBtn
+          ? '메인으로 이동하시겠습니까?'
+          : clickLinkBtn
+          ? '내차만들기로 이동하시겠습니까?'
+          : '아카이빙으로 이동하시겠습니까?',
+        link: isMainBtn
+          ? '/main'
+          : clickLinkBtn
+          ? `/mycar/${myCarPagePath[0]}`
+          : archivingPath,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickLinkBtn, currentPath]);
 
   const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
@@ -138,7 +211,7 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
       //임시저장
       UserCarPostRequest({ is_end: 0 });
     }
-    if (!cancel) navigate(link, { state: { from: 'mycar' } });
+    if (!cancel) navigate(state.link, { state: { from: 'mycar' } });
   };
 
   return (
@@ -149,8 +222,8 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
     >
       <AlertDiv>
         <AlertMsgDiv>
-          <AlertMsg>{title}</AlertMsg>
-          <AlertMsg>{content}</AlertMsg>
+          <AlertMsg>{state.title}</AlertMsg>
+          <AlertMsg>{state.content}</AlertMsg>
         </AlertMsgDiv>
 
         <AlertBtnDiv>
