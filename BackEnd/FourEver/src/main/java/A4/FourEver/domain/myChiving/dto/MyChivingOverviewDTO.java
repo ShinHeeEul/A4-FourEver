@@ -13,6 +13,7 @@ import java.util.Set;
 public class MyChivingOverviewDTO {
     private Long id;
     private Integer is_end;
+    private String image;
     private Timestamp updated_at;
     private String car_name;
     private String trim_name;

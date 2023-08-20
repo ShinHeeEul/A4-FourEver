@@ -71,6 +71,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         String sql = "SELECT " +
                 "mc.id, " +
                 "mc.is_end, " +
+                "t.image AS image, " +
                 "mc.updated_at, " +
                 "c.name AS car_name, " +
                 "t.name AS trim_name, " +
@@ -79,10 +80,10 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 "b.name AS body_name, " +
                 "eo.id AS extra_option_id, " +
                 "eo.name AS extra_option_name, " +
-                "eo.image AS extra_option_image, " +
+                "eo.image AS extra_option_image " +  // 여기서 쉼표 제거
 
                 "FROM mychiving mc " +
-                "JOIN model m ON cr.model_id = m.id " +
+                "JOIN model m ON mc.model_id = m.id " +
                 "JOIN trim t ON m.trim_id = t.id " +
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
@@ -90,10 +91,10 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 "JOIN car c ON d.car_id = c.id " +
                 "LEFT JOIN mychiving_extra_option meo ON mc.id = meo.mychiving_id " +
                 "LEFT JOIN extra_option eo ON meo.extra_option_id = eo.id " +
-                "LEFT JOIN users_car_review ucr ON cr.id = cur.car_review_id " +
-                "LEFT JOIN users u ON ucr.user_id = u.id " +
+                "LEFT JOIN users u ON mc.user_id = u.id " +
 
                 "WHERE u.id = :userId ";
+
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", userId);
@@ -132,7 +133,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 "LEFT JOIN extra_option eo ON orv.extra_option_id = eo.id " +
                 "LEFT JOIN total_tag_car_review ttcr ON cr.id = ttcr.car_review_id " +
                 "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
-                "LEFT JOIN users_car_review ucr ON cr.id = cur.car_review_id " +
+                "LEFT JOIN users_car_review ucr ON cr.id = ucr.car_review_id " +
                 "LEFT JOIN users u ON ucr.user_id = u.id " +
 
                 "WHERE u.id = :userId ";
@@ -174,6 +175,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                     overviewDTO = MyChivingOverviewDTO.builder()
                             .id(id)
                             .is_end(rs.getInt("is_end"))
+                            .image(rs.getString("image"))
                             .updated_at(rs.getTimestamp("updated_at"))
                             .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))
