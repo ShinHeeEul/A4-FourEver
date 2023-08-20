@@ -10,6 +10,7 @@ export const DataLoaderContext = createContext();
 const Container = styled.div`
   width: 100%;
   min-width: 1350px;
+  padding-top: 150px;
 `;
 
 const AllDiv = styled.div`
