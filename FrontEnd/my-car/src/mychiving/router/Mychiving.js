@@ -7,9 +7,11 @@ import DeleteAlert from '../components/DeleteAlert';
 import OptDetailModal from '../components/OptDetailModal';
 import { useLoaderData, useLocation } from 'react-router-dom';
 import { BASIC_SERVER_URL } from '../../constant';
+import OptReviewCard from '../../archiving/components/OptReviewCard';
+import CardByArchiving from '../components/CardByArchiving';
 export const MychivingContext = createContext();
 const Container = styled.div`
-  width: 1040px;
+  width: 960px;
   margin: 0 auto;
 `;
 const TitleHeader = styled.div`
@@ -55,11 +57,16 @@ function Mychiving() {
         <h2>내가 만든 차량 목록</h2>
       </TitleHeader>
 
-      <div style={{ display: 'flex', width: '1040px', overflow: 'auto' }}>
+      <div
+        style={{
+          display: 'flex',
+          width: '960px',
+          overflow: 'auto',
+        }}
+      >
         {state &&
           [...state?.myChivingCompleteList, ...state?.myChivingTempList].map(
             (elem) => {
-              console.log(elem);
               return (
                 <CardByMe
                   myList={elem}
@@ -76,6 +83,19 @@ function Mychiving() {
       <TitleHeader>
         <h2>피드에서 저장한 차량 목록</h2>
       </TitleHeader>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '27px',
+          padding: '25px 0',
+        }}
+      >
+        {state &&
+          [...state?.carReviewList].map((elem) => {
+            return <CardByArchiving savedCar={elem}></CardByArchiving>;
+          })}
+      </div>
     </Container>
   );
 }
