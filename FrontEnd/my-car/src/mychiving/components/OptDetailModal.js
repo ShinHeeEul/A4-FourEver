@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Medium, Heading4Medium } from '../../style/typo';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { MychivingContext } from '../router/Mychiving';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -29,7 +30,7 @@ const ModalDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(0 0 0.5rem #a3a3a3);
+  filter: drop-shadow(0 0 0.3rem #a3a3a3);
 `;
 const BtnConfirm = styled.button`
   width: 105px;
@@ -54,11 +55,9 @@ const TitleDiv = styled.div`
   ${Heading4Medium}
   height: 40px;
   width: 100%;
-  /* padding: 20px 0; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* align-items: center; */
 `;
 const ContentDiv = styled.div`
   height: calc(100% - 80px);
@@ -97,6 +96,12 @@ const ImgDiv = styled.div`
   border-radius: 8px;
   border: 1px solid black;
   position: relative;
+  img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
 `;
 const OptName = styled.div`
   position: absolute;
@@ -108,7 +113,8 @@ const OptName = styled.div`
   border-radius: 4px;
 `;
 
-function OptDetailModal({ setShowDetailModal, showDetailModal }) {
+function OptDetailModal({ setShowDetailModal, showDetailModal, extraOptions }) {
+  const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -123,28 +129,18 @@ function OptDetailModal({ setShowDetailModal, showDetailModal }) {
       <ModalDiv>
         <TitleDiv>상세 보기</TitleDiv>
         <ContentDiv>
-          <ContentTitle>선택 옵션 4</ContentTitle>
+          <ContentTitle>선택 옵션 {extraOptions.length}</ContentTitle>
           <OptDiv>
-            <EachOptDiv>
-              <ImgDiv>
-                <OptName> 현대스마트센스 |</OptName>
-              </ImgDiv>
-            </EachOptDiv>{' '}
-            <EachOptDiv>
-              <ImgDiv>
-                <OptName>듀얼 와이드 선루프</OptName>
-              </ImgDiv>
-            </EachOptDiv>{' '}
-            <EachOptDiv>
-              <ImgDiv>
-                <OptName>빌트인 공기청정기</OptName>
-              </ImgDiv>
-            </EachOptDiv>{' '}
-            <EachOptDiv>
-              <ImgDiv>
-                <OptName>주차 보조 시스템</OptName>
-              </ImgDiv>
-            </EachOptDiv>
+            {extraOptions.map((elem) => {
+              return (
+                <EachOptDiv>
+                  <ImgDiv>
+                    <img alt={elem.id} src={elem.image} />
+                    <OptName>{elem.name}</OptName>
+                  </ImgDiv>
+                </EachOptDiv>
+              );
+            })}
           </OptDiv>
         </ContentDiv>
         <BtnConfirm onClick={() => setShowDetailModal(false)}>

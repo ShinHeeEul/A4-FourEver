@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import palette from '../../style/styleVariable';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { useDeleteRequest } from '../hook/useDelete';
+import { MychivingContext } from '../router/Mychiving';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: 0;
@@ -80,7 +82,13 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function DeleteAlert({ setShowDeleteAlert, showDeleteAlert }) {
+function DeleteAlert({
+  setShowDeleteAlert,
+  showDeleteAlert,
+  deleteId,
+  setUpdate,
+}) {
+  const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -90,6 +98,13 @@ function DeleteAlert({ setShowDeleteAlert, showDeleteAlert }) {
       body.classList.remove('no-scroll');
     }
   }, [showDeleteAlert]);
+
+  async function DeleteRequest(id) {
+    await useDeleteRequest(id);
+
+    setUpdate((prev) => !prev);
+    setShowDeleteAlert(false);
+  }
   return (
     <AlertBgDiv>
       <AlertDiv>
@@ -101,7 +116,7 @@ function DeleteAlert({ setShowDeleteAlert, showDeleteAlert }) {
           <BtnCancel onClick={() => setShowDeleteAlert(false)}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
-          <BtnConfirm>
+          <BtnConfirm onClick={() => DeleteRequest(deleteId)}>
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>
         </AlertBtnDiv>
