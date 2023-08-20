@@ -9,6 +9,7 @@ import java.util.Set;
 public interface UserRepository {
     User findUserByEmail(final String userEmail);
     void saveUser(final String email, final String password);
+    void saveUserCarReviewById(final Long userId, final Long carReviewId);
     void removeUserCarReviewById(final Long userId, final Long carReviewId);
     Set<MyChivingOverviewDTO> findMyChivingById(final Long userId);
     Set<CarReviewOverviewDTO> findCarReviewById(final Long userId);
