@@ -176,3 +176,14 @@ export const ARCHIVING = {
     NO_SELECT: '옵션칩을 선택해주세요',
   },
 };
+
+export const MYCHIVING = {
+  URL: {
+    FEEDS: 'user/feeds',
+  },
+  FILED: {
+    MYTEMPLISTS: 'myChivingTempList',
+    MYCOMPLETELISTS: 'myChivingCompleteList',
+    CARREVIEWLISTS: 'carReviewList',
+  },
+};

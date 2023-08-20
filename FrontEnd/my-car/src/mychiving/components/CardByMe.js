@@ -2,6 +2,9 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, Body4Medium, Heading4Bold } from '../../style/typo';
 import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
+import { useCallback, useContext } from 'react';
+import { MychivingContext } from '../router/Mychiving';
+import { formatDate } from '../../util/DateFomat';
 const Container = styled.div`
   width: 1040px;
   height: 254px;
@@ -54,7 +57,8 @@ const BottomOption = styled.span`
 `;
 const BottomDate = styled.span`
   ${Body4Medium}
-  color: ${palette.Gold};
+  color : ${({ $is_end }) =>
+    $is_end ? `${palette.Gold}` : 'rgb(216, 115, 97)'};
 `;
 
 const CardButtonDiv = styled.div`
@@ -82,35 +86,32 @@ const EscSvg = styled(RemoveSvg)`
     filter: brightness(0.9);
   }
 `;
-function CardByMe({ setShowDeleteAlert, setShowDetailModal }) {
+
+function CardByMe({ setShowDeleteAlert, setShowDetailModal, myList }) {
+  const data = useContext(MychivingContext);
+  console.log(myList);
   return (
     <Container>
       <CardDiv>
         <CardButtonDiv>
-          <PlusSvg onClick={() => setShowDetailModal(true)} />
+          {myList.is_end === 0 && (
+            <PlusSvg onClick={() => setShowDetailModal(true)} />
+          )}
           <EscSvg onClick={() => setShowDeleteAlert(true)} />
         </CardButtonDiv>
         <CardTopDiv />
         <CardBottomDiv>
           <BottomContentDiv>
-            <BottomTitle>팰리세이드 Le Blanc</BottomTitle>
-            <BottomOption>디젤 2.2 / 4WD / 7인승</BottomOption>
-            <BottomDate style={{ color: 'rgb(216, 115, 97' }}>
-              23년 7월 19일 임시저장
+            <BottomTitle>
+              {myList.car_name} {myList.trim_name}
+            </BottomTitle>
+            <BottomOption>
+              {myList.engine_name} / {myList.drive_name} / {myList.body_name}
+            </BottomOption>
+            <BottomDate $is_end={myList.is_end}>
+              {formatDate(myList.updated_at)}
+              {myList.is_end === 0 ? ' 임시저장' : ' 완료'}
             </BottomDate>
-          </BottomContentDiv>
-        </CardBottomDiv>
-      </CardDiv>
-      <CardDiv>
-        <CardButtonDiv>
-          <EscSvg onClick={() => setShowDeleteAlert(true)} />
-        </CardButtonDiv>
-        <CardTopDiv />
-        <CardBottomDiv>
-          <BottomContentDiv>
-            <BottomTitle>팰리세이드 Le Blanc</BottomTitle>
-            <BottomOption>디젤 2.2 / 4WD / 7인승</BottomOption>
-            <BottomDate>23년 7월 19일 완료</BottomDate>
           </BottomContentDiv>
         </CardBottomDiv>
       </CardDiv>
