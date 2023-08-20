@@ -23,6 +23,12 @@ const CardDiv = styled.div`
   margin-right: 30px;
   flex-shrink: 0;
   position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: aliceblue;
+    filter: brightness(0.95);
+  }
 `;
 
 const CardTopDiv = styled.img`

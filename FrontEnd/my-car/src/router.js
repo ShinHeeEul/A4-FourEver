@@ -24,6 +24,7 @@ import Login from './login/Login';
 import AuthCode from './login/AuthCode';
 import RootMychiving from './mychiving/RootMychiving';
 import Mychiving from './mychiving/router/Mychiving';
+import MychivingDetail from './mychiving/router/MychivingDetail';
 
 const router = createBrowserRouter([
   {
@@ -131,6 +132,11 @@ const router = createBrowserRouter([
             path: '',
             loader: () => MyCarOptionAPI(MYCHIVING.URL.FEEDS),
             element: <Mychiving />,
+          },
+          {
+            path: ':id',
+            loader: (item) => MyCarOptionAPI(`mychiving/get/${item.id}`),
+            element: <MychivingDetail />,
           },
         ],
       },
