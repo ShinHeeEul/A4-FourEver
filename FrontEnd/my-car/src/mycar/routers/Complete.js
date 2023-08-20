@@ -33,7 +33,10 @@ function Complete() {
     setIsAccess(true);
     FetchCompleteCar();
 
-    return () => localStorage.removeItem('userCar');
+    return () => {
+      localStorage.removeItem('userCar');
+      localStorage.setItem('myChiving_id', 0);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
