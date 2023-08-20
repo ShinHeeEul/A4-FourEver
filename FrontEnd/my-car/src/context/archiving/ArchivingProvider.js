@@ -6,7 +6,7 @@ import useFetch from '../../archiving/hook/useFetch';
 export const OptionSelectValue = createContext();
 export const OptionSelectAction = createContext();
 
-function ArchivingProvider({ children, setLoading }) {
+function ArchivingProvider({ children, setLoading, fromMycar }) {
   const accessToken = localStorage.getItem('jwtToken');
 
   const [activeStates, setActiveStates] = useState({}); //선택 옵션
@@ -68,6 +68,22 @@ function ArchivingProvider({ children, setLoading }) {
       setActiveTab(index);
     },
   };
+  useEffect(() => {
+    const userCar = JSON.parse(localStorage.getItem('userCar'));
+    if (fromMycar) {
+      const ids = userCar.selectedOptions.map((option) => option.id);
+      ids.forEach((id) => {
+        setActiveStates((prevActiveStates) => ({
+          ...prevActiveStates,
+          [id]: !prevActiveStates[id],
+        }));
+      });
+      let newSelectList = [...optionSelect.extraOptionIds];
+      newSelectList = [...newSelectList, ...ids];
+      setOptionSelect({ extraOptionIds: newSelectList });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <OptionSelectAction.Provider value={{ action }}>
