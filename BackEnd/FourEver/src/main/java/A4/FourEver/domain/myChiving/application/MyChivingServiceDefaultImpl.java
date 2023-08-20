@@ -24,15 +24,19 @@ public class MyChivingServiceDefaultImpl implements MyChivingService {
     @Override
     @Transactional
     public MyChivingIdDTO saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
-        if (dto.getMyChiving_id() == 0) {
+        if (dto.getId() == 0) {
             return MyChivingIdDTO.builder()
                     .id(myChivingRepository.saveMyChiving(dto, userId))
                     .build();
         }
-        return MyChivingIdDTO.builder()
-                .id(myChivingRepository.updateMyChiving(dto, userId))
-                .build();
 
+        // 기존의 임시 저장 데이터 삭제
+        myChivingRepository.removeMyChiving(dto.getId());
+
+        // 다시 저장
+        return MyChivingIdDTO.builder()
+                .id(myChivingRepository.saveMyChiving(dto, userId))
+                .build();
     }
 
     @Override
