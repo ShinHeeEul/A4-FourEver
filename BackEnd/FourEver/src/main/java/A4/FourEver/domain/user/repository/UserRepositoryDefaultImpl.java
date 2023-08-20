@@ -56,6 +56,17 @@ public class UserRepositoryDefaultImpl implements UserRepository {
     }
 
     @Override
+    public void saveUserCarReviewById(Long userId, Long carReviewId) {
+        String sql = "insert ignore into users_car_review(user_id, car_review_id) values (:userId, :carReviewId)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", userId);
+        params.addValue("carReviewId", carReviewId);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    @Override
     public void removeUserCarReviewById(Long userId, Long carReviewId) {
         String sql = "delete from users_car_review where user_id = :userId AND car_review_id = :carReviewId";
 
