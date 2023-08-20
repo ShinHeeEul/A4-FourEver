@@ -34,7 +34,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     }
 
     @Override
-    public CarReviewDetailDTO findCarReviewDetail(final Long id) {
+    public CarReviewDetailDTO findCarReviewDetail(final Long id, final Long userId) {
         String sql = "SELECT " +
                 "cr.id AS car_review_id, " +
                 "cr.comment, " +
@@ -66,7 +66,12 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "eot.name AS extra_option_tag_name, " +
                 "eot.count AS extra_option_tag_count, " +
                 "tt.id AS total_tag_id, " +
-                "tt.name AS total_tag_name " +
+                "tt.name AS total_tag_name, " +
+                "EXISTS (" +
+                "    SELECT 1" +
+                "    FROM users_car_review ucr" +
+                "    WHERE ucr.car_review_id = cr.id" +
+                "    AND ucr.user_id = :userId) as is_save " +
 
                 "FROM car_review cr " +
                 "JOIN model m ON cr.model_id = m.id " +
@@ -84,10 +89,11 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
                 "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
 
-                "WHERE cr.id = :id;";
+                "WHERE cr.id = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
+        params.addValue("userId", userId);
 
         return namedParameterJdbcTemplate.query(sql, params, carReviewDetailExtractor);
     }
@@ -135,6 +141,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                     detailDTO = CarReviewDetailDTO.builder()
                             .id(rs.getLong("car_review_id"))
                             .car_name(rs.getString("car_name"))
+                            .is_save(rs.getBoolean("is_save")?1:0)
                             .trimNameDTO(trimNameDTO)
                             .engineNameDTO(engineNameDTO)
                             .bodyNameDTO(bodyNameDTO)

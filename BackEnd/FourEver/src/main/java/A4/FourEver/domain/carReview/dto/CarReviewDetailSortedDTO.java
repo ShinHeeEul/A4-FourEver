@@ -19,6 +19,7 @@ import java.util.List;
 public class CarReviewDetailSortedDTO {
     private Long id;
     private Double price;
+    private Integer is_save;
     private String comment;
     private String car_name;
     private Integer is_purchased;
