@@ -23,7 +23,6 @@ function Mychiving() {
   const { data } = useLoaderData();
   console.log(data);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
-  const [showDetailModal, setShowDetailModal] = useState(false);
 
   const mychivingList = [
     ...data.myChivingTempList,
@@ -43,26 +42,21 @@ function Mychiving() {
         <TitleHeader>
           <h2>내가 만든 차량 목록</h2>
         </TitleHeader>
-        {mychivingList &&
-          mychivingList.map((elem) => {
-            console.log(elem.extraOptionDTOs);
-            return (
-              <>
-                {showDetailModal && (
-                  <OptDetailModal
-                    setShowDetailModal={setShowDetailModal}
-                    showDetailModal={showDetailModal}
+        <div style={{ display: 'flex', width: '1040px', overflow: 'auto' }}>
+          {mychivingList &&
+            mychivingList.map((elem) => {
+              console.log(elem.extraOptionDTOs);
+              return (
+                <>
+                  <CardByMe
+                    myList={elem}
+                    setShowDeleteAlert={setShowDeleteAlert}
                     extraOptions={elem.extraOptionDTOs}
                   />
-                )}
-                <CardByMe
-                  myList={elem}
-                  setShowDeleteAlert={setShowDeleteAlert}
-                  setShowDetailModal={setShowDetailModal}
-                />
-              </>
-            );
-          })}
+                </>
+              );
+            })}
+        </div>
 
         <TitleHeader>
           <h2>피드에서 저장한 차량 목록</h2>

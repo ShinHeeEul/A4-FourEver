@@ -2,15 +2,15 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, Body4Medium, Heading4Bold } from '../../style/typo';
 import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { MychivingContext } from '../router/Mychiving';
 import { formatDate } from '../../util/DateFomat';
+import OptDetailModal from './OptDetailModal';
 const Container = styled.div`
-  width: 1040px;
   height: 254px;
   margin: 30px 0;
   display: flex;
-  overflow: auto;
+  /* overflow: auto; */
 `;
 
 const CardDiv = styled.div`
@@ -88,11 +88,19 @@ const EscSvg = styled(RemoveSvg)`
   }
 `;
 
-function CardByMe({ setShowDeleteAlert, setShowDetailModal, myList }) {
+function CardByMe({ setShowDeleteAlert, myList, extraOptions }) {
   const data = useContext(MychivingContext);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   console.log(myList);
   return (
     <Container>
+      {showDetailModal && (
+        <OptDetailModal
+          setShowDetailModal={setShowDetailModal}
+          showDetailModal={showDetailModal}
+          extraOptions={extraOptions}
+        />
+      )}
       <CardDiv>
         <CardButtonDiv>
           {myList.is_end === 0 && (

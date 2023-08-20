@@ -30,7 +30,7 @@ const ModalDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(0 0 0.5rem #a3a3a3);
+  filter: drop-shadow(0 0 0.3rem #a3a3a3);
 `;
 const BtnConfirm = styled.button`
   width: 105px;
@@ -55,11 +55,9 @@ const TitleDiv = styled.div`
   ${Heading4Medium}
   height: 40px;
   width: 100%;
-  /* padding: 20px 0; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* align-items: center; */
 `;
 const ContentDiv = styled.div`
   height: calc(100% - 80px);
