@@ -17,8 +17,8 @@ const ChivingHeaderDiv = styled.div`
 
   justify-content: space-between;
   padding: 0 90px;
-  /* position: absolute; */
-  z-index: 2;
+  position: fixed;
+  z-index: 1;
 `;
 
 const ArchivingSymbolDiv = styled.div`

@@ -211,7 +211,11 @@ function Alert({
       //임시저장
       UserCarPostRequest({ is_end: 0 });
     }
-    if (!cancel) navigate(state.link, { state: { from: 'mycar' } });
+    if (!cancel)
+      navigate(
+        state.link,
+        currentPath === 'mycar' && { state: { from: 'mycar' } },
+      );
   };
 
   return (

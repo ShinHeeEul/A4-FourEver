@@ -11,7 +11,10 @@ import OptReviewCard from '../../archiving/components/OptReviewCard';
 import CardByArchiving from '../components/CardByArchiving';
 export const MychivingContext = createContext();
 const Container = styled.div`
+
   width: 960px;
+  padding-top: 150px;
+
   margin: 0 auto;
 `;
 const TitleHeader = styled.div`
