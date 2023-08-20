@@ -14,5 +14,6 @@ public interface UserController {
     LoginResponseDTO oauth(final String code, final String state);
     LoginResponseDTO login(final LoginRequestDTO loginRequestDTO, final BindingResult bindingResult);
     UserFeedDTO getUserFeedsById(Long userId);
+    void createUserCarReviewById(final Long userId, final Long carReviewId);
     void deleteUserCarReviewById(final Long userId, final Long carReviewId);
 }
