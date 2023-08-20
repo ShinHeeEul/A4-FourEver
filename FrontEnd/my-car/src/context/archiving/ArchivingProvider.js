@@ -70,6 +70,7 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
   };
   useEffect(() => {
     const userCar = JSON.parse(localStorage.getItem('userCar'));
+    console.log(fromMycar);
     if (fromMycar) {
       const ids = userCar.selectedOptions.map((option) => option.id);
       ids.forEach((id) => {
