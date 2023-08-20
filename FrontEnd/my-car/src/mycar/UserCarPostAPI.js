@@ -1,7 +1,9 @@
 import { BASIC_SERVER_URL } from '../constant';
 
 export function UserCarPostRequest({ is_end = 1 }) {
-  const myChiving_id = localStorage.getItem('myChiving_id') || 0;
+  const myChiving_id = localStorage.getItem('myChiving_id')
+    ? JSON.parse(localStorage.getItem('myChiving_id'))
+    : 0;
 
   const userCar = JSON.parse(localStorage.getItem('userCar'));
   const accessToken = localStorage.getItem('jwtToken');
@@ -14,15 +16,15 @@ export function UserCarPostRequest({ is_end = 1 }) {
 
   const selectedOptionIDs = userCar.selectedOptions.map((item) => item.id);
 
-  return fetch(`${BASIC_SERVER_URL}/myChiving/create?userId=1`, {
+  return fetch(`${BASIC_SERVER_URL}/mychiving/create?userId=1`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      is_end,
       myChiving_id,
+      is_end,
       car_id: 1,
       trim_id: userCar.trim?.id || 0,
       engine_id: userCar.engine?.id || 0,
@@ -33,7 +35,18 @@ export function UserCarPostRequest({ is_end = 1 }) {
       price: trimPrice + optionPrice,
       optionIds: selectedOptionIDs || [],
     }),
-  }).then((res) =>
-    localStorage.setItem('myChiving_id', res?.json()?.myChiving_id || 0),
-  );
+  });
+  // .then(
+  //   (res) => {
+  //     if (res.status === 200) {
+  //       try {
+  //         localStorage.setItem('myChiving_id', res.json()?.myChiving_id || 0);
+  //         return res.json();
+  //       } catch (error) {
+  //         throw new Error('JSON 파싱 오류');
+  //       }
+  //     }
+  //   },
+  //   localStorage.setItem('myChiving_id', res?.json()?.myChiving_id || 0),
+  // );
 }

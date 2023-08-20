@@ -19,7 +19,7 @@ function Complete() {
 
   const FetchCompleteCar = async () => {
     try {
-      const res = await UserCarPostRequest({});
+      const res = await UserCarPostRequest({ is_end: 1 });
       if (res.status === 400) {
         setNotLogin(true);
       }
