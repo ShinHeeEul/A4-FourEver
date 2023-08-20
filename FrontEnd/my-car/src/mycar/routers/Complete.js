@@ -19,12 +19,10 @@ function Complete() {
 
   const FetchCompleteCar = async () => {
     try {
-      const res = await UserCarPostRequest({});
-      if (res.status === 400) {
-        setNotLogin(true);
-      }
+      await UserCarPostRequest({ is_end: 1 });
       setLoading(false);
-    } catch {
+    } catch (e) {
+      console.log(e);
       setError(true);
     }
   };
@@ -33,7 +31,10 @@ function Complete() {
     setIsAccess(true);
     FetchCompleteCar();
 
-    return () => localStorage.removeItem('userCar');
+    return () => {
+      localStorage.removeItem('userCar');
+      localStorage.setItem('myChiving_id', 0);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
