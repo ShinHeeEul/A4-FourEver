@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Body4Medium, Heading4Bold } from '../style/typo';
-import { headerPageName, myCarPagePath } from '../constant';
+import {
+  archivingPath,
+  headerPageName,
+  myCarPagePath,
+  mychivingPath,
+} from '../constant';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HeaderValueContext } from '../Root';
@@ -40,7 +45,8 @@ const ToCarivingBtn = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 98px;
+  /* width: 110px; */
+  padding: 0 10px;
   height: 35px;
   flex-shrink: 0;
   cursor: pointer;
@@ -69,35 +75,40 @@ const HyundaiLogoDiv = styled.div`
   cursor: pointer;
 `;
 
-function Header({ setShowCommonAlert, setIsMainBtn, isLoginPage }) {
+function Header({
+  setShowCommonAlert,
+  setIsMainBtn,
+  setClickLinkBtn,
+  isLoginPage,
+}) {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
   const currentSubPath = useLocation().pathname.split('/')[2];
   const { isAccess, isMainBtn } = useContext(HeaderValueContext);
-  let btnText;
+  let btnText = [];
 
   switch (currentPath) {
     case 'mycar':
-      btnText = '아카이빙';
+      btnText = ['마이카이빙', '이카이빙'];
       break;
     case 'archiving':
-      btnText = '마이카이빙';
+      btnText = ['마이카이빙', '내차만들기'];
       break;
     case 'mychiving':
-      btnText = '아카이빙';
+      btnText = ['아카이빙', '내차만들기'];
       break;
     default:
   }
 
-  function showAlert(flag) {
+  function showAlert(flag, index) {
     if (
       currentPath === 'mycar' &&
       currentSubPath === myCarPagePath[myCarPagePath.length - 1]
     ) {
-      isMainBtn ? navigate('/main') : navigate('/archiving');
+      isMainBtn ? navigate('/main') : navigate(archivingPath);
       return;
     }
-
+    setClickLinkBtn(index);
     setShowCommonAlert(true);
     setIsMainBtn(flag);
   }
@@ -113,17 +124,20 @@ function Header({ setShowCommonAlert, setIsMainBtn, isLoginPage }) {
           <HeaderPageText>{headerPageName[currentPath]}</HeaderPageText>
         </HeaderElements>
         <HeaderElements>
-          <CarNameText>팰리세이드</CarNameText>
-          <HyundaiRightDiv />
+          {/* <CarNameText>팰리세이드</CarNameText> */}
+          {/* <HyundaiRightDiv /> */}
 
-          {currentPath === 'archiving' && !isAccess ? (
+          {Array.from({ length: 2 }, (_, index) => (
+            <ToCarivingBtn onClick={() => showAlert(false, index)}>
+              <ArchivingLogo style={{ width: '20px', height: '18px' }} />
+              <ToCarivingBtnText>{btnText[index]}</ToCarivingBtnText>
+            </ToCarivingBtn>
+          ))}
+          {/* {currentPath === 'archiving' && !isAccess ? (
             <></>
           ) : (
-            <ToCarivingBtn onClick={() => showAlert(false)}>
-              <ArchivingLogo />
-              <ToCarivingBtnText>{btnText}</ToCarivingBtnText>
-            </ToCarivingBtn>
-          )}
+            
+          )} */}
         </HeaderElements>
       </HeaderDiv>
     );

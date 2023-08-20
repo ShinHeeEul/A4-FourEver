@@ -15,6 +15,10 @@ export const myCarPagePath = [
   'complete',
 ];
 
+export const archivingPath = '/archiving';
+export const mychivingPath = '/mychiving';
+export const maingPath = '/main';
+
 export const BASIC_SERVER_URL = 'http://www.hyundaimycar.store:8080';
 
 export const USER_CAR_ACTIONS = {
