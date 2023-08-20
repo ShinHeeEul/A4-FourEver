@@ -48,6 +48,11 @@ public class UserServiceDefaultImpl implements UserService{
     }
 
     @Override
+    public void saveUserCarReviewById(final Long userId, final Long carReviewId) {
+        userRepository.saveUserCarReviewById(userId, carReviewId);
+    }
+
+    @Override
     public void deleteUserCarReviewById(final Long userId, final Long carReviewId) {
         userRepository.removeUserCarReviewById(userId, carReviewId);
     }
