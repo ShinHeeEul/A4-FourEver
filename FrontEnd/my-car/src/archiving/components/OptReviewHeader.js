@@ -10,7 +10,23 @@ import { ArchivingTabMenu } from '../../constant';
 
 export const Container = styled.div`
   width: 1280px;
-  margin: 20px auto;
+  margin: 0px auto;
+  background-color: white;
+  background: linear-gradient(
+    to bottom,
+
+    rgba(250, 250, 250, 1),
+    rgba(250, 250, 250, 1),
+    rgba(250, 250, 250, 0.9),
+    rgba(250, 250, 250, 0.3),
+    rgba(250, 250, 250, 0.2),
+    rgba(250, 250, 250, 0)
+  );
+
+  width: 100vw;
+  margin: 0px auto;
+  height: 120px;
+  padding: 0px 0px 30px 0;
 `;
 
 const TabText = styled.span`
@@ -31,15 +47,15 @@ const TabText = styled.span`
 `;
 
 const HeaderWrap = styled.div`
-  gap: 16px;
-  display: flex;
-  align-items: flex-end;
   gap: 20px;
   display: flex;
   align-items: center;
-  padding: 15px 0 0 0;
+  /* padding: 15px 0 0 0; */
   width: 960px;
   margin: 0 auto;
+
+  height: 70px;
+  padding-bottom: 52px;
   h1 {
     ${Heading2Bold}
   }
