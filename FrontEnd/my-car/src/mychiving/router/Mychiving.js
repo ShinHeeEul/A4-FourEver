@@ -39,23 +39,28 @@ function Mychiving() {
             showDeleteAlert={showDeleteAlert}
           />
         )}
-        {showDetailModal && (
-          <OptDetailModal
-            setShowDetailModal={setShowDetailModal}
-            showDetailModal={showDetailModal}
-          />
-        )}
+
         <TitleHeader>
           <h2>내가 만든 차량 목록</h2>
         </TitleHeader>
         {mychivingList &&
           mychivingList.map((elem) => {
+            console.log(elem.extraOptionDTOs);
             return (
-              <CardByMe
-                myList={elem}
-                setShowDeleteAlert={setShowDeleteAlert}
-                setShowDetailModal={setShowDetailModal}
-              />
+              <>
+                {showDetailModal && (
+                  <OptDetailModal
+                    setShowDetailModal={setShowDetailModal}
+                    showDetailModal={showDetailModal}
+                    extraOptions={elem.extraOptionDTOs}
+                  />
+                )}
+                <CardByMe
+                  myList={elem}
+                  setShowDeleteAlert={setShowDeleteAlert}
+                  setShowDetailModal={setShowDetailModal}
+                />
+              </>
             );
           })}
 

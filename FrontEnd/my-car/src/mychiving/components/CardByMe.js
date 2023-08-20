@@ -25,9 +25,10 @@ const CardDiv = styled.div`
   position: relative;
 `;
 
-const CardTopDiv = styled.div`
+const CardTopDiv = styled.img`
   height: 50%;
   width: 100%;
+  object-fit: cover;
 `;
 
 const CardBottomDiv = styled.div`
@@ -99,7 +100,7 @@ function CardByMe({ setShowDeleteAlert, setShowDetailModal, myList }) {
           )}
           <EscSvg onClick={() => setShowDeleteAlert(true)} />
         </CardButtonDiv>
-        <CardTopDiv />
+        <CardTopDiv src={myList.image}></CardTopDiv>
         <CardBottomDiv>
           <BottomContentDiv>
             <BottomTitle>
