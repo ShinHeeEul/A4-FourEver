@@ -59,6 +59,7 @@ function Mychiving() {
         {state &&
           [...state?.myChivingCompleteList, ...state?.myChivingTempList].map(
             (elem) => {
+              console.log(elem);
               return (
                 <CardByMe
                   myList={elem}
