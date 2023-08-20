@@ -2,7 +2,7 @@ import { BASIC_SERVER_URL } from '../constant';
 
 export async function UserCarPostRequest({ is_end = 1 }) {
   const getId = localStorage.getItem('myChiving_id');
-  const myChiving_id = getId === 'undefined' ? 0 : JSON.parse(getId);
+  const id = getId === 'undefined' ? 0 : JSON.parse(getId);
 
   const userCar = JSON.parse(localStorage.getItem('userCar'));
   const accessToken = localStorage.getItem('jwtToken');
@@ -22,7 +22,7 @@ export async function UserCarPostRequest({ is_end = 1 }) {
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
-        myChiving_id,
+        id,
         is_end,
         car_id: 1,
         trim_id: userCar.trim?.id || 0,
@@ -35,6 +35,7 @@ export async function UserCarPostRequest({ is_end = 1 }) {
         optionIds: selectedOptionIDs || [],
       }),
     }).then((res) => res.json());
+    console.log(data);
     localStorage.setItem('myChiving_id', data?.id);
   } catch (e) {
     console.error(e);
