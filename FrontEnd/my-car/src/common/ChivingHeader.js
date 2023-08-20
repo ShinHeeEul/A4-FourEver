@@ -99,8 +99,8 @@ function ChivingHeader({ fromMycar }) {
         <ArchivingSymbolText>{titleText}</ArchivingSymbolText>
       </ArchivingSymbolDiv>
       <ToMycarDiv onClick={GoMyCar} $isShow={fromMycar === null}>
-        <CarLogo />
-        <ToMycarText> 내 차 만들기 바로가기</ToMycarText>
+        {/* <CarLogo /> */}
+        {/* <ToMycarText> 내 차 만들기 바로가기</ToMycarText> */}
       </ToMycarDiv>
     </ChivingHeaderDiv>
   );
