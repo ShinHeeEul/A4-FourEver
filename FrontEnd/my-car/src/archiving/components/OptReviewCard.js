@@ -128,23 +128,12 @@ function OptReviewCard() {
     navigate(`/archiving/${id}`, { state: { fromMycar } });
   };
 
-  function optChipSort(selectOptions) {
-    const filtered = selectOptions.filter((option) => activeStates[option.id]);
-    const remaining = selectOptions.filter(
-      (option) => !activeStates[option.id],
-    );
-    return [...filtered, ...remaining];
-  }
-
   return (
     <Container>
       {reviewList[ARCHIVING.FILED.REVIEW] ? (
         reviewList[ARCHIVING.FILED.REVIEW].length > 0 ? (
           reviewList[ARCHIVING.FILED.REVIEW].map((review, index) => (
-            <CardWrap
-              onClick={() => CardClick({ id: review.car_review_id })}
-              key={index}
-            >
+            <CardWrap onClick={() => CardClick({ id: review.id })} key={index}>
               <CardHeader>
                 <TrimInfo>
                   <div>
@@ -172,18 +161,6 @@ function OptReviewCard() {
                   <span>{review.interior_color_name}</span>
                 </div>
               </ColorWrap>
-              {/* <CategoryWrap>
-                <h3>선택옵션</h3>
-                <div>
-                  {optChipSort(review.extraOptionNameDTOs)
-                    .slice(0, 4)
-                    .map((option, index) => (
-                      <OptTag key={index} $isActive={activeStates[option.id]}>
-                        {option.name}
-                      </OptTag>
-                    ))}
-                </div>
-              </CategoryWrap> */}
               <CategoryWrap $isTags={true}>
                 <h3>태그후기</h3>
                 <div style={{ height: '30px' }}>
