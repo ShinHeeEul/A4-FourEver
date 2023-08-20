@@ -26,12 +26,12 @@ import java.util.*;
 @Repository
 public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
-
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final MyChivingDetailExtractor myChivingDetailExtractor = new MyChivingDetailExtractor();
-    public MyChivingRepositoryDefaultImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate  namedParameterJdbcTemplate) {
+
+    public MyChivingRepositoryDefaultImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -55,7 +55,7 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
                     PreparedStatement ps = connection.prepareStatement(myChivingSql, Statement.RETURN_GENERATED_KEYS);
 
                     ps.setInt(1, dto.getIs_end());
-                    ps.setDouble(2, dto.getPrice()==0?41980000:dto.getPrice());
+                    ps.setDouble(2, dto.getPrice() == 0 ? 41980000 : dto.getPrice());
                     ps.setLong(3, userId);
                     setDefaultOrId(ps, dto.getEx_color_id(), 4);
                     setDefaultOrId(ps, dto.getIn_color_id(), 5);
@@ -85,7 +85,6 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
     }
 
 
-
     @Override
     public void removeMyChiving(final Long id) {
         String optionSql = "DELETE FROM mychiving_extra_option WHERE mychiving_id = ?;";
@@ -93,57 +92,6 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
         String myChivingSql = "DELETE FROM mychiving WHERE id = ?;";
         jdbcTemplate.update(myChivingSql, id);
-    }
-
-    @Override
-    public Long updateMyChiving(final MyChivingSaveDTO dto, final Long userId) {
-        long myChiving_id = dto.getMyChiving_id();
-
-        String myChivingSql = "UPDATE mychiving mc\n" +
-                "SET mc.is_end = ?,\n" +
-                "    mc.price = ?,\n" +
-                "    mc.ex_color_id = ?,\n" +
-                "    mc.in_color_id = ?,\n" +
-                "    mc.updated_at = ?\n" +
-                "WHERE mc.user_id = ? \n" +
-                "  AND mc.model_id IN (\n" +
-                "      SELECT m.id\n" +
-                "      FROM model m\n" +
-                "      WHERE m.trim_id = ?\n" +
-                "        AND m.engine_id = ?\n" +
-                "        AND m.body_id = ?\n" +
-                "        AND m.drive_id = ?\n" +
-                "  );\n";
-
-        jdbcTemplate.update(
-                connection -> {
-                    PreparedStatement ps = connection.prepareStatement(myChivingSql, Statement.RETURN_GENERATED_KEYS);
-
-                    ps.setInt(1, dto.getIs_end());
-                    ps.setDouble(2, dto.getPrice()==0?41980000:dto.getPrice());
-                    setDefaultOrId(ps, dto.getEx_color_id(), 3);
-                    setDefaultOrId(ps, dto.getIn_color_id(), 4);
-                    ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
-                    ps.setLong(6, dto.getMyChiving_id());
-                    setDefaultOrId(ps, dto.getTrim_id(), 7);
-                    setDefaultOrId(ps, dto.getEngine_id(), 8);
-                    setDefaultOrId(ps, dto.getBody_id(), 9);
-                    setDefaultOrId(ps, dto.getDrive_id(), 10);
-
-                    return ps;
-                }
-        );
-
-        String optionSql = "INSERT INTO mychiving_extra_option (mychiving_id, extra_option_id) VALUES (?, ?)";
-        List<Object[]> batchArgs = new ArrayList<>();
-
-        for (Long optionId : dto.getOptionIds()) {
-                Object[] values = new Object[]{myChiving_id, optionId};
-            batchArgs.add(values);
-        }
-            jdbcTemplate.batchUpdate(optionSql, batchArgs);
-
-        return myChiving_id;
     }
 
     @Override
@@ -188,19 +136,17 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
                 "LEFT JOIN sub_extra_option seo ON seo.extra_option_id = eo.id " +
                 "WHERE mc.id = :id;";
 
-
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
         return namedParameterJdbcTemplate.query(sql, params, myChivingDetailExtractor);
     }
 
-    private void setDefaultOrId(PreparedStatement ps, Long id, int index) throws SQLException{
-        ps.setLong(index, (id==0)? 1L : id);
+    private void setDefaultOrId(PreparedStatement ps, Long id, int index) throws SQLException {
+        ps.setLong(index, (id == 0) ? 1L : id);
     }
 
     private static class MyChivingDetailExtractor implements ResultSetExtractor<MyChivingDetailDTO> {
-
 
         @Override
         public MyChivingDetailDTO extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -256,7 +202,6 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
                             .build();
 
                 }
-
 
                 Long extraOptionId = rs.getLong("extra_option_id");
                 ExtraOptionDetailDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
