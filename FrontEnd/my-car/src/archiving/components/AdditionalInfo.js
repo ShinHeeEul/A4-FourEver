@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import {
   Body1Medium,
@@ -9,9 +9,9 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import { ReactComponent as SaveLogoSvg } from '../../assets/saveLogo.svg';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataLoaderContext } from '../router/ArchivingDetail';
-import { ARCHIVINGDETAIL } from '../../constant';
+import { ARCHIVINGDETAIL, BASIC_SERVER_URL } from '../../constant';
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -89,6 +89,7 @@ const SaveCarDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 const MakingMycarBtn = styled.div`
   width: 343px;
@@ -114,9 +115,44 @@ const SelectedOptTitle = styled.div`
   color: black;
 `;
 
+const SaveBtn = styled(SaveLogoSvg)`
+  ${({ $isSave }) =>
+    $isSave
+      ? css`
+          fill: ${palette.Black};
+          path {
+            stroke: transparent;
+          }
+        `
+      : css``}
+`;
+
 function AdditionalInfo() {
   const data = useContext(DataLoaderContext);
-  console.log(data);
+
+  const accessToken = localStorage.getItem('jwtToken');
+  const [saveState, setSaveState] = useState(data?.is_save || false);
+
+  function saveStateChangeFetch() {
+    fetch(
+      `${BASIC_SERVER_URL}/user/feed/${!saveState ? 'create' : 'delete'}/${
+        data.id
+      }?userId=1`,
+      {
+        method: !saveState ? 'POST' : 'DELETE',
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    )
+      .then(() => {
+        setSaveState((prev) => !prev);
+      })
+      .catch((e) => console.error(e));
+  }
+
+  const saveBtnClick = () => {
+    saveStateChangeFetch();
+  };
+
   return (
     <AllDiv>
       <PriceDiv>
@@ -140,8 +176,8 @@ function AdditionalInfo() {
           </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
-          <SaveCarDiv>
-            <SaveLogoSvg style={{ cursor: 'pointer' }} />
+          <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
+            <SaveBtn $isSave={saveState} />
           </SaveCarDiv>
           <MakingMycarBtn>이 차량으로 내 차 만들기 시작</MakingMycarBtn>
         </WithThisCarDiv>
