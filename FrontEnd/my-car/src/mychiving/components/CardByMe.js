@@ -11,7 +11,6 @@ const Container = styled.div`
   height: 254px;
   margin: 30px 0;
   display: flex;
-  /* overflow: auto; */
 `;
 
 const CardDiv = styled.div`

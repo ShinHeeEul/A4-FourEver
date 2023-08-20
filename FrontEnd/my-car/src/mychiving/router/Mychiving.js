@@ -5,13 +5,17 @@ import CardByMe from '../components/CardByMe';
 import { createContext, useEffect, useState } from 'react';
 import DeleteAlert from '../components/DeleteAlert';
 import OptDetailModal from '../components/OptDetailModal';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { BASIC_SERVER_URL } from '../../constant';
 import OptReviewCard from '../../archiving/components/OptReviewCard';
 import CardByArchiving from '../components/CardByArchiving';
 export const MychivingContext = createContext();
 const Container = styled.div`
-
   width: 960px;
   padding-top: 150px;
 
@@ -26,6 +30,7 @@ const TitleHeader = styled.div`
 `;
 
 function Mychiving() {
+  const navigate = useNavigate();
   async function fetchData() {
     const accessToken = localStorage.getItem('jwtToken');
     return fetch(`${BASIC_SERVER_URL}/user/feeds`, {
@@ -96,7 +101,15 @@ function Mychiving() {
       >
         {state &&
           [...state?.carReviewList].map((elem) => {
-            return <CardByArchiving savedCar={elem}></CardByArchiving>;
+            return (
+              <CardByArchiving
+                onClick={() => {
+                  console.log(elem.id);
+                  navigate(`/archiving/${elem.id}`);
+                }}
+                savedCar={elem}
+              ></CardByArchiving>
+            );
           })}
       </div>
     </Container>
