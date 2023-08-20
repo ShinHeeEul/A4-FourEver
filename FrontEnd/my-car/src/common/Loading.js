@@ -91,7 +91,7 @@ const Circle = styled.div`
 
 function Loading({ text }) {
   return (
-    <Container>
+    <Container style={{ paddingTop: '180px' }}>
       <LoadingWrap>
         <Circle />
         <CarIMG />

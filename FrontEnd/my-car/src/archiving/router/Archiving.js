@@ -11,10 +11,18 @@ import Loading from '../../common/Loading';
 const Container = styled.div`
   width: 100%;
   min-width: 1280px;
+
+  position: relative;
+  padding-top: 370px;
+`;
+
+const FixedContainer = styled.div`
+  position: fixed;
+  top: 150px;
+  width: 100%;
 `;
 
 function Archiving() {
-  // const [loading, setLoading] = useState(true);
   const { loading } = useOutletContext();
 
   return (
@@ -23,8 +31,10 @@ function Archiving() {
         <Loading text={'후기를 불러오는 중입니다'} />
       ) : (
         <Container>
-          <OptSelectionBar />
-          <OptReviewHeader />
+          <FixedContainer>
+            <OptSelectionBar />
+            <OptReviewHeader />
+          </FixedContainer>
           <OptReviewCard />
         </Container>
       )}

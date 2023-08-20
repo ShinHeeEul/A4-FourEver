@@ -17,7 +17,7 @@ const ChivingHeaderDiv = styled.div`
 
   justify-content: space-between;
   padding: 0 90px;
-  /* position: absolute; */
+  position: fixed;
   z-index: 2;
 `;
 
