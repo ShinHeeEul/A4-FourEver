@@ -9,6 +9,7 @@ import { useLoaderData, useLocation } from 'react-router-dom';
 import { BASIC_SERVER_URL } from '../../constant';
 export const MychivingContext = createContext();
 const Container = styled.div`
+  padding-top: 150px;
   width: 1040px;
   margin: 0 auto;
 `;

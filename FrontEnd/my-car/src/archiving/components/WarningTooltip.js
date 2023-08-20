@@ -4,17 +4,18 @@ import { Body4Medium } from '../../style/typo';
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    top: 7%;
+    top: 2%;
   }
   to {
     opacity: 1;
-    top: 9%;
+    top: 4.5%;
   }
 `;
 
 const Container = styled.div`
   position: absolute;
   /* top: 10%; */
+  z-index: 10;
 
   left: 50%;
   transform: translateX(-50%);
@@ -31,7 +32,7 @@ const Container = styled.div`
   ${Body4Medium};
   visibility: ${({ $showTooltip }) => ($showTooltip ? 'visible' : 'hidden')};
   animation: ${({ $showTooltip }) => ($showTooltip ? fadeIn : 'none')} 0.8s;
-  top: 9%;
+  top: 4.5%;
 `;
 
 function WarningTooltip({ showTooltip }) {

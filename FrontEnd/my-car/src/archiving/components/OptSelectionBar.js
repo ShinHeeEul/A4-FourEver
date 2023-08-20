@@ -78,7 +78,7 @@ function OptSelectionBar() {
     ).length;
     if (activeLength === 4 && !activeStates[id]) {
       setShowTooltip(true);
-      await delay(3000);
+      await delay(2000);
       setShowTooltip(false);
     } else {
       action.select({ id });
