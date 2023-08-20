@@ -71,6 +71,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         String sql = "SELECT " +
                 "mc.id, " +
                 "mc.is_end, " +
+                "t.image AS image, " +
                 "mc.updated_at, " +
                 "c.name AS car_name, " +
                 "t.name AS trim_name, " +
@@ -174,6 +175,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                     overviewDTO = MyChivingOverviewDTO.builder()
                             .id(id)
                             .is_end(rs.getInt("is_end"))
+                            .image(rs.getString("image"))
                             .updated_at(rs.getTimestamp("updated_at"))
                             .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))

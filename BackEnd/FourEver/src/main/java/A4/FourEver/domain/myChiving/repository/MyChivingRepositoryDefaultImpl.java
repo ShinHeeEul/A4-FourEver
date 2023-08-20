@@ -37,7 +37,7 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
     }
 
     @Override
-    public void saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
+    public Long saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         String myChivingSql = "INSERT INTO mychiving " +
@@ -80,6 +80,8 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
             batchArgs.add(values);
         }
         jdbcTemplate.batchUpdate(optionSql, batchArgs);
+
+        return newId;
     }
 
 
@@ -94,8 +96,8 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
     }
 
     @Override
-    public void updateMyChiving(final MyChivingSaveDTO dto, final Long userId) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    public Long updateMyChiving(final MyChivingSaveDTO dto, final Long userId) {
+        long myChiving_id = dto.getMyChiving_id();
 
         String myChivingSql = "UPDATE mychiving mc\n" +
                 "SET mc.is_end = ?,\n" +
@@ -119,30 +121,29 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
                     ps.setInt(1, dto.getIs_end());
                     ps.setDouble(2, dto.getPrice()==0?41980000:dto.getPrice());
-                    ps.setLong(3, userId);
-                    setDefaultOrId(ps, dto.getEx_color_id(), 4);
-                    setDefaultOrId(ps, dto.getIn_color_id(), 5);
-                    ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+                    setDefaultOrId(ps, dto.getEx_color_id(), 3);
+                    setDefaultOrId(ps, dto.getIn_color_id(), 4);
+                    ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setLong(6, dto.getMyChiving_id());
                     setDefaultOrId(ps, dto.getTrim_id(), 7);
                     setDefaultOrId(ps, dto.getEngine_id(), 8);
                     setDefaultOrId(ps, dto.getBody_id(), 9);
-                    setDefaultOrId(ps, dto.getEngine_id(), 10);
+                    setDefaultOrId(ps, dto.getDrive_id(), 10);
 
                     return ps;
-                },
-                keyHolder
+                }
         );
-
-        long newId = keyHolder.getKey().longValue();
 
         String optionSql = "INSERT INTO mychiving_extra_option (mychiving_id, extra_option_id) VALUES (?, ?)";
         List<Object[]> batchArgs = new ArrayList<>();
 
         for (Long optionId : dto.getOptionIds()) {
-                Object[] values = new Object[]{newId, optionId};
+                Object[] values = new Object[]{myChiving_id, optionId};
             batchArgs.add(values);
         }
             jdbcTemplate.batchUpdate(optionSql, batchArgs);
+
+        return myChiving_id;
     }
 
     @Override
@@ -194,8 +195,8 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
         return namedParameterJdbcTemplate.query(sql, params, myChivingDetailExtractor);
     }
 
-    private void setDefaultOrId(PreparedStatement ps, Long trimId, int index) throws SQLException{
-        ps.setLong(index, trimId==0? 1L :trimId);
+    private void setDefaultOrId(PreparedStatement ps, Long id, int index) throws SQLException{
+        ps.setLong(index, (id==0)? 1L : id);
     }
 
     private static class MyChivingDetailExtractor implements ResultSetExtractor<MyChivingDetailDTO> {

@@ -1,6 +1,7 @@
 package A4.FourEver.domain.myChiving.application;
 
 import A4.FourEver.domain.myChiving.dto.MyChivingDetailSortedDTO;
+import A4.FourEver.domain.myChiving.dto.MyChivingIdDTO;
 import A4.FourEver.domain.myChiving.dto.MyChivingMapper;
 import A4.FourEver.domain.myChiving.dto.MyChivingSaveDTO;
 import A4.FourEver.domain.myChiving.repository.MyChivingRepository;
@@ -22,13 +23,15 @@ public class MyChivingServiceDefaultImpl implements MyChivingService {
 
     @Override
     @Transactional
-    public void saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
+    public MyChivingIdDTO saveMyChiving(final MyChivingSaveDTO dto, final Long userId) {
         if (dto.getMyChiving_id() == 0) {
-            myChivingRepository.saveMyChiving(dto, userId);
-            return;
+            return MyChivingIdDTO.builder()
+                    .id(myChivingRepository.saveMyChiving(dto, userId))
+                    .build();
         }
-        myChivingRepository.updateMyChiving(dto, userId);
-
+        return MyChivingIdDTO.builder()
+                .id(myChivingRepository.updateMyChiving(dto, userId))
+                .build();
 
     }
 
