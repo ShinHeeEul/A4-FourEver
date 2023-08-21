@@ -1,17 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, Body4Medium, Heading4Bold } from '../../style/typo';
 import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { MychivingContext } from '../router/Mychiving';
 import { formatDate } from '../../util/DateFomat';
 import OptDetailModal from './OptDetailModal';
 import DeleteAlert from './DeleteAlert';
+import { useNavigate, useParams } from 'react-router-dom';
 const Container = styled.div`
   height: 254px;
   margin: 30px 0;
   display: flex;
-  /* overflow: auto; */
 `;
 
 const CardDiv = styled.div`
@@ -24,6 +25,12 @@ const CardDiv = styled.div`
   margin-right: 30px;
   flex-shrink: 0;
   position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: aliceblue;
+    filter: brightness(0.95);
+  }
 `;
 
 const CardTopDiv = styled.img`
@@ -89,15 +96,11 @@ const EscSvg = styled(RemoveSvg)`
   }
 `;
 
-function CardByMe({
-  myList,
-  extraOptions,
-  isJustDeleted,
-  setIsJustDeleted,
-  setUpdate,
-}) {
+function CardByMe({ myList, extraOptions, setUpdate }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [showMoveAlert, setShowMoveAlert] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -106,34 +109,51 @@ function CardByMe({
           setShowDetailModal={setShowDetailModal}
           showDetailModal={showDetailModal}
           extraOptions={extraOptions}
+          date={formatDate(myList.updated_at)}
         />
       )}
       {showDeleteAlert && (
         <DeleteAlert
+          msg={`${myList.car_name} ${myList.trimNameDTO.name}을/삭제하시겠습니까?`}
           setShowDeleteAlert={setShowDeleteAlert}
           showDeleteAlert={showDeleteAlert}
           deleteId={myList.id}
-          setIsJustDeleted={setIsJustDeleted}
-          isJustDeleted={isJustDeleted}
           setUpdate={setUpdate}
         />
       )}
-
-      <CardDiv>
+      <CardDiv
+        onClick={(e) => {
+          e.stopPropagation();
+          myList.is_end && navigate(`/mychiving/${myList.id}`);
+          !myList.is_end && setShowDetailModal(true);
+        }}
+      >
         <CardButtonDiv>
-          {myList.is_end === 0 && (
-            <PlusSvg onClick={() => setShowDetailModal(true)} />
-          )}
-          <EscSvg onClick={() => setShowDeleteAlert(true)} />
+          {/* {myList.is_end === 0 && (
+            <PlusSvg
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDetailModal(true);
+              }}
+            />
+          )} */}
+
+          <EscSvg
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowDeleteAlert(true);
+            }}
+          />
         </CardButtonDiv>
         <CardTopDiv src={myList.image}></CardTopDiv>
         <CardBottomDiv>
           <BottomContentDiv>
             <BottomTitle>
-              {myList.car_name} {myList.trim_name}
+              {myList.car_name} {myList.trimNameDTO.name}
             </BottomTitle>
             <BottomOption>
-              {myList.engine_name} / {myList.drive_name} / {myList.body_name}
+              {myList.engineNameDTO.name} / {myList.driveNameDTO.name} /{' '}
+              {myList.bodyNameDTO.name}
             </BottomOption>
             <BottomDate $is_end={myList.is_end}>
               {formatDate(myList.updated_at)}
