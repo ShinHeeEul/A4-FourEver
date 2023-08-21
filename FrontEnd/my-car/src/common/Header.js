@@ -101,6 +101,8 @@ function Header({
   }
 
   function showAlert(flag, index) {
+    setIsMainBtn(flag);
+
     if (
       currentPath === 'mycar' &&
       currentSubPath === myCarPagePath[myCarPagePath.length - 1]
@@ -110,7 +112,6 @@ function Header({
     }
     setClickLinkBtn(index);
     setShowCommonAlert(true);
-    setIsMainBtn(flag);
   }
 
   if (useLocation().pathname !== '/main') {

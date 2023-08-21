@@ -113,49 +113,6 @@ function Alert({
     link: '',
   });
 
-  // let title;
-  // let content;
-  // let link;
-
-  // switch (currentPath) {
-  //   case 'mycar':
-  //     title = '마이카이빙에 저장되었습니다.';
-  //     content = isMainBtn
-  //       ? '메인으로 이동하시겠습니까?'
-  //       : clickLinkBtn
-  //       ? '마아카이빙으로 이동하시겠습니까?'
-  //       : '아카이빙으로 이동하시겠습니까?';
-  //     link = isMainBtn ? '/main' : clickLinkBtn ? mychivingPath : archivingPath;
-  //     break;
-  //   case 'archiving':
-  //     title = isMainBtn
-  //       ? '메인으로 이동하시겠습니까?'
-  //       : clickLinkBtn
-  //       ? '마아카이빙으로 이동하시겠습니까?'
-  //       : '내차만들기로 이동하시겠습니까?';
-  //     content = '';
-  //     link = isMainBtn
-  //       ? '/main'
-  //       : clickLinkBtn
-  //       ? mychivingPath
-  //       : myCarPagePath[0];
-  //     break;
-  //   case 'mychiving':
-  //     title = isMainBtn
-  //       ? '메인으로 이동하시겠습니까?'
-  //       : clickLinkBtn
-  //       ? '아카이빙으로 이동하시겠습니까?'
-  //       : '내차만들기로 이동하시겠습니까?';
-  //     content = '';
-  //     link = isMainBtn
-  //       ? '/main'
-  //       : clickLinkBtn
-  //       ? archivingPath
-  //       : myCarPagePath[0];
-  //     break;
-  //   default:
-  // }
-
   useEffect(() => {
     if (currentPath === 'mycar') {
       setState({
@@ -203,7 +160,7 @@ function Alert({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickLinkBtn, currentPath]);
+  }, [isMainBtn, clickLinkBtn]);
 
   const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
