@@ -14,10 +14,14 @@ import { DataLoaderContext } from '../router/ArchivingDetail';
 import {
   ARCHIVINGDETAIL,
   BASIC_SERVER_URL,
+  MYCHIVINGDETAIL,
   myCarPagePath,
   mychivingPath,
 } from '../../constant';
+import { MychivingDataLoaderContext } from '../../mychiving/router/MychivingDetail';
+
 import { useNavigate } from 'react-router-dom';
+
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -26,16 +30,16 @@ const AllDiv = styled.div`
   flex-direction: column;
 `;
 
-const PriceDiv = styled.div`
+export const PriceDiv = styled.div`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   width: 1040px;
 `;
-const PriceText = styled.span`
+export const PriceText = styled.span`
   ${Body1Regular}
 `;
-const PriceBold = styled.span`
+export const PriceBold = styled.span`
   ${Heading1Bold}
 `;
 const AdditionalInfoDiv = styled.div`
@@ -97,7 +101,7 @@ const SaveCarDiv = styled.div`
   align-items: center;
   z-index: 1;
 `;
-const MakingMycarBtn = styled.div`
+export const MakingMycarBtn = styled.div`
   width: 343px;
   height: 56px;
   flex-shrink: 0;
@@ -114,7 +118,7 @@ const MakingMycarBtn = styled.div`
   z-index: 1;
 `;
 
-const SelectedOptTitle = styled.div`
+export const SelectedOptTitle = styled.div`
   ${Body1Medium}
   padding-top: 100px;
   font-size: 24px;
@@ -136,7 +140,8 @@ const SaveBtn = styled(SaveLogoSvg)`
 
 function AdditionalInfo() {
   const data = useContext(DataLoaderContext);
-
+  const detailStatus = ARCHIVINGDETAIL;
+  console.log(data);
   const accessToken = localStorage.getItem('jwtToken');
   const [saveState, setSaveState] = useState(data?.is_save || false);
 
@@ -204,30 +209,36 @@ function AdditionalInfo() {
       <PriceDiv>
         <PriceText>총 가격</PriceText>
         <PriceBold>
-          {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
+          {data[detailStatus.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
         </PriceBold>
       </PriceDiv>
       <AdditionalInfoDiv>
         <TagReviewDiv>
-          <TagReviewTitle>차량 사용 후기</TagReviewTitle>
-          <TagReviewsDiv>
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS] &&
-              data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
-                return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
-              })}
-          </TagReviewsDiv>
+          {
+            <>
+              <TagReviewTitle>차량 사용 후기</TagReviewTitle>
+              <TagReviewsDiv>
+                {data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS] &&
+                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
+                    return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
+                  })}
+              </TagReviewsDiv>
+            </>
+          }
+
           <SelectedOptTitle>
-            선택 옵션{' '}
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+            선택 옵션 {data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
           </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
+
           <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
             <SaveBtn $isSave={saveState} />
           </SaveCarDiv>
           <MakingMycarBtn onClick={myCarStart}>
             이 차량으로 내 차 만들기 시작
           </MakingMycarBtn>
+
         </WithThisCarDiv>
       </AdditionalInfoDiv>
     </AllDiv>

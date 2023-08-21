@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import palette from '../../style/styleVariable';
-import { Body3Medium, Heading4Medium } from '../../style/typo';
+import {
+  Body2Regular,
+  Body3Medium,
+  Body3Regular,
+  Heading4Medium,
+} from '../../style/typo';
 import { useContext, useEffect } from 'react';
 import { MychivingContext } from '../router/Mychiving';
+import { AlertBtnDiv, BtnCancel } from './DeleteAlert';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -21,8 +27,8 @@ const ModalDiv = styled.div`
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   padding: 30px;
-  width: 330px;
-  height: 330px;
+  width: 430px;
+  height: 430px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #fff;
@@ -33,8 +39,8 @@ const ModalDiv = styled.div`
   filter: drop-shadow(0 0 0.3rem #a3a3a3);
 `;
 const BtnConfirm = styled.button`
-  width: 105px;
-  height: 40px;
+  width: 126px;
+  height: 50px;
   flex-shrink: 0;
   border: 0;
   border-radius: 8px;
@@ -60,12 +66,12 @@ const TitleDiv = styled.div`
   align-items: center;
 `;
 const ContentDiv = styled.div`
-  height: calc(100% - 80px);
+  height: calc(100% - 180px);
   width: 100%;
 `;
 
 const ContentTitle = styled.div`
-  ${Body3Medium}
+  ${Body2Regular}
   margin: 10px 0;
   width: 100%;
   height: 40px;
@@ -96,24 +102,45 @@ const ImgDiv = styled.div`
   border-radius: 8px;
   border: 1px solid black;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
     width: 140px;
     height: 140px;
     object-fit: cover;
     border-radius: 5px;
+    filter: brightness(0.6);
   }
 `;
 const OptName = styled.div`
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  width: 140px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 4px;
-  background-color: ${palette.DarkGray};
+  text-align: center;
   color: white;
   border-radius: 4px;
+  ${Body3Regular}
+  font-size: 12px;
+`;
+const AlertText = styled.div`
+  ${Body2Regular}
 `;
 
-function OptDetailModal({ setShowDetailModal, showDetailModal, extraOptions }) {
+function OptDetailModal({
+  setShowDetailModal,
+  showDetailModal,
+  extraOptions,
+  date,
+}) {
   const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
@@ -130,7 +157,7 @@ function OptDetailModal({ setShowDetailModal, showDetailModal, extraOptions }) {
         <TitleDiv>상세 보기</TitleDiv>
         <ContentDiv>
           {extraOptions[0].name === null ? (
-            <ContentTitle style={{ justifyContent: 'center' }}>
+            <ContentTitle style={{ justifyContent: 'center', height: '200px' }}>
               선택된 옵션이 없습니다.
             </ContentTitle>
           ) : (
@@ -151,9 +178,17 @@ function OptDetailModal({ setShowDetailModal, showDetailModal, extraOptions }) {
             })}
           </OptDiv>
         </ContentDiv>
-        <BtnConfirm onClick={() => setShowDetailModal(false)}>
-          <ModalMsgBold>확인</ModalMsgBold>
-        </BtnConfirm>
+        <AlertText>{date}에 임시저장된 파일입니다.</AlertText>
+        <AlertText>이 차량으로 계속해서 내 차 만들기를 하시겠어요?</AlertText>
+        <AlertBtnDiv>
+          <BtnCancel onClick={() => setShowDetailModal(false)}>
+            <ModalMsgBold>취소</ModalMsgBold>
+          </BtnCancel>
+          <BtnConfirm onClick={() => setShowDetailModal(false)}>
+            {/* 내차만들기로 이동 API연결 */}
+            <ModalMsgBold>확인</ModalMsgBold>
+          </BtnConfirm>{' '}
+        </AlertBtnDiv>
       </ModalDiv>
     </ModalBgDiv>
   );

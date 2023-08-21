@@ -3,6 +3,7 @@ import palette from '../../style/styleVariable';
 import { useContext, useEffect } from 'react';
 import { useDeleteRequest } from '../hook/useDelete';
 import { MychivingContext } from '../router/Mychiving';
+import { Body3Regular } from '../../style/typo';
 const AlertBgDiv = styled.div`
   position: absolute;
   top: 0;
@@ -35,7 +36,7 @@ const AlertDiv = styled.div`
 const AlertMsgDiv = styled.div`
   width: 234px;
   color: ${palette.Black};
-  ${palette.Body3Regular}
+  ${Body3Regular}
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -49,13 +50,13 @@ const AlertMsgBold = styled.span`
   font-weight: 600;
 `;
 
-const AlertBtnDiv = styled.div`
+export const AlertBtnDiv = styled.div`
   display: flex;
   gap: 6px;
   padding-top: 20px;
 `;
 
-const BtnCancel = styled.button`
+export const BtnCancel = styled.button`
   width: 126px;
   height: 50px;
   flex-shrink: 0;
@@ -83,6 +84,7 @@ const BtnConfirm = styled.button`
 `;
 
 function DeleteAlert({
+  msg,
   setShowDeleteAlert,
   showDeleteAlert,
   deleteId,
@@ -109,8 +111,9 @@ function DeleteAlert({
     <AlertBgDiv>
       <AlertDiv>
         <AlertMsgDiv>
-          <AlertMsg>팰리세이드 Le Blanc을</AlertMsg>
-          <AlertMsg>내가 만든 차량 목록에서 삭제하시겠습니까?</AlertMsg>
+          {msg.split('/').map((elem) => {
+            return <AlertMsg>{elem}</AlertMsg>;
+          })}
         </AlertMsgDiv>
         <AlertBtnDiv>
           <BtnCancel onClick={() => setShowDeleteAlert(false)}>
