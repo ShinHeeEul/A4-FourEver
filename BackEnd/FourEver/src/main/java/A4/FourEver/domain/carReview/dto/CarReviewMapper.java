@@ -1,9 +1,5 @@
 package A4.FourEver.domain.carReview.dto;
 
-import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
-import A4.FourEver.domain.color.exColor.dto.ExColorInfoSortedDTO;
-import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
-import A4.FourEver.domain.color.inColor.dto.InColorInfoSortedDTO;
 import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailSortedDTO;
@@ -11,9 +7,7 @@ import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoSortedDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
-import A4.FourEver.domain.tag.exColorTag.dto.ExColorTagInfoDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
-import A4.FourEver.domain.tag.inColorTag.dto.InColorTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import org.springframework.stereotype.Component;
 
@@ -62,43 +56,14 @@ public class CarReviewMapper {
                 .sorted(Comparator.comparingLong(DefaultOptionInfoDTO::getId))
                 .collect(Collectors.toList());
 
-        InColorInfoDTO inColorInfoDTO = dto.getInColorDTO();
-
-        List<InColorTagInfoDTO> inColorTagList = inColorInfoDTO.getInColorTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(InColorTagInfoDTO::getId))
-                .collect(Collectors.toList());
-
-        InColorInfoSortedDTO inColorInfoSortedDTO = InColorInfoSortedDTO.builder()
-                .id(inColorInfoDTO.getId())
-                .name(inColorInfoDTO.getName())
-                .color_image(inColorInfoDTO.getColor_image())
-                .in_image(inColorInfoDTO.getIn_image())
-                .inColorTagInfoDTOS(inColorTagList)
-                .build();
-
-        ExColorInfoDTO exColorInfoDTO = dto.getExColorDTO();
-
-        List<ExColorTagInfoDTO> exColorTagList = exColorInfoDTO.getExColorTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExColorTagInfoDTO::getId))
-                .collect(Collectors.toList());
-
-        ExColorInfoSortedDTO exColorInfoSortedDTO = ExColorInfoSortedDTO.builder()
-                .id(exColorInfoDTO.getId())
-                .name(exColorInfoDTO.getName())
-                .color_image(exColorInfoDTO.getColor_image())
-                .rotation_image(exColorInfoDTO.getRotation_image())
-                .price(exColorInfoDTO.getPrice())
-                .exColorTagInfoDTOS(exColorTagList)
-                .build();
-
         return CarReviewResultSortedDTO.builder()
                 .car_name(car_name)
                 .trimInfoDTO(dto.getTrimInfoDTO())
                 .engineInfoDTO(dto.getEngineInfoDTO())
                 .bodyInfoDTO(dto.getBodyInfoDTO())
                 .driveInfoDTO(dto.getDriveInfoDTO())
-                .inColorDTO(inColorInfoSortedDTO)
-                .exColorDTO(exColorInfoSortedDTO)
+                .inColorDTO(dto.getInColorDTO())
+                .exColorDTO(dto.getExColorDTO())
                 .defaultOptionDTOs(defaultOptionList)
                 .extraOptionDTOs(extraOptionList)
                 .build();

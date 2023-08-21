@@ -1,7 +1,7 @@
 package A4.FourEver.domain.carReview.dto;
 
-import A4.FourEver.domain.color.exColor.dto.ExColorInfoSortedDTO;
-import A4.FourEver.domain.color.inColor.dto.InColorInfoSortedDTO;
+import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoSortedDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
@@ -21,8 +21,8 @@ public class CarReviewResultSortedDTO {
     private BodyInfoDTO bodyInfoDTO;
     private DriveInfoDTO driveInfoDTO;
     private EngineInfoDTO engineInfoDTO;
-    private InColorInfoSortedDTO inColorDTO;
-    private ExColorInfoSortedDTO exColorDTO;
+    private InColorInfoDTO inColorDTO;
+    private ExColorInfoDTO exColorDTO;
     private List<DefaultOptionInfoDTO> defaultOptionDTOs;
     private List<ExtraOptionInfoSortedDTO> extraOptionDTOs;
 }
