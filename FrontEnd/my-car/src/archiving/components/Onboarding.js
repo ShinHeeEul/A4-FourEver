@@ -176,14 +176,15 @@ const TagWrap = styled.div`
     width: 10%; /* 컨테이너의 반쪽 크기만큼 설정 */
     height: 100%;
     top: 0;
+    z-index: 1;
   }
 
   &::before {
     left: 0;
     background: linear-gradient(
-      to right,
-      rgb(255 255 255),
-      rgba(255, 255, 255, 0)
+      to left,
+      rgba(255, 255, 255, 0),
+      rgb(255 255 255)
     );
   }
 
