@@ -11,30 +11,31 @@ function UserCarProvider({ children, fromChivingState }) {
   let initialUserCar = {};
 
   if (fromChivingState) {
-    //아카이빙에서 넘어온 경우
-
-    localStorage.setItem('myChiving_id', 0);
-
     //마이카이빙 임시저장에서 넘어온 경우
-    // localStorage.getItem('myChiving_id', fromChivingState.id);
+    if (fromChivingState?.id) {
+      localStorage.getItem('myChiving_id', fromChivingState.id);
+    } else {
+      //아카이빙에서 넘어온 경우
+      localStorage.setItem('myChiving_id', 0);
+    }
 
-    const optionPrices = fromChivingState.extraOptionDTOs.map(
+    const optionPrices = fromChivingState.data.extraOptionDTOs.map(
       (option) => option.price,
     );
     initialUserCar = {
-      trim: fromChivingState.trimInfoDTO,
-      engine: fromChivingState.engineInfoDTO,
-      bodyType: fromChivingState.bodyInfoDTO,
-      wheelDrive: fromChivingState.driveInfoDTO,
-      outerColor: fromChivingState.exColorDTO,
-      innerColor: fromChivingState.inColorDTO,
-      selectedOptions: fromChivingState.extraOptionDTOs,
+      trim: fromChivingState.data.trimInfoDTO,
+      engine: fromChivingState.data.engineInfoDTO,
+      bodyType: fromChivingState.data.bodyInfoDTO,
+      wheelDrive: fromChivingState.data.driveInfoDTO,
+      outerColor: fromChivingState.data.exColorDTO,
+      innerColor: fromChivingState.data.inColorDTO,
+      selectedOptions: fromChivingState.data.extraOptionDTOs,
       price: [
-        fromChivingState.trimInfoDTO.price,
-        fromChivingState.engineInfoDTO.price,
-        fromChivingState.bodyInfoDTO.price,
-        fromChivingState.driveInfoDTO.price,
-        fromChivingState.exColorDTO.price,
+        fromChivingState.data.trimInfoDTO.price,
+        fromChivingState.data.engineInfoDTO.price,
+        fromChivingState.data.bodyInfoDTO.price,
+        fromChivingState.data.driveInfoDTO.price,
+        fromChivingState.data.exColorDTO.price,
       ],
       optionPrice: optionPrices,
     };

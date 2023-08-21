@@ -110,6 +110,7 @@ function CardByMe({ myList, extraOptions, setUpdate }) {
           showDetailModal={showDetailModal}
           extraOptions={extraOptions}
           date={formatDate(myList.updated_at)}
+          myList={myList}
         />
       )}
       {showDeleteAlert && (

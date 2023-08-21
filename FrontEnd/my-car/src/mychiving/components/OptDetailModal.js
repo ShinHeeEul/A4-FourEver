@@ -9,6 +9,8 @@ import {
 import { useContext, useEffect } from 'react';
 import { MychivingContext } from '../router/Mychiving';
 import { AlertBtnDiv, BtnCancel } from './DeleteAlert';
+import { BASIC_SERVER_URL, myCarPagePath } from '../../constant';
+import { useNavigate } from 'react-router-dom';
 
 const ModalBgDiv = styled.div`
   position: absolute;
@@ -140,8 +142,8 @@ function OptDetailModal({
   showDetailModal,
   extraOptions,
   date,
+  myList,
 }) {
-  const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -151,6 +153,46 @@ function OptDetailModal({
       body.classList.remove('no-scroll');
     }
   }, [showDetailModal]);
+
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem('jwtToken');
+  const myCarStart = async () => {
+    const optionIds = myList.extraOptionDTOs.map((option) => option.id);
+    const ToMycarFetch = () => {
+      return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          car_name: myList.car_name,
+          trim_id: myList.trimNameDTO.id,
+          engine_id: myList.engineNameDTO.id,
+          body_id: myList.bodyNameDTO.id,
+          drive_id: myList.driveNameDTO.id,
+          in_color_id: myList.inColorIdDTO.id,
+          ex_color_id: myList.exColorIdDTO.id,
+          extra_option_ids: optionIds,
+        }),
+      }).then((res) => res.json());
+    };
+    try {
+      const res = await ToMycarFetch();
+      console.log(res);
+      navigate(`/mycar/${myCarPagePath[0]}`, {
+        state: { tempState: { data: res, id: myList.id } },
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const toMycar = () => {
+    myCarStart();
+    setShowDetailModal(false);
+  };
+  console.log(myList);
+
   return (
     <ModalBgDiv>
       <ModalDiv>
@@ -184,7 +226,7 @@ function OptDetailModal({
           <BtnCancel onClick={() => setShowDetailModal(false)}>
             <ModalMsgBold>취소</ModalMsgBold>
           </BtnCancel>
-          <BtnConfirm onClick={() => setShowDetailModal(false)}>
+          <BtnConfirm onClick={toMycar}>
             {/* 내차만들기로 이동 API연결 */}
             <ModalMsgBold>확인</ModalMsgBold>
           </BtnConfirm>{' '}
