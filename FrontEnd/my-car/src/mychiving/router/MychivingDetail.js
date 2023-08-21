@@ -7,6 +7,8 @@ import AdditionalInfo, {
 } from '../../archiving/components/AdditionalInfo';
 import { MYCHIVINGDETAIL } from '../../constant';
 import EachOptCard from '../../archiving/components/EachOptCard';
+import { Heading1Medium } from '../../style/typo';
+import palette from '../../style/styleVariable';
 export const MychivingDataLoaderContext = createContext();
 
 const Container = styled.div`
@@ -22,7 +24,14 @@ const AllDiv = styled.div`
   gap: 24px;
   flex-wrap: wrap;
   width: 1040px;
-  /* padding-top: 100px; */
+`;
+
+const NoOptionText = styled.div`
+  ${Heading1Medium}
+  color: ${palette.MediumGray};
+  width: 100%;
+  text-align: center;
+  padding-top: 200px;
 `;
 
 function MychivingDetail(isArchiving) {
@@ -49,13 +58,15 @@ function MychivingDetail(isArchiving) {
         />
 
         <AllDiv>
-          <SelectedOptTitle style={{ width: '100%' }}>
-            선택 옵션{' '}
-            {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0].name !==
-            null
-              ? data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length
-              : '0'}
-          </SelectedOptTitle>
+          {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0].name !==
+          null ? (
+            <SelectedOptTitle style={{ width: '100%' }}>
+              선택 옵션
+              {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+            </SelectedOptTitle>
+          ) : (
+            <NoOptionText>선택된 옵션이 없습니다</NoOptionText>
+          )}
           {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0].name !==
             null &&
             data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
