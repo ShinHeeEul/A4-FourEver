@@ -2,12 +2,11 @@ package A4.FourEver.domain.carReview.api;
 
 import A4.FourEver.domain.carReview.application.CarReviewService;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailSortedDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewIdDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewResultSortedDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "리뷰 정보")
 @RestController
@@ -23,7 +22,14 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
     @Override
     @Operation(summary = "특정 리뷰 정보 조회")
     @GetMapping("/{id}/car-review")
-    public CarReviewDetailSortedDTO getCarReviewDetail(@PathVariable Long id) {
+    public CarReviewDetailSortedDTO getCarReviewDetail(@PathVariable final Long id) {
         return carReviewService.getCarReviewDetail(id);
+    }
+
+    @Override
+    @Operation(summary = "특정 리뷰를 통한 내 차 만들기")
+    @PostMapping("/result")
+    public CarReviewResultSortedDTO getCarReviewResult(@RequestBody final CarReviewIdDTO carReviewIdDTO) {
+        return carReviewService.getCarReviewResult(carReviewIdDTO);
     }
 }
