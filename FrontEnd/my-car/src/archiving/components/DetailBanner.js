@@ -233,7 +233,6 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
     setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   }
   const extraOptData = data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS];
-  console.log(extraOptData);
   return (
     <AllDiv>
       <BannerDiv>
