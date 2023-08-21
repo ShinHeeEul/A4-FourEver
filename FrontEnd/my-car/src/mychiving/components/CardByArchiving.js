@@ -119,14 +119,16 @@ function CardByArchiving({ savedCar, onClick }) {
       <CardWrap>
         <CardHeader>
           <TrimInfo>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <h1>
                 {savedCar.car_name} {savedCar.trim_name}
               </h1>
-              <span>
-                {savedCar.engine_name} / {savedCar.drive_name} /{' '}
-                {savedCar.body_name}
-              </span>
+              <div>
+                <span>
+                  {savedCar.engine_name} / {savedCar.drive_name} /{' '}
+                  {savedCar.body_name}
+                </span>
+              </div>
             </div>
           </TrimInfo>
           <div>

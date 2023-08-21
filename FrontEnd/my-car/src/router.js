@@ -13,7 +13,7 @@ import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
 import { MyCarOptionAPI } from './api';
-import { MYCAR, ARCHIVINGDETAIL, MYCHIVING } from './constant';
+import { MYCAR, ARCHIVINGDETAIL, MYCHIVING, MYCHIVINGDETAIL } from './constant';
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
@@ -129,14 +129,17 @@ const router = createBrowserRouter([
         element: <RootMychiving />,
         children: [
           {
+            path: ':id',
+            loader: (item) =>
+              MyCarOptionAPI(
+                `${MYCHIVINGDETAIL.SELECTEDCAR.URL}/${item.params.id}`,
+              ),
+            element: <MychivingDetail />,
+          },
+          {
             path: '',
             loader: () => MyCarOptionAPI(MYCHIVING.URL.FEEDS),
             element: <Mychiving />,
-          },
-          {
-            path: ':id',
-            loader: (item) => MyCarOptionAPI(`mychiving/get/${item.id}`),
-            element: <MychivingDetail />,
           },
         ],
       },

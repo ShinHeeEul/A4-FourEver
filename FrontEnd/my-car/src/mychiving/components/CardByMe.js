@@ -7,6 +7,7 @@ import { MychivingContext } from '../router/Mychiving';
 import { formatDate } from '../../util/DateFomat';
 import OptDetailModal from './OptDetailModal';
 import DeleteAlert from './DeleteAlert';
+import { useNavigate, useParams } from 'react-router-dom';
 const Container = styled.div`
   height: 254px;
   margin: 30px 0;
@@ -103,6 +104,11 @@ function CardByMe({
 }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const navigate = useNavigate();
+
+  function isMoveToDetail(flag) {
+    flag && navigate(`/mychiving/${myList.id}`);
+  }
 
   return (
     <Container>
@@ -124,7 +130,7 @@ function CardByMe({
         />
       )}
 
-      <CardDiv>
+      <CardDiv onClick={() => isMoveToDetail(myList.is_end)}>
         <CardButtonDiv>
           {myList.is_end === 0 && (
             <PlusSvg onClick={() => setShowDetailModal(true)} />

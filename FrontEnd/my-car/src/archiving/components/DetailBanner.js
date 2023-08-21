@@ -11,9 +11,17 @@ import {
   Heading3Medium,
 } from '../../style/typo';
 import { useContext } from 'react';
-import { ARCHIVINGDETAIL } from '../../constant';
+import { ARCHIVINGDETAIL, MYCHIVINGDETAIL } from '../../constant';
 import { DataLoaderContext } from '../router/ArchivingDetail';
 import { formatDate } from '../../util/DateFomat';
+import { MychivingDataLoaderContext } from '../../mychiving/router/MychivingDetail';
+import { useParams } from 'react-router-dom';
+import {
+  MakingMycarBtn,
+  PriceBold,
+  PriceDiv,
+  PriceText,
+} from './AdditionalInfo';
 
 const AllDiv = styled.div`
   display: flex;
@@ -93,7 +101,8 @@ const ColorContentText = styled.span`
 
 const ImgDiv = styled.div`
   display: flex;
-  transform: translate(4%, -65%);
+  transform: ${({ $isArchiving }) =>
+    $isArchiving ? 'translate(4%, -65%)' : 'translate(4%, -70%)'};
   z-index: 1;
   margin: 0 auto;
   width: 1350px;
@@ -226,14 +235,17 @@ const CardTagsDiv = styled.div`
   margin-top: 5px;
 `;
 
-function DetailBanner({ selectedIdx, setSelectedIdx }) {
-  const data = useContext(DataLoaderContext);
-
+function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
+  const archivingData = useContext(DataLoaderContext);
+  const mychivingData = useContext(MychivingDataLoaderContext);
+  const data = isArchiving ? archivingData : mychivingData;
+  console.log(data);
   function toggleSelect(idx) {
     setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   }
-  const extraOptData = data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS];
-  console.log(extraOptData);
+  const detailStatus = isArchiving ? ARCHIVINGDETAIL : MYCHIVINGDETAIL;
+  const extraOptData = data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS];
+  console.log(data);
   return (
     <AllDiv>
       <BannerDiv>
@@ -241,88 +253,111 @@ function DetailBanner({ selectedIdx, setSelectedIdx }) {
           <TrimDiv>
             <TrimTitleDiv>
               <TrimTitleText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.NAME]}{' '}
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TRIM].name}
+                {data[detailStatus.SELECTEDCAR.FILED.NAME]}{' '}
+                {data[detailStatus.SELECTEDCAR.FILED.TRIM].name}
               </TrimTitleText>
               <ReviewDate>
-                {formatDate(data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DATE])}
+                {formatDate(data[detailStatus.SELECTEDCAR.FILED.DATE])}
               </ReviewDate>
               <ReviewGroup>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.PURCHASE]
+                {data[detailStatus.SELECTEDCAR.FILED.PURCHASE]
                   ? '구매'
                   : '시승'}
               </ReviewGroup>
             </TrimTitleDiv>
             <TrimDetailText>
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.ENGINE].name} /{' '}
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.DRIVE].name} /{' '}
-              {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.BODY].name}
+              {data[detailStatus.SELECTEDCAR.FILED.ENGINE].name} /{' '}
+              {data[detailStatus.SELECTEDCAR.FILED.DRIVE].name} /{' '}
+              {data[detailStatus.SELECTEDCAR.FILED.BODY].name}
             </TrimDetailText>
           </TrimDiv>
           <ColorDiv>
             <ColorDetailDiv>
               <ColorTitleText>외장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR].name}
+                {data[detailStatus.SELECTEDCAR.FILED.EXCOLOR].name}
               </ColorContentText>
             </ColorDetailDiv>
             <ColorDivisionDiv />
             <ColorDetailDiv>
               <ColorTitleText>내장</ColorTitleText>
               <ColorContentText>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.INCOLOR].name}
+                {data[detailStatus.SELECTEDCAR.FILED.INCOLOR].name}
               </ColorContentText>
             </ColorDetailDiv>
           </ColorDiv>
           <DetailDivisionSvg />
 
-          {selectedIdx === null ? (
-            <DescriptiveReviewDiv>
-              <CardText $isDetailReview={true}>상세 후기</CardText>
-              <CardLineSvg $isDetailReview={true} />
-              <DescriptiveReviewSpan>
-                {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.COMMENT]}
-              </DescriptiveReviewSpan>
-            </DescriptiveReviewDiv>
+          {isArchiving ? (
+            selectedIdx === null ? (
+              <DescriptiveReviewDiv>
+                <CardText $isDetailReview={true}>상세 후기</CardText>
+                <CardLineSvg $isDetailReview={true} />
+                <DescriptiveReviewSpan>
+                  {data[detailStatus.SELECTEDCAR.FILED.COMMENT]}
+                </DescriptiveReviewSpan>
+              </DescriptiveReviewDiv>
+            ) : (
+              <OptReviewDiv>
+                <CardText>{extraOptData[selectedIdx].name}</CardText>
+                <CardLineSvg />
+                <CardTagsDiv>
+                  {extraOptData[selectedIdx].extraOptionTagInfoDTOS.map(
+                    (item) => {
+                      return (
+                        <EachTagDiv>
+                          <EachTagSpan key={item.id}>{item.name}</EachTagSpan>
+                        </EachTagDiv>
+                      );
+                    },
+                  )}
+                </CardTagsDiv>
+              </OptReviewDiv>
+            )
           ) : (
-            <OptReviewDiv>
-              <CardText>{extraOptData[selectedIdx].name}</CardText>
-              <CardLineSvg />
-              <CardTagsDiv>
-                {extraOptData[selectedIdx].extraOptionTagInfoDTOS.map(
-                  (item) => {
-                    return (
-                      <EachTagDiv>
-                        <EachTagSpan key={item.id}>{item.name}</EachTagSpan>
-                      </EachTagDiv>
-                    );
-                  },
-                )}
-              </CardTagsDiv>
-            </OptReviewDiv>
+            <PriceDiv>
+              <PriceText>총 가격</PriceText>
+              <PriceBold>
+                {data[detailStatus.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
+              </PriceBold>
+              <MakingMycarBtn
+                style={{
+                  width: '150px',
+                  height: '50px',
+                  marginTop: '15px',
+                  zIndex: '3',
+                  backgroundColor: '#232323',
+                }}
+              >
+                구매하기
+              </MakingMycarBtn>
+            </PriceDiv>
           )}
         </TextDiv>
-        <ImgDiv>
+        <ImgDiv $isArchiving={isArchiving}>
           <ImgOptWrap>
             <img
               alt="img"
-              src={data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXCOLOR].color_image}
+              src={data[detailStatus.SELECTEDCAR.FILED.EXCOLOR].color_image}
             />
-            {data.extraOptionForCarReviewDTOs.map((item, idx) => {
-              return item.x_position !== -1 ? (
-                <OptionPositionDiv
-                  onClick={() => toggleSelect(idx)}
-                  key={idx + 1}
-                  $left={item.x_position}
-                  $top={item.y_position}
-                  $selected={selectedIdx === idx}
-                >
-                  {String(idx + 1).padStart(2, '0')}
-                </OptionPositionDiv>
-              ) : (
-                <></>
-              );
-            })}
+            {data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
+              data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
+                (item, idx) => {
+                  return item.x_position !== -1 ? (
+                    <OptionPositionDiv
+                      onClick={() => toggleSelect(idx)}
+                      key={idx + 1}
+                      $left={item.x_position}
+                      $top={item.y_position}
+                      $selected={selectedIdx === idx}
+                    >
+                      {String(idx + 1).padStart(2, '0')}
+                    </OptionPositionDiv>
+                  ) : (
+                    <></>
+                  );
+                },
+              )}
           </ImgOptWrap>
         </ImgDiv>
       </BannerDiv>

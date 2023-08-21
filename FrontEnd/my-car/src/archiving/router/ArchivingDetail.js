@@ -40,6 +40,7 @@ function ArchivingDetail() {
     <DataLoaderContext.Provider value={data}>
       <Container>
         <DetailBanner
+          isArchiving={true}
           selectedIdx={selectedIdx}
           setSelectedIdx={setSelectedIdx}
         />
@@ -54,6 +55,7 @@ function ArchivingDetail() {
                     idx={idx}
                     isSelected={selectedIdx === idx}
                     onClick={() => handleCardClick(idx)}
+                    isArchiving={true}
                   />
                 );
               },

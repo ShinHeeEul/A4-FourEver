@@ -4,7 +4,7 @@ import { Body3Regular, CaptionRegular, Heading3Medium } from '../../style/typo';
 
 const CardDiv = styled.div`
   width: 302px;
-  height: 300px;
+  height: ${({ $isArchiving }) => ($isArchiving ? '300px' : '200px')};
   flex-shrink: 0;
   border-radius: 8px;
   border: 2px solid
@@ -136,9 +136,13 @@ const PkgSubOptText = styled.span`
   color: ${palette.Primary};
 `;
 
-function EachOptCard({ data, idx, isSelected, onClick }) {
+function EachOptCard({ data, idx, isSelected, onClick, isArchiving }) {
   return (
-    <CardDiv onClick={onClick} $isSelected={isSelected}>
+    <CardDiv
+      onClick={onClick}
+      $isSelected={isSelected}
+      $isArchiving={isArchiving}
+    >
       <CardImgDiv>
         <CardImg src={data.image}></CardImg>
       </CardImgDiv>
@@ -166,12 +170,16 @@ function EachOptCard({ data, idx, isSelected, onClick }) {
         )}
       </CardTitleOptDiv>
 
-      <CardDivisionSvg $isSelected={isSelected} />
-      <CardTagDiv>
-        {data.extraOptionTagInfoDTOS.map((item) => {
-          return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;
-        })}
-      </CardTagDiv>
+      {isArchiving && (
+        <>
+          <CardDivisionSvg $isSelected={isSelected} />
+          <CardTagDiv>
+            {data.extraOptionTagInfoDTOS.map((item) => {
+              return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;
+            })}
+          </CardTagDiv>
+        </>
+      )}
     </CardDiv>
   );
 }

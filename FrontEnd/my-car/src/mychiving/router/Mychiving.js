@@ -104,7 +104,6 @@ function Mychiving() {
             return (
               <CardByArchiving
                 onClick={() => {
-                  console.log(elem.id);
                   navigate(`/archiving/${elem.id}`);
                 }}
                 savedCar={elem}

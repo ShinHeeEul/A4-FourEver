@@ -191,3 +191,24 @@ export const MYCHIVING = {
     CARREVIEWLISTS: 'carReviewList',
   },
 };
+
+export const MYCHIVINGDETAIL = {
+  SELECTEDCAR: {
+    URL: 'mychiving/get',
+    FILED: {
+      NAME: 'car_name',
+      PRICE: 'price',
+      // COMMENT: 'comment',
+      TRIM: 'trimNameDTO',
+      ENGINE: 'engineNameDTO',
+      DRIVE: 'driveNameDTO',
+      BODY: 'bodyNameDTO',
+      INCOLOR: 'inColorDTO',
+      EXCOLOR: 'exColorDTO',
+      DATE: 'updated_at',
+      EXTRAOPTIONS: 'extraOptionDTOs',
+      // PURCHASE: 'is_purchased',
+      // TOTALTAGS: 'totalTagInfoDTOs',
+    },
+  },
+};
