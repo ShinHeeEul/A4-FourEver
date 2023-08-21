@@ -101,12 +101,13 @@ function DeleteAlert({
     }
   }, [showDeleteAlert]);
 
-  async function DeleteRequest(id) {
-    await useDeleteRequest(id);
+  async function DeleteRequest(id, requestUrl) {
+    await useDeleteRequest(id, requestUrl);
 
     setUpdate((prev) => !prev);
     setShowDeleteAlert(false);
   }
+
   return (
     <AlertBgDiv>
       <AlertDiv>
@@ -119,7 +120,9 @@ function DeleteAlert({
           <BtnCancel onClick={() => setShowDeleteAlert(false)}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
-          <BtnConfirm onClick={() => DeleteRequest(deleteId)}>
+          <BtnConfirm
+            onClick={() => DeleteRequest(deleteId, '/mychiving/delete/')}
+          >
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>
         </AlertBtnDiv>

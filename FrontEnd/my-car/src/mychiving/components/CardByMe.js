@@ -99,7 +99,7 @@ const EscSvg = styled(RemoveSvg)`
 function CardByMe({ myList, extraOptions, setUpdate }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
-  const [showMoveAlert, setShowMoveAlert] = useState(false);
+
   const navigate = useNavigate();
 
   return (
@@ -129,15 +129,6 @@ function CardByMe({ myList, extraOptions, setUpdate }) {
         }}
       >
         <CardButtonDiv>
-          {/* {myList.is_end === 0 && (
-            <PlusSvg
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDetailModal(true);
-              }}
-            />
-          )} */}
-
           <EscSvg
             onClick={(e) => {
               e.stopPropagation();

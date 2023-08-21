@@ -79,8 +79,6 @@ function Mychiving() {
                 <CardByMe
                   myList={elem}
                   extraOptions={elem.extraOptionDTOs}
-                  setIsJustDeleted={setIsJustDeleted}
-                  isJustDeleted={isJustDeleted}
                   setUpdate={setUpdate}
                 />
               );
@@ -107,6 +105,7 @@ function Mychiving() {
                   navigate(`/archiving/${elem.id}`);
                 }}
                 savedCar={elem}
+                setUpdate={setUpdate}
               ></CardByArchiving>
             );
           })}
