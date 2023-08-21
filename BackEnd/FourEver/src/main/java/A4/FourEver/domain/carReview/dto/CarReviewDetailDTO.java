@@ -31,5 +31,5 @@ public class CarReviewDetailDTO {
     private InColorNameDTO inColorDTO;
     private ExColorNameAndImageDTO exColorDTO;
     private Set<TotalTagInfoDTO> totalTagInfoDTOs;
-    private Set<ExtraOptionDetailDTO> extraOptionDetailDTOS;
+    private Set<ExtraOptionDetailDTO> extraOptionDetailDTOs;
 }

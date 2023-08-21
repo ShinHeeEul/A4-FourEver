@@ -276,7 +276,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .created_at(rs.getTimestamp("created_at"))
                             .price(rs.getDouble("price"))
                             .totalTagInfoDTOs(new HashSet<>())
-                            .extraOptionDetailDTOS(new HashSet<>())
+                            .extraOptionDetailDTOs(new HashSet<>())
                             .build();
                 }
 
@@ -301,7 +301,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .subExtraOptionNameDTOs(new HashSet<>())
                             .build();
                     extraOptionMap.put(extraOptionId, extraOptionDTO);
-                    detailDTO.getExtraOptionDetailDTOS().add(extraOptionDTO);
+                    detailDTO.getExtraOptionDetailDTOs().add(extraOptionDTO);
                 }
 
                 SubExtraOptionNameDTO subExtraOptionNameDTO = SubExtraOptionNameDTO.builder()
