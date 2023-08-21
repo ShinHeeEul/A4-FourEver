@@ -1,6 +1,7 @@
 import { BASIC_SERVER_URL } from './constant';
 
 async function fetchData({ path, method = 'GET' }) {
+  console.log(path);
   const accessToken = localStorage.getItem('jwtToken');
   return fetch(path, {
     method,
