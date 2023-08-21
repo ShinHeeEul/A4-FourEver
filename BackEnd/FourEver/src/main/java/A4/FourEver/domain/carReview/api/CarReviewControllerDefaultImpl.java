@@ -3,6 +3,7 @@ package A4.FourEver.domain.carReview.api;
 import A4.FourEver.domain.carReview.application.CarReviewService;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailSortedDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewIdDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOnBoardingDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewResultSortedDTO;
 import A4.FourEver.global.annotation.LoginUserId;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,5 +35,12 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
     @PostMapping("/result")
     public CarReviewResultSortedDTO getCarReviewResult(@RequestBody final CarReviewIdDTO carReviewIdDTO) {
         return carReviewService.getCarReviewResult(carReviewIdDTO);
+    }
+
+    @Override
+    @Operation(summary = "카 리뷰 온보딩 정보 조회")
+    @GetMapping("/on-boarding")
+    public CarReviewOnBoardingDTO onBoarding() {
+        return new CarReviewOnBoardingDTO();
     }
 }
