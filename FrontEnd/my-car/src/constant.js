@@ -170,6 +170,7 @@ export const ARCHIVING = {
     REVIEW: 'cars/1/car-review',
     ISPURCHASED: 'cars/1/car-review/',
     DETAIL: 'reviews/1/car-review',
+    ONBOARDING: 'reviews/on-boarding',
   },
   FILED: {
     OPTIONS: 'extraOptionNameDTOs',

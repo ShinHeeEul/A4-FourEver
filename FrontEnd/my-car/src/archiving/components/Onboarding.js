@@ -4,7 +4,9 @@ import onboardingImg from '../../assets/onboardingImg.png';
 import archivingLogo from '../../assets/archivingLogo.png';
 import {
   Body2Regular,
+  Body3Medium,
   Body3Regular,
+  Body4Regular,
   Heading3Medium,
   Heading4Bold,
 } from '../../style/typo';
@@ -46,7 +48,6 @@ const View1 = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
   width: 800px;
 
   div {
@@ -66,12 +67,16 @@ const View1 = styled.div`
   img {
     width: 290.001px;
     height: 220.678px;
+    margin-top: 40px;
   }
 `;
 
 const View2 = styled(View1)`
   div {
     gap: 4px;
+  }
+  img {
+    margin: 0;
   }
 `;
 
@@ -80,6 +85,7 @@ const View3 = styled(View2)`
   img {
     width: 120px;
     height: 120px;
+    margin: 30px 0 15px;
   }
 `;
 
@@ -163,7 +169,7 @@ const TagWrap = styled.div`
     padding: 0 5px;
   }
   & .original {
-    animation: 25s linear infinite normal none running ${infiniteAnimation1};
+    animation: 25s linear infinite ${infiniteAnimation1};
   }
   & .clone {
     animation: 25s linear infinite ${infiniteAnimation2};
@@ -201,12 +207,89 @@ const CarCardWrap = styled.div`
   display: flex;
   flex-direction: row !important;
   gap: 30px !important;
+  width: 90%;
+  flex-grow: 1;
+  align-items: baseline !important;
+  margin-top: 15px;
+`;
+
+const EachCardWrap = styled.div`
+  position: relative;
+  width: 195px;
+
+  img {
+    object-fit: cover;
+    width: 166px;
+    height: 133.707px;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .text-wrap {
+    margin-top: 113px;
+    width: 100%;
+  }
+  svg {
+    position: absolute;
+    top: 41px;
+    left: 0;
+    z-index: -1;
+  }
+  h2 {
+    ${Body3Medium}
+    width: 80%;
+    text-align: left;
+  }
+  span {
+    ${Body4Regular}
+    width: 80%;
+    text-align: left;
+    &:nth-child(2) {
+      margin-top: -4px;
+    }
+    &:nth-child(3) {
+      text-align: right;
+      font-weight: 500;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #54545452;
+    }
+  }
+  .color-container {
+    width: 90%;
+    gap: 0 !important;
+    margin-top: 5px;
+  }
+  .color-wrap {
+    display: flex;
+    width: 85%;
+
+    gap: 10px;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center;
+    img {
+      width: 10px;
+      height: 10px;
+      position: static;
+      border-radius: 100%;
+      transform: none;
+    }
+    span {
+      border: 0;
+      width: auto;
+      padding: 0;
+      font-weight: 400;
+      font-size: 12px;
+    }
+  }
 `;
 
 const ViewWrap = styled.div`
   display: flex;
   transition: all 0.8s;
   transform: ${({ $page }) => $page !== undefined && `translateX(${$page}px)`};
+  flex-grow: 1;
 `;
 
 const MycarBtn = styled.div`
@@ -247,18 +330,15 @@ const FooterDot = styled.div`
         `}
 `;
 
-const Mock = [
-  '대형견도 문제 없어요🐶',
-  '외관이 멋져요🤩',
-  '역시 풀옵션 없는 게 없어요👍',
-  '안전을 위한 옵션이 많아요🚨',
-  '대형견도 문제 없어요🐶',
-  '외관이 멋져요🤩',
-  '역시 풀옵션 없는 게 없어요👍',
-  '안전을 위한 옵션이 많아요🚨',
-];
+const TopWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px !important;
+  flex-grow: 0.2;
+  margin-top: 30px;
+`;
 
-function Onboarding({ setModalShow }) {
+function Onboarding({ setModalShow, data }) {
   const [page, setPage] = useState(0);
 
   const pageMove = () => {
@@ -295,27 +375,53 @@ function Onboarding({ setModalShow }) {
             <img src={onboardingImg} alt="onboarding" />
           </View1>
           <View2>
-            <div>
-              <h2>다른 이용자의 차량을 불러와서</h2>
-              <h2>내 차 만들기를 완성해봐요!</h2>
-            </div>
+            <TopWrap>
+              <div>
+                <h2>다른 이용자의 차량을 불러와서</h2>
+                <h2>내 차 만들기를 완성해봐요!</h2>
+              </div>
 
-            <TagWrap>
-              <div style={{ flexShrink: '0' }} className="original">
-                {Mock.map((tag) => (
-                  <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
-                ))}
-              </div>
-              <div style={{ flexShrink: '0' }} className="clone">
-                {Mock.map((tag) => (
-                  <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
-                ))}
-              </div>
-            </TagWrap>
+              <TagWrap>
+                <div style={{ flexShrink: '0' }} className="original">
+                  {data.totalTags.map((tag) => (
+                    <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
+                  ))}
+                </div>
+                <div style={{ flexShrink: '0' }} className="clone">
+                  {data.totalTags.map((tag) => (
+                    <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
+                  ))}
+                </div>
+              </TagWrap>
+            </TopWrap>
             <CarCardWrap>
-              <CarCard></CarCard>
-              <CarCard></CarCard>
-              <CarCard></CarCard>
+              {data.carReviewSimpleDTOS.map((car) => (
+                <EachCardWrap>
+                  <CarCard />
+                  <img alt="car" src={car.exColorInfoDTO.rotation_image} />
+                  <div className="text-wrap">
+                    <h2>
+                      {car.car_name} {car.trim_name}
+                    </h2>
+                    <span>
+                      {car.engine_name}/{car.body_name}/{car.drive_name}{' '}
+                    </span>
+                    <span>{car.price.toLocaleString()} 원</span>
+                    <div className="color-container">
+                      <div className="color-wrap">
+                        <span>외장</span>
+                        <img alt="color" src={car.exColorInfoDTO.color_image} />
+                        <span>{car.exColorInfoDTO.name}</span>
+                      </div>
+                      <div className="color-wrap">
+                        <span>내장</span>
+                        <img alt="color" src={car.inColorInfoDTO.color_image} />
+                        <span>{car.inColorInfoDTO.name}</span>
+                      </div>
+                    </div>
+                  </div>
+                </EachCardWrap>
+              ))}
             </CarCardWrap>
           </View2>
           <View3>
@@ -350,7 +456,7 @@ function NextSvg() {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_948_12686)">
+      <g clipPath="url(#clip0_948_12686)">
         <path
           d="M8.5 6L14.5 12L8.5 18"
           stroke="#BEBEBE"
@@ -377,7 +483,7 @@ function CarCard() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="195"
-      height="187"
+      height="220"
       viewBox="0 0 195 187"
       fill="none"
     >

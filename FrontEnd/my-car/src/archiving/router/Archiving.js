@@ -3,8 +3,8 @@ import OptSelectionBar from '../components/OptSelectionBar';
 import OptReviewHeader from '../components/OptReviewHeader';
 import OptReviewCard from '../components/OptReviewCard';
 import ArchivingProvider from '../../context/archiving/ArchivingProvider';
-import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLoaderData, useOutletContext } from 'react-router-dom';
 import WarningTooltip from '../components/WarningTooltip';
 import Loading from '../../common/Loading';
 import Onboarding from '../components/Onboarding';
@@ -28,6 +28,17 @@ function Archiving() {
   const [modalShow, setModalShow] = useState(true);
   const onboardingOff = localStorage.getItem('onboardingOff');
 
+  const { data } = useLoaderData();
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (modalShow) {
+      body.classList.add('no-scroll');
+    } else {
+      body.classList.remove('no-scroll');
+    }
+  }, [modalShow]);
+
   return (
     <>
       {loading ? (
@@ -35,7 +46,7 @@ function Archiving() {
       ) : (
         <>
           {modalShow && !onboardingOff && (
-            <Onboarding setModalShow={setModalShow} />
+            <Onboarding data={data} setModalShow={setModalShow} />
           )}
           <Container>
             <FixedContainer>

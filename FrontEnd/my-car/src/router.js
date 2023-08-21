@@ -13,7 +13,9 @@ import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
 import { MyCarOptionAPI } from './api';
-import { MYCAR, ARCHIVINGDETAIL, MYCHIVING, MYCHIVINGDETAIL } from './constant';
+
+import { MYCAR, ARCHIVINGDETAIL, MYCHIVING, MYCHIVINGDETAIL ,BASIC_SERVER_URL, ARCHIVING,} from './constant';
+
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
@@ -109,6 +111,7 @@ const router = createBrowserRouter([
       {
         path: 'archiving',
         element: <RootArchiving />,
+
         children: [
           {
             path: ':id',
@@ -120,6 +123,7 @@ const router = createBrowserRouter([
           },
           {
             path: '',
+            loader: () => MyCarOptionAPI(ARCHIVING.URL.ONBOARDING),
             element: <Archiving />,
           },
         ],
