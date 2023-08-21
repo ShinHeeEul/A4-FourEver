@@ -145,25 +145,11 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "inc.color_image AS interior_color_image, " +
                 "inc.in_image AS interior_in_image, " +
 
-                "ict.id AS interior_tag_id, " +
-                "ict.name AS interior_tag_name, " +
-                "ict.count AS interior_tag_count, " +
-
                 "exc.id AS exterior_id, " +
                 "exc.name AS exterior_name, " +
                 "exc.color_image AS exterior_color_image, " +
                 "exc.rotation_image AS exterior_rotation_image, " +
                 "exc.price AS exterior_price, " +
-
-                "ext.id AS exterior_tag_id, " +
-                "ext.name AS exterior_tag_name, " +
-                "ext.count AS exterior_tag_count, " +
-
-                "do.id AS default_option_id, " +
-                "do.name AS default_option_name, " +
-                "do.description AS default_option_description, " +
-                "doc.name AS default_option_category, " +
-                "do.image AS default_option_image, " +
 
                 "eo.id AS extra_option_id, " +
                 "eo.name AS extra_option_name, " +
@@ -172,16 +158,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "eo.image AS extra_option_image, " +
                 "eo.price AS extra_option_price, " +
                 "eo.x_position AS extra_option_x_position, " +
-                "eo.y_position AS extra_option_y_position, " +
-
-                "eot.id AS extra_option_tag_id, " +
-                "eot.name AS extra_option_tag_name, " +
-                "eot.count AS extra_option_tag_count, " +
-
-                "seo.id AS sub_extra_option_id, " +
-                "seo.name AS sub_extra_option_name, " +
-                "seo.image AS sub_extra_option_image, " +
-                "seo.description AS sub_extra_option_description " +
+                "eo.y_position AS extra_option_y_position " +
 
                 "FROM model m " +
                 "JOIN trim t ON m.trim_id = t.id " +
@@ -190,16 +167,9 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                 "JOIN drive d ON m.drive_id = d.id " +
                 "JOIN ex_color exc ON t.id = exc.trim_id " +
                 "JOIN in_color inc ON t.id = inc.trim_id " +
-                "LEFT JOIN ex_color_tag ext ON exc.id = ext.ex_color_id " +
-                "LEFT JOIN in_color_tag ict ON inc.id = ict.in_color_id " +
-                "LEFT JOIN default_option_model AS dom ON m.id = dom.model_id " +
-                "LEFT JOIN default_option AS do ON dom.default_option_id = do.id " +
-                "LEFT JOIN default_option_category doc ON do.default_option_category_id = doc.id " +
                 "LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id " +
                 "LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id " +
                 "LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id " +
-                "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
-                "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
 
                 "WHERE m.engine_id = :engine_id " +
                 "AND m.trim_id = :trim_id " +
@@ -393,28 +363,6 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .build();
                 }
 
-                InColorTagInfoDTO inColorTagDTO = InColorTagInfoDTO.builder()
-                        .id(rs.getLong("interior_tag_id"))
-                        .name(rs.getString("interior_tag_name"))
-                        .count(rs.getLong("interior_tag_count"))
-                        .build();
-
-                ExColorTagInfoDTO exColorTagDTO = ExColorTagInfoDTO.builder()
-                        .id(rs.getLong("exterior_tag_id"))
-                        .name(rs.getString("exterior_tag_name"))
-                        .count(rs.getLong("exterior_tag_count"))
-                        .build();
-
-                DefaultOptionInfoDTO defaultOption = DefaultOptionInfoDTO.builder()
-                        .id(rs.getLong("default_option_id"))
-                        .name(rs.getString("default_option_name"))
-                        .description(rs.getString("default_option_description"))
-                        .category(rs.getString("default_option_category"))
-                        .image(rs.getString("default_option_image"))
-                        .build();
-
-                resultDTO.getDefaultOptionDTOs().add(defaultOption);
-
                 Long extraOptionId = rs.getLong("extra_option_id");
                 ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
 
@@ -434,21 +382,6 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                     extraOptionMap.put(extraOptionId, extraOptionDTO);
                     resultDTO.getExtraOptionDTOs().add(extraOptionDTO);
                 }
-
-                SubExtraOptionInfoDTO subExtraOptionDTO = SubExtraOptionInfoDTO.builder()
-                        .id(rs.getLong("sub_extra_option_id"))
-                        .name(rs.getString("sub_extra_option_name"))
-                        .description(rs.getString("sub_extra_option_description"))
-                        .image(rs.getString("sub_extra_option_image"))
-                        .build();
-                extraOptionDTO.getSubExtraOptionInfoDTOs().add(subExtraOptionDTO);
-
-                ExtraOptionTagInfoDTO extraOptionTag = ExtraOptionTagInfoDTO.builder()
-                        .id(rs.getLong("extra_option_tag_id"))
-                        .name(rs.getString("extra_option_tag_name"))
-                        .count(rs.getLong("extra_option_tag_count"))
-                        .build();
-                extraOptionDTO.getExtraOptionTagInfoDTOS().add(extraOptionTag);
             }
             return resultDTO;
         }
