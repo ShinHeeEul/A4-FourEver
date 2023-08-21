@@ -141,7 +141,6 @@ const SaveBtn = styled(SaveLogoSvg)`
 function AdditionalInfo() {
   const data = useContext(DataLoaderContext);
   const detailStatus = ARCHIVINGDETAIL;
-  console.log(data);
   const accessToken = localStorage.getItem('jwtToken');
   const [saveState, setSaveState] = useState(data?.is_save || false);
 
@@ -195,9 +194,10 @@ function AdditionalInfo() {
     };
     try {
       const res = await ToMycarFetch();
-      console.log(res);
       setLoading(false);
-      navigate(`/mycar/${myCarPagePath[0]}`, { state: { reviewState: res } });
+      navigate(`/mycar/${myCarPagePath[0]}`, {
+        state: { reviewState: { data: res } },
+      });
     } catch (e) {
       console.error(e);
     }
@@ -231,14 +231,12 @@ function AdditionalInfo() {
           </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
-
           <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
             <SaveBtn $isSave={saveState} />
           </SaveCarDiv>
           <MakingMycarBtn onClick={myCarStart}>
             이 차량으로 내 차 만들기 시작
           </MakingMycarBtn>
-
         </WithThisCarDiv>
       </AdditionalInfoDiv>
     </AllDiv>
