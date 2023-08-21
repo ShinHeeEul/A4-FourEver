@@ -2,6 +2,7 @@ package A4.FourEver.domain.carReview.application;
 
 import A4.FourEver.domain.carReview.dto.*;
 import A4.FourEver.domain.carReview.exception.CarReviewDetailNotFoundException;
+import A4.FourEver.domain.carReview.exception.CarReviewResultNotFoundException;
 import A4.FourEver.domain.carReview.repository.CarReviewRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class CarReviewServiceDefaultImpl implements CarReviewService {
 
     @Override
     public CarReviewResultSortedDTO getCarReviewResult(final CarReviewIdDTO carReviewIdDTO) {
-        return carReviewMapper.convertToSortedDTO(carReviewRepository.findCarReviewResult(carReviewIdDTO), carReviewIdDTO.getCar_name());
+        CarReviewResultDTO carReviewResultDTO = carReviewRepository.findCarReviewResult(carReviewIdDTO);
+        if(carReviewResultDTO == null) throw new CarReviewResultNotFoundException();
+        return carReviewMapper.convertToSortedDTO(carReviewResultDTO, carReviewIdDTO.getCar_name());
     }
 }
