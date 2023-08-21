@@ -243,9 +243,11 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
   function toggleSelect(idx) {
     setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   }
+
   const detailStatus = isArchiving ? ARCHIVINGDETAIL : MYCHIVINGDETAIL;
   const extraOptData = data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS];
-  console.log(data);
+
+
   return (
     <AllDiv>
       <BannerDiv>

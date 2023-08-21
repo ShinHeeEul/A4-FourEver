@@ -15,8 +15,13 @@ import {
   ARCHIVINGDETAIL,
   BASIC_SERVER_URL,
   MYCHIVINGDETAIL,
+  myCarPagePath,
+  mychivingPath,
 } from '../../constant';
 import { MychivingDataLoaderContext } from '../../mychiving/router/MychivingDetail';
+
+import { useNavigate } from 'react-router-dom';
+
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -110,6 +115,7 @@ export const MakingMycarBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 1;
 `;
 
 export const SelectedOptTitle = styled.div`
@@ -139,6 +145,10 @@ function AdditionalInfo() {
   const accessToken = localStorage.getItem('jwtToken');
   const [saveState, setSaveState] = useState(data?.is_save || false);
 
+  const [loading, setLoading] = useState();
+
+  const navigate = useNavigate();
+
   function saveStateChangeFetch() {
     fetch(
       `${BASIC_SERVER_URL}/user/feed/${!saveState ? 'create' : 'delete'}/${
@@ -158,6 +168,41 @@ function AdditionalInfo() {
   const saveBtnClick = () => {
     saveStateChangeFetch();
   };
+
+  const myCarStart = async () => {
+    const optionIds = data.extraOptionForCarReviewDTOs.map(
+      (option) => option.id,
+    );
+    const ToMycarFetch = () => {
+      setLoading(true);
+      return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          car_name: data.car_name,
+          trim_id: data.trimNameDTO.id,
+          engine_id: data.engineNameDTO.id,
+          body_id: data.bodyNameDTO.id,
+          drive_id: data.driveNameDTO.id,
+          in_color_id: data.inColorDTO.id,
+          ex_color_id: data.exColorDTO.id,
+          extra_option_ids: optionIds,
+        }),
+      }).then((res) => res.json());
+    };
+    try {
+      const res = await ToMycarFetch();
+      console.log(res);
+      setLoading(false);
+      navigate(`/mycar/${myCarPagePath[0]}`, { state: { reviewState: res } });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  // console.log(data);
 
   return (
     <AllDiv>
@@ -186,13 +231,14 @@ function AdditionalInfo() {
           </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
-          {
-            <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
-              <SaveBtn $isSave={saveState} />
-            </SaveCarDiv>
-          }
 
-          <MakingMycarBtn>이 차량으로 내 차 만들기 시작</MakingMycarBtn>
+          <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
+            <SaveBtn $isSave={saveState} />
+          </SaveCarDiv>
+          <MakingMycarBtn onClick={myCarStart}>
+            이 차량으로 내 차 만들기 시작
+          </MakingMycarBtn>
+
         </WithThisCarDiv>
       </AdditionalInfoDiv>
     </AllDiv>
