@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { Body1Regular, Body2Regular, Body3Regular } from '../style/typo';
 import { UserCarPostRequest } from '../mycar/UserCarPostAPI';
 import { archivingPath, myCarPagePath, mychivingPath } from '../constant';
-const AlertBgDiv = styled.div`
+export const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
   left: 0;

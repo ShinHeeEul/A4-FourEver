@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import WarningTooltip from '../components/WarningTooltip';
 import Loading from '../../common/Loading';
+import Onboarding from '../components/Onboarding';
 
 const Container = styled.div`
   width: 100%;
@@ -24,19 +25,26 @@ const FixedContainer = styled.div`
 
 function Archiving() {
   const { loading } = useOutletContext();
+  const [modalShow, setModalShow] = useState(true);
+  const onboardingOff = localStorage.getItem('onboardingOff');
 
   return (
     <>
       {loading ? (
         <Loading text={'후기를 불러오는 중입니다'} />
       ) : (
-        <Container>
-          <FixedContainer>
-            <OptSelectionBar />
-            <OptReviewHeader />
-          </FixedContainer>
-          <OptReviewCard />
-        </Container>
+        <>
+          {modalShow && !onboardingOff && (
+            <Onboarding setModalShow={setModalShow} />
+          )}
+          <Container>
+            <FixedContainer>
+              <OptSelectionBar />
+              <OptReviewHeader />
+            </FixedContainer>
+            <OptReviewCard />
+          </Container>
+        </>
       )}
     </>
   );
