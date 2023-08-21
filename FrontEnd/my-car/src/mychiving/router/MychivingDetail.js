@@ -38,7 +38,7 @@ function MychivingDetail(isArchiving) {
   function handleCardClick(idx) {
     toggleSelect(idx);
   }
-
+  console.log(data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0]);
   return (
     <MychivingDataLoaderContext.Provider value={data}>
       <Container>
@@ -51,9 +51,13 @@ function MychivingDetail(isArchiving) {
         <AllDiv>
           <SelectedOptTitle style={{ width: '100%' }}>
             선택 옵션{' '}
-            {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+            {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0].name !==
+            null
+              ? data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length
+              : '0'}
           </SelectedOptTitle>
-          {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
+          {data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0].name !==
+            null &&
             data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
               (item, idx) => {
                 return (

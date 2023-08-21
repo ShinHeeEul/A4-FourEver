@@ -239,7 +239,7 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
   const archivingData = useContext(DataLoaderContext);
   const mychivingData = useContext(MychivingDataLoaderContext);
   const data = isArchiving ? archivingData : mychivingData;
-  console.log(data);
+
   function toggleSelect(idx) {
     setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   }

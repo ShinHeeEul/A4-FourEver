@@ -113,7 +113,6 @@ const CategoryWrap = styled.div`
 `;
 
 function CardByArchiving({ savedCar, onClick }) {
-  console.log(savedCar);
   return (
     <Container onClick={onClick}>
       <CardWrap>
