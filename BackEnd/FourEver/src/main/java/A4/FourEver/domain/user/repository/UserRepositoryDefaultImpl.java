@@ -1,10 +1,18 @@
 package A4.FourEver.domain.user.repository;
 
 import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.color.exColor.dto.ExColorIdDTO;
+import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorIdDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
 import A4.FourEver.domain.myChiving.dto.MyChivingOverviewDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameAndImageDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
+import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
+import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
+import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
+import A4.FourEver.domain.trim.trim.dto.TrimNameDTO;
 import A4.FourEver.domain.user.domain.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -85,13 +93,19 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 "t.image AS image, " +
                 "mc.updated_at, " +
                 "c.name AS car_name, " +
+                "t.id AS trim_id, " +
                 "t.name AS trim_name, " +
+                "e.id AS engine_id, " +
                 "e.name AS engine_name, " +
+                "d.id AS drive_id, " +
                 "d.name AS drive_name, " +
+                "b.id AS body_id, " +
                 "b.name AS body_name, " +
                 "eo.id AS extra_option_id, " +
                 "eo.name AS extra_option_name, " +
-                "eo.image AS extra_option_image " +  // 여기서 쉼표 제거
+                "eo.image AS extra_option_image, " +
+                "inc.id AS interior_id, " +
+                "exc.id AS exterior_id " +
 
                 "FROM mychiving mc " +
                 "JOIN model m ON mc.model_id = m.id " +
@@ -100,12 +114,13 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
                 "JOIN car c ON d.car_id = c.id " +
+                "JOIN ex_color exc ON t.id = exc.trim_id " +
+                "JOIN in_color inc ON t.id = inc.trim_id " +
                 "LEFT JOIN mychiving_extra_option meo ON mc.id = meo.mychiving_id " +
                 "LEFT JOIN extra_option eo ON meo.extra_option_id = eo.id " +
                 "LEFT JOIN users u ON mc.user_id = u.id " +
 
                 "WHERE u.id = :userId ";
-
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", userId);
@@ -183,16 +198,46 @@ public class UserRepositoryDefaultImpl implements UserRepository {
                 MyChivingOverviewDTO overviewDTO = map.get(id);
 
                 if (overviewDTO == null) {
+                    TrimNameDTO trimNameDTO = TrimNameDTO.builder()
+                            .id(rs.getLong("trim_id"))
+                            .name(rs.getString("trim_name"))
+                            .build();
+
+                    EngineNameDTO engineNameDTO = EngineNameDTO.builder()
+                            .id(rs.getLong("engine_id"))
+                            .name(rs.getString("engine_name"))
+                            .build();
+
+                    BodyNameDTO bodyNameDTO = BodyNameDTO.builder()
+                            .id(rs.getLong("body_id"))
+                            .name(rs.getString("body_name"))
+                            .build();
+
+                    DriveNameDTO driveNameDTO = DriveNameDTO.builder()
+                            .id(rs.getLong("drive_id"))
+                            .name(rs.getString("drive_name"))
+                            .build();
+
+                    ExColorIdDTO exColorIdDTO = ExColorIdDTO.builder()
+                            .id(rs.getLong("exterior_id"))
+                            .build();
+
+                    InColorIdDTO inColorNameDTO = InColorIdDTO.builder()
+                            .id(rs.getLong("interior_id"))
+                            .build();
+
                     overviewDTO = MyChivingOverviewDTO.builder()
                             .id(id)
                             .is_end(rs.getInt("is_end"))
                             .image(rs.getString("image"))
                             .updated_at(rs.getTimestamp("updated_at"))
                             .car_name(rs.getString("car_name"))
-                            .trim_name(rs.getString("trim_name"))
-                            .engine_name(rs.getString("engine_name"))
-                            .drive_name(rs.getString("drive_name"))
-                            .body_name(rs.getString("body_name"))
+                            .trimNameDTO(trimNameDTO)
+                            .engineNameDTO(engineNameDTO)
+                            .bodyNameDTO(bodyNameDTO)
+                            .driveNameDTO(driveNameDTO)
+                            .exColorIdDTO(exColorIdDTO)
+                            .inColorIdDTO(inColorNameDTO)
                             .extraOptionDTOs(new HashSet<>())
                             .build();
 

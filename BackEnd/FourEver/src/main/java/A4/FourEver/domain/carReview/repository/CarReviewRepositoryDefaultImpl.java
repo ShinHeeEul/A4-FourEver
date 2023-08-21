@@ -1,15 +1,28 @@
 package A4.FourEver.domain.carReview.repository;
 
+import A4.FourEver.domain.carReview.dto.CarReviewIdDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewResultDTO;
+import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
+import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
+import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
+import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoDTO;
+import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailDTO;
+import A4.FourEver.domain.tag.exColorTag.dto.ExColorTagInfoDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
+import A4.FourEver.domain.tag.inColorTag.dto.InColorTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
+import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
+import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
+import A4.FourEver.domain.trim.engine.dto.EngineInfoDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
+import A4.FourEver.domain.trim.trim.dto.TrimInfoDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimNameDTO;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -28,6 +41,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final CarReviewDetailExtractor carReviewDetailExtractor = new CarReviewDetailExtractor();
+    private static final CarReviewResultExtractor carReviewResultExtractor = new CarReviewResultExtractor();
 
     public CarReviewRepositoryDefaultImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -36,7 +50,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     @Override
     public CarReviewDetailDTO findCarReviewDetail(final Long id, final Long userId) {
         String sql = "SELECT " +
-                "cr.id AS car_review_id, " +
+                "cr.id, " +
                 "cr.comment, " +
                 "cr.price, " +
                 "cr.is_purchased, " +
@@ -98,7 +112,116 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
         return namedParameterJdbcTemplate.query(sql, params, carReviewDetailExtractor);
     }
 
-    public static class CarReviewDetailExtractor implements ResultSetExtractor<CarReviewDetailDTO> {
+    @Override
+    public CarReviewResultDTO findCarReviewResult(CarReviewIdDTO carReviewIdDTO) {
+        String sql = "SELECT " +
+                "t.id AS trim_id, " +
+                "t.name AS trim_name, " +
+                "t.image AS trim_image, " +
+                "t.price AS trim_price, " +
+
+                "e.id AS engine_id, " +
+                "e.name AS engine_name, " +
+                "e.image AS engine_image, " +
+                "e.description AS engine_description, " +
+                "e.max_output AS engine_max_output, " +
+                "e.max_tok AS engine_max_tok, " +
+                "e.price AS engine_price, " +
+
+                "b.id AS body_id, " +
+                "b.name AS body_name, " +
+                "b.image AS body_image, " +
+                "b.description AS body_description, " +
+                "b.price AS body_price, " +
+
+                "d.id AS drive_id, " +
+                "d.name AS drive_name, " +
+                "d.image AS drive_image, " +
+                "d.description AS drive_description, " +
+                "d.price AS drive_price, " +
+
+                "inc.id AS interior_id, " +
+                "inc.name AS interior_name, " +
+                "inc.color_image AS interior_color_image, " +
+                "inc.in_image AS interior_in_image, " +
+
+                "ict.id AS interior_tag_id, " +
+                "ict.name AS interior_tag_name, " +
+                "ict.count AS interior_tag_count, " +
+
+                "exc.id AS exterior_id, " +
+                "exc.name AS exterior_name, " +
+                "exc.color_image AS exterior_color_image, " +
+                "exc.rotation_image AS exterior_rotation_image, " +
+                "exc.price AS exterior_price, " +
+
+                "ext.id AS exterior_tag_id, " +
+                "ext.name AS exterior_tag_name, " +
+                "ext.count AS exterior_tag_count, " +
+
+                "do.id AS default_option_id, " +
+                "do.name AS default_option_name, " +
+                "do.description AS default_option_description, " +
+                "doc.name AS default_option_category, " +
+                "do.image AS default_option_image, " +
+
+                "eo.id AS extra_option_id, " +
+                "eo.name AS extra_option_name, " +
+                "eo.description AS extra_option_description, " +
+                "eoc.name AS extra_option_category, " +
+                "eo.image AS extra_option_image, " +
+                "eo.price AS extra_option_price, " +
+                "eo.x_position AS extra_option_x_position, " +
+                "eo.y_position AS extra_option_y_position, " +
+
+                "eot.id AS extra_option_tag_id, " +
+                "eot.name AS extra_option_tag_name, " +
+                "eot.count AS extra_option_tag_count, " +
+
+                "seo.id AS sub_extra_option_id, " +
+                "seo.name AS sub_extra_option_name, " +
+                "seo.image AS sub_extra_option_image, " +
+                "seo.description AS sub_extra_option_description " +
+
+                "FROM model m " +
+                "JOIN trim t ON m.trim_id = t.id " +
+                "JOIN engine e ON m.engine_id = e.id " +
+                "JOIN body b ON m.body_id = b.id " +
+                "JOIN drive d ON m.drive_id = d.id " +
+                "JOIN ex_color exc ON t.id = exc.trim_id " +
+                "JOIN in_color inc ON t.id = inc.trim_id " +
+                "LEFT JOIN ex_color_tag ext ON exc.id = ext.ex_color_id " +
+                "LEFT JOIN in_color_tag ict ON inc.id = ict.in_color_id " +
+                "LEFT JOIN default_option_model AS dom ON m.id = dom.model_id " +
+                "LEFT JOIN default_option AS do ON dom.default_option_id = do.id " +
+                "LEFT JOIN default_option_category doc ON do.default_option_category_id = doc.id " +
+                "LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id " +
+                "LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id " +
+                "LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id " +
+                "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
+                "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
+
+                "WHERE m.engine_id = :engine_id " +
+                "AND m.trim_id = :trim_id " +
+                "AND m.body_id = :body_id " +
+                "AND m.drive_id = :drive_id " +
+                "AND inc.id = :in_color_id " +
+                "AND exc.id = :ex_color_id " +
+                "AND eo.id in (:extra_option_ids) ;";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("trim_id", carReviewIdDTO.getTrim_id());
+        params.addValue("engine_id", carReviewIdDTO.getEngine_id());
+        params.addValue("body_id", carReviewIdDTO.getBody_id());
+        params.addValue("drive_id", carReviewIdDTO.getDrive_id());
+        params.addValue("in_color_id", carReviewIdDTO.getIn_color_id());
+        params.addValue("ex_color_id", carReviewIdDTO.getEx_color_id());
+        params.addValue("extra_option_ids", carReviewIdDTO.getExtra_option_ids());
+
+        return namedParameterJdbcTemplate.query(sql, params, carReviewResultExtractor);
+    }
+
+    private static class CarReviewDetailExtractor implements ResultSetExtractor<CarReviewDetailDTO> {
 
         @Override
         public CarReviewDetailDTO extractData(ResultSet rs) throws SQLException {
@@ -139,7 +262,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .build();
 
                     detailDTO = CarReviewDetailDTO.builder()
-                            .id(rs.getLong("car_review_id"))
+                            .id(rs.getLong("id"))
                             .car_name(rs.getString("car_name"))
                             .is_save(rs.getBoolean("is_save")?1:0)
                             .trimNameDTO(trimNameDTO)
@@ -196,6 +319,138 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             }
 
             return detailDTO;
+        }
+    }
+
+    private static class CarReviewResultExtractor implements ResultSetExtractor<CarReviewResultDTO> {
+
+        @Override
+        public CarReviewResultDTO extractData(ResultSet rs) throws SQLException {
+            CarReviewResultDTO resultDTO = null;
+            Map<Long, ExtraOptionInfoDTO> extraOptionMap = new HashMap<>();
+
+            while (rs.next()) {
+                if (resultDTO == null) {
+                    TrimInfoDTO trimInfoDTO = TrimInfoDTO.builder()
+                            .id(rs.getLong("trim_id"))
+                            .name(rs.getString("trim_name"))
+                            .image(rs.getString("trim_image"))
+                            .price(rs.getDouble("trim_price"))
+                            .build();
+
+                    BodyInfoDTO bodyInfoDTO = BodyInfoDTO.builder()
+                            .id(rs.getLong("body_id"))
+                            .name(rs.getString("body_name"))
+                            .image(rs.getString("body_image"))
+                            .description(rs.getString("body_description"))
+                            .price(rs.getDouble("body_price"))
+                            .build();
+
+                    DriveInfoDTO driveInfoDTO = DriveInfoDTO.builder()
+                            .id(rs.getLong("drive_id"))
+                            .name(rs.getString("drive_name"))
+                            .image(rs.getString("drive_image"))
+                            .description(rs.getString("drive_description"))
+                            .price(rs.getDouble("drive_price"))
+                            .build();
+
+                    EngineInfoDTO engineInfoDTO = EngineInfoDTO.builder()
+                            .id(rs.getLong("engine_id"))
+                            .name(rs.getString("engine_name"))
+                            .image(rs.getString("engine_image"))
+                            .description(rs.getString("engine_description"))
+                            .max_output(rs.getString("engine_max_output"))
+                            .max_tok(rs.getString("engine_max_tok"))
+                            .price(rs.getDouble("engine_price"))
+                            .build();
+
+                    ExColorInfoDTO exColorDTO = ExColorInfoDTO.builder()
+                            .id(rs.getLong("exterior_id"))
+                            .name(rs.getString("exterior_name"))
+                            .color_image(rs.getString("exterior_color_image"))
+                            .rotation_image(rs.getString("exterior_rotation_image"))
+                            .price(rs.getDouble("exterior_price"))
+                            .exColorTagInfoDTOS(new HashSet<>())
+                            .build();
+
+                    InColorInfoDTO inColorDTO = InColorInfoDTO.builder()
+                            .id(rs.getLong("interior_id"))
+                            .name(rs.getString("interior_name"))
+                            .color_image(rs.getString("interior_color_image"))
+                            .in_image(rs.getString("interior_in_image"))
+                            .inColorTagInfoDTOS(new HashSet<>())
+                            .build();
+
+                    resultDTO = CarReviewResultDTO.builder()
+                            .trimInfoDTO(trimInfoDTO)
+                            .bodyInfoDTO(bodyInfoDTO)
+                            .engineInfoDTO(engineInfoDTO)
+                            .driveInfoDTO(driveInfoDTO)
+                            .inColorDTO(inColorDTO)
+                            .exColorDTO(exColorDTO)
+                            .defaultOptionDTOs(new HashSet<>())
+                            .extraOptionDTOs(new HashSet<>())
+                            .build();
+                }
+
+                InColorTagInfoDTO inColorTagDTO = InColorTagInfoDTO.builder()
+                        .id(rs.getLong("interior_tag_id"))
+                        .name(rs.getString("interior_tag_name"))
+                        .count(rs.getLong("interior_tag_count"))
+                        .build();
+
+                ExColorTagInfoDTO exColorTagDTO = ExColorTagInfoDTO.builder()
+                        .id(rs.getLong("exterior_tag_id"))
+                        .name(rs.getString("exterior_tag_name"))
+                        .count(rs.getLong("exterior_tag_count"))
+                        .build();
+
+                DefaultOptionInfoDTO defaultOption = DefaultOptionInfoDTO.builder()
+                        .id(rs.getLong("default_option_id"))
+                        .name(rs.getString("default_option_name"))
+                        .description(rs.getString("default_option_description"))
+                        .category(rs.getString("default_option_category"))
+                        .image(rs.getString("default_option_image"))
+                        .build();
+
+                resultDTO.getDefaultOptionDTOs().add(defaultOption);
+
+                Long extraOptionId = rs.getLong("extra_option_id");
+                ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
+
+                if (extraOptionDTO == null) {
+                    extraOptionDTO = ExtraOptionInfoDTO.builder()
+                            .id(extraOptionId)
+                            .name(rs.getString("extra_option_name"))
+                            .description(rs.getString("extra_option_description"))
+                            .category(rs.getString("extra_option_category"))
+                            .image(rs.getString("extra_option_image"))
+                            .price(rs.getDouble("extra_option_price"))
+                            .x_position(rs.getInt("extra_option_x_position"))
+                            .y_position(rs.getInt("extra_option_y_position"))
+                            .extraOptionTagInfoDTOS(new HashSet<>())
+                            .subExtraOptionInfoDTOs(new HashSet<>())
+                            .build();
+                    extraOptionMap.put(extraOptionId, extraOptionDTO);
+                    resultDTO.getExtraOptionDTOs().add(extraOptionDTO);
+                }
+
+                SubExtraOptionInfoDTO subExtraOptionDTO = SubExtraOptionInfoDTO.builder()
+                        .id(rs.getLong("sub_extra_option_id"))
+                        .name(rs.getString("sub_extra_option_name"))
+                        .description(rs.getString("sub_extra_option_description"))
+                        .image(rs.getString("sub_extra_option_image"))
+                        .build();
+                extraOptionDTO.getSubExtraOptionInfoDTOs().add(subExtraOptionDTO);
+
+                ExtraOptionTagInfoDTO extraOptionTag = ExtraOptionTagInfoDTO.builder()
+                        .id(rs.getLong("extra_option_tag_id"))
+                        .name(rs.getString("extra_option_tag_name"))
+                        .count(rs.getLong("extra_option_tag_count"))
+                        .build();
+                extraOptionDTO.getExtraOptionTagInfoDTOS().add(extraOptionTag);
+            }
+            return resultDTO;
         }
     }
 }
