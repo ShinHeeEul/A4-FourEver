@@ -19,6 +19,7 @@ import java.util.Set;
 public class CarReviewDetailDTO {
     private Long id;
     private Double price;
+    private Integer is_save;
     private String comment;
     private String car_name;
     private Integer is_purchased;

@@ -6,6 +6,6 @@ import A4.FourEver.domain.carReview.dto.CarReviewIdDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewResultSortedDTO;
 
 public interface CarReviewService {
-    CarReviewDetailSortedDTO getCarReviewDetail(final Long id);
+    CarReviewDetailSortedDTO getCarReviewDetail(final Long id, final Long userId);
     CarReviewResultSortedDTO getCarReviewResult(final CarReviewIdDTO carReviewIdDTO);
 }

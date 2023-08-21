@@ -4,7 +4,9 @@ import A4.FourEver.domain.carReview.application.CarReviewService;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailSortedDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewIdDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewResultSortedDTO;
+import A4.FourEver.global.annotation.LoginUserId;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +23,10 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
 
     @Override
     @Operation(summary = "특정 리뷰 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/{id}/car-review")
-    public CarReviewDetailSortedDTO getCarReviewDetail(@PathVariable final Long id) {
-        return carReviewService.getCarReviewDetail(id);
+    public CarReviewDetailSortedDTO getCarReviewDetail(@PathVariable Long id, @LoginUserId Long userId) {
+        return carReviewService.getCarReviewDetail(id, userId);
     }
 
     @Override

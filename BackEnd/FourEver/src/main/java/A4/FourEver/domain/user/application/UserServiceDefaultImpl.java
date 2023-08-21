@@ -32,8 +32,6 @@ public class UserServiceDefaultImpl implements UserService{
             user = userRepository.findUserByEmail(userEmail);
         }
         if(!PasswordUtil.verifyPassword(password, user.getPassword())) {
-            System.out.println(password);
-            System.out.println(user.getPassword());
             throw new InvalidPasswordException();
         }
         return user.getId();

@@ -36,6 +36,7 @@ public class CarReviewMapper {
         return CarReviewDetailSortedDTO.builder()
                 .id(dto.getId())
                 .price(dto.getPrice())
+                .is_save(dto.getIs_save())
                 .comment(dto.getComment())
                 .car_name(dto.getCar_name())
                 .trimNameDTO(dto.getTrimNameDTO())

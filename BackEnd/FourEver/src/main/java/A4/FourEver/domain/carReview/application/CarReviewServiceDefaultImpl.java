@@ -16,8 +16,8 @@ public class CarReviewServiceDefaultImpl implements CarReviewService {
     }
 
     @Override
-    public CarReviewDetailSortedDTO getCarReviewDetail(Long id) {
-        return carReviewMapper.convertToSortedDTO(carReviewRepository.findCarReviewDetail(id));
+    public CarReviewDetailSortedDTO getCarReviewDetail(Long id, Long userId) {
+        return carReviewMapper.convertToSortedDTO(carReviewRepository.findCarReviewDetail(id, userId));
     }
 
     @Override
