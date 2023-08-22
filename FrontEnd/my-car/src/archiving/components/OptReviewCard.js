@@ -127,6 +127,7 @@ function OptReviewCard() {
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`, { state: { fromMycar } });
   };
+  console.log(reviewList);
 
   return (
     <Container>
