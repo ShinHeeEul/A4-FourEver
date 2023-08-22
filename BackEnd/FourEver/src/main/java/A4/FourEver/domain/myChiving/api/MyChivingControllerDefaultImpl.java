@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Tag(name = "마이카이빙 정보")
 @RestController
 @RequestMapping("/mychiving")
@@ -29,7 +31,7 @@ public class MyChivingControllerDefaultImpl implements MyChivingController {
             "⛔️없는 id값 입력 하지 않도록 주의!</b>")
     @PostMapping("/create")
     @SecurityRequirement(name = "JWT")
-    public MyChivingIdDTO createMyChiving(@RequestBody final MyChivingSaveDTO dto, @LoginUserId final Long userId) {
+    public MyChivingIdDTO createMyChiving(@Valid @RequestBody final MyChivingSaveDTO dto, @LoginUserId final Long userId) {
         return myChivingService.saveMyChiving(dto, userId);
     }
 
