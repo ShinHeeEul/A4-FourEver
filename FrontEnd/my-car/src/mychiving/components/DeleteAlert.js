@@ -89,7 +89,9 @@ function DeleteAlert({
   showDeleteAlert,
   deleteId,
   setUpdate,
+  inArchiving,
 }) {
+  let urlLength;
   const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
@@ -121,7 +123,11 @@ function DeleteAlert({
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
           <BtnConfirm
-            onClick={() => DeleteRequest(deleteId, '/mychiving/delete/')}
+            onClick={() => {
+              inArchiving
+                ? DeleteRequest(deleteId, '/user/feed/delete/')
+                : DeleteRequest(deleteId, '/mychiving/delete/');
+            }}
           >
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>

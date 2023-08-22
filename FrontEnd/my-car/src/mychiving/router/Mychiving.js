@@ -101,8 +101,12 @@ function Mychiving() {
           [...state?.carReviewList].map((elem) => {
             return (
               <CardByArchiving
-                onClick={() => {
-                  navigate(`/archiving/${elem.id}`);
+                onClick={(e) => {
+                  if (e.target.tagName === 'DIV') {
+                    navigate(`/archiving/${elem.id}`);
+                  } else if (e.target.tagName === 'BUTTON') {
+                    console.log('button입니다');
+                  }
                 }}
                 savedCar={elem}
                 setUpdate={setUpdate}

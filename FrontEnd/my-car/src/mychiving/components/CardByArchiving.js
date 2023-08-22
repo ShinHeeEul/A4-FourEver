@@ -136,6 +136,7 @@ function CardByArchiving({ savedCar, onClick, setUpdate }) {
           showDeleteAlert={deleteArchivingCard}
           deleteId={savedCar.id}
           setUpdate={setUpdate}
+          inArchiving={true}
         />
       )}
       <CardWrap>

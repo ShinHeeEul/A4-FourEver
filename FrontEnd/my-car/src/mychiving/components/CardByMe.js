@@ -119,6 +119,7 @@ function CardByMe({ myList, extraOptions, setUpdate }) {
           showDeleteAlert={showDeleteAlert}
           deleteId={myList.id}
           setUpdate={setUpdate}
+          inArchiving={false}
         />
       )}
       <CardDiv
