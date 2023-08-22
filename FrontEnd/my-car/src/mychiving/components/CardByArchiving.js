@@ -8,7 +8,9 @@ import {
 } from '../../style/typo';
 import { formatDate } from '../../util/DateFomat';
 import { Tag } from '../../common/Tag';
-
+import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
+import { useState } from 'react';
+import DeleteAlert from './DeleteAlert';
 const Container = styled.div`
   /* margin: 25px auto; */
   display: flex;
@@ -112,9 +114,31 @@ const CategoryWrap = styled.div`
   }
 `;
 
-function CardByArchiving({ savedCar, onClick }) {
+const DeleteSvg = styled(RemoveSvg)`
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 100%;
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
+
+function CardByArchiving({ savedCar, onClick, setUpdate }) {
+  const [deleteArchivingCard, setDeleteArchivingCard] = useState(false);
+
   return (
     <Container onClick={onClick}>
+      {deleteArchivingCard && (
+        <DeleteAlert
+          msg={`${savedCar.car_name} ${savedCar.trim_name}을/삭제하시겠습니까?`}
+          setShowDeleteAlert={setDeleteArchivingCard}
+          showDeleteAlert={deleteArchivingCard}
+          deleteId={savedCar.id}
+          setUpdate={setUpdate}
+          inArchiving={true}
+        />
+      )}
       <CardWrap>
         <CardHeader>
           <TrimInfo>
@@ -131,9 +155,15 @@ function CardByArchiving({ savedCar, onClick }) {
             </div>
           </TrimInfo>
           <div>
-            <RestInfoChip>{formatDate(savedCar.created_at)}</RestInfoChip>
             <RestInfoChip>
-              {savedCar.is_purchased ? '구매' : '시승'}
+              {formatDate(savedCar.created_at)}
+              {savedCar.is_purchased ? ' 구매 ' : ' 시승 '}
+              <DeleteSvg
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setDeleteArchivingCard(true);
+                }}
+              />
             </RestInfoChip>
           </div>
         </CardHeader>

@@ -47,7 +47,7 @@ function MychivingDetail(isArchiving) {
   function handleCardClick(idx) {
     toggleSelect(idx);
   }
-  console.log(data[MYCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS][0]);
+
   return (
     <MychivingDataLoaderContext.Provider value={data}>
       <Container>

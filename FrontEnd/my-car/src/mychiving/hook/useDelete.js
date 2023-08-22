@@ -1,9 +1,10 @@
 import { BASIC_SERVER_URL } from '../../constant';
 
-export async function useDeleteRequest(id) {
+export async function useDeleteRequest(id, requestUrl) {
   const accessToken = localStorage.getItem('jwtToken');
   console.log(accessToken);
-  const url = `${BASIC_SERVER_URL}/mychiving/delete/${id}`;
+  const url = `${BASIC_SERVER_URL}${requestUrl}${id}`;
+  // const url = `${BASIC_SERVER_URL}/mychiving/delete/${id}`;
   const options = {
     method: 'DELETE',
     headers: {
