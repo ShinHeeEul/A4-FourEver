@@ -6,11 +6,11 @@ import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BASIC_SERVER_URL } from '../../constant';
 import CardByArchiving from '../components/CardByArchiving';
+import MyCardOrigin from '../components/MyCardOrigin';
 export const MychivingContext = createContext();
 const Container = styled.div`
-  width: 960px;
+  width: 1028px;
   padding-top: 150px;
-
   margin: 0 auto;
 `;
 
@@ -21,8 +21,8 @@ const Tabmenu = styled.ul`
   margin: 40px 0 20px;
   border-bottom: 3px solid ${palette.LightSand};
   color: ${palette.Sand};
-
-  gap: 20px;
+  padding: 5px 0;
+  gap: 30px;
   .submenu {
     display: flex;
     height: 30px;
@@ -36,14 +36,12 @@ const Tabmenu = styled.ul`
     width: max-content;
   }
 
-  & div.desc {
+  /* & div.desc {
     text-align: center;
-  }
+  } */
 `;
 
-const Desc = styled.div`
-  text-align: center;
-`;
+const Desc = styled.div``;
 
 const TitleHeader = styled.div`
   h2 {
@@ -114,8 +112,10 @@ function Mychiving() {
           <div
             style={{
               display: 'flex',
-              width: '960px',
-              overflow: 'auto',
+              width: '1028px',
+              flexWrap: 'wrap',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}
           >
             {state &&
@@ -124,7 +124,7 @@ function Mychiving() {
                 ...state?.myChivingTempList,
               ].map((elem) => {
                 return (
-                  <CardByMe
+                  <MyCardOrigin
                     myList={elem}
                     extraOptions={elem.extraOptionDTOs}
                     setUpdate={setUpdate}
