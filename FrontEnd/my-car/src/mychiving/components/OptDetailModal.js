@@ -173,7 +173,7 @@ function OptDetailModal({
           drive_id: myList.driveNameDTO.id,
           in_color_id: myList.inColorIdDTO.id,
           ex_color_id: myList.exColorIdDTO.id,
-          extra_option_ids: optionIds,
+          extra_option_ids: optionIds[0] === 0 ? [] : optionIds,
         }),
       }).then((res) => res.json());
     };
