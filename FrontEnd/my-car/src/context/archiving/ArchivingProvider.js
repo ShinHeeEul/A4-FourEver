@@ -48,7 +48,6 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     }
   }, [reviewLoading, optionLoading, setLoading]);
 
-  console.log(firstBoarding);
   const action = {
     select: ({ id }) => {
       setActiveStates((prevActiveStates) => ({
