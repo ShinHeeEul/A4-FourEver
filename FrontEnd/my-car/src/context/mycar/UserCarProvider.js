@@ -19,23 +19,24 @@ function UserCarProvider({ children, fromChivingState }) {
       localStorage.setItem('myChiving_id', 0);
     }
 
-    const optionPrices = fromChivingState.data.extraOptionDTOs.map(
-      (option) => option.price,
-    );
+    const optionPrices =
+      fromChivingState.data.extraOptionDTOs === ('null' || null)
+        ? []
+        : fromChivingState.data.extraOptionDTOs.map((option) => option.price);
     initialUserCar = {
-      trim: fromChivingState.data.trimInfoDTO,
-      engine: fromChivingState.data.engineInfoDTO,
-      bodyType: fromChivingState.data.bodyInfoDTO,
-      wheelDrive: fromChivingState.data.driveInfoDTO,
-      outerColor: fromChivingState.data.exColorDTO,
-      innerColor: fromChivingState.data.inColorDTO,
-      selectedOptions: fromChivingState.data.extraOptionDTOs,
+      trim: fromChivingState.data.trimInfoDTO || {},
+      engine: fromChivingState.data.engineInfoDTO || {},
+      bodyType: fromChivingState.data.bodyInfoDTO || {},
+      wheelDrive: fromChivingState.data.driveInfoDTO || {},
+      outerColor: fromChivingState.data.exColorDTO || {},
+      innerColor: fromChivingState.data.inColorDTO || {},
+      selectedOptions: fromChivingState.data.extraOptionDTOs || [],
       price: [
-        fromChivingState.data.trimInfoDTO.price,
-        fromChivingState.data.engineInfoDTO.price,
-        fromChivingState.data.bodyInfoDTO.price,
-        fromChivingState.data.driveInfoDTO.price,
-        fromChivingState.data.exColorDTO.price,
+        fromChivingState.data.trimInfoDTO?.price,
+        fromChivingState.data.engineInfoDTO?.price || 0,
+        fromChivingState.data.bodyInfoDTO?.price || 0,
+        fromChivingState.data.driveInfoDTO?.price || 0,
+        fromChivingState.data.exColorDTO?.price || 0,
       ],
       optionPrice: optionPrices,
     };
