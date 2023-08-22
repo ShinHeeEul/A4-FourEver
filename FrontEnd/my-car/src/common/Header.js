@@ -80,6 +80,7 @@ function Header({
   setIsMainBtn,
   setClickLinkBtn,
   isLoginPage,
+  clickLinkBtn,
 }) {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
@@ -100,16 +101,23 @@ function Header({
     default:
   }
 
-  function showAlert(flag, index) {
+  function showAlert({ flag, index }) {
     setIsMainBtn(flag);
 
-    if (
-      currentPath === 'mycar' &&
-      currentSubPath === myCarPagePath[myCarPagePath.length - 1]
-    ) {
-      isMainBtn ? navigate('/main') : navigate(archivingPath);
-      return;
-    }
+    // if (
+    //   currentPath === 'mycar' &&
+    //   currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+    // ) {
+    //   isMainBtn
+    //     ? navigate('/main')
+    //     : clickLinkBtn
+    //     ? navigate(archivingPath)
+    //     : navigate(mychivingPath);
+    //   return;
+    // }
+    // else{
+
+    // }
     setClickLinkBtn(index);
     setShowCommonAlert(true);
   }
@@ -118,7 +126,7 @@ function Header({
     return (
       <HeaderDiv $isLoginPage={isLoginPage}>
         <HeaderElements>
-          <HyundaiLogoDiv onClick={() => showAlert(true)}>
+          <HyundaiLogoDiv onClick={() => showAlert({ flag: true })}>
             <HyundaiLogo />
           </HyundaiLogoDiv>
           <HyundaiLeftDiv />
@@ -129,7 +137,7 @@ function Header({
           {/* <HyundaiRightDiv /> */}
 
           {Array.from({ length: 2 }, (_, index) => (
-            <ToCarivingBtn onClick={() => showAlert(false, index)}>
+            <ToCarivingBtn onClick={() => showAlert({ flag: false, index })}>
               <ArchivingLogo style={{ width: '20px', height: '18px' }} />
               <ToCarivingBtnText>{btnText[index]}</ToCarivingBtnText>
             </ToCarivingBtn>
