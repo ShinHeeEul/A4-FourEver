@@ -51,7 +51,7 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("is_end", dto.getIs_end());
-        params.addValue("price", dto.getPrice() == 0 ? 41980000 : dto.getPrice());
+        params.addValue("price", dto.getPrice());
         params.addValue("user_id", userId);
         params.addValue("ex_color_id", getOrDefault(dto.getEx_color_id()));
         params.addValue("in_color_id", getOrDefault(dto.getIn_color_id()));
