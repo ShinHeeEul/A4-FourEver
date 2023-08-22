@@ -5,8 +5,11 @@ import useFetch from '../../archiving/hook/useFetch';
 
 export const OptionSelectValue = createContext();
 export const OptionSelectAction = createContext();
+export const ModalContext = createContext();
 
 function ArchivingProvider({ children, setLoading, fromMycar }) {
+  const [firstBoarding, setFirstBoarding] = useState(true);
+
   const accessToken = localStorage.getItem('jwtToken');
 
   const [activeStates, setActiveStates] = useState({}); //선택 옵션
@@ -45,6 +48,7 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     }
   }, [reviewLoading, optionLoading, setLoading]);
 
+  console.log(firstBoarding);
   const action = {
     select: ({ id }) => {
       setActiveStates((prevActiveStates) => ({
@@ -68,6 +72,7 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
       setActiveTab(index);
     },
   };
+
   useEffect(() => {
     const userCar = JSON.parse(localStorage.getItem('userCar'));
     if (fromMycar?.fromMycar !== null && userCar) {
@@ -88,9 +93,16 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
   return (
     <OptionSelectAction.Provider value={{ action }}>
       <OptionSelectValue.Provider
-        value={{ activeStates, activeTab, optionList, reviewList }}
+        value={{
+          activeStates,
+          activeTab,
+          optionList,
+          reviewList,
+        }}
       >
-        {children}
+        <ModalContext.Provider value={{ firstBoarding, setFirstBoarding }}>
+          {children}
+        </ModalContext.Provider>
       </OptionSelectValue.Provider>
     </OptionSelectAction.Provider>
   );

@@ -11,8 +11,9 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import palette from '../../style/styleVariable';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Tag } from '../../common/Tag';
+import { ModalContext } from '../../context/archiving/ArchivingProvider';
 
 const Dim = styled.div`
   background-color: black;
@@ -101,19 +102,6 @@ const Header = styled.div`
   div {
     display: flex;
   }
-
-  ${({ $page }) =>
-    $page === 2
-      ? css`
-          .skip {
-            visibility: hidden;
-          }
-        `
-      : css`
-          .skip {
-            visibility: visible;
-          }
-        `}
 
   span {
     display: flex;
@@ -340,6 +328,7 @@ const TopWrap = styled.div`
 
 function Onboarding({ setModalShow, data }) {
   const [page, setPage] = useState(0);
+  const { setFirstBoarding } = useContext(ModalContext);
 
   const pageMove = () => {
     setPage((prev) => prev + 1);
@@ -363,7 +352,14 @@ function Onboarding({ setModalShow, data }) {
               <NextSvg />
             </div>
           ) : (
-            <span onClick={() => setModalShow(false)}>닫기</span>
+            <span
+              onClick={() => {
+                setModalShow(false);
+                setFirstBoarding(false);
+              }}
+            >
+              닫기
+            </span>
           )}
         </Header>
         <ViewWrap $page={(1 - page) * 800}>

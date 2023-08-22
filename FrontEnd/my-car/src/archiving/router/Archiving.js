@@ -2,8 +2,10 @@ import { styled } from 'styled-components';
 import OptSelectionBar from '../components/OptSelectionBar';
 import OptReviewHeader from '../components/OptReviewHeader';
 import OptReviewCard from '../components/OptReviewCard';
-import ArchivingProvider from '../../context/archiving/ArchivingProvider';
-import { useEffect, useState } from 'react';
+import ArchivingProvider, {
+  ModalContext,
+} from '../../context/archiving/ArchivingProvider';
+import { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useOutletContext } from 'react-router-dom';
 import WarningTooltip from '../components/WarningTooltip';
 import Loading from '../../common/Loading';
@@ -24,20 +26,22 @@ const FixedContainer = styled.div`
 `;
 
 function Archiving() {
+  const { data } = useLoaderData();
   const { loading } = useOutletContext();
+
+  //온보딩 모달 관련
+  const { firstBoarding } = useContext(ModalContext);
   const [modalShow, setModalShow] = useState(true);
   const onboardingOff = localStorage.getItem('onboardingOff');
 
-  const { data } = useLoaderData();
-
   useEffect(() => {
     const body = document.querySelector('body');
-    if (modalShow) {
+    if (modalShow && !onboardingOff) {
       body.classList.add('no-scroll');
     } else {
       body.classList.remove('no-scroll');
     }
-  }, [modalShow]);
+  }, [modalShow, onboardingOff]);
 
   return (
     <>
@@ -45,7 +49,7 @@ function Archiving() {
         <Loading text={'후기를 불러오는 중입니다'} />
       ) : (
         <>
-          {modalShow && !onboardingOff && (
+          {modalShow && !onboardingOff && firstBoarding && (
             <Onboarding data={data} setModalShow={setModalShow} />
           )}
           <Container>
