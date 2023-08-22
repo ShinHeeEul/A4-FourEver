@@ -89,7 +89,7 @@ function Header({
 
   switch (currentPath) {
     case 'mycar':
-      btnText = ['마이카이빙', '이카이빙'];
+      btnText = ['마이카이빙', '아카이빙'];
       break;
     case 'archiving':
       btnText = ['마이카이빙', '내차만들기'];

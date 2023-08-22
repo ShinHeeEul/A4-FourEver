@@ -62,8 +62,14 @@ const SelectedOptionTitleWrap = styled.div`
 `;
 const OptionCategory = styled.h2`
   ${Body3Medium}
-  color: ${palette.DarkGray};
+
   margin-bottom: 6px;
+  transition: all 0.2s ease;
+  &:hover {
+    color: ${({ $isHovered }) =>
+      $isHovered ? `${palette.Blue500}` : `${palette.DarkGray}`};
+    text-decoration: ${({ $isHovered }) => ($isHovered ? 'underline' : 'none')};
+  }
 `;
 
 const ColorSelectedImg = styled.div`
@@ -275,7 +281,16 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
         <SelectedOptionWrap>
           <SelectedOptionTitleWrap>
             <OptionCategory>선택 옵션</OptionCategory>
-            <OptionCategory style={{ cursor: 'pointer' }} onClick={showModal}>
+            <OptionCategory
+              style={{
+                cursor: 'pointer',
+                // borderBottom: '1px solid',
+                width: '80px',
+                height: '21px',
+              }}
+              $isHovered={true}
+              onClick={showModal}
+            >
               {showSummaryModal && (
                 <SummaryModal
                   userCar={userCar}

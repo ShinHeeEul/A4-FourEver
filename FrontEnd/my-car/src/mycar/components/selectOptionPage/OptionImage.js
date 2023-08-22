@@ -37,6 +37,7 @@ const SelectedOptionImgWrap = styled.div`
     object-fit: cover;
     width: 100%;
     height: 100%;
+    border-radius: 8px;
   }
 
   ${({ $flipped }) =>

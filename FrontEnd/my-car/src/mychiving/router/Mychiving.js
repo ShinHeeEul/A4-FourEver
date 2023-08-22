@@ -86,7 +86,7 @@ function Mychiving() {
           )}
       </div>
 
-      <TitleHeader>
+      <TitleHeader style={{ paddingTop: '50px' }}>
         <h2>피드에서 저장한 차량 목록</h2>
       </TitleHeader>
       <div

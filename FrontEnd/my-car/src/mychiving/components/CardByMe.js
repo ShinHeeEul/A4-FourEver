@@ -3,26 +3,25 @@ import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { Body3Regular, Body4Medium, Heading4Bold } from '../../style/typo';
 import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { MychivingContext } from '../router/Mychiving';
+import { useState } from 'react';
 import { formatDate } from '../../util/DateFomat';
 import OptDetailModal from './OptDetailModal';
 import DeleteAlert from './DeleteAlert';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   height: 254px;
-  margin: 30px 0;
+  margin: 25px 0;
   display: flex;
 `;
 
 const CardDiv = styled.div`
   height: 250px;
-  width: 270px;
+  width: 215px;
   border-radius: 8px;
   border: 2px solid ${palette.Primary};
   display: flex;
   flex-direction: column;
-  margin-right: 30px;
+  margin-right: 20px;
   flex-shrink: 0;
   position: relative;
   cursor: pointer;

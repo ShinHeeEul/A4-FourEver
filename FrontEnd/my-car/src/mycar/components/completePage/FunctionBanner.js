@@ -35,7 +35,7 @@ function FunctionBanner() {
   return (
     <BannerWrap>
       <Line />
-      <MsgText>나의 펠리세이드는 이런 기능을 가지고 있어요</MsgText>
+      <MsgText>나의 팰리세이드는 이런 기능을 가지고 있어요</MsgText>
     </BannerWrap>
   );
 }

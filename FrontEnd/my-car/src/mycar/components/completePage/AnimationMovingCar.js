@@ -122,7 +122,7 @@ function AnimationMovingCar({ loading }) {
           <TitleDiv>
             <TitleText>당신만의 세상을 위한,</TitleText>
 
-            <TitleTextBig>펠리세이드가 완성되었습니다</TitleTextBig>
+            <TitleTextBig>팰리세이드가 완성되었습니다</TitleTextBig>
           </TitleDiv>
         </Container>
       </ModalBgDiv>
