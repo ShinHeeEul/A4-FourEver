@@ -2,7 +2,12 @@ import { BASIC_SERVER_URL } from '../constant';
 
 export async function UserCarPostRequest({ is_end = 1 }) {
   const getId = localStorage.getItem('myChiving_id');
-  const id = getId === 'undefined' ? 0 : JSON.parse(getId);
+  console.log(getId);
+
+  const id =
+    getId === 'undefined' || 'null' || null || undefined
+      ? 0
+      : JSON.parse(getId);
 
   const userCar = JSON.parse(localStorage.getItem('userCar'));
   const accessToken = localStorage.getItem('jwtToken');
