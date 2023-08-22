@@ -69,8 +69,6 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
             return newId;
         }
 
-        System.out.println(1111);
-
         String optionSql = "INSERT INTO mychiving_extra_option (mychiving_id, extra_option_id) VALUES (:mychiving_id, :extra_option_id)";
         List<SqlParameterSource> parameters = new ArrayList<>();
 
