@@ -107,60 +107,47 @@ function Alert({
   const alertBg = useRef();
   const scrollTop = document.documentElement.scrollTop;
   const currentPath = useLocation().pathname.split('/')[1];
-  const [state, setState] = useState({
-    title: '',
-    content: '',
-    link: '',
-  });
+  const currentSubPath = useLocation().pathname.split('/')[2];
+  let title, content, link;
 
-  useEffect(() => {
-    if (currentPath === 'mycar') {
-      setState({
-        title: '마이카이빙에 저장되었습니다.',
-        content: isMainBtn
-          ? '메인으로 이동하시겠습니까?'
-          : clickLinkBtn
-          ? '아카이빙으로 이동하시겠습니까?'
-          : '이동하시겠습니까?',
-        link: isMainBtn
-          ? '/main'
-          : clickLinkBtn
-          ? archivingPath
-          : mychivingPath,
-      });
-    }
-    if (currentPath === 'archiving') {
-      setState({
-        content: '',
-        title: isMainBtn
-          ? '메인으로 이동하시겠습니까?'
-          : clickLinkBtn
-          ? '내차만들기로 이동하시겠습니까?'
-          : '마아카이빙으로 이동하시겠습니까?',
-        link: isMainBtn
-          ? '/main'
-          : clickLinkBtn
-          ? `/mycar/${myCarPagePath[0]}`
-          : mychivingPath,
-      });
-    }
-    if (currentPath === 'mychiving') {
-      setState({
-        content: '',
-        title: isMainBtn
-          ? '메인으로 이동하시겠습니까?'
-          : clickLinkBtn
-          ? '내차만들기로 이동하시겠습니까?'
-          : '아카이빙으로 이동하시겠습니까?',
-        link: isMainBtn
-          ? '/main'
-          : clickLinkBtn
-          ? `/mycar/${myCarPagePath[0]}`
-          : archivingPath,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMainBtn, clickLinkBtn]);
+  if (currentPath === 'mycar') {
+    title =
+      currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+        ? ''
+        : '마이카이빙에 저장되었습니다.';
+    content = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '아카이빙으로 이동하시겠습니까?'
+      : currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+      ? '마이카이빙으로 이동하시겠습니까?'
+      : '이동하시겠습니까?';
+    link = isMainBtn ? '/main' : clickLinkBtn ? archivingPath : mychivingPath;
+  } else if (currentPath === 'archiving') {
+    content = '';
+    title = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '내차만들기로 이동하시겠습니까?'
+      : '마아카이빙으로 이동하시겠습니까?';
+    link = isMainBtn
+      ? '/main'
+      : clickLinkBtn
+      ? `/mycar/${myCarPagePath[0]}`
+      : mychivingPath;
+  } else if (currentPath === 'mychiving') {
+    content = '';
+    title = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '내차만들기로 이동하시겠습니까?'
+      : '아카이빙으로 이동하시겠습니까?';
+    link = isMainBtn
+      ? '/main'
+      : clickLinkBtn
+      ? `/mycar/${myCarPagePath[0]}`
+      : archivingPath;
+  }
 
   const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
@@ -169,10 +156,7 @@ function Alert({
       UserCarPostRequest({ is_end: 0 });
     }
     if (!cancel)
-      navigate(
-        state.link,
-        currentPath === 'mycar' && { state: { from: 'mycar' } },
-      );
+      navigate(link, currentPath === 'mycar' && { state: { from: 'mycar' } });
   };
 
   return (
@@ -183,8 +167,8 @@ function Alert({
     >
       <AlertDiv>
         <AlertMsgDiv>
-          <AlertMsg>{state.title}</AlertMsg>
-          <AlertMsg>{state.content}</AlertMsg>
+          <AlertMsg>{title}</AlertMsg>
+          <AlertMsg>{content}</AlertMsg>
         </AlertMsgDiv>
 
         <AlertBtnDiv>

@@ -38,6 +38,7 @@ function Root() {
           <Header
             setShowCommonAlert={setShowCommonAlert}
             setIsMainBtn={setIsMainBtn}
+            clickLinkBtn={clickLinkBtn}
             setClickLinkBtn={setClickLinkBtn}
             isLoginPage={isLoginPage}
           />
