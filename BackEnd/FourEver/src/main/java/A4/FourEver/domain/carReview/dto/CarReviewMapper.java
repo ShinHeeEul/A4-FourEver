@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class CarReviewMapper {
 
     public CarReviewDetailSortedDTO convertToSortedDTO(final CarReviewDetailDTO dto) {
-        List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDetailDTOS().stream()
+        List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDetailDTOs().stream()
                 .map(this::convertExtraOption)
                 .collect(Collectors.toList());
 
