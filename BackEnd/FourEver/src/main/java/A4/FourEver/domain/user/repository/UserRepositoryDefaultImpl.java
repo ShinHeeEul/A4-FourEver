@@ -109,13 +109,13 @@ public class UserRepositoryDefaultImpl implements UserRepository {
 
                 "FROM mychiving mc " +
                 "JOIN model m ON mc.model_id = m.id " +
-                "JOIN trim t ON m.trim_id = t.id " +
-                "JOIN engine e ON m.engine_id = e.id " +
-                "JOIN body b ON m.body_id = b.id " +
-                "JOIN drive d ON m.drive_id = d.id " +
-                "JOIN car c ON d.car_id = c.id " +
-                "JOIN ex_color exc ON t.id = exc.trim_id " +
-                "JOIN in_color inc ON t.id = inc.trim_id " +
+                "LEFT JOIN trim t ON m.trim_id = t.id " +
+                "LEFT JOIN engine e ON m.engine_id = e.id " +
+                "LEFT JOIN body b ON m.body_id = b.id " +
+                "LEFT JOIN drive d ON m.drive_id = d.id " +
+                "LEFT JOIN car c ON t.car_id = c.id " +
+                "LEFT JOIN ex_color exc ON mc.ex_color_id = exc.id " +
+                "LEFT JOIN in_color inc ON mc.in_color_id = inc.id " +
                 "LEFT JOIN mychiving_extra_option meo ON mc.id = meo.mychiving_id " +
                 "LEFT JOIN extra_option eo ON meo.extra_option_id = eo.id " +
                 "LEFT JOIN users u ON mc.user_id = u.id " +
