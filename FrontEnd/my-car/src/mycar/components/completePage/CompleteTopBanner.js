@@ -108,7 +108,7 @@ function CompleteTopBanner() {
         <TextDiv>
           <TitleSpan>PALISADE</TitleSpan>
           <Line />
-          <CompletedMsg>나의 펠리세이드가 완성되었어요 !</CompletedMsg>
+          <CompletedMsg>나의 팰리세이드가 완성되었어요 !</CompletedMsg>
           <DetailDiv>
             <DetailText>완성된 차량은 마이카이빙에서 볼 수 있어요</DetailText>
             <BtnDiv>

@@ -5,6 +5,7 @@ import {
   Body3Regular,
   Body4Regular,
   Heading1Bold,
+  Heading1Medium,
   Heading3Bold,
   Heading3Medium,
 } from '../../../style/typo';
@@ -30,7 +31,7 @@ const ImgContainer = styled.div`
     gap: 10px;
 
     h1 {
-      ${Heading1Bold}
+      ${Heading1Medium}
       font-size: 38px;
     }
     span {

@@ -137,7 +137,7 @@ function OptReviewCard() {
               <CardHeader>
                 <TrimInfo>
                   <div>
-                    <h1>펠리세이드 {review.trim_name}</h1>
+                    <h1>팰리세이드 {review.trim_name}</h1>
                   </div>
                   <span>
                     {review.engine_name} / {review.drive_name} /{' '}
