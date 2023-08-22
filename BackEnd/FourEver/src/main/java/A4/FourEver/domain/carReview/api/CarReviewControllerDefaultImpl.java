@@ -42,6 +42,7 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
 
     @Override
     @Operation(summary = "카 리뷰 온보딩 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/on-boarding")
     public CarReviewOnBoardingDTO onBoarding() {
         return new CarReviewOnBoardingDTO();
