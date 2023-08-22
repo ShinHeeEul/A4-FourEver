@@ -2,7 +2,6 @@ import { BASIC_SERVER_URL } from '../../constant';
 
 export async function useDeleteRequest(id, requestUrl) {
   const accessToken = localStorage.getItem('jwtToken');
-  console.log(accessToken);
   const url = `${BASIC_SERVER_URL}${requestUrl}${id}`;
   // const url = `${BASIC_SERVER_URL}/mychiving/delete/${id}`;
   const options = {
@@ -18,6 +17,14 @@ export async function useDeleteRequest(id, requestUrl) {
     console.log(res);
     if (res.ok) {
       // 삭제 요청이 성공적으로 이루어진 경우
+      if (requestUrl === '/mychiving/delete/') {
+        localStorage.removeItem('userCar');
+        console.log(id);
+        console.log(localStorage.getItem('myChiving_id'));
+        if (id === JSON.parse(localStorage.getItem('myChiving_id'))) {
+          localStorage.setItem('myChiving_id', 0);
+        }
+      }
       console.log('ok');
     } else {
       // 삭제 요청이 실패한 경우
