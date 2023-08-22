@@ -11,28 +11,25 @@ import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimNameDTO;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Repository
 public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
-    private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final MyChivingDetailExtractor myChivingDetailExtractor = new MyChivingDetailExtractor();
 
-    public MyChivingRepositoryDefaultImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public MyChivingRepositoryDefaultImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
@@ -42,56 +39,64 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
 
         String myChivingSql = "INSERT INTO mychiving " +
                 "(is_end, price, user_id, model_id, ex_color_id, in_color_id, updated_at) " +
-                "SELECT ?, ?, ?, model_id, ?, ?, ? " +
+                "SELECT :is_end, :price, :user_id, model_id, :ex_color_id, :in_color_id, Now() " +
                 "FROM (" +
                 "    SELECT model.id AS model_id " +
                 "    FROM model " +
-                "    WHERE trim_id = ? AND engine_id = ? AND body_id = ? AND drive_id = ?" +
-                ") AS model_id_subquery";
+                "    WHERE (trim_id = :trim_id OR (trim_id IS NULL AND :trim_id IS NULL)) " +
+                "    AND (engine_id = :engine_id OR (engine_id IS NULL AND :engine_id IS NULL)) " +
+                "    AND (body_id = :body_id OR (body_id IS NULL AND :body_id IS NULL)) " +
+                "    AND (drive_id = :drive_id OR (drive_id IS NULL AND :drive_id IS NULL)) " +
+                ") AS model_id_subQuery";
 
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("is_end", dto.getIs_end());
+        params.addValue("price", dto.getPrice() == 0 ? 41980000 : dto.getPrice());
+        params.addValue("user_id", userId);
+        params.addValue("ex_color_id", getOrDefault(dto.getEx_color_id()));
+        params.addValue("in_color_id", getOrDefault(dto.getIn_color_id()));
+        params.addValue("trim_id", getOrDefault(dto.getTrim_id()));
+        params.addValue("engine_id", getOrDefault(dto.getEngine_id()));
+        params.addValue("body_id", getOrDefault(dto.getBody_id()));
+        params.addValue("drive_id", getOrDefault(dto.getDrive_id()));
 
-        jdbcTemplate.update(
-                connection -> {
-                    PreparedStatement ps = connection.prepareStatement(myChivingSql, Statement.RETURN_GENERATED_KEYS);
+        namedParameterJdbcTemplate.update(myChivingSql, params, keyHolder);
 
-                    ps.setInt(1, dto.getIs_end());
-                    ps.setDouble(2, dto.getPrice() == 0 ? 41980000 : dto.getPrice());
-                    ps.setLong(3, userId);
-                    setDefaultOrId(ps, dto.getEx_color_id(), 4);
-                    setDefaultOrId(ps, dto.getIn_color_id(), 5);
-                    ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
-                    setDefaultOrId(ps, dto.getTrim_id(), 7);
-                    setDefaultOrId(ps, dto.getEngine_id(), 8);
-                    setDefaultOrId(ps, dto.getBody_id(), 9);
-                    setDefaultOrId(ps, dto.getEngine_id(), 10);
+        Number key = keyHolder.getKey();
+        Long newId = key != null ? key.longValue() : null;
 
-                    return ps;
-                },
-                keyHolder
-        );
+        if(newId == null || dto.getOptionIds().isEmpty()) {
+            return newId;
+        }
 
-        long newId = keyHolder.getKey().longValue();
+        System.out.println(1111);
 
-        String optionSql = "INSERT INTO mychiving_extra_option (mychiving_id, extra_option_id) VALUES (?, ?)";
-        List<Object[]> batchArgs = new ArrayList<>();
+        String optionSql = "INSERT INTO mychiving_extra_option (mychiving_id, extra_option_id) VALUES (:mychiving_id, :extra_option_id)";
+        List<SqlParameterSource> parameters = new ArrayList<>();
 
         for (Long optionId : dto.getOptionIds()) {
-            Object[] values = new Object[]{newId, optionId};
-            batchArgs.add(values);
+            MapSqlParameterSource paramSource = new MapSqlParameterSource();
+            paramSource.addValue("mychiving_id", newId);
+            paramSource.addValue("extra_option_id", optionId);
+            parameters.add(paramSource);
         }
-        jdbcTemplate.batchUpdate(optionSql, batchArgs);
+
+        namedParameterJdbcTemplate.batchUpdate(optionSql, parameters.toArray(new SqlParameterSource[0]));
 
         return newId;
     }
 
-
     @Override
     public void removeMyChiving(final Long id) {
-        String optionSql = "DELETE FROM mychiving_extra_option WHERE mychiving_id = ?;";
-        jdbcTemplate.update(optionSql, id);
+        String optionSql = "DELETE FROM mychiving_extra_option WHERE mychiving_id = :mychiving_id;";
 
-        String myChivingSql = "DELETE FROM mychiving WHERE id = ?;";
-        jdbcTemplate.update(myChivingSql, id);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("mychiving_id", id);
+
+        namedParameterJdbcTemplate.update(optionSql, params);
+
+        String myChivingSql = "DELETE FROM mychiving WHERE id =:mychiving_id;";
+        namedParameterJdbcTemplate.update(myChivingSql, params);
     }
 
     @Override
@@ -142,8 +147,8 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
         return namedParameterJdbcTemplate.query(sql, params, myChivingDetailExtractor);
     }
 
-    private void setDefaultOrId(PreparedStatement ps, Long id, int index) throws SQLException {
-        ps.setLong(index, (id == 0) ? 1L : id);
+    private Long getOrDefault(Long id) {
+        return (id == 0) ? null : id;
     }
 
     private static class MyChivingDetailExtractor implements ResultSetExtractor<MyChivingDetailDTO> {
