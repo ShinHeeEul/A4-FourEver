@@ -21,7 +21,10 @@ export async function useDeleteRequest(id, requestUrl) {
         localStorage.removeItem('userCar');
         console.log(id);
         console.log(localStorage.getItem('myChiving_id'));
-        if (id === JSON.parse(localStorage.getItem('myChiving_id'))) {
+        if (
+          localStorage.getItem('myChiving_id') === ('null' || 'undefined') &&
+          id === JSON.parse(localStorage.getItem('myChiving_id'))
+        ) {
           localStorage.setItem('myChiving_id', 0);
         }
       }
