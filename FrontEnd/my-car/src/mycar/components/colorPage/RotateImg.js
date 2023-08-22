@@ -183,14 +183,14 @@ function RotateImg({ selectedOption, loading }) {
             <div class="l-9 letter">.</div>
             <div class="l-10 letter">.</div>
           </LetterWrap>
-          <img alt="" src={`${imagePathNew}/1.png`} />
+          <img alt="" src={`${imagePathNew}/1.webp`} />
         </LoadingWrap>
       ) : (
         Array.from({ length: 60 }, (_, index) => (
           <CarImg
             $isShow={index + 1 === imageIndex}
             alt="trim"
-            src={`${imagePathNew}/${index + 1}.png`}
+            src={`${imagePathNew}/${index + 1}.webp`}
           />
         ))
       )}

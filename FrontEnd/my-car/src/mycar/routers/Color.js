@@ -57,7 +57,7 @@ function Color() {
         const imagePaths = Array.from(
           { length: 60 },
           (_, index) =>
-            `http://hyundaimycar.store/rotation/${color}/${index + 1}.png`,
+            `http://hyundaimycar.store/rotation/${color}/${index + 1}.webp`,
         );
         imagePaths.forEach((path) => {
           const img = new Image();
