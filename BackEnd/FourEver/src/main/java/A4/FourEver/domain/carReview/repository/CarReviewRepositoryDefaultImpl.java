@@ -30,10 +30,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
@@ -113,82 +112,54 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     }
 
     @Override
-    public CarReviewResultDTO findCarReviewResult(CarReviewIdDTO carReviewIdDTO) {
-        String sql = "SELECT " +
-                "t.id AS trim_id, " +
-                "t.name AS trim_name, " +
-                "t.image AS trim_image, " +
-                "t.price AS trim_price, " +
+    public CarReviewResultDTO findCarReviewResult(CarReviewIdDTO dto) {
+        StringBuilder sql = new StringBuilder();
 
-                "e.id AS engine_id, " +
-                "e.name AS engine_name, " +
-                "e.image AS engine_image, " +
-                "e.description AS engine_description, " +
-                "e.max_output AS engine_max_output, " +
-                "e.max_tok AS engine_max_tok, " +
-                "e.price AS engine_price, " +
+        sql.append("SELECT ");
+        sql.append("t.id AS trim_id, t.name AS trim_name, t.image AS trim_image, t.price AS trim_price, ");
+        sql.append("e.id AS engine_id, e.name AS engine_name, e.image AS engine_image, e.description AS engine_description, e.max_output AS engine_max_output, e.max_tok AS engine_max_tok, e.price AS engine_price, ");
+        sql.append("b.id AS body_id, b.name AS body_name, b.image AS body_image, b.description AS body_description, b.price AS body_price, ");
+        sql.append("d.id AS drive_id, d.name AS drive_name, d.image AS drive_image, d.description AS drive_description, d.price AS drive_price, ");
+        sql.append("inc.id AS interior_id, inc.name AS interior_name, inc.color_image AS interior_color_image, inc.in_image AS interior_in_image, ");
+        sql.append("exc.id AS exterior_id, exc.name AS exterior_name, exc.color_image AS exterior_color_image, exc.rotation_image AS exterior_rotation_image, exc.price AS exterior_price ");
 
-                "b.id AS body_id, " +
-                "b.name AS body_name, " +
-                "b.image AS body_image, " +
-                "b.description AS body_description, " +
-                "b.price AS body_price, " +
+        if (dto.getExtra_option_ids() != null && !dto.getExtra_option_ids().isEmpty()) {
+            sql.append(", eo.id AS extra_option_id, eo.name AS extra_option_name, eo.description AS extra_option_description, eoc.name AS extra_option_category, eo.image AS extra_option_image, eo.price AS extra_option_price, eo.x_position AS extra_option_x_position, eo.y_position AS extra_option_y_position ");
+        }
 
-                "d.id AS drive_id, " +
-                "d.name AS drive_name, " +
-                "d.image AS drive_image, " +
-                "d.description AS drive_description, " +
-                "d.price AS drive_price, " +
+        sql.append("FROM model m ");
+        sql.append("JOIN trim t ON m.trim_id = t.id ");
+        sql.append("JOIN engine e ON m.engine_id = e.id ");
+        sql.append("JOIN body b ON m.body_id = b.id ");
+        sql.append("JOIN drive d ON m.drive_id = d.id ");
+        sql.append("JOIN ex_color exc ON t.id = exc.trim_id ");
+        sql.append("JOIN in_color inc ON t.id = inc.trim_id ");
+        sql.append("LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id ");
+        sql.append("LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id ");
+        sql.append("LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id ");
+        sql.append("WHERE m.engine_id = :engine_id ");
+        sql.append("AND m.trim_id = :trim_id ");
+        sql.append("AND m.body_id = :body_id ");
+        sql.append("AND m.drive_id = :drive_id ");
+        sql.append("AND inc.id = :in_color_id ");
+        sql.append("AND exc.id = :ex_color_id ");
 
-                "inc.id AS interior_id, " +
-                "inc.name AS interior_name, " +
-                "inc.color_image AS interior_color_image, " +
-                "inc.in_image AS interior_in_image, " +
+        if (dto.getExtra_option_ids() != null && !dto.getExtra_option_ids().isEmpty()) {
+            sql.append("AND eo.id in (:extra_option_ids) ");
+        }
 
-                "exc.id AS exterior_id, " +
-                "exc.name AS exterior_name, " +
-                "exc.color_image AS exterior_color_image, " +
-                "exc.rotation_image AS exterior_rotation_image, " +
-                "exc.price AS exterior_price, " +
-
-                "eo.id AS extra_option_id, " +
-                "eo.name AS extra_option_name, " +
-                "eo.description AS extra_option_description, " +
-                "eoc.name AS extra_option_category, " +
-                "eo.image AS extra_option_image, " +
-                "eo.price AS extra_option_price, " +
-                "eo.x_position AS extra_option_x_position, " +
-                "eo.y_position AS extra_option_y_position " +
-
-                "FROM model m " +
-                "JOIN trim t ON m.trim_id = t.id " +
-                "JOIN engine e ON m.engine_id = e.id " +
-                "JOIN body b ON m.body_id = b.id " +
-                "JOIN drive d ON m.drive_id = d.id " +
-                "JOIN ex_color exc ON t.id = exc.trim_id " +
-                "JOIN in_color inc ON t.id = inc.trim_id " +
-                "LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id " +
-                "LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id " +
-                "LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id " +
-
-                "WHERE m.engine_id = :engine_id " +
-                "AND m.trim_id = :trim_id " +
-                "AND m.body_id = :body_id " +
-                "AND m.drive_id = :drive_id " +
-                "AND inc.id = :in_color_id " +
-                "AND exc.id = :ex_color_id " +
-                "AND eo.id in (:extra_option_ids) ;";
+        sql.append(";");
 
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("trim_id", carReviewIdDTO.getTrim_id());
-        params.addValue("engine_id", carReviewIdDTO.getEngine_id());
-        params.addValue("body_id", carReviewIdDTO.getBody_id());
-        params.addValue("drive_id", carReviewIdDTO.getDrive_id());
-        params.addValue("in_color_id", carReviewIdDTO.getIn_color_id());
-        params.addValue("ex_color_id", carReviewIdDTO.getEx_color_id());
-        params.addValue("extra_option_ids", carReviewIdDTO.getExtra_option_ids());
+        params.addValue("trim_id", dto.getTrim_id());
+        params.addValue("engine_id", dto.getEngine_id());
+        params.addValue("body_id", dto.getBody_id());
+        params.addValue("drive_id", dto.getDrive_id());
+        params.addValue("in_color_id", dto.getIn_color_id());
+        params.addValue("ex_color_id", dto.getEx_color_id());
+        params.addValue("extra_option_ids", (!dto.getExtra_option_ids().isEmpty()) ? dto.getExtra_option_ids() : null);
 
-        return namedParameterJdbcTemplate.query(sql, params, carReviewResultExtractor);
+        return namedParameterJdbcTemplate.query(sql.toString(), params, carReviewResultExtractor);
     }
 
     private static class CarReviewDetailExtractor implements ResultSetExtractor<CarReviewDetailDTO> {
@@ -296,6 +267,12 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
 
         @Override
         public CarReviewResultDTO extractData(ResultSet rs) throws SQLException {
+            ResultSetMetaData metaData = rs.getMetaData();
+            List<String> columnNames = new ArrayList<>();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                columnNames.add(metaData.getColumnName(i));
+            }
+
             CarReviewResultDTO resultDTO = null;
             Map<Long, ExtraOptionInfoDTO> extraOptionMap = new HashMap<>();
 
@@ -362,6 +339,8 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .extraOptionDTOs(new HashSet<>())
                             .build();
                 }
+
+                if (!columnNames.contains("extra_option_id")) continue;
 
                 Long extraOptionId = rs.getLong("extra_option_id");
                 ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
