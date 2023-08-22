@@ -6,15 +6,11 @@ import A4.FourEver.domain.color.exColor.dto.ExColorInfoDTO;
 import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorInfoDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
-import A4.FourEver.domain.option.defaultOption.dto.DefaultOptionInfoDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionDetailDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionInfoDTO;
-import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionInfoDTO;
 import A4.FourEver.domain.option.extraSubOption.dto.SubExtraOptionNameDTO;
 import A4.FourEver.domain.carReview.dto.CarReviewDetailDTO;
-import A4.FourEver.domain.tag.exColorTag.dto.ExColorTagInfoDTO;
 import A4.FourEver.domain.tag.extraOptionTag.dto.ExtraOptionTagInfoDTO;
-import A4.FourEver.domain.tag.inColorTag.dto.InColorTagInfoDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyNameDTO;
@@ -115,34 +111,104 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     public CarReviewResultDTO findCarReviewResult(CarReviewIdDTO dto) {
         StringBuilder sql = new StringBuilder();
 
+        sql.append("WITH ModelID AS (");
+        sql.append("    SELECT id AS model_id");
+        sql.append("    FROM model ");
+        sql.append("    WHERE (trim_id = :trim_id OR (trim_id IS NULL AND :trim_id IS NULL)) ");
+        sql.append("    AND (engine_id = :engine_id OR (engine_id IS NULL AND :engine_id IS NULL)) ");
+        sql.append("    AND (body_id = :body_id OR (body_id IS NULL AND :body_id IS NULL)) ");
+        sql.append("    AND (drive_id = :drive_id OR (drive_id IS NULL AND :drive_id IS NULL)) ");
+        sql.append(")");
+
         sql.append("SELECT ");
-        sql.append("t.id AS trim_id, t.name AS trim_name, t.image AS trim_image, t.price AS trim_price, ");
-        sql.append("e.id AS engine_id, e.name AS engine_name, e.image AS engine_image, e.description AS engine_description, e.max_output AS engine_max_output, e.max_tok AS engine_max_tok, e.price AS engine_price, ");
-        sql.append("b.id AS body_id, b.name AS body_name, b.image AS body_image, b.description AS body_description, b.price AS body_price, ");
-        sql.append("d.id AS drive_id, d.name AS drive_name, d.image AS drive_image, d.description AS drive_description, d.price AS drive_price, ");
-        sql.append("inc.id AS interior_id, inc.name AS interior_name, inc.color_image AS interior_color_image, inc.in_image AS interior_in_image, ");
-        sql.append("exc.id AS exterior_id, exc.name AS exterior_name, exc.color_image AS exterior_color_image, exc.rotation_image AS exterior_rotation_image, exc.price AS exterior_price ");
+
+        sql.append("t.id AS trim_id, ");
+        sql.append("t.name AS trim_name, ");
+        sql.append("t.image AS trim_image, ");
+        sql.append("t.price AS trim_price ");
+
+        if(dto.getEngine_id() != 0) {
+            sql.append(", e.id AS engine_id, ");
+            sql.append("e.name AS engine_name, ");
+            sql.append("e.image AS engine_image, ");
+            sql.append("e.description AS engine_description, ");
+            sql.append("e.max_output AS engine_max_output, ");
+            sql.append("e.max_tok AS engine_max_tok, ");
+            sql.append("e.price AS engine_price ");
+        }
+
+        if(dto.getBody_id() != 0) {
+            sql.append(", b.id AS body_id, ");
+            sql.append("b.name AS body_name, ");
+            sql.append("b.image AS body_image, ");
+            sql.append("b.description AS body_description, ");
+            sql.append("b.price AS body_price ");
+        }
+
+        if(dto.getDrive_id() != 0) {
+            sql.append(", d.id AS drive_id, ");
+            sql.append("d.name AS drive_name, ");
+            sql.append("d.image AS drive_image, ");
+            sql.append("d.description AS drive_description, ");
+            sql.append("d.price AS drive_price ");
+        }
+
+        if(dto.getIn_color_id() != 0) {
+            sql.append(", inc.id AS interior_id, ");
+            sql.append("inc.name AS interior_name, ");
+            sql.append("inc.color_image AS interior_color_image, ");
+            sql.append("inc.in_image AS interior_in_image ");
+        }
+
+        if(dto.getEx_color_id() != 0) {
+            sql.append(", exc.id AS exterior_id, ");
+            sql.append("exc.name AS exterior_name, ");
+            sql.append("exc.color_image AS exterior_color_image, ");
+            sql.append("exc.rotation_image AS exterior_rotation_image, ");
+            sql.append("exc.price AS exterior_price ");
+        }
 
         if (dto.getExtra_option_ids() != null && !dto.getExtra_option_ids().isEmpty()) {
-            sql.append(", eo.id AS extra_option_id, eo.name AS extra_option_name, eo.description AS extra_option_description, eoc.name AS extra_option_category, eo.image AS extra_option_image, eo.price AS extra_option_price, eo.x_position AS extra_option_x_position, eo.y_position AS extra_option_y_position ");
+            sql.append(", eo.id AS extra_option_id, ");
+            sql.append("eo.name AS extra_option_name, ");
+            sql.append("eo.description AS extra_option_description, ");
+            sql.append("eoc.name AS extra_option_category, ");
+            sql.append("eo.image AS extra_option_image, ");
+            sql.append("eo.price AS extra_option_price, ");
+            sql.append("eo.x_position AS extra_option_x_position, ");
+            sql.append("eo.y_position AS extra_option_y_position ");
         }
 
         sql.append("FROM model m ");
-        sql.append("JOIN trim t ON m.trim_id = t.id ");
-        sql.append("JOIN engine e ON m.engine_id = e.id ");
-        sql.append("JOIN body b ON m.body_id = b.id ");
-        sql.append("JOIN drive d ON m.drive_id = d.id ");
-        sql.append("JOIN ex_color exc ON t.id = exc.trim_id ");
-        sql.append("JOIN in_color inc ON t.id = inc.trim_id ");
-        sql.append("LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id ");
-        sql.append("LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id ");
-        sql.append("LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id ");
-        sql.append("WHERE m.engine_id = :engine_id ");
-        sql.append("AND m.trim_id = :trim_id ");
-        sql.append("AND m.body_id = :body_id ");
-        sql.append("AND m.drive_id = :drive_id ");
-        sql.append("AND inc.id = :in_color_id ");
-        sql.append("AND exc.id = :ex_color_id ");
+        sql.append("LEFT JOIN trim t ON m.trim_id = t.id ");
+
+        if(dto.getEngine_id() != 0) {
+            sql.append("LEFT JOIN engine e ON m.engine_id = e.id ");
+        }
+
+        if(dto.getBody_id() != 0) {
+            sql.append("LEFT JOIN body b ON m.body_id = b.id ");
+        }
+
+        if(dto.getDrive_id() != 0) {
+            sql.append("LEFT JOIN drive d ON m.drive_id = d.id ");
+        }
+
+        if(dto.getIn_color_id() != 0) {
+            sql.append("LEFT JOIN in_color inc ON t.id = inc.trim_id ");
+            sql.append("LEFT JOIN ex_color exc ON t.id = exc.trim_id ");
+        }
+
+        if (dto.getExtra_option_ids() != null && !dto.getExtra_option_ids().isEmpty()) {
+            sql.append("LEFT JOIN extra_option_model AS eom ON m.id = eom.model_id ");
+            sql.append("LEFT JOIN extra_option AS eo ON eom.extra_option_id = eo.id ");
+            sql.append("LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id ");
+        }
+
+        if(dto.getIn_color_id() != 0) {
+            sql.append("WHERE inc.id = :in_color_id ");
+            sql.append("AND exc.id = :ex_color_id ");
+        }
 
         if (dto.getExtra_option_ids() != null && !dto.getExtra_option_ids().isEmpty()) {
             sql.append("AND eo.id in (:extra_option_ids) ");
@@ -151,15 +217,23 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
         sql.append(";");
 
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("trim_id", dto.getTrim_id());
-        params.addValue("engine_id", dto.getEngine_id());
-        params.addValue("body_id", dto.getBody_id());
-        params.addValue("drive_id", dto.getDrive_id());
-        params.addValue("in_color_id", dto.getIn_color_id());
-        params.addValue("ex_color_id", dto.getEx_color_id());
-        params.addValue("extra_option_ids", (!dto.getExtra_option_ids().isEmpty()) ? dto.getExtra_option_ids() : null);
+        params.addValue("trim_id", getOrDefault(dto.getTrim_id()));
+        params.addValue("engine_id", getOrDefault(dto.getEngine_id()));
+        params.addValue("body_id", getOrDefault(dto.getBody_id()));
+        params.addValue("drive_id", getOrDefault(dto.getDrive_id()));
+        params.addValue("in_color_id", getOrDefault(dto.getIn_color_id()));
+        params.addValue("ex_color_id", getOrDefault(dto.getEx_color_id()));
+        params.addValue("extra_option_ids", getOrDefault(dto.getExtra_option_ids()));
 
         return namedParameterJdbcTemplate.query(sql.toString(), params, carReviewResultExtractor);
+    }
+
+    private Long getOrDefault(Long id) {
+        return (id == 0) ? null : id;
+    }
+
+    private List<Long> getOrDefault(List<Long> ids) {
+        return (ids.isEmpty()) ? null : ids;
     }
 
     private static class CarReviewDetailExtractor implements ResultSetExtractor<CarReviewDetailDTO> {
@@ -205,7 +279,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                     detailDTO = CarReviewDetailDTO.builder()
                             .id(rs.getLong("id"))
                             .car_name(rs.getString("car_name"))
-                            .is_save(rs.getBoolean("is_save")?1:0)
+                            .is_save(rs.getBoolean("is_save") ? 1 : 0)
                             .trimNameDTO(trimNameDTO)
                             .engineNameDTO(engineNameDTO)
                             .bodyNameDTO(bodyNameDTO)
@@ -276,57 +350,72 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             CarReviewResultDTO resultDTO = null;
             Map<Long, ExtraOptionInfoDTO> extraOptionMap = new HashMap<>();
 
+            TrimInfoDTO trimInfoDTO;
+            BodyInfoDTO bodyInfoDTO = null;
+            DriveInfoDTO driveInfoDTO = null;
+            EngineInfoDTO engineInfoDTO = null;
+            InColorInfoDTO inColorDTO = null;
+            ExColorInfoDTO exColorDTO = null;
+
             while (rs.next()) {
                 if (resultDTO == null) {
-                    TrimInfoDTO trimInfoDTO = TrimInfoDTO.builder()
+                     trimInfoDTO = TrimInfoDTO.builder()
                             .id(rs.getLong("trim_id"))
                             .name(rs.getString("trim_name"))
                             .image(rs.getString("trim_image"))
                             .price(rs.getDouble("trim_price"))
                             .build();
 
-                    BodyInfoDTO bodyInfoDTO = BodyInfoDTO.builder()
-                            .id(rs.getLong("body_id"))
-                            .name(rs.getString("body_name"))
-                            .image(rs.getString("body_image"))
-                            .description(rs.getString("body_description"))
-                            .price(rs.getDouble("body_price"))
-                            .build();
+                    if (columnNames.contains("body_id")) {
+                        bodyInfoDTO = BodyInfoDTO.builder()
+                                .id(rs.getLong("body_id"))
+                                .name(rs.getString("body_name"))
+                                .image(rs.getString("body_image"))
+                                .description(rs.getString("body_description"))
+                                .price(rs.getDouble("body_price"))
+                                .build();
+                    }
 
-                    DriveInfoDTO driveInfoDTO = DriveInfoDTO.builder()
-                            .id(rs.getLong("drive_id"))
-                            .name(rs.getString("drive_name"))
-                            .image(rs.getString("drive_image"))
-                            .description(rs.getString("drive_description"))
-                            .price(rs.getDouble("drive_price"))
-                            .build();
+                    if(columnNames.contains("drive_id")) {
+                        driveInfoDTO = DriveInfoDTO.builder()
+                                .id(rs.getLong("drive_id"))
+                                .name(rs.getString("drive_name"))
+                                .image(rs.getString("drive_image"))
+                                .description(rs.getString("drive_description"))
+                                .price(rs.getDouble("drive_price"))
+                                .build();
+                    }
 
-                    EngineInfoDTO engineInfoDTO = EngineInfoDTO.builder()
-                            .id(rs.getLong("engine_id"))
-                            .name(rs.getString("engine_name"))
-                            .image(rs.getString("engine_image"))
-                            .description(rs.getString("engine_description"))
-                            .max_output(rs.getString("engine_max_output"))
-                            .max_tok(rs.getString("engine_max_tok"))
-                            .price(rs.getDouble("engine_price"))
-                            .build();
+                    if(columnNames.contains("engine_id")) {
+                        engineInfoDTO = EngineInfoDTO.builder()
+                                .id(rs.getLong("engine_id"))
+                                .name(rs.getString("engine_name"))
+                                .image(rs.getString("engine_image"))
+                                .description(rs.getString("engine_description"))
+                                .max_output(rs.getString("engine_max_output"))
+                                .max_tok(rs.getString("engine_max_tok"))
+                                .price(rs.getDouble("engine_price"))
+                                .build();
+                    }
 
-                    ExColorInfoDTO exColorDTO = ExColorInfoDTO.builder()
-                            .id(rs.getLong("exterior_id"))
-                            .name(rs.getString("exterior_name"))
-                            .color_image(rs.getString("exterior_color_image"))
-                            .rotation_image(rs.getString("exterior_rotation_image"))
-                            .price(rs.getDouble("exterior_price"))
-                            .exColorTagInfoDTOS(new HashSet<>())
-                            .build();
+                    if(columnNames.contains("exterior_id")) {
+                        exColorDTO = ExColorInfoDTO.builder()
+                                .id(rs.getLong("exterior_id"))
+                                .name(rs.getString("exterior_name"))
+                                .color_image(rs.getString("exterior_color_image"))
+                                .rotation_image(rs.getString("exterior_rotation_image"))
+                                .price(rs.getDouble("exterior_price"))
+                                .exColorTagInfoDTOS(new HashSet<>())
+                                .build();
 
-                    InColorInfoDTO inColorDTO = InColorInfoDTO.builder()
-                            .id(rs.getLong("interior_id"))
-                            .name(rs.getString("interior_name"))
-                            .color_image(rs.getString("interior_color_image"))
-                            .in_image(rs.getString("interior_in_image"))
-                            .inColorTagInfoDTOS(new HashSet<>())
-                            .build();
+                        inColorDTO = InColorInfoDTO.builder()
+                                .id(rs.getLong("interior_id"))
+                                .name(rs.getString("interior_name"))
+                                .color_image(rs.getString("interior_color_image"))
+                                .in_image(rs.getString("interior_in_image"))
+                                .inColorTagInfoDTOS(new HashSet<>())
+                                .build();
+                    }
 
                     resultDTO = CarReviewResultDTO.builder()
                             .trimInfoDTO(trimInfoDTO)
