@@ -1,6 +1,6 @@
 package A4.FourEver.global.controlleradvice;
 
-import A4.FourEver.dto.response.ErrorResponse;
+import A4.FourEver.global.controlleradvice.responseDto.ErrorResponse;
 import A4.FourEver.global.exception.FourEverException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -44,8 +45,8 @@ public class CarControllerDefaultImpl implements CarController {
     @Operation(summary = "특정 차량의 모든 차 리뷰 정보 조회")
     @SecurityRequirement(name = "JWT")
     @PostMapping("/{id}/car-review")
-    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(@PathVariable final Long id, @RequestBody final ExtraOptionIdsRequestDTO request) {
-        List<Integer> extraOptionIds = request.getExtraOptionIds();
+    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(@PathVariable final Long id, @Valid @RequestBody final ExtraOptionIdsRequestDTO request) {
+        List<Long> extraOptionIds = request.getExtraOptionIds();
         return carService.getAllCarReviewOverviewList(id, extraOptionIds);
     }
 
@@ -53,8 +54,8 @@ public class CarControllerDefaultImpl implements CarController {
     @Operation(summary = "특정 차량의 구매 혹은 시승 리뷰 정보 조회")
     @SecurityRequirement(name = "JWT")
     @PostMapping("/{id}/car-review/{isPurchased}")
-    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(@PathVariable final Long id, @PathVariable final Integer isPurchased, @RequestBody final ExtraOptionIdsRequestDTO request) {
-        List<Integer> extraOptionIds = request.getExtraOptionIds();
+    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(@PathVariable final Long id, @PathVariable final Integer isPurchased, @Valid @RequestBody final ExtraOptionIdsRequestDTO request) {
+        List<Long> extraOptionIds = request.getExtraOptionIds();
         return carService.getPartialCarReviewOverviewList(id, isPurchased, extraOptionIds);
     }
 }

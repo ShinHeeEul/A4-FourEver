@@ -1,4 +1,4 @@
-package A4.FourEver.dto.response;
+package A4.FourEver.global.controlleradvice.responseDto;
 
 import lombok.*;
 

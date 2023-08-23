@@ -96,7 +96,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
     }
 
     @Override
-    public CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Long> extraOptionIds) {
         String sql = "WITH RelevantReviews AS (" +
                 "SELECT car_review_id " +
                 "FROM option_review " +
@@ -151,7 +151,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
     }
 
     @Override
-    public CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Long> extraOptionIds) {
         String sql = "WITH RelevantReviews AS (" +
                 "SELECT car_review_id " +
                 "FROM option_review " +

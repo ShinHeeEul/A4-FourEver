@@ -9,6 +9,6 @@ import java.util.List;
 public interface CarRepository {
     CarTrimsDTO findCarTrimsById(final Long id);
     CarExtraOptionNameDTO findCarExtraOptionNameById(final Long id);
-    CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Integer> extraOptionIds);
-    CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Integer> extraOptionIds);
+    CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Long> extraOptionIds);
+    CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Long> extraOptionIds);
 }
