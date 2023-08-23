@@ -20,8 +20,8 @@ const Container = styled.div`
 `;
 
 const CardWrap = styled.div`
-  width: calc(470px - 60px);
-  height: 145px;
+  width: 440px;
+  height: 187px;
   border-radius: 8px;
   border: 2px solid #e4dcd3;
   background: #fff;
@@ -107,7 +107,7 @@ const CategoryWrap = styled.div`
     flex-wrap: wrap;
     gap: 8px;
     height: ${({ $isTags }) => ($isTags ? '22px' : '70px')};
-    overflow-y: hidden;
+    overflow-y: auto;
     button {
       height: 30px;
     }
@@ -126,7 +126,7 @@ const DeleteSvg = styled(RemoveSvg)`
 
 function CardByArchiving({ savedCar, onClick, setUpdate }) {
   const [deleteArchivingCard, setDeleteArchivingCard] = useState(false);
-
+  console.log(savedCar.extraOptionNameDTOs);
   return (
     <Container onClick={onClick}>
       {deleteArchivingCard && (
@@ -178,11 +178,11 @@ function CardByArchiving({ savedCar, onClick, setUpdate }) {
           </div>
         </ColorWrap>
         <CategoryWrap $isTags={true}>
-          <h3>태그후기</h3>
-          <div style={{ height: '30px' }}>
-            {savedCar.totalTagInfoDTOs.slice(0, 3).map((tag, index) => (
-              <Tag key={index}>{tag.name}</Tag>
-            ))}
+          <h3>선택옵션</h3>
+          <div style={{ height: '70px' }}>
+            {savedCar.extraOptionNameDTOs.map((opt, index) => {
+              return <Tag key={index}>{opt.name}</Tag>;
+            })}
           </div>
         </CategoryWrap>
       </CardWrap>
