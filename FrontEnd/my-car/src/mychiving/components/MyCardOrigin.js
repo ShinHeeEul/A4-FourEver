@@ -1,7 +1,12 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import { ReactComponent as RemoveSvg } from '../../assets/removeIcon.svg';
-import { Body3Regular, Heading4Bold } from '../../style/typo';
+import {
+  Body2Medium,
+  Body3Regular,
+  Body4Regular,
+  Heading4Bold,
+} from '../../style/typo';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OptDetailModal from './OptDetailModal';
@@ -16,29 +21,32 @@ const Container = styled.div`
 
 const MyCardDiv = styled.div`
   width: 440px;
-  height: 203px;
+  height: 210px;
   border-radius: 8px;
-  justify-content: center;
+
   border: 2px solid ${palette.Sand};
-  padding: 20px 30px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
   cursor: pointer;
-  /* align-items: center; */
-  /* justify-content: space-between; */
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: ${palette.Neutral};
+    filter: brightness(0.97);
+  }
 `;
 const EscSvg = styled(RemoveSvg)`
   cursor: pointer;
   background-color: white;
   border-radius: 100%;
+  transition: all 0.3s ease;
   &:hover {
     filter: brightness(0.9);
   }
 `;
 const TitleDiv = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
 `;
 const TitleText = styled.span`
@@ -52,13 +60,16 @@ const ButtonDiv = styled.div`
   align-items: center;
 `;
 const ButtonText = styled.span`
-  ${Body3Regular}
-  color: ${({ $is_end }) =>
-    $is_end ? `${palette.Gold}` : 'rgb(216, 115, 97)'};
+  ${Body4Regular};
+  color: ${({ $is_end }) => ($is_end ? `${palette.Gold}` : '#FA6253')};
+  background-color: ${({ $is_end }) =>
+    $is_end ? `${palette.LightSand}` : '#ffe9e7'};
+  padding: 0 6px;
+  border-radius: 8px;
 `;
 
 const BasicOptsDiv = styled.div`
-  margin: 7px 0;
+  margin: 9px 0;
   ${Body3Regular}
   color: ${palette.DarkGray};
 `;
@@ -69,21 +80,25 @@ const IsSelectedOpt = styled.span`
 `;
 
 const ExtraOptsDiv = styled.div`
-  /* width: 422px; */
-  height: 130px;
-  margin: 5px 0 0;
+  height: 147px;
   display: flex;
   flex-direction: row;
   overflow-x: auto;
   overflow-y: hidden;
-`;
-
-const OptDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 112px;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${palette.Sand};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${palette.LightSand};
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 `;
 
 const EachOptDiv = styled.div`
@@ -111,6 +126,17 @@ const ImgDiv = styled.div`
     border-radius: 5px;
     filter: brightness(0.6);
   }
+`;
+
+const EmptyOptsDiv = styled.div`
+  width: 100%;
+  height: 130px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${Body2Medium}
+  color: ${palette.MediumGray};
 `;
 
 const OptName = styled.div`
@@ -208,18 +234,19 @@ function MyCardOrigin({ myList, extraOptions, setUpdate }) {
           </IsSelectedOpt>
         </BasicOptsDiv>
         <ExtraOptsDiv>
-          {extraOptions.map((elem) => {
-            return (
-              elem.name !== null && (
+          {extraOptions &&
+            extraOptions.map((elem) => {
+              return elem.name !== null ? (
                 <EachOptDiv>
                   <ImgDiv>
                     <img alt={elem.id} src={elem.image} />
                     <OptName>{elem.name}</OptName>
                   </ImgDiv>
                 </EachOptDiv>
-              )
-            );
-          })}
+              ) : (
+                <EmptyOptsDiv>추가 옵션이 없습니다.</EmptyOptsDiv>
+              );
+            })}
         </ExtraOptsDiv>
       </MyCardDiv>
     </Container>

@@ -284,7 +284,6 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
             <OptionCategory
               style={{
                 cursor: 'pointer',
-                // borderBottom: '1px solid',
                 width: '80px',
                 height: '21px',
               }}
@@ -332,7 +331,7 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
       {isCompletePage && (
         <ExpectPriceWrap>
           <span>예상 견적 가격</span>
-          <h3> {(trimPrice + optionPrice).toLocaleString()}</h3>
+          <h3> {(trimPrice + optionPrice).toLocaleString()}원</h3>
         </ExpectPriceWrap>
       )}
 

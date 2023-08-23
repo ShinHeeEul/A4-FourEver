@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import palette from './styleVariable';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -68,6 +69,21 @@ a{
   text-decoration: none;
   color: inherit;
 }
+
+*::-webkit-scrollbar {
+      width: 15px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: ${palette.Sand};
+      border-radius: 8px;
+      background-clip: padding-box;
+      border: 3px solid transparent;
+    }
+    *::-webkit-scrollbar-track {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
 
 `;
 export default GlobalStyle;

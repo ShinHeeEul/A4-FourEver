@@ -11,7 +11,8 @@ const ImgContainer = styled.div`
   flex-direction: column;
   position: relative;
   align-items: center;
-  height: 384px;
+  height: 404px;
+  cursor: pointer;
 `;
 
 const CarImg = styled.img`

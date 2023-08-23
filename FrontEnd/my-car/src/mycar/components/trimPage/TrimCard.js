@@ -110,15 +110,11 @@ const CarCardPriceWon = styled.span`
   ${Body3Medium};
   padding-left: 4px;
   ${(props) => {
-    if (props.isActive === true) {
+    if (props.$isActive === true) {
       return `
         color: ${palette.Primary};
       `;
     }
-    return `
-      color: ${palette.DarkGray};
-      padding-left: 3px;
-    `;
   }}
 `;
 const CarCardLogoNameDiv = styled.div`

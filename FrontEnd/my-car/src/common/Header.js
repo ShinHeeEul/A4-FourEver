@@ -1,18 +1,10 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
-import { Body4Medium, Heading4Bold } from '../style/typo';
-import {
-  archivingPath,
-  headerPageName,
-  myCarPagePath,
-  mychivingPath,
-} from '../constant';
-import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { HeaderValueContext } from '../Root';
+import { Body4Medium } from '../style/typo';
+import { headerPageName } from '../constant';
+import { useLocation } from 'react-router-dom';
 import { ReactComponent as HyundaiLogo } from '../../src/assets/hyundaiLogo.svg';
 import { ReactComponent as HyundaiLeftDiv } from '../../src/assets/leftDivisionBar.svg';
-import { ReactComponent as HyundaiRightDiv } from '../../src/assets/rightDivisionBar.svg';
 import { ReactComponent as ArchivingLogo } from '../../src/assets/archivingLogo.svg';
 const HeaderDiv = styled.div`
   width: calc(100% - 180px);
@@ -24,7 +16,6 @@ const HeaderDiv = styled.div`
   padding: 0 90px 0 90px;
   position: fixed;
   top: 0;
-
   z-index: 4;
   display: ${({ $isLoginPage }) => ($isLoginPage ? 'none' : 'flex')};
 `;
@@ -45,7 +36,6 @@ const ToCarivingBtn = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  /* width: 110px; */
   padding: 0 10px;
   height: 35px;
   flex-shrink: 0;
@@ -64,12 +54,6 @@ const HeaderPageText = styled.span`
   color: ${palette.Black};
 `;
 
-const CarNameText = styled.span`
-  color: ${palette.DarkGray};
-  ${Heading4Bold};
-  font-size: 16px;
-`;
-
 const HyundaiLogoDiv = styled.div`
   margin-top: 3px;
   cursor: pointer;
@@ -80,12 +64,8 @@ function Header({
   setIsMainBtn,
   setClickLinkBtn,
   isLoginPage,
-  clickLinkBtn,
 }) {
-  const navigate = useNavigate();
   const currentPath = useLocation().pathname.split('/')[1];
-  const currentSubPath = useLocation().pathname.split('/')[2];
-  const { isAccess, isMainBtn } = useContext(HeaderValueContext);
   let btnText = [];
 
   switch (currentPath) {
@@ -103,21 +83,6 @@ function Header({
 
   function showAlert({ flag, index }) {
     setIsMainBtn(flag);
-
-    // if (
-    //   currentPath === 'mycar' &&
-    //   currentSubPath === myCarPagePath[myCarPagePath.length - 1]
-    // ) {
-    //   isMainBtn
-    //     ? navigate('/main')
-    //     : clickLinkBtn
-    //     ? navigate(archivingPath)
-    //     : navigate(mychivingPath);
-    //   return;
-    // }
-    // else{
-
-    // }
     setClickLinkBtn(index);
     setShowCommonAlert(true);
   }
@@ -133,20 +98,12 @@ function Header({
           <HeaderPageText>{headerPageName[currentPath]}</HeaderPageText>
         </HeaderElements>
         <HeaderElements>
-          {/* <CarNameText>팰리세이드</CarNameText> */}
-          {/* <HyundaiRightDiv /> */}
-
           {Array.from({ length: 2 }, (_, index) => (
             <ToCarivingBtn onClick={() => showAlert({ flag: false, index })}>
               <ArchivingLogo style={{ width: '20px', height: '18px' }} />
               <ToCarivingBtnText>{btnText[index]}</ToCarivingBtnText>
             </ToCarivingBtn>
           ))}
-          {/* {currentPath === 'archiving' && !isAccess ? (
-            <></>
-          ) : (
-            
-          )} */}
         </HeaderElements>
       </HeaderDiv>
     );

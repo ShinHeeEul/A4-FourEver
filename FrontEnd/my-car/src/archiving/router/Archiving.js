@@ -7,7 +7,6 @@ import ArchivingProvider, {
 } from '../../context/archiving/ArchivingProvider';
 import { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useOutletContext } from 'react-router-dom';
-import WarningTooltip from '../components/WarningTooltip';
 import Loading from '../../common/Loading';
 import Onboarding from '../components/Onboarding';
 

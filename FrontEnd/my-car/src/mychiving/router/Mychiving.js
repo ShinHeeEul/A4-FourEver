@@ -1,12 +1,6 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
-import {
-  Heading1Bold,
-  Heading1Medium,
-  Heading2Medium,
-  Heading3Medium,
-} from '../../style/typo';
-import CardByMe from '../components/CardByMe';
+import { Heading2Medium, Heading3Medium } from '../../style/typo';
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BASIC_SERVER_URL } from '../../constant';
@@ -24,10 +18,12 @@ const Tabmenu = styled.ul`
   ${Heading3Medium};
   align-items: center;
   margin: 40px 0 20px;
-  border-bottom: 3px solid ${palette.LightSand};
-  color: ${palette.Sand};
+  border-bottom: 2px solid ${palette.LightSand};
+  color: ${palette.LightGray};
   padding: 5px 0;
   gap: 30px;
+  position: relative;
+
   .submenu {
     display: flex;
     height: 30px;
@@ -40,21 +36,20 @@ const Tabmenu = styled.ul`
     color: black;
     width: max-content;
   }
-
-  /* & div.desc {
-    text-align: center;
-  } */
-`;
-
-const Desc = styled.div``;
-
-const TitleHeader = styled.div`
-  h2 {
-    ${Heading3Medium}
-    padding: 8px 0;
+  &::after {
+    content: '';
+    width: ${({ $isByMe }) => ($isByMe ? '160px' : '243px')};
+    border-radius: 10px;
+    background-color: black;
+    height: 5px;
+    position: absolute;
+    left: ${({ $isByMe }) => ($isByMe ? '0' : '190px')};
+    bottom: -4px;
+    transition: all 0.3s ease;
   }
 `;
 
+const Desc = styled.div``;
 const EmptyMsgDiv = styled.div`
   width: 100%;
   padding: 70px 0;
@@ -77,7 +72,7 @@ function Mychiving() {
       },
     }).then((res) => res.json());
   }
-  const [isArchivingData, setIsArchivingData] = useState(false);
+
   const [state, setState] = useState();
   const [update, setUpdate] = useState(false);
   async function getData() {
@@ -110,11 +105,11 @@ function Mychiving() {
 
   return (
     <Container>
-      <Tabmenu>
+      <Tabmenu $isByMe={currentTab === 0}>
         {menuArr.map((elem, idx) => {
           return (
             <li
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', marginLeft: '5px' }}
               className={idx === currentTab ? 'submenu focused' : 'submenu'}
               onClick={() => selectMenuHandler(idx)}
             >
