@@ -60,6 +60,12 @@ const ButtonText = styled.span`
 const BasicOptsDiv = styled.div`
   margin: 7px 0;
   ${Body3Regular}
+  color: ${palette.DarkGray};
+`;
+
+const IsSelectedOpt = styled.span`
+  color: ${({ $isSelected }) =>
+    $isSelected ? 'black' : `${palette.MediumGray}`};
 `;
 
 const ExtraOptsDiv = styled.div`
@@ -180,8 +186,26 @@ function MyCardOrigin({ myList, extraOptions, setUpdate }) {
           </div>
         </TitleDiv>
         <BasicOptsDiv>
-          {myList.engineNameDTO.name} / {myList.driveNameDTO.name} /{' '}
-          {myList.bodyNameDTO.name}
+          <IsSelectedOpt $isSelected={myList.engineNameDTO.name}>
+            {' '}
+            {myList.engineNameDTO.name
+              ? myList.engineNameDTO.name
+              : '엔진 미선택 '}{' '}
+          </IsSelectedOpt>
+          |{' '}
+          <IsSelectedOpt $isSelected={myList.driveNameDTO.name}>
+            {' '}
+            {myList.driveNameDTO.name
+              ? myList.driveNameDTO.name
+              : ' 구동방식 미선택 '}{' '}
+          </IsSelectedOpt>
+          |{' '}
+          <IsSelectedOpt $isSelected={myList.bodyNameDTO.name}>
+            {' '}
+            {myList.bodyNameDTO.name
+              ? myList.bodyNameDTO.name
+              : ' 바디타입 미선택'}
+          </IsSelectedOpt>
         </BasicOptsDiv>
         <ExtraOptsDiv>
           {extraOptions.map((elem) => {
