@@ -1,6 +1,11 @@
 import { styled } from 'styled-components';
 import palette from '../../style/styleVariable';
-import { Heading3Medium } from '../../style/typo';
+import {
+  Heading1Bold,
+  Heading1Medium,
+  Heading2Medium,
+  Heading3Medium,
+} from '../../style/typo';
 import CardByMe from '../components/CardByMe';
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -50,6 +55,16 @@ const TitleHeader = styled.div`
   }
 `;
 
+const EmptyMsgDiv = styled.div`
+  width: 100%;
+  padding: 70px 0;
+  ${Heading2Medium}
+  color:${palette.MediumGray};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Mychiving() {
   const navigate = useNavigate();
   async function fetchData() {
@@ -62,6 +77,7 @@ function Mychiving() {
       },
     }).then((res) => res.json());
   }
+  const [isArchivingData, setIsArchivingData] = useState(false);
   const [state, setState] = useState();
   const [update, setUpdate] = useState(false);
   async function getData() {
@@ -116,21 +132,27 @@ function Mychiving() {
               flexWrap: 'wrap',
               flexDirection: 'row',
               justifyContent: 'space-between',
+              padding: '25px 0',
             }}
           >
             {state &&
-              [
-                ...state?.myChivingCompleteList,
-                ...state?.myChivingTempList,
-              ].map((elem) => {
-                return (
-                  <MyCardOrigin
-                    myList={elem}
-                    extraOptions={elem.extraOptionDTOs}
-                    setUpdate={setUpdate}
-                  />
-                );
-              })}
+              ([...state?.myChivingCompleteList, ...state?.myChivingTempList]
+                .length === 0 ? (
+                <EmptyMsgDiv>내가 만든 차량 목록이 없습니다.</EmptyMsgDiv>
+              ) : (
+                [
+                  ...state?.myChivingCompleteList,
+                  ...state?.myChivingTempList,
+                ].map((elem) => {
+                  return (
+                    <MyCardOrigin
+                      myList={elem}
+                      extraOptions={elem.extraOptionDTOs}
+                      setUpdate={setUpdate}
+                    />
+                  );
+                })
+              ))}
           </div>
         )}
         {currentTab === 1 && (
@@ -138,26 +160,32 @@ function Mychiving() {
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '27px',
+              justifyContent: 'space-between',
               padding: '25px 0',
             }}
           >
             {state &&
-              [...state?.carReviewList].map((elem) => {
-                return (
-                  <CardByArchiving
-                    onClick={(e) => {
-                      if (e.target.tagName === 'DIV') {
-                        navigate(`/archiving/${elem.id}`);
-                      } else if (e.target.tagName === 'BUTTON') {
-                        console.log('button입니다');
-                      }
-                    }}
-                    savedCar={elem}
-                    setUpdate={setUpdate}
-                  ></CardByArchiving>
-                );
-              })}
+              ([...state?.carReviewList].length === 0 ? (
+                <EmptyMsgDiv>
+                  아카이빙에서 저장한 차량 목록이 없습니다.
+                </EmptyMsgDiv>
+              ) : (
+                [...state?.carReviewList].map((elem) => {
+                  return (
+                    <CardByArchiving
+                      onClick={(e) => {
+                        if (e.target.tagName === 'DIV') {
+                          navigate(`/archiving/${elem.id}`);
+                        } else if (e.target.tagName === 'BUTTON') {
+                          console.log('button입니다');
+                        }
+                      }}
+                      savedCar={elem}
+                      setUpdate={setUpdate}
+                    />
+                  );
+                })
+              ))}
           </div>
         )}
       </Desc>
