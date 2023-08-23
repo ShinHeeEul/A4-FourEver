@@ -141,10 +141,7 @@ function SummaryModal() {
           <AllPriceDiv>
             <OptionTitleText>총 견적 금액</OptionTitleText>
             <AllPriceText>
-              {(trimPrice + optionPrice)
-                .toString()
-                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-              원
+              {(trimPrice + optionPrice).toLocaleString()} 원
             </AllPriceText>
           </AllPriceDiv>
           <AllOptionDiv>

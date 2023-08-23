@@ -148,12 +148,7 @@ function CompletedFunction() {
               </FunctionText>
             </FunctionTextDiv>
             <FunctionTextDiv>
-              <FunctionTitle>
-                {trimPrice
-                  .toString()
-                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-                원
-              </FunctionTitle>
+              <FunctionTitle>{trimPrice.toLocaleString()} 원</FunctionTitle>
             </FunctionTextDiv>
           </FunctionDetailDiv>
         </SeperateDiv>
