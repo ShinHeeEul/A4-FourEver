@@ -14,11 +14,11 @@ const ExplainHeaderWrap = styled.div``;
 const ExplainHeaderTitle = styled.div``;
 export const ExplainNumber = styled.div`
   box-sizing: border-box;
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   border: 3px solid white;
   border-radius: 50%;
-  background-color: ${palette.Primary};
+  background-color: ${palette.Blue500};
   color: ${palette.LightSand};
   ${Body4Regular}
   text-align: center;
