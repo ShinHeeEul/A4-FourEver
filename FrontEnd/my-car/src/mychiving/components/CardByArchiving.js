@@ -4,7 +4,9 @@ import {
   Body3Medium,
   Body3Regular,
   Body4Medium,
+  Body4Regular,
   Heading3Bold,
+  Heading4Bold,
 } from '../../style/typo';
 import { formatDate } from '../../util/DateFomat';
 import { Tag } from '../../common/Tag';
@@ -25,7 +27,7 @@ const CardWrap = styled.div`
   border-radius: 8px;
   border: 2px solid #e4dcd3;
   background: #fff;
-  padding: 26px;
+  padding: 30px;
 
   cursor: pointer;
   transition: all 0.2s;
@@ -50,7 +52,8 @@ const TrimInfo = styled.div`
     display: flex;
     gap: 10px;
     h1 {
-      ${Heading3Bold}
+      /* ${Heading3Bold} */
+      ${Heading4Bold}
     }
   }
   span {
@@ -64,7 +67,7 @@ const RestInfoChip = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${Body4Medium}
+  ${Body4Regular}
 `;
 
 const ColorWrap = styled.div`
@@ -108,6 +111,20 @@ const CategoryWrap = styled.div`
     gap: 8px;
     height: ${({ $isTags }) => ($isTags ? '22px' : '70px')};
     overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${palette.Sand};
+      border-radius: 8px;
+      background-clip: padding-box;
+      border: 3px solid transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: ${palette.LightSand};
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
     button {
       height: 30px;
     }
@@ -115,10 +132,11 @@ const CategoryWrap = styled.div`
 `;
 
 const DeleteSvg = styled(RemoveSvg)`
-  margin-left: 10px;
+  margin-left: 5px;
   cursor: pointer;
   background-color: white;
   border-radius: 100%;
+  transition: all 0.3s ease;
   &:hover {
     filter: brightness(0.9);
   }
@@ -126,7 +144,7 @@ const DeleteSvg = styled(RemoveSvg)`
 
 function CardByArchiving({ savedCar, onClick, setUpdate }) {
   const [deleteArchivingCard, setDeleteArchivingCard] = useState(false);
-  console.log(savedCar.extraOptionNameDTOs);
+
   return (
     <Container onClick={onClick}>
       {deleteArchivingCard && (
@@ -156,8 +174,17 @@ function CardByArchiving({ savedCar, onClick, setUpdate }) {
           </TrimInfo>
           <div>
             <RestInfoChip>
-              {formatDate(savedCar.created_at)}
-              {savedCar.is_purchased ? ' 구매 ' : ' 시승 '}
+              <span
+                style={{
+                  padding: '0 6px',
+                  borderRadius: '8px',
+                  backgroundColor: `${palette.LightSand}`,
+                }}
+              >
+                {formatDate(savedCar.created_at)}
+                {savedCar.is_purchased ? ' 구매 ' : ' 시승 '}
+              </span>
+
               <DeleteSvg
                 onClick={(e) => {
                   e.stopPropagation();

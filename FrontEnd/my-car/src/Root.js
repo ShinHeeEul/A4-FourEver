@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './common/Header';
 import Alert from './common/Alert';
 import { useState, createContext, useEffect } from 'react';
+import ScrollToTop from './common/ScrollToTop';
 
 export const HeaderValueContext = createContext();
 export const HeaderActionContext = createContext();
@@ -26,6 +27,7 @@ function Root() {
 
   return (
     <>
+      <ScrollToTop />
       <Alert
         showCommonAlert={showCommonAlert}
         setShowCommonAlert={setShowCommonAlert}

@@ -12,6 +12,7 @@ const ImgContainer = styled.div`
   position: relative;
   align-items: center;
   height: 404px;
+  cursor: pointer;
 `;
 
 const CarImg = styled.img`
