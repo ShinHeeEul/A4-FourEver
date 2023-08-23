@@ -10,6 +10,7 @@ import A4.FourEver.domain.user.dto.UserMapper;
 import A4.FourEver.domain.user.exception.InvalidPasswordException;
 import A4.FourEver.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class UserServiceDefaultImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public Long saveUser(final String userEmail, final String password) {
         User user = userRepository.findUserByEmail(userEmail);
         if(user == null) {
@@ -46,11 +48,13 @@ public class UserServiceDefaultImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public void saveUserCarReviewById(final Long userId, final Long carReviewId) {
         userRepository.saveUserCarReviewById(userId, carReviewId);
     }
 
     @Override
+    @Transactional
     public void deleteUserCarReviewById(final Long userId, final Long carReviewId) {
         userRepository.removeUserCarReviewById(userId, carReviewId);
     }

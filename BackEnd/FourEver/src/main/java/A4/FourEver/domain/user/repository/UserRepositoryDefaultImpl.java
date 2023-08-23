@@ -2,9 +2,7 @@ package A4.FourEver.domain.user.repository;
 
 import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
 import A4.FourEver.domain.color.exColor.dto.ExColorIdDTO;
-import A4.FourEver.domain.color.exColor.dto.ExColorNameAndImageDTO;
 import A4.FourEver.domain.color.inColor.dto.InColorIdDTO;
-import A4.FourEver.domain.color.inColor.dto.InColorNameDTO;
 import A4.FourEver.domain.myChiving.dto.MyChivingOverviewDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameAndImageDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;

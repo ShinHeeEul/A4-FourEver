@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Tag(name = "리뷰 정보")
 @RestController
 @RequestMapping("/reviews")
@@ -34,12 +36,13 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
     @Operation(summary = "특정 리뷰를 통한 내 차 만들기")
     @SecurityRequirement(name = "JWT")
     @PostMapping("/result")
-    public CarReviewResultSortedDTO getCarReviewResult(@RequestBody final CarReviewIdDTO carReviewIdDTO) {
+    public CarReviewResultSortedDTO getCarReviewResult(@Valid @RequestBody final CarReviewIdDTO carReviewIdDTO) {
         return carReviewService.getCarReviewResult(carReviewIdDTO);
     }
 
     @Override
     @Operation(summary = "카 리뷰 온보딩 정보 조회")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/on-boarding")
     public CarReviewOnBoardingDTO onBoarding() {
         return new CarReviewOnBoardingDTO();

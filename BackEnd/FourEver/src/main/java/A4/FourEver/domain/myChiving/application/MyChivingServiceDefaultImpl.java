@@ -1,9 +1,7 @@
 package A4.FourEver.domain.myChiving.application;
 
-import A4.FourEver.domain.myChiving.dto.MyChivingDetailSortedDTO;
-import A4.FourEver.domain.myChiving.dto.MyChivingIdDTO;
-import A4.FourEver.domain.myChiving.dto.MyChivingMapper;
-import A4.FourEver.domain.myChiving.dto.MyChivingSaveDTO;
+import A4.FourEver.domain.myChiving.dto.*;
+import A4.FourEver.domain.myChiving.exception.MyChivingNotFoundException;
 import A4.FourEver.domain.myChiving.repository.MyChivingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +45,8 @@ public class MyChivingServiceDefaultImpl implements MyChivingService {
 
     @Override
     public MyChivingDetailSortedDTO getMyChivingDetail(final Long id) {
-        return myChivingMapper.convertToSortedDTO(myChivingRepository.findMyChivingDetail(id));
+        MyChivingDetailDTO dto = myChivingRepository.findMyChivingDetail(id);
+        if(dto == null) throw new MyChivingNotFoundException(id);
+        return myChivingMapper.convertToSortedDTO(dto);
     }
 }
