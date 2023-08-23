@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { MakePath } from '../../api';
-import { ARCHIVING } from '../../constant';
 
 const useFetch = ({ url, config, optionSelect, activeTab }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [controller, setController] = useState();
+  let flag = 0;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,8 +16,14 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
           // signal: controller.signal,
         });
         const jsonData = await response.json();
-
-        if (config?.body) {
+        if (jsonData.code === 404) {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          flag = 1;
+          setData({ carReviewOverviewDTOs: [] });
+          setLoading(false);
+          return;
+        }
+        if (config?.body && optionSelect.extraOptionIds.length > 0) {
           const body = JSON.parse(config.body);
           const now = new Date();
           const expirationMinutes = 0.1;
@@ -38,23 +43,24 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
       }
     };
 
+    if (flag) return;
+
+    //로컬 캐시 데이터 관련
     const entire = { ...optionSelect, activeTab };
     const localData = localStorage.getItem(JSON.stringify(entire));
 
     if (localData) {
       setData(JSON.parse(localData).data);
-
       const data = JSON.parse(localData);
       const now = new Date().getTime();
       if (now > data.expiration) {
         // controller?.abort();
-        fetchData();
+        const res = fetchData();
       }
-
       setLoading(false);
     } else {
       setLoading(true);
-      fetchData();
+      const res = fetchData();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -46,7 +46,8 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     if (!reviewLoading && !optionLoading) {
       setLoading(false);
     }
-  }, [reviewLoading, optionLoading, setLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviewLoading, optionLoading]);
 
   const action = {
     select: ({ id }) => {
@@ -74,8 +75,9 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
 
   useEffect(() => {
     const userCar = JSON.parse(localStorage.getItem('userCar'));
-    if (fromMycar?.fromMycar !== null && userCar) {
+    if (fromMycar !== null && fromMycar?.fromMycar !== null && userCar) {
       const ids = userCar.selectedOptions.map((option) => option.id);
+      setLoading(true);
       ids.forEach((id) => {
         setActiveStates((prevActiveStates) => ({
           ...prevActiveStates,

@@ -2,7 +2,6 @@ import { BASIC_SERVER_URL } from '../constant';
 
 export async function UserCarPostRequest({ is_end = 1 }) {
   const getId = localStorage.getItem('myChiving_id');
-  console.log(getId);
 
   const id =
     getId === ('undefined' || 'null' || null || undefined)
@@ -22,8 +21,6 @@ export async function UserCarPostRequest({ is_end = 1 }) {
   const selectedOptionIDs = userCar.selectedOptions.map((item) => item.id);
 
   try {
-    console.log(id);
-
     console.log(
       JSON.stringify({
         id,
@@ -59,7 +56,6 @@ export async function UserCarPostRequest({ is_end = 1 }) {
         optionIds: selectedOptionIDs || [],
       }),
     }).then((res) => res.json());
-    console.log(data);
     localStorage.setItem('myChiving_id', data?.id);
   } catch (e) {
     console.error(e);

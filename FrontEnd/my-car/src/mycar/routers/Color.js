@@ -9,7 +9,10 @@ import { MYCAR, USER_CAR_ACTIONS } from '../../constant';
 import TrimImg from '../components/common/TrimImg';
 import ColorComponents from '../components/colorPage/ColorSelect';
 
-import { ColorValueContext } from '../../context/mycar/color/ColorPrivider';
+import {
+  ColorActionContext,
+  ColorValueContext,
+} from '../../context/mycar/color/ColorPrivider';
 import { useUserCarAction, useUserCarState } from '../hook/useUserCar';
 import RotateImg from '../components/colorPage/RotateImg';
 
@@ -31,16 +34,18 @@ function Color() {
   const userCar = useUserCarState();
 
   const [loading, setLoading] = useState(true);
-
+  const action = useContext(ColorActionContext);
   useEffect(() => {
     if (!userCar.outerColor?.name && !userCar.innerColor?.name) {
       const Price = [...userCar.price];
       Price[page] = exColorOptions[0].price;
+
       dispatch({
         type: USER_CAR_ACTIONS.EXCOLOR,
         select: exColorOptions[0],
         price: Price,
       });
+
       dispatch({
         type: USER_CAR_ACTIONS.INCOLOR,
         select: inColorOptions[0],
@@ -57,7 +62,9 @@ function Color() {
         const imagePaths = Array.from(
           { length: 60 },
           (_, index) =>
-            `http://hyundaimycar.store/rotation/${color}/${index + 1}.webp`,
+            `https://s3.ap-northeast-2.amazonaws.com/hyundaimycar.store/rotation/${color}/${
+              index + 1
+            }.webp`,
         );
         imagePaths.forEach((path) => {
           const img = new Image();
