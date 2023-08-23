@@ -122,6 +122,8 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
 
         sql.append("SELECT ");
 
+        sql.append("m.id AS model_id, ");
+
         sql.append("t.id AS trim_id, ");
         sql.append("t.name AS trim_name, ");
         sql.append("t.image AS trim_image, ");
@@ -205,8 +207,10 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             sql.append("LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id ");
         }
 
+        sql.append("WHERE m.id IN (SELECT model_id FROM ModelID) ");
+
         if(dto.getIn_color_id() != 0) {
-            sql.append("WHERE inc.id = :in_color_id ");
+            sql.append("AND inc.id = :in_color_id ");
             sql.append("AND exc.id = :ex_color_id ");
         }
 
@@ -342,9 +346,9 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
         @Override
         public CarReviewResultDTO extractData(ResultSet rs) throws SQLException {
             ResultSetMetaData metaData = rs.getMetaData();
-            List<String> columnNames = new ArrayList<>();
+            List<String> columnLabels = new ArrayList<>();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                columnNames.add(metaData.getColumnName(i));
+                columnLabels.add(metaData.getColumnLabel(i));
             }
 
             CarReviewResultDTO resultDTO = null;
@@ -366,7 +370,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .price(rs.getDouble("trim_price"))
                             .build();
 
-                    if (columnNames.contains("body_id")) {
+                    if (columnLabels.contains("body_id")) {
                         bodyInfoDTO = BodyInfoDTO.builder()
                                 .id(rs.getLong("body_id"))
                                 .name(rs.getString("body_name"))
@@ -376,7 +380,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnNames.contains("drive_id")) {
+                    if(columnLabels.contains("drive_id")) {
                         driveInfoDTO = DriveInfoDTO.builder()
                                 .id(rs.getLong("drive_id"))
                                 .name(rs.getString("drive_name"))
@@ -386,7 +390,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnNames.contains("engine_id")) {
+                    if(columnLabels.contains("engine_id")) {
                         engineInfoDTO = EngineInfoDTO.builder()
                                 .id(rs.getLong("engine_id"))
                                 .name(rs.getString("engine_name"))
@@ -398,7 +402,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnNames.contains("exterior_id")) {
+                    if(columnLabels.contains("exterior_id")) {
                         exColorDTO = ExColorInfoDTO.builder()
                                 .id(rs.getLong("exterior_id"))
                                 .name(rs.getString("exterior_name"))
@@ -429,7 +433,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .build();
                 }
 
-                if (!columnNames.contains("extra_option_id")) continue;
+                if (!columnLabels.contains("extra_option_id")) continue;
 
                 Long extraOptionId = rs.getLong("extra_option_id");
                 ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
