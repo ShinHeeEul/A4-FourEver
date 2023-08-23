@@ -28,12 +28,12 @@ public class CarServiceDefaultImpl implements CarService {
     }
 
     @Override
-    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(final Long id, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(final Long id, final List<Long> extraOptionIds) {
         return carMapper.convertToSortedDTO(carRepository.findAllCarReviewOverviewList(id, extraOptionIds));
     }
 
     @Override
-    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Long> extraOptionIds) {
         return carMapper.convertToSortedDTO(carRepository.findPartialCarReviewOverviewList(id, isPurchased, extraOptionIds));
     }
 }
