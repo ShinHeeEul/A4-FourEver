@@ -39,6 +39,7 @@ public class CarReviewIdDTO {
     @PositiveOrZero(message = "외부 색상 ID는 양수 혹은 0 이어야 합니다.")
     private Long ex_color_id;
 
+    @NotNull(message = "선택한 옵션 리스트가 없습니다.")
     private List<@NotNull @Positive(message = "추가 옵션 ID는 양수여야 합니다.") Long> extra_option_ids;
 
     public CarReviewIdDTO() {

@@ -50,5 +50,6 @@ public class MyChivingSaveDTO {
     @PositiveOrZero(message = "가격은 양수 혹은 0 이어야 합니다.")
     private Double price;
 
+    @NotNull(message = "선택한 옵션 리스트가 없습니다.")
     private List<@NotNull @Positive(message = "옵션 ID는 양수여야 합니다.") Long> optionIds;
 }
