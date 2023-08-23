@@ -26,8 +26,8 @@ public class CarReviewServiceDefaultImpl implements CarReviewService {
 
     @Override
     public CarReviewResultSortedDTO getCarReviewResult(final CarReviewIdDTO carReviewIdDTO) {
-        CarReviewResultDTO carReviewResultDTO = carReviewRepository.findCarReviewResult(carReviewIdDTO);
-        if(carReviewResultDTO == null) throw new CarReviewResultNotFoundException();
-        return carReviewMapper.convertToSortedDTO(carReviewResultDTO, carReviewIdDTO.getCar_name());
+        CarReviewResultDTO carReviewResult = carReviewRepository.findCarReviewResult(carReviewIdDTO);
+        if(carReviewResult == null) throw new CarReviewResultNotFoundException();
+        return carReviewMapper.convertToSortedDTO(carReviewResult, carReviewIdDTO.getCar_name());
     }
 }
