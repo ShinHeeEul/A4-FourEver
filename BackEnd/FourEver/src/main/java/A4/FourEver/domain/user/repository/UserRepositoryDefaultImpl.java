@@ -12,7 +12,10 @@ import A4.FourEver.domain.trim.drive.dto.DriveNameDTO;
 import A4.FourEver.domain.trim.engine.dto.EngineNameDTO;
 import A4.FourEver.domain.trim.trim.dto.TrimNameDTO;
 import A4.FourEver.domain.user.domain.User;
+import A4.FourEver.domain.user.exception.DuplicateUserCarReviewException;
+import A4.FourEver.global.exception.DuplicateDataException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -63,13 +66,17 @@ public class UserRepositoryDefaultImpl implements UserRepository {
 
     @Override
     public void saveUserCarReviewById(Long userId, Long carReviewId) {
-        String sql = "insert ignore into users_car_review(user_id, car_review_id) values (:userId, :carReviewId)";
+        String sql = "insert into users_car_review(user_id, car_review_id) values (:userId, :carReviewId)";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", userId);
         params.addValue("carReviewId", carReviewId);
 
-        namedParameterJdbcTemplate.update(sql, params);
+        try {
+            namedParameterJdbcTemplate.update(sql, params);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateUserCarReviewException(userId, carReviewId);
+        }
     }
 
     @Override
