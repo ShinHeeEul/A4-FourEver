@@ -15,6 +15,8 @@ import { ARCHIVING } from '../../constant';
 import { formatDate } from '../../util/DateFomat';
 import NoItem from './NoItem';
 
+import ServerErrorPage from '../../error/ServerErrorPage';
+
 const Container = styled.div`
   width: calc(1280px - 240px);
   margin: 25px auto;
@@ -127,6 +129,8 @@ function OptReviewCard() {
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`, { state: { fromMycar } });
   };
+
+  if (!reviewList) return <ServerErrorPage />;
 
   return (
     <Container>

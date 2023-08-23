@@ -151,7 +151,11 @@ function Alert({
 
   const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
-    if (currentPath === 'mycar' && !cancel) {
+    if (
+      currentPath === 'mycar' &&
+      currentSubPath !== myCarPagePath[myCarPagePath.length - 1] &&
+      !cancel
+    ) {
       //임시저장
       UserCarPostRequest({ is_end: 0 });
     }

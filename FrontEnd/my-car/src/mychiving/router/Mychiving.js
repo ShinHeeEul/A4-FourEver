@@ -105,7 +105,6 @@ function Mychiving() {
                   if (e.target.tagName === 'DIV') {
                     navigate(`/archiving/${elem.id}`);
                   } else if (e.target.tagName === 'BUTTON') {
-                    console.log('button입니다');
                   }
                 }}
                 savedCar={elem}

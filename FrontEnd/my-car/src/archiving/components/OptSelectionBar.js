@@ -11,16 +11,13 @@ import WarningTooltip from './WarningTooltip';
 
 const Container = styled.div`
   background-color: ${palette.Neutral};
-  height: ${({ $change }) => ($change ? '55px' : '140px')};
+  height: ${({ $change, $lineCount }) =>
+    $change ? ($lineCount ? '100px' : '55px') : '100px'};
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: fixed; */
-
-  /* position: fixed; */
-  /* top: 150px; */
-  /* width: 100vw; */
   transition: all 0.5s;
+  padding: 5px 0;
 `;
 
 const TagWrap = styled.div`
@@ -29,6 +26,17 @@ const TagWrap = styled.div`
   flex-wrap: wrap;
   gap: 14px;
   justify-content: center;
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+  width: 70%;
+  gap: 10px;
+  flex-wrap: ${({ $lineCount }) => ($lineCount ? 'wrap' : 'nowrap')};
+  button {
+    height: 30px;
+    flex-shrink: 0;
+  }
 `;
 
 export const OptTag = styled.button`
@@ -60,8 +68,11 @@ const SmallBar = styled.div`
   align-items: center;
   span {
     ${Body3Medium}
+    flex-shrink: 0;
   }
   gap: 20px;
+  flex-shrink: 0;
+  justify-content: center;
 `;
 
 function OptSelectionBar() {
@@ -108,7 +119,7 @@ function OptSelectionBar() {
   }, []);
 
   return (
-    <Container $change={change}>
+    <Container $change={change} $lineCount={activeOptions.length > 8}>
       <WarningTooltip showTooltip={showTooltip} />
       <TagWrap>
         {!change ? (
@@ -125,16 +136,18 @@ function OptSelectionBar() {
         ) : (
           <SmallBar>
             <span>선택 옵션</span>
-            {activeOptions.map((option, index) => (
-              <OptTag
-                onClick={() => ClickOption({ id: option.id })}
-                key={index}
-                $isActive={activeStates[option.id]}
-                $inNavbar={true}
-              >
-                {option.name}
-              </OptTag>
-            ))}
+            <TagContainer $lineCount={activeOptions.length > 8}>
+              {activeOptions.map((option, index) => (
+                <OptTag
+                  onClick={() => ClickOption({ id: option.id })}
+                  key={index}
+                  $isActive={activeStates[option.id]}
+                  $inNavbar={true}
+                >
+                  {option.name}
+                </OptTag>
+              ))}
+            </TagContainer>
           </SmallBar>
         )}
       </TagWrap>

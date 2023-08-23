@@ -191,7 +191,6 @@ function OptDetailModal({
     };
     try {
       const res = await ToMycarFetch();
-      console.log(res);
       navigate(`/mycar/${myCarPagePath[0]}`, {
         state: { tempState: { data: res, id: myList.id } },
       });
@@ -203,7 +202,6 @@ function OptDetailModal({
     myCarStart();
     setShowDetailModal(false);
   };
-  console.log(myList);
 
   return (
     <ModalBgDiv>

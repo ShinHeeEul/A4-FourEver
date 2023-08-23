@@ -36,12 +36,12 @@ function Archiving() {
 
   useEffect(() => {
     const body = document.querySelector('body');
-    if (modalShow && !onboardingOff) {
+    if (modalShow && !onboardingOff && firstBoarding) {
       body.classList.add('no-scroll');
     } else {
       body.classList.remove('no-scroll');
     }
-  }, [modalShow, onboardingOff]);
+  }, [modalShow, onboardingOff, firstBoarding]);
 
   return (
     <>
