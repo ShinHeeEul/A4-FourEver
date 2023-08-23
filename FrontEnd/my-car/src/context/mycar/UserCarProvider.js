@@ -13,7 +13,7 @@ function UserCarProvider({ children, fromChivingState }) {
   if (fromChivingState) {
     //마이카이빙 임시저장에서 넘어온 경우
     if (fromChivingState?.id) {
-      localStorage.getItem('myChiving_id', fromChivingState.id);
+      localStorage.setItem('myChiving_id', fromChivingState.id);
     } else {
       //아카이빙에서 넘어온 경우
       localStorage.setItem('myChiving_id', 0);

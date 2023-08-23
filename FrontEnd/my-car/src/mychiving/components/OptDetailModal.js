@@ -159,6 +159,18 @@ function OptDetailModal({
   const myCarStart = async () => {
     const optionIds = myList.extraOptionDTOs.map((option) => option.id);
     const ToMycarFetch = () => {
+      console.log(
+        JSON.stringify({
+          car_name: myList.car_name,
+          trim_id: myList.trimNameDTO.id,
+          engine_id: myList.engineNameDTO.id,
+          body_id: myList.bodyNameDTO.id,
+          drive_id: myList.driveNameDTO.id,
+          in_color_id: myList.inColorIdDTO.id,
+          ex_color_id: myList.exColorIdDTO.id,
+          extra_option_ids: optionIds[0] === 0 ? [] : optionIds,
+        }),
+      );
       return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
         method: 'POST',
         headers: {
