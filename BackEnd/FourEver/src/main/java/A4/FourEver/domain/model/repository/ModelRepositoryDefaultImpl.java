@@ -29,16 +29,18 @@ public class ModelRepositoryDefaultImpl implements ModelRepository {
 
     @Override
     public Set<DefaultOptionInfoDTO> findModelDefaultOption(Long trim_id, Long engine_id, Long body_id, Long drive_id) {
-        String sql = "WITH ModelID AS (" +
-                "    SELECT id AS model_id" +
-                "    FROM model " +
-                "    WHERE trim_id = :trim_id AND engine_id = :engine_id AND body_id = :body_id AND drive_id = :drive_id" +
-                ")" +
-                "SELECT DISTINCT do.*, doc.name AS category_name " +
+        String sql = "SELECT DISTINCT " +
+                "do.*, doc.name AS category_name " +
+
                 "FROM default_option do " +
                 "JOIN default_option_category doc ON do.default_option_category_id = doc.id " +
                 "JOIN default_option_model dom ON do.id = dom.default_option_id " +
-                "JOIN ModelID ON dom.model_id = ModelID.model_id";
+                "JOIN model m ON dom.model_id = m.id " +
+
+                "WHERE m.trim_id = :trim_id " +
+                "AND m.engine_id = :engine_id " +
+                "AND m.body_id = :body_id " +
+                "AND m.drive_id = :drive_id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("trim_id", trim_id);
@@ -51,27 +53,28 @@ public class ModelRepositoryDefaultImpl implements ModelRepository {
 
     @Override
     public Set<ExtraOptionInfoDTO> findModelExtraOption(Long trim_id, Long engine_id, Long body_id, Long drive_id) {
-        String sql = "WITH ModelID AS (" +
-                "    SELECT id AS model_id" +
-                "    FROM model " +
-                "    WHERE trim_id = :trim_id AND engine_id = :engine_id AND body_id = :body_id AND drive_id = :drive_id" +
-                ")" +
-                "SELECT DISTINCT " +
-                "    eo.*," +
-                "    eoc.name AS category_name, " +
-                "    eot.id AS tag_id, " +
-                "    eot.name AS tag_name, " +
-                "    eot.count AS tag_count," +
-                "    seo.id AS sub_extra_option_id," +
-                "    seo.name AS sub_extra_option_name," +
-                "    seo.description AS sub_extra_option_description," +
-                "    seo.image AS sub_extra_option_image " +
+        String sql = "SELECT DISTINCT " +
+                "eo.*," +
+                "eoc.name AS category_name, " +
+                "eot.id AS tag_id, " +
+                "eot.name AS tag_name, " +
+                "eot.count AS tag_count," +
+                "seo.id AS sub_extra_option_id," +
+                "seo.name AS sub_extra_option_name," +
+                "seo.description AS sub_extra_option_description," +
+                "seo.image AS sub_extra_option_image " +
+
                 "FROM extra_option eo " +
                 "JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id " +
                 "JOIN extra_option_model eom ON eo.id = eom.extra_option_id " +
+                "JOIN model m ON eom.model_id = m.id " +
                 "LEFT JOIN extra_option_tag eot ON eo.id = eot.extra_option_id " +
                 "LEFT JOIN sub_extra_option seo ON eo.id = seo.extra_option_id " +
-                "JOIN ModelID ON eom.model_id = ModelID.model_id";
+
+                "WHERE m.trim_id = :trim_id " +
+                "AND m.engine_id = :engine_id " +
+                "AND m.body_id = :body_id " +
+                "AND m.drive_id = :drive_id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("trim_id", trim_id);
