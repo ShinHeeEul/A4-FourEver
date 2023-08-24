@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class CarMapper {
 
-    public CarTrimsSortedDTO convertToSortedDTO(CarTrimsDTO dto) {
+    public CarTrimsSortedDTO convertToSortedDTO(final CarTrimsDTO dto) {
         List<TrimInfoDTO> trimList = dto.getTrimInfoDTOs().stream()
                 .sorted(Comparator.comparingLong(TrimInfoDTO::getId))
                 .collect(Collectors.toList());
@@ -42,10 +42,9 @@ public class CarMapper {
                 .build();
     }
 
-    public CarReviewOverviewSortedListDTO convertToSortedDTO(CarReviewOverviewListDTO dto) {
+    public CarReviewOverviewSortedListDTO convertToSortedDTO(final CarReviewOverviewListDTO dto) {
         List<CarReviewOverviewSortedDTO> overviewDTOList = dto.getCarReviewOverviewDTOs().stream()
                 .sorted(Comparator.comparing(CarReviewOverviewDTO::getCreated_at).reversed())
-                .limit(100)
                 .map(this::convertCarReview)
                 .collect(Collectors.toList());
 
@@ -54,7 +53,7 @@ public class CarMapper {
                 .build();
     }
 
-    private CarReviewOverviewSortedDTO convertCarReview(CarReviewOverviewDTO dto) {
+    private CarReviewOverviewSortedDTO convertCarReview(final CarReviewOverviewDTO dto) {
         List<ExtraOptionNameDTO> extraOptionNameDTOs = dto.getExtraOptionNameDTOs().stream()
                 .sorted(Comparator.comparingLong(ExtraOptionNameDTO::getId))
                 .collect(Collectors.toList());
