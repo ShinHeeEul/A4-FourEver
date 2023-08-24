@@ -6,6 +6,8 @@ import A4.FourEver.domain.myChiving.dto.MyChivingSaveDTO;
 
 public interface MyChivingController {
     MyChivingIdDTO createMyChiving(final MyChivingSaveDTO dto, final Long userId);
+
     MyChivingDetailSortedDTO getMyChivingDetail(final Long id);
+
     void deleteMyChiving(final Long id);
 }

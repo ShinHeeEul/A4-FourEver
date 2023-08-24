@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
-public class UserServiceDefaultImpl implements UserService{
+public class UserServiceDefaultImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -29,11 +29,11 @@ public class UserServiceDefaultImpl implements UserService{
     @Transactional
     public Long saveUser(final String userEmail, final String password) {
         User user = userRepository.findUserByEmail(userEmail);
-        if(user == null) {
+        if (user == null) {
             userRepository.saveUser(userEmail, PasswordUtil.hashPassword(password));
             user = userRepository.findUserByEmail(userEmail);
         }
-        if(!PasswordUtil.verifyPassword(password, user.getPassword())) {
+        if (!PasswordUtil.verifyPassword(password, user.getPassword())) {
             throw new InvalidPasswordException();
         }
         return user.getId();

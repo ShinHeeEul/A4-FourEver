@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
-public class AuthServiceDefaultImpl implements AuthService{
+public class AuthServiceDefaultImpl implements AuthService {
 
     private final String REDIRECT_URI = "http://localhost:8080/user/login";
     private final String STATE = "softeerA4Fourever";
@@ -26,12 +26,13 @@ public class AuthServiceDefaultImpl implements AuthService{
     private String CLIENT_ID;
     @Value("${client.secret}")
     private String CLIENT_SECRET;
+
     @Override
     public String getToken(String code, String state) {
         String requestBody = "grant_type=authorization_code&code=" + code + "&redirect_uri=" + REDIRECT_URI;
         String tokenResponse = tokenAPICall(requestBody);
 
-        if(!state.equals(STATE))  {
+        if (!state.equals(STATE)) {
             throw new LoginStateException();
         }
 
@@ -42,7 +43,7 @@ public class AuthServiceDefaultImpl implements AuthService{
             JsonNode TokenRoot = accessTokenObjectMapper.readTree(tokenResponse);
             hyundaiAccessToken = TokenRoot.path("access_token").asText(); // Response에서 AccessToken 값 추출
             hyundaiRefreshToken = TokenRoot.path("refresh_token").asText(); // Response에서 refreshToken 값 추출
-        } catch(JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             throw new LoginStateException();
         }
 
@@ -57,7 +58,7 @@ public class AuthServiceDefaultImpl implements AuthService{
 
         ObjectMapper accessTokenObjectMapper = new ObjectMapper();
 
-        try{
+        try {
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -67,30 +68,29 @@ public class AuthServiceDefaultImpl implements AuthService{
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode == HttpURLConnection.HTTP_OK){
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 br = new BufferedReader(new InputStreamReader(con.getInputStream())); // 정상호출
-            }
-            else {
+            } else {
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream())); // 에러발생
             }
 
             StringBuilder sb = new StringBuilder();
-            while ((responseData = br.readLine()) != null){
+            while ((responseData = br.readLine()) != null) {
                 sb.append(responseData);
             }
             br.close();
 
             responseData = sb.toString();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new InvalidAccessTokenException();
         }
 
         String email;
         try {
             JsonNode TokenRoot = accessTokenObjectMapper.readTree(responseData);
-            email  = TokenRoot.path("email").asText(); // Response에서 AccessToken 값 추출
-        } catch(JsonProcessingException e) {
+            email = TokenRoot.path("email").asText(); // Response에서 AccessToken 값 추출
+        } catch (JsonProcessingException e) {
             throw new LoginStateException();
         }
 
@@ -98,7 +98,7 @@ public class AuthServiceDefaultImpl implements AuthService{
     }
 
 
-    private String tokenAPICall(String requestBody){
+    private String tokenAPICall(String requestBody) {
 
         StringBuilder sb;
         String responseData;
@@ -108,9 +108,9 @@ public class AuthServiceDefaultImpl implements AuthService{
         String token = "Basic " + Base64.encodeBase64String((CLIENT_ID + ":" + CLIENT_SECRET).getBytes());
         String contentType = "application/x-www-form-urlencoded";
 
-        try{
+        try {
             URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
 
             // Set Header Info
@@ -120,23 +120,23 @@ public class AuthServiceDefaultImpl implements AuthService{
             // Body data 전송
             con.setDoOutput(true);
 
-            try (DataOutputStream output = new DataOutputStream(con.getOutputStream())){
+            try (DataOutputStream output = new DataOutputStream(con.getOutputStream())) {
                 output.writeBytes(requestBody);
                 output.flush();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 throw new InvalidCodeException();
             }
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode == HttpURLConnection.HTTP_OK){
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 br = new BufferedReader(new InputStreamReader(con.getInputStream())); // 정상호출
             } else {
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream())); // 에러발생
             }
 
             sb = new StringBuilder();
-            while ((responseData = br.readLine()) != null){
+            while ((responseData = br.readLine()) != null) {
                 sb.append(responseData);
             }
             br.close();

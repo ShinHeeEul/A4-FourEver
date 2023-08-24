@@ -46,7 +46,7 @@ public class MyChivingServiceDefaultImpl implements MyChivingService {
     @Override
     public MyChivingDetailSortedDTO getMyChivingDetail(final Long id) {
         MyChivingDetailDTO dto = myChivingRepository.findMyChivingDetail(id);
-        if(dto == null) throw new MyChivingNotFoundException(id);
+        if (dto == null) throw new MyChivingNotFoundException(id);
         return myChivingMapper.convertToSortedDTO(dto);
     }
 }

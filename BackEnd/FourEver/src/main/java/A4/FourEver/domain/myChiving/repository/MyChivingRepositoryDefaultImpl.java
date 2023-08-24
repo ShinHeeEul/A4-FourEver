@@ -65,7 +65,7 @@ public class MyChivingRepositoryDefaultImpl implements MyChivingRepository {
         Number key = keyHolder.getKey();
         Long newId = key != null ? key.longValue() : null;
 
-        if(newId == null || dto.getOptionIds().isEmpty()) {
+        if (newId == null || dto.getOptionIds().isEmpty()) {
             return newId;
         }
 

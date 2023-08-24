@@ -24,7 +24,8 @@ public class ModelServiceDefaultImpl implements ModelService {
     public ModelOptionsSortedDTO getModelOptions(final Long trim_id, final Long engine_id, final Long body_id, final Long drive_id) {
         Set<DefaultOptionInfoDTO> defaultOptionInfoDTOs = modelRepository.findModelDefaultOption(trim_id, engine_id, body_id, drive_id);
         Set<ExtraOptionInfoDTO> extraOptionInfoDTOs = modelRepository.findModelExtraOption(trim_id, engine_id, body_id, drive_id);
-        if(defaultOptionInfoDTOs.isEmpty() && extraOptionInfoDTOs.isEmpty()) throw new OptionsNotFoundException(trim_id, engine_id, body_id, drive_id);
+        if (defaultOptionInfoDTOs.isEmpty() && extraOptionInfoDTOs.isEmpty())
+            throw new OptionsNotFoundException(trim_id, engine_id, body_id, drive_id);
         return modelMapper.convertToSortedDTO(extraOptionInfoDTOs, defaultOptionInfoDTOs);
     }
 }

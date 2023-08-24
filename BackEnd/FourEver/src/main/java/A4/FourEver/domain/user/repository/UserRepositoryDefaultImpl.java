@@ -181,7 +181,7 @@ public class UserRepositoryDefaultImpl implements UserRepository {
         public User extractData(ResultSet rs) throws SQLException, DataAccessException {
 
             User user = null;
-            while(rs.next()) {
+            while (rs.next()) {
                 user = User.builder()
                         .id(rs.getLong("id"))
                         .email(rs.getString("email"))

@@ -7,5 +7,6 @@ import java.util.Set;
 
 public interface TrimRepository {
     Set<InColorInfoDTO> findTrimInColorsAndTagsById(final Long trimId);
+
     Set<ExColorInfoDTO> findTrimExColorsAndTagsById(final Long trimId);
 }
