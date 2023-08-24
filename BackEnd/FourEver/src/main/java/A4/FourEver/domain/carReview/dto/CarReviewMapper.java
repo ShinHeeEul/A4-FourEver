@@ -69,9 +69,10 @@ public class CarReviewMapper {
                 .build();
     }
 
-    private ExtraOptionDetailSortedDTO convertExtraOption(ExtraOptionDetailDTO dto) {
+    private ExtraOptionDetailSortedDTO convertExtraOption(final ExtraOptionDetailDTO dto) {
         List<ExtraOptionTagInfoDTO> tagInfoDTOList = dto.getExtraOptionTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getCount).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         List<SubExtraOptionNameDTO> nameDTOList = dto.getSubExtraOptionNameDTOs().stream()
@@ -91,7 +92,8 @@ public class CarReviewMapper {
 
     private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(final ExtraOptionInfoDTO dto) {
         List<ExtraOptionTagInfoDTO> sortedOptionTags = dto.getExtraOptionTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         List<SubExtraOptionInfoDTO> sortedSubOptions = dto.getSubExtraOptionInfoDTOs().stream()
