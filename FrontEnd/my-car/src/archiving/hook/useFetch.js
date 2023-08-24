@@ -9,6 +9,7 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('패치');
       // setController(new AbortController());
       try {
         const response = await fetch(url, {
@@ -60,7 +61,10 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
       setLoading(false);
     } else {
       setLoading(true);
-      const res = fetchData();
+      if (optionSelect?.extraOptionIds.length > 0) {
+        fetchData();
+      }
+      setLoading(false);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

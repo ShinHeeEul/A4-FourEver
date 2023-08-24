@@ -35,10 +35,32 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     activeTab,
   });
 
-  const { data: optionList, loading: optionLoading } = useFetch({
-    url: MakePath.option(ARCHIVING.URL.OPTIONS),
-    config: { method: 'GET' },
-  });
+  const [optionList, setOptionList] = useState();
+  const [optionLoading, setOptionLoading] = useState(true);
+  const fetchData = async () => {
+    // setController(new AbortController());
+    try {
+      const response = await fetch(MakePath.option(ARCHIVING.URL.OPTIONS), {
+        method: 'GET',
+      });
+      const jsonData = await response.json();
+
+      setOptionList(jsonData);
+      setOptionLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  // const { data: optionList, loading: optionLoading } = useFetch({
+  //   url: MakePath.option(ARCHIVING.URL.OPTIONS),
+  //   config: { method: 'GET' },
+  // });
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setLoading(true);

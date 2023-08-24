@@ -185,8 +185,13 @@ function Login() {
         .then((res) => res.json())
         .catch((e) => console.error(e));
 
-      localStorage.setItem('jwtToken', res.jwtToken);
-      navigate('/main');
+      if (res?.code === 10012) {
+        console.log('로그인 실패');
+        setError('serverError', { message: '비밀번호가 일치하지 않습니다' });
+      } else {
+        localStorage.setItem('jwtToken', res.jwtToken);
+        navigate('/main');
+      }
     } catch {
       setError('serverError', { message: '서버에러' });
     }
@@ -238,6 +243,8 @@ function Login() {
                 <p>{errors.email?.message}</p>
               ) : errors.password ? (
                 <p>{errors.password.message}</p>
+              ) : errors.serverError ? (
+                <p>{errors.serverError.message}</p>
               ) : null}
             </ErrorDiv>
           )}
