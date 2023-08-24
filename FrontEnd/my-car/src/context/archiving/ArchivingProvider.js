@@ -35,7 +35,7 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     activeTab,
   });
 
-  const [optionList, setOptionList] = useState();
+  const [optionList, setOptionList] = useState({});
   const [optionLoading, setOptionLoading] = useState(true);
   const fetchData = async () => {
     // setController(new AbortController());
