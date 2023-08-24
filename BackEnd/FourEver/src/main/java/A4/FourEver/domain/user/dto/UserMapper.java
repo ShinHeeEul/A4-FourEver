@@ -15,8 +15,7 @@ public class UserMapper {
     private final int completed = 1;
     private final int temp = 0;
 
-
-    public UserFeedDTO generateUserFeedDTO(Set<MyChivingOverviewDTO> myChivingSet, Set<CarReviewOverviewDTO> carReviewSet) {
+    public UserFeedDTO generateUserFeedDTO(final Set<MyChivingOverviewDTO> myChivingSet, final Set<CarReviewOverviewDTO> carReviewSet) {
         List<MyChivingOverviewDTO> myChivingTempList = myChivingSet.stream()
                 .filter(dto -> dto.getIs_end() == temp)
                 .sorted(Comparator.comparing(MyChivingOverviewDTO::getUpdated_at).reversed())
