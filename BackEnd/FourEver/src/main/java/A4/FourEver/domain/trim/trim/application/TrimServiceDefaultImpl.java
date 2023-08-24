@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class TrimServiceDefaultImpl implements TrimService{
+public class TrimServiceDefaultImpl implements TrimService {
 
     private final TrimRepository trimRepository;
     private final TrimMapper trimMapper;

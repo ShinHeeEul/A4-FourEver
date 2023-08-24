@@ -31,14 +31,14 @@ public class CarServiceDefaultImpl implements CarService {
     @Override
     public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(final Long id, final List<Long> extraOptionIds) {
         CarReviewOverviewListDTO carReviewList = carRepository.findAllCarReviewOverviewList(id, extraOptionIds);
-        if(carReviewList.getCarReviewOverviewDTOs().isEmpty()) throw new CarReviewListNotFoundException(id);
+        if (carReviewList.getCarReviewOverviewDTOs().isEmpty()) throw new CarReviewListNotFoundException(id);
         return carMapper.convertToSortedDTO(carReviewList);
     }
 
     @Override
     public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Long> extraOptionIds) {
         CarReviewOverviewListDTO carReviewPartialList = carRepository.findPartialCarReviewOverviewList(id, isPurchased, extraOptionIds);
-        if(carReviewPartialList.getCarReviewOverviewDTOs().isEmpty()) throw new CarReviewListNotFoundException(id);
+        if (carReviewPartialList.getCarReviewOverviewDTOs().isEmpty()) throw new CarReviewListNotFoundException(id);
         return carMapper.convertToSortedDTO(carReviewPartialList);
     }
 }

@@ -17,7 +17,7 @@ public class PasswordUtil {
                 sb.append(String.format("%02x", b));
             }
             return sb.toString();
-        } catch(NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new InternalServerException();
         }
 

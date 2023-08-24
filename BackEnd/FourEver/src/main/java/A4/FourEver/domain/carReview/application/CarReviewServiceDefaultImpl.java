@@ -20,14 +20,14 @@ public class CarReviewServiceDefaultImpl implements CarReviewService {
     @Override
     public CarReviewDetailSortedDTO getCarReviewDetail(final Long id, final Long userId) {
         CarReviewDetailDTO carReviewDetail = carReviewRepository.findCarReviewDetail(id, userId);
-        if(carReviewDetail == null) throw new CarReviewDetailNotFoundException(id);
+        if (carReviewDetail == null) throw new CarReviewDetailNotFoundException(id);
         return carReviewMapper.convertToSortedDTO(carReviewDetail);
     }
 
     @Override
     public CarReviewResultSortedDTO getCarReviewResult(final CarReviewIdDTO carReviewIdDTO) {
         CarReviewResultDTO carReviewResult = carReviewRepository.findCarReviewResult(carReviewIdDTO);
-        if(carReviewResult == null) throw new CarReviewResultNotFoundException();
+        if (carReviewResult == null) throw new CarReviewResultNotFoundException();
         return carReviewMapper.convertToSortedDTO(carReviewResult, carReviewIdDTO.getCar_name());
     }
 }

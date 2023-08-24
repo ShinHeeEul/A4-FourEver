@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/user")
 @Primary
-public class UserControllerDefaultImpl implements UserController  {
+public class UserControllerDefaultImpl implements UserController {
 
     private final AuthService authService;
     private final UserService userService;
@@ -45,7 +45,7 @@ public class UserControllerDefaultImpl implements UserController  {
     public LoginResponseDTO oauth(@RequestParam final String code,
                                   @RequestParam final String state) {
 
-        String userEmail = authService.getToken(code,state);
+        String userEmail = authService.getToken(code, state);
         Long userId = userService.saveUser(userEmail, userEmail);
         String token = jwtProvider.getJwtToken(userId);
 
@@ -60,7 +60,7 @@ public class UserControllerDefaultImpl implements UserController  {
     @PostMapping("/self-login")
     public LoginResponseDTO login(@Valid @RequestBody final LoginRequestDTO loginRequestDTO, final BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> {
                 throw new InvalidLoginException(objectError.getDefaultMessage());
             });
@@ -76,7 +76,7 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 정보 조회")
-    @SecurityRequirement(name="JWT")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/feeds")
     public UserFeedDTO getUserFeedsById(@LoginUserId final Long userId) {
         return userService.getUserFeedsById(userId);
@@ -84,7 +84,7 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 목록에 특정 후기 추가")
-    @SecurityRequirement(name="JWT")
+    @SecurityRequirement(name = "JWT")
     @PostMapping("/feed/create/{carReviewId}")
     public void createUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.saveUserCarReviewById(userId, carReviewId);
@@ -92,7 +92,7 @@ public class UserControllerDefaultImpl implements UserController  {
 
     @Override
     @Operation(summary = "유저의 피드 목록에서 특정 후기 삭제")
-    @SecurityRequirement(name="JWT")
+    @SecurityRequirement(name = "JWT")
     @DeleteMapping("/feed/delete/{carReviewId}")
     public void deleteUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.deleteUserCarReviewById(userId, carReviewId);

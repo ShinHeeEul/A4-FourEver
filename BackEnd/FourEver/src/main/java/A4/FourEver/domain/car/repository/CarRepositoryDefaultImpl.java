@@ -128,7 +128,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
-                "JOIN car c ON d.car_id = c.id " +
+                "JOIN car c ON t.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
