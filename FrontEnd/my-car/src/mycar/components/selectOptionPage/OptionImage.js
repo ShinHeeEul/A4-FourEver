@@ -109,7 +109,7 @@ function OptionImage() {
         <OptionLocateImgWrap>
           <img
             alt="locateImage"
-            src="http://hyundaimycar.store/rotation/abyss/1.png"
+            src="https://s3.ap-northeast-2.amazonaws.com/hyundaimycar.store/rotation/abyss/1.png"
           />
           <LocateSpot
             $x_position={optionList[selected].x_position}

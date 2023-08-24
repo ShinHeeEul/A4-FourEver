@@ -1,4 +1,27 @@
 @font-face {
-  font-family: 'Hyundai Sans Head KR';
-  src: url('/public/fonts/AnyConv.com__HyundaiSansHeadKRRegular.woff');
+  font-family: 'HyundaiSansBold';
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('HyundaiSansBold'),
+    url('/public/fonts/HyundaiSansHeadKRBold.woff2') format('woff2'),
+    url('/public/fonts/HyundaiSansHeadKRBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'HyundaiSansMedium';
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('HyundaiSansMedium'),
+    url('/public/fonts/HyundaiSansHeadKRMedium.woff2') format('woff2'),
+    url('/public/fonts/HyundaiSansHeadKRMedium.woff') format('woff');
+}
+@font-face {
+  font-family: 'HyundaiSansRegular';
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('HyundaiSansRegular'),
+    url('/public/fonts/HyundaiSansHeadKRRegular.woff2') format('woff2'),
+    url('/public/fonts/HyundaiSansHeadKRRegular.woff') format('woff');
 }
