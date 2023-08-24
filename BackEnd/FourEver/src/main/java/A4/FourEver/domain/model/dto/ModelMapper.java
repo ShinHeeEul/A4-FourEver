@@ -33,7 +33,8 @@ public class ModelMapper {
 
     private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(final ExtraOptionInfoDTO dto) {
         List<ExtraOptionTagInfoDTO> sortedOptionTags = dto.getExtraOptionTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getCount).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         List<SubExtraOptionInfoDTO> sortedSubOptions = dto.getSubExtraOptionInfoDTOs().stream()

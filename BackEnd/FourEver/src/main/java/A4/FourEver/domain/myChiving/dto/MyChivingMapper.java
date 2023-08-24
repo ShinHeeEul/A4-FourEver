@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class MyChivingMapper {
 
-    public MyChivingDetailSortedDTO convertToSortedDTO(MyChivingDetailDTO dto) {
+    public MyChivingDetailSortedDTO convertToSortedDTO(final MyChivingDetailDTO dto) {
         List<ExtraOptionDetailSortedDTO> extraOptionDTOList = dto.getExtraOptionDTOs().stream()
                 .map(this::convertExtraOption)
                 .collect(Collectors.toList());
@@ -34,9 +34,10 @@ public class MyChivingMapper {
                 .build();
     }
 
-    private ExtraOptionDetailSortedDTO convertExtraOption(ExtraOptionDetailDTO dto) {
+    private ExtraOptionDetailSortedDTO convertExtraOption(final ExtraOptionDetailDTO dto) {
         List<ExtraOptionTagInfoDTO> tagInfoDTOList = dto.getExtraOptionTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getCount).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         List<SubExtraOptionNameDTO> nameDTOList = dto.getSubExtraOptionNameDTOs().stream()
