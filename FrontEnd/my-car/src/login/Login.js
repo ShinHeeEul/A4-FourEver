@@ -169,6 +169,7 @@ function Login() {
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors,
   } = useForm();
 
   const hyundaiLogin = () => {
@@ -249,7 +250,13 @@ function Login() {
             </ErrorDiv>
           )}
 
-          <SubmitBtn type="submit" $margin={Object.keys(errors).length > 0}>
+          <SubmitBtn
+            type="submit"
+            onClick={() => {
+              clearErrors('serverError');
+            }}
+            $margin={Object.keys(errors).length > 0}
+          >
             로그인
           </SubmitBtn>
         </LoginForm>
