@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-
+// import '../style/fonts/font.css';
 export const hyundaiSans = css`
   font-family: 'Hyundai Sans Head KR';
 `;
