@@ -6,6 +6,7 @@ async function fetchData({ path, method = 'GET' }) {
   return fetch(path, {
     method,
     headers: {
+      accept: 'application/json;charset=UTF-8',
       Authorization: `Bearer ${accessToken}`,
     },
   }).then((res) => res.json());

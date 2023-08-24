@@ -42,6 +42,9 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
     try {
       const response = await fetch(MakePath.option(ARCHIVING.URL.OPTIONS), {
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       const jsonData = await response.json();
 
@@ -49,7 +52,6 @@ function ArchivingProvider({ children, setLoading, fromMycar }) {
       setOptionLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
   };
 
