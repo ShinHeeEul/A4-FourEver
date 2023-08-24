@@ -103,6 +103,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "WHERE extra_option_id IN (:extraOptionIds) " +
                 "GROUP BY car_review_id " +
                 "HAVING COUNT(DISTINCT extra_option_id) = :size " +
+                "LIMIT 100" +
                 ") " +
 
                 "SELECT " +
@@ -137,9 +138,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
                 "AND cr.is_purchased = :isPurchase " +
-                "ORDER BY cr.created_at DESC " +
-                "LIMIT 1400;";
-
+                "ORDER BY cr.created_at DESC;";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("car_id", id);
@@ -158,6 +157,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "WHERE extra_option_id IN (:extraOptionIds) " +
                 "GROUP BY car_review_id " +
                 "HAVING COUNT(DISTINCT extra_option_id) = :size " +
+                "LIMIT 100" +
                 ") " +
 
                 "SELECT " +
@@ -191,14 +191,12 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
-                "ORDER BY cr.created_at DESC " +
-                "LIMIT 1400;";
+                "ORDER BY cr.created_at DESC;";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("car_id", id);
         params.addValue("extraOptionIds", extraOptionIds);
         params.addValue("size", extraOptionIds.size());
-
 
         return namedParameterJdbcTemplate.query(sql, params, carReviewOverviewExtractor);
     }
