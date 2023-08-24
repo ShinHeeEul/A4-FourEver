@@ -92,7 +92,7 @@ public class CarReviewMapper {
 
     private ExtraOptionInfoSortedDTO convertExtraOptionInfoDTO(final ExtraOptionInfoDTO dto) {
         List<ExtraOptionTagInfoDTO> sortedOptionTags = dto.getExtraOptionTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getId).reversed())
+                .sorted(Comparator.comparingLong(ExtraOptionTagInfoDTO::getCount).reversed())
                 .limit(3)
                 .collect(Collectors.toList());
 
