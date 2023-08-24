@@ -111,25 +111,14 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
     public CarReviewResultDTO findCarReviewResult(CarReviewIdDTO dto) {
         StringBuilder sql = new StringBuilder();
 
-        sql.append("WITH ModelID AS (");
-        sql.append("    SELECT id AS model_id");
-        sql.append("    FROM model ");
-        sql.append("    WHERE (trim_id = :trim_id OR (trim_id IS NULL AND :trim_id IS NULL)) ");
-        sql.append("    AND (engine_id = :engine_id OR (engine_id IS NULL AND :engine_id IS NULL)) ");
-        sql.append("    AND (body_id = :body_id OR (body_id IS NULL AND :body_id IS NULL)) ");
-        sql.append("    AND (drive_id = :drive_id OR (drive_id IS NULL AND :drive_id IS NULL)) ");
-        sql.append(")");
-
         sql.append("SELECT ");
-
-        sql.append("m.id AS model_id, ");
 
         sql.append("t.id AS trim_id, ");
         sql.append("t.name AS trim_name, ");
         sql.append("t.image AS trim_image, ");
         sql.append("t.price AS trim_price ");
 
-        if(dto.getEngine_id() != 0) {
+        if (dto.getEngine_id() != 0) {
             sql.append(", e.id AS engine_id, ");
             sql.append("e.name AS engine_name, ");
             sql.append("e.image AS engine_image, ");
@@ -139,7 +128,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             sql.append("e.price AS engine_price ");
         }
 
-        if(dto.getBody_id() != 0) {
+        if (dto.getBody_id() != 0) {
             sql.append(", b.id AS body_id, ");
             sql.append("b.name AS body_name, ");
             sql.append("b.image AS body_image, ");
@@ -147,7 +136,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             sql.append("b.price AS body_price ");
         }
 
-        if(dto.getDrive_id() != 0) {
+        if (dto.getDrive_id() != 0) {
             sql.append(", d.id AS drive_id, ");
             sql.append("d.name AS drive_name, ");
             sql.append("d.image AS drive_image, ");
@@ -155,14 +144,14 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             sql.append("d.price AS drive_price ");
         }
 
-        if(dto.getIn_color_id() != 0) {
+        if (dto.getIn_color_id() != 0) {
             sql.append(", inc.id AS interior_id, ");
             sql.append("inc.name AS interior_name, ");
             sql.append("inc.color_image AS interior_color_image, ");
             sql.append("inc.in_image AS interior_in_image ");
         }
 
-        if(dto.getEx_color_id() != 0) {
+        if (dto.getEx_color_id() != 0) {
             sql.append(", exc.id AS exterior_id, ");
             sql.append("exc.name AS exterior_name, ");
             sql.append("exc.color_image AS exterior_color_image, ");
@@ -184,19 +173,19 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
         sql.append("FROM model m ");
         sql.append("LEFT JOIN trim t ON m.trim_id = t.id ");
 
-        if(dto.getEngine_id() != 0) {
+        if (dto.getEngine_id() != 0) {
             sql.append("LEFT JOIN engine e ON m.engine_id = e.id ");
         }
 
-        if(dto.getBody_id() != 0) {
+        if (dto.getBody_id() != 0) {
             sql.append("LEFT JOIN body b ON m.body_id = b.id ");
         }
 
-        if(dto.getDrive_id() != 0) {
+        if (dto.getDrive_id() != 0) {
             sql.append("LEFT JOIN drive d ON m.drive_id = d.id ");
         }
 
-        if(dto.getIn_color_id() != 0) {
+        if (dto.getIn_color_id() != 0) {
             sql.append("LEFT JOIN in_color inc ON t.id = inc.trim_id ");
             sql.append("LEFT JOIN ex_color exc ON t.id = exc.trim_id ");
         }
@@ -207,9 +196,13 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
             sql.append("LEFT JOIN extra_option_category eoc ON eo.extra_option_category_id = eoc.id ");
         }
 
-        sql.append("WHERE m.id IN (SELECT model_id FROM ModelID) ");
+        sql.append("WHERE (m.trim_id = :trim_id OR (m.trim_id IS NULL AND :trim_id IS NULL)) ");
+        sql.append("AND (m.engine_id = :engine_id OR (m.engine_id IS NULL AND :engine_id IS NULL)) ");
+        sql.append("AND (m.body_id = :body_id OR (m.body_id IS NULL AND :body_id IS NULL)) ");
+        sql.append("AND (m.drive_id = :drive_id OR (m.drive_id IS NULL AND :drive_id IS NULL)) ");
 
-        if(dto.getIn_color_id() != 0) {
+
+        if (dto.getIn_color_id() != 0) {
             sql.append("AND inc.id = :in_color_id ");
             sql.append("AND exc.id = :ex_color_id ");
         }
@@ -363,7 +356,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
 
             while (rs.next()) {
                 if (resultDTO == null) {
-                     trimInfoDTO = TrimInfoDTO.builder()
+                    trimInfoDTO = TrimInfoDTO.builder()
                             .id(rs.getLong("trim_id"))
                             .name(rs.getString("trim_name"))
                             .image(rs.getString("trim_image"))
@@ -380,7 +373,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnLabels.contains("drive_id")) {
+                    if (columnLabels.contains("drive_id")) {
                         driveInfoDTO = DriveInfoDTO.builder()
                                 .id(rs.getLong("drive_id"))
                                 .name(rs.getString("drive_name"))
@@ -390,7 +383,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnLabels.contains("engine_id")) {
+                    if (columnLabels.contains("engine_id")) {
                         engineInfoDTO = EngineInfoDTO.builder()
                                 .id(rs.getLong("engine_id"))
                                 .name(rs.getString("engine_name"))
@@ -402,7 +395,7 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                                 .build();
                     }
 
-                    if(columnLabels.contains("exterior_id")) {
+                    if (columnLabels.contains("exterior_id")) {
                         exColorDTO = ExColorInfoDTO.builder()
                                 .id(rs.getLong("exterior_id"))
                                 .name(rs.getString("exterior_name"))
@@ -433,26 +426,26 @@ public class CarReviewRepositoryDefaultImpl implements CarReviewRepository {
                             .build();
                 }
 
-                if (!columnLabels.contains("extra_option_id")) continue;
+                if (columnLabels.contains("extra_option_id")) {
+                    Long extraOptionId = rs.getLong("extra_option_id");
+                    ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
 
-                Long extraOptionId = rs.getLong("extra_option_id");
-                ExtraOptionInfoDTO extraOptionDTO = extraOptionMap.get(extraOptionId);
-
-                if (extraOptionDTO == null) {
-                    extraOptionDTO = ExtraOptionInfoDTO.builder()
-                            .id(extraOptionId)
-                            .name(rs.getString("extra_option_name"))
-                            .description(rs.getString("extra_option_description"))
-                            .category(rs.getString("extra_option_category"))
-                            .image(rs.getString("extra_option_image"))
-                            .price(rs.getDouble("extra_option_price"))
-                            .x_position(rs.getInt("extra_option_x_position"))
-                            .y_position(rs.getInt("extra_option_y_position"))
-                            .extraOptionTagInfoDTOS(new HashSet<>())
-                            .subExtraOptionInfoDTOs(new HashSet<>())
-                            .build();
-                    extraOptionMap.put(extraOptionId, extraOptionDTO);
-                    resultDTO.getExtraOptionDTOs().add(extraOptionDTO);
+                    if (extraOptionDTO == null) {
+                        extraOptionDTO = ExtraOptionInfoDTO.builder()
+                                .id(extraOptionId)
+                                .name(rs.getString("extra_option_name"))
+                                .description(rs.getString("extra_option_description"))
+                                .category(rs.getString("extra_option_category"))
+                                .image(rs.getString("extra_option_image"))
+                                .price(rs.getDouble("extra_option_price"))
+                                .x_position(rs.getInt("extra_option_x_position"))
+                                .y_position(rs.getInt("extra_option_y_position"))
+                                .extraOptionTagInfoDTOS(new HashSet<>())
+                                .subExtraOptionInfoDTOs(new HashSet<>())
+                                .build();
+                        extraOptionMap.put(extraOptionId, extraOptionDTO);
+                        resultDTO.getExtraOptionDTOs().add(extraOptionDTO);
+                    }
                 }
             }
             return resultDTO;
