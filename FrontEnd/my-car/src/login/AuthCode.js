@@ -45,7 +45,7 @@ function AuthCode() {
   }, [accessToken]);
 
   if (error) return <ServerErrorPage />;
-  if (!code) return <ServerErrorPage />;
+  // if (!code) return <ServerErrorPage />;
 
   return (
     <Container>
