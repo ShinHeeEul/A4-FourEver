@@ -6,7 +6,7 @@ import { MychivingContext } from '../router/Mychiving';
 import { Body3Regular } from '../../style/typo';
 const AlertBgDiv = styled.div`
   position: absolute;
-  top: 0;
+  top: ${({ $top }) => `${$top}px`};
   left: 0;
   width: 100%;
   height: 100%;
@@ -101,6 +101,7 @@ function DeleteAlert({
     } else {
       body.classList.remove('no-scroll');
     }
+    return body.classList.remove('no-scroll');
   }, [showDeleteAlert]);
 
   async function DeleteRequest(id, requestUrl) {
@@ -110,8 +111,10 @@ function DeleteAlert({
     setShowDeleteAlert(false);
   }
 
+  const scrollTop = document.documentElement.scrollTop;
+
   return (
-    <AlertBgDiv>
+    <AlertBgDiv $top={scrollTop}>
       <AlertDiv>
         <AlertMsgDiv>
           {msg.split('/').map((elem) => {
