@@ -20,7 +20,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "https://www.hyundaimycar.store:8080",
                         "https://www.hyundaimycar.store:8080/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type, Authorization, Location, Accept, Origin, Host, Referer, Cache-Control, Connection");
-
+                .allowedHeaders("Content-Type", "Authorization", "Location",
+                        "Accept", "Origin", "Host", "Referer",
+                        "Cache-Control", "Connection")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
