@@ -28,14 +28,15 @@ public class LoginInterceptor implements HandlerInterceptor {
                 "http://www.hyundaimycar.store/",
                 "https://www.hyundaimycar.store:443",
                 "https://www.hyundaimycar.store/",
-                "http://www.hyundaimycar.store:80");
+                "http://www.hyundaimycar.store:80",
+                "https://www.hyundaimycar.store:8080",
+                "https://www.hyundaimycar.store:8080/");
 
         if (allowedOrigins.contains(origin)) {
             response.setHeader("Access-Control-Allow-Origin", origin);
         }
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Allow-Headers", "Authorization");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Location, Accept, Origin, Host, Referer, Cache-Control, Connection");
 
         if(request.getMethod().equals("OPTIONS")) {
             response.setStatus(200);
