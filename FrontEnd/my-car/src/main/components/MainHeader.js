@@ -124,6 +124,8 @@ function MainHeader() {
   const navigate = useNavigate();
   const Logout = () => {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userCar');
+    localStorage.setItem('myChiving_id', 0);
     navigate('/');
   };
 
