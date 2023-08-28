@@ -30,9 +30,9 @@ const TagWrap = styled.div`
 
 const TagContainer = styled.div`
   display: flex;
-  width: 70%;
   gap: 10px;
-  flex-wrap: ${({ $lineCount }) => ($lineCount ? 'wrap' : 'nowrap')};
+  width: 100%;
+  flex-wrap: wrap;
   button {
     height: 30px;
     flex-shrink: 0;
@@ -119,7 +119,7 @@ function OptSelectionBar() {
   }, []);
 
   return (
-    <Container $change={change} $lineCount={activeOptions.length > 8}>
+    <Container $change={change} $lineCount={activeOptions.length > 6}>
       <WarningTooltip showTooltip={showTooltip} />
       <TagWrap>
         {!change ? (
