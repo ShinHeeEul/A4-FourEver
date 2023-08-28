@@ -29,7 +29,7 @@ public class MyChivingControllerDefaultImpl implements MyChivingController {
             "Not Selected : 0 or [],<br>" +
             "Selected : id,<br>" +
             "⛔️없는 id값 입력 하지 않도록 주의!</b>")
-    @PostMapping("/create")
+    @PostMapping()
     @SecurityRequirement(name = "JWT")
     public MyChivingIdDTO createMyChiving(@Valid @RequestBody final MyChivingSaveDTO dto, @LoginUserId final Long userId) {
         return myChivingService.saveMyChiving(dto, userId);
@@ -37,7 +37,7 @@ public class MyChivingControllerDefaultImpl implements MyChivingController {
 
     @Override
     @Operation(summary = "특정 마이카이빙 조회")
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     @SecurityRequirement(name = "JWT")
     public MyChivingDetailSortedDTO getMyChivingDetail(@PathVariable final Long id) {
         return myChivingService.getMyChivingDetail(id);
@@ -46,10 +46,9 @@ public class MyChivingControllerDefaultImpl implements MyChivingController {
 
     @Override
     @Operation(summary = "특정 마이카이빙 삭제")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @SecurityRequirement(name = "JWT")
     public void deleteMyChiving(@PathVariable final Long id) {
         myChivingService.removeMyChiving(id);
     }
-
 }
