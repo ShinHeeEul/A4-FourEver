@@ -15,7 +15,11 @@ export const myCarPagePath = [
   'complete',
 ];
 
-export const BASIC_SERVER_URL = 'http://www.hyundaimycar.store:8080';
+export const archivingPath = '/archiving';
+export const mychivingPath = '/mychiving';
+export const maingPath = '/main';
+
+export const BASIC_SERVER_URL = 'https://www.hyundaimycar.store:8080';
 
 export const USER_CAR_ACTIONS = {
   MODEL: 'trim',
@@ -31,7 +35,7 @@ export const USER_CAR_ACTIONS = {
 
 export const MYCAR = {
   TRIM: {
-    URL: 'cars/1/trim',
+    URL: 'cars/1/trims',
     FILED: {
       MODEL: 'trimInfoDTOs',
       ENGINE: 'engineInfoDTOs',
@@ -40,7 +44,7 @@ export const MYCAR = {
     },
   },
   COLOR: {
-    URL: 'trims/1/color',
+    URL: 'trims/1/colors',
     FILED: {
       INCOLOR: 'inColors',
       EXCOLOR: 'exColors',
@@ -55,32 +59,11 @@ export const MYCAR = {
     },
   },
   SELECTED: {
-    URL: 'model/option?trim_id=1&body_id=1&engine_id=1&drive_id=1',
+    URL: 'models/options?trim_id=1&body_id=1&engine_id=1&drive_id=1',
     FILED: {
       SELECT: 'extraOptionInfoSortedDTOs',
       BASIC: 'defaultOptionInfoDTOs',
       TAGS: 'extraOptionTagInfoDTOS',
-    },
-  },
-};
-
-export const ARCHIVINGDETAIL = {
-  SELECTEDCAR: {
-    URL: 'reviews/',
-    FILED: {
-      NAMEL: 'car_name',
-      PRICE: 'price',
-      COMMENT: 'comment',
-      TRIM: 'trim_name',
-      ENGINE: 'engine_name',
-      DRIVE: 'drive_name',
-      BODY: 'body_name',
-      INCOLOR: 'interior_color_name',
-      EXCOLOR: 'exterior_color_name',
-      DATE: 'created_at',
-      EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
-      PURCHASE: 'is_purchased',
-      TOTALTAGS: 'totalTagInfoDTOs',
     },
   },
 };
@@ -162,10 +145,11 @@ export const ArchivingTabMenu = ['전체', '구매', '시승'];
 
 export const ARCHIVING = {
   URL: {
-    OPTIONS: 'cars/1/option-names',
-    REVIEW: 'cars/1/car-review',
-    ISPURCHASED: 'cars/1/car-review/',
+    OPTIONS: 'cars/1/options',
+    REVIEW: 'cars/1/car-reviews',
+    ISPURCHASED: 'cars/1/car-reviews/',
     DETAIL: 'reviews/1/car-review',
+    ONBOARDING: 'reviews/on-boarding',
   },
   FILED: {
     OPTIONS: 'extraOptionNameDTOs',
@@ -174,5 +158,58 @@ export const ARCHIVING = {
   NO_ITEM: {
     NO_REVIEW: ' 후기가 존재하지 않습니다',
     NO_SELECT: '옵션칩을 선택해주세요',
+  },
+};
+
+export const ARCHIVINGDETAIL = {
+  SELECTEDCAR: {
+    URL: 'reviews/',
+    FILED: {
+      NAME: 'car_name',
+      PRICE: 'price',
+      COMMENT: 'comment',
+      TRIM: 'trimNameDTO',
+      ENGINE: 'engineNameDTO',
+      DRIVE: 'driveNameDTO',
+      BODY: 'bodyNameDTO',
+      INCOLOR: 'inColorDTO',
+      EXCOLOR: 'exColorDTO',
+      DATE: 'created_at',
+      EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
+      PURCHASE: 'is_purchased',
+      TOTALTAGS: 'totalTagInfoDTOs',
+    },
+  },
+};
+
+export const MYCHIVING = {
+  URL: {
+    FEEDS: 'users/feeds',
+  },
+  FILED: {
+    MYTEMPLISTS: 'myChivingTempList',
+    MYCOMPLETELISTS: 'myChivingCompleteList',
+    CARREVIEWLISTS: 'carReviewList',
+  },
+};
+
+export const MYCHIVINGDETAIL = {
+  SELECTEDCAR: {
+    URL: 'mychivings',
+    FILED: {
+      NAME: 'car_name',
+      PRICE: 'price',
+      // COMMENT: 'comment',
+      TRIM: 'trimNameDTO',
+      ENGINE: 'engineNameDTO',
+      DRIVE: 'driveNameDTO',
+      BODY: 'bodyNameDTO',
+      INCOLOR: 'inColorDTO',
+      EXCOLOR: 'exColorDTO',
+      DATE: 'updated_at',
+      EXTRAOPTIONS: 'extraOptionDTOs',
+      // PURCHASE: 'is_purchased',
+      // TOTALTAGS: 'totalTagInfoDTOs',
+    },
   },
 };

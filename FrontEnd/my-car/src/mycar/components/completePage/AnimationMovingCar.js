@@ -25,17 +25,19 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 50px;
 `;
 
 const slideInAndOut = keyframes`
   0% {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: translateX(30%);
   }
-  50% {
-    transform: translateX(0%);
-  }
+
   100% {
-    left: 14%;
+    transform: translateX(0%);
+    opacity: 1;
+    left: 13%;
     
   }
 `;
@@ -47,28 +49,33 @@ const TitleDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-left: 20px;
+  padding-left: 50px;
 `;
 const fadeIn = keyframes`
   from {
-    opacity: 0;
+    transform: translateY(25px);
+    opacity: 0.3;
   }
   to {
+    transform: translateY(0px);
     opacity: 1; 
   }
 `;
+
 const TitleText = styled.span`
   color: whitesmoke;
   ${Heading1Medium}
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 400;
-  opacity: 0;
-  animation: ${fadeIn} 3s forwards;
+  opacity: 0.3;
+  transform: translateY(25px);
+  animation: ${fadeIn} 1s ease-in-out forwards;
+  /* animation-delay: 0.2s; */
   filter: drop-shadow(0 0 0.75rem black);
 `;
 
 const TitleTextBig = styled(TitleText)`
-  font-size: 37px;
+  font-size: 40px;
 `;
 
 const CarImage = styled.img`
@@ -78,10 +85,10 @@ const CarImage = styled.img`
   animation: ${slideInAndOut} 1s ease-out;
   z-index: 1;
   position: sticky;
-  left: 14%;
+  left: 13%;
 `;
 
-function AnimationMovingCar() {
+function AnimationMovingCar({ loading }) {
   const [removeModal, setRemoveModal] = useState(false);
   const userCar = useUserCarState();
 
@@ -91,22 +98,31 @@ function AnimationMovingCar() {
     const timer = setTimeout(() => {
       body.classList.remove('no-scroll');
       setRemoveModal(true);
-    }, 2800);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
+  if (loading) {
+    return (
+      <ModalBgDiv>
+        <Container $removeModal={removeModal}>
+          <TitleDiv style={{ left: '30%' }}>
+            <TitleTextBig>내 차 만들기를 완료하는 중입니다</TitleTextBig>
+          </TitleDiv>
+        </Container>
+      </ModalBgDiv>
+    );
+  }
 
-  if (removeModal !== true) {
+  if (!removeModal) {
     return (
       <ModalBgDiv $removeModal={removeModal}>
         <Container $removeModal={removeModal}>
           <CarImage src={userCar.outerColor.rotation_image} alt="Car Image" />
           <TitleDiv>
-            <div>
-              <TitleText>당신만의 세상을 위한,</TitleText>
-            </div>
+            <TitleText>당신만의 세상을 위한,</TitleText>
 
-            <TitleTextBig>펠리세이드가 완성되었습니다</TitleTextBig>
+            <TitleTextBig>팰리세이드가 완성되었습니다</TitleTextBig>
           </TitleDiv>
         </Container>
       </ModalBgDiv>

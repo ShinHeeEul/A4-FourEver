@@ -1,7 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
+import palette from './styleVariable';
 
 const GlobalStyle = createGlobalStyle`
 
+  /* @font-face {
+    font-family: 'Hyundai Sans Head KR';
+    src: url('./fonts/HyundaiSans.woff2') format('font-woff2');
+    font-weight: normal;
+    font-style: normal;
+  } */
+  
   html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,8 +28,13 @@ time, mark, audio, video,input, textarea,select,option {
   border: 0;
   font-size: 100%;
   font: inherit;
+  /* font-family: 'Hyundai Sans Head KR', sans-serif; */
   vertical-align: baseline;
   scroll-behavior: smooth;
+}
+body{
+  /* font-family: 'Hyundai Sans Head KR'; */
+/*  */
 }
 body.no-scroll {
   height: 100%;
@@ -68,6 +81,21 @@ a{
   text-decoration: none;
   color: inherit;
 }
+
+*::-webkit-scrollbar {
+      width: 15px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: ${palette.Sand};
+      border-radius: 8px;
+      background-clip: padding-box;
+      border: 3px solid transparent;
+    }
+    *::-webkit-scrollbar-track {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
 
 `;
 export default GlobalStyle;

@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import palette from '../../style/styleVariable';
 import {
   Body1Medium,
@@ -9,9 +9,19 @@ import {
   Heading4Bold,
 } from '../../style/typo';
 import { ReactComponent as SaveLogoSvg } from '../../assets/saveLogo.svg';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataLoaderContext } from '../router/ArchivingDetail';
-import { ARCHIVINGDETAIL } from '../../constant';
+import {
+  ARCHIVINGDETAIL,
+  BASIC_SERVER_URL,
+  MYCHIVINGDETAIL,
+  myCarPagePath,
+  mychivingPath,
+} from '../../constant';
+import { MychivingDataLoaderContext } from '../../mychiving/router/MychivingDetail';
+
+import { useNavigate } from 'react-router-dom';
+
 const AllDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -20,16 +30,16 @@ const AllDiv = styled.div`
   flex-direction: column;
 `;
 
-const PriceDiv = styled.div`
+export const PriceDiv = styled.div`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   width: 1040px;
 `;
-const PriceText = styled.span`
+export const PriceText = styled.span`
   ${Body1Regular}
 `;
-const PriceBold = styled.span`
+export const PriceBold = styled.span`
   ${Heading1Bold}
 `;
 const AdditionalInfoDiv = styled.div`
@@ -89,8 +99,9 @@ const SaveCarDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
-const MakingMycarBtn = styled.div`
+export const MakingMycarBtn = styled.div`
   width: 343px;
   height: 56px;
   flex-shrink: 0;
@@ -104,9 +115,10 @@ const MakingMycarBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 1;
 `;
 
-const SelectedOptTitle = styled.div`
+export const SelectedOptTitle = styled.div`
   ${Body1Medium}
   padding-top: 100px;
   font-size: 24px;
@@ -114,36 +126,115 @@ const SelectedOptTitle = styled.div`
   color: black;
 `;
 
+const SaveBtn = styled(SaveLogoSvg)`
+  ${({ $isSave }) =>
+    $isSave
+      ? css`
+          fill: ${palette.Black};
+          path {
+            stroke: transparent;
+          }
+        `
+      : css``}
+`;
+
 function AdditionalInfo() {
   const data = useContext(DataLoaderContext);
-  console.log(data);
+  const detailStatus = ARCHIVINGDETAIL;
+  const accessToken = localStorage.getItem('jwtToken');
+  const [saveState, setSaveState] = useState(data?.is_save || false);
+
+  const [loading, setLoading] = useState();
+
+  const navigate = useNavigate();
+
+  function saveStateChangeFetch() {
+    fetch(`${BASIC_SERVER_URL}/users/feeds/${data.id}?userId=1`, {
+      method: !saveState ? 'POST' : 'DELETE',
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+      .then(() => {
+        setSaveState((prev) => !prev);
+      })
+      .catch((e) => console.error(e));
+  }
+
+  const saveBtnClick = () => {
+    saveStateChangeFetch();
+  };
+
+  const myCarStart = async () => {
+    const optionIds = data.extraOptionForCarReviewDTOs.map(
+      (option) => option.id,
+    );
+    const ToMycarFetch = () => {
+      setLoading(true);
+      return fetch(`${BASIC_SERVER_URL}/reviews/to-mycar`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          car_name: data.car_name,
+          trim_id: data.trimNameDTO.id,
+          engine_id: data.engineNameDTO.id,
+          body_id: data.bodyNameDTO.id,
+          drive_id: data.driveNameDTO.id,
+          in_color_id: data.inColorDTO.id,
+          ex_color_id: data.exColorDTO.id,
+          extra_option_ids: optionIds,
+        }),
+      }).then((res) => res.json());
+    };
+    try {
+      const res = await ToMycarFetch();
+      setLoading(false);
+      navigate(`/mycar/${myCarPagePath[0]}`, {
+        state: { reviewState: { data: res } },
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <AllDiv>
       <PriceDiv>
         <PriceText>총 가격</PriceText>
         <PriceBold>
-          {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
+          {data[detailStatus.SELECTEDCAR.FILED.PRICE].toLocaleString()} 원
         </PriceBold>
       </PriceDiv>
       <AdditionalInfoDiv>
         <TagReviewDiv>
-          <TagReviewTitle>차량 사용 후기</TagReviewTitle>
-          <TagReviewsDiv>
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS] &&
-              data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
-                return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
-              })}
-          </TagReviewsDiv>
+          {
+            <>
+              <TagReviewTitle>차량 사용 후기</TagReviewTitle>
+              <TagReviewsDiv>
+                {data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS] &&
+                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map(
+                    (item, index) => (
+                      <EachTagReviewDiv key={index}>
+                        {item.name}
+                      </EachTagReviewDiv>
+                    ),
+                  )}
+              </TagReviewsDiv>
+            </>
+          }
+
           <SelectedOptTitle>
-            선택 옵션{' '}
-            {data[ARCHIVINGDETAIL.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
+            선택 옵션 {data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS].length}
           </SelectedOptTitle>
         </TagReviewDiv>
         <WithThisCarDiv>
-          <SaveCarDiv>
-            <SaveLogoSvg style={{ cursor: 'pointer' }} />
+          <SaveCarDiv onClick={saveBtnClick} style={{ cursor: 'pointer' }}>
+            <SaveBtn $isSave={saveState} />
           </SaveCarDiv>
-          <MakingMycarBtn>이 차량으로 내 차 만들기 시작</MakingMycarBtn>
+          <MakingMycarBtn onClick={myCarStart}>
+            이 차량으로 내 차 만들기 시작
+          </MakingMycarBtn>
         </WithThisCarDiv>
       </AdditionalInfoDiv>
     </AllDiv>

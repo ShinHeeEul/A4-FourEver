@@ -7,7 +7,7 @@ function RootArchiving() {
   const { state } = useLocation();
   const [loading, setLoading] = useState(true);
   return (
-    <ArchivingProvider setLoading={setLoading}>
+    <ArchivingProvider setLoading={setLoading} fromMycar={state}>
       <ChivingHeader fromMycar={state} />
       <Outlet context={{ loading, fromMycar: state }} />
     </ArchivingProvider>

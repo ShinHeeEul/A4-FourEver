@@ -49,7 +49,6 @@ const BasicSubCategoryWrap = styled.div`
 
 function OptionTabs() {
   const { basicOptions } = useOutletContext();
-
   const { changeTab, setBasicIndex } = useSelectAction();
   const { isBasicTab, basicIndex } = useSelectValue();
 

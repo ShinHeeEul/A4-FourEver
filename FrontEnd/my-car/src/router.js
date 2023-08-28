@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import Mycar from './mycar/Mycar';
-import Mychiving from './mychiving/Mychiving';
 import Engine from './mycar/routers/Engine';
 import WheelDrive from './mycar/routers/WheelDrive';
 import Main from './main/Main';
@@ -14,7 +13,16 @@ import RootTrim from './mycar/routers/parents/RootTrims';
 import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
 import { MyCarOptionAPI } from './api';
-import { MYCAR, ARCHIVINGDETAIL } from './constant';
+
+import {
+  MYCAR,
+  ARCHIVINGDETAIL,
+  MYCHIVING,
+  MYCHIVINGDETAIL,
+  BASIC_SERVER_URL,
+  ARCHIVING,
+} from './constant';
+
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
 import NotFound from './error/NotFoundPage';
@@ -23,6 +31,9 @@ import ArchivingDetail from './archiving/router/ArchivingDetail';
 import Archiving from './archiving/router/Archiving';
 import Login from './login/Login';
 import AuthCode from './login/AuthCode';
+import RootMychiving from './mychiving/RootMychiving';
+import Mychiving from './mychiving/router/Mychiving';
+import MychivingDetail from './mychiving/router/MychivingDetail';
 
 const router = createBrowserRouter([
   {
@@ -107,25 +118,41 @@ const router = createBrowserRouter([
       {
         path: 'archiving',
         element: <RootArchiving />,
+
         children: [
           {
             path: ':id',
             loader: (item) =>
               MyCarOptionAPI(
-                `${ARCHIVINGDETAIL.SELECTEDCAR.URL}${item.params.id}/car-review`,
+                `${ARCHIVINGDETAIL.SELECTEDCAR.URL}${item.params.id}`,
               ),
             element: <ArchivingDetail />,
           },
           {
             path: '',
+            loader: () => MyCarOptionAPI(ARCHIVING.URL.ONBOARDING),
             element: <Archiving />,
           },
         ],
       },
       {
         path: 'mychiving',
-        element: <Mychiving />,
-        children: [],
+        element: <RootMychiving />,
+        children: [
+          {
+            path: ':id',
+            loader: (item) =>
+              MyCarOptionAPI(
+                `${MYCHIVINGDETAIL.SELECTEDCAR.URL}/${item.params.id}`,
+              ),
+            element: <MychivingDetail />,
+          },
+          {
+            path: '',
+            loader: () => MyCarOptionAPI(MYCHIVING.URL.FEEDS),
+            element: <Mychiving />,
+          },
+        ],
       },
     ],
   },

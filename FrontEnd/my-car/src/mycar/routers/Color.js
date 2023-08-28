@@ -9,7 +9,10 @@ import { MYCAR, USER_CAR_ACTIONS } from '../../constant';
 import TrimImg from '../components/common/TrimImg';
 import ColorComponents from '../components/colorPage/ColorSelect';
 
-import { ColorValueContext } from '../../context/mycar/color/ColorPrivider';
+import {
+  ColorActionContext,
+  ColorValueContext,
+} from '../../context/mycar/color/ColorPrivider';
 import { useUserCarAction, useUserCarState } from '../hook/useUserCar';
 import RotateImg from '../components/colorPage/RotateImg';
 
@@ -30,15 +33,19 @@ function Color() {
   const dispatch = useUserCarAction();
   const userCar = useUserCarState();
 
+  const [loading, setLoading] = useState(false);
+  const action = useContext(ColorActionContext);
   useEffect(() => {
     if (!userCar.outerColor?.name && !userCar.innerColor?.name) {
       const Price = [...userCar.price];
       Price[page] = exColorOptions[0].price;
+
       dispatch({
         type: USER_CAR_ACTIONS.EXCOLOR,
         select: exColorOptions[0],
         price: Price,
       });
+
       dispatch({
         type: USER_CAR_ACTIONS.INCOLOR,
         select: inColorOptions[0],
@@ -47,31 +54,14 @@ function Color() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const CarColor = ['abyss', 'silver', 'blue', 'brown', 'gray', 'white'];
-
-  const preloadCarImg = () => {
-    CarColor.forEach((color) => {
-      const imagePaths = Array.from(
-        { length: 60 },
-        (_, index) =>
-          `http://hyundaimycar.store/rotation/${color}/${index + 1}.png`,
-      );
-      imagePaths.forEach((path) => {
-        const img = new Image();
-        img.src = path;
-      });
-    });
-  };
-  useLayoutEffect(() => {
-    preloadCarImg();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <ColorContainer>
       <LeftWrap>
         {activeColorFiled === MYCAR.COLOR.FILED.EXCOLOR ? (
-          <RotateImg selectedOption={selectedOption}></RotateImg>
+          <RotateImg
+            loading={loading}
+            selectedOption={selectedOption}
+          ></RotateImg>
         ) : (
           <TrimImg
             src={selectedOption[MYCAR.COLOR.FILED.IMG[activeColorFiled]]}

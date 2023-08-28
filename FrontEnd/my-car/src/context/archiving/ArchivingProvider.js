@@ -5,8 +5,11 @@ import useFetch from '../../archiving/hook/useFetch';
 
 export const OptionSelectValue = createContext();
 export const OptionSelectAction = createContext();
+export const ModalContext = createContext();
 
-function ArchivingProvider({ children, setLoading }) {
+function ArchivingProvider({ children, setLoading, fromMycar }) {
+  const [firstBoarding, setFirstBoarding] = useState(true);
+
   const accessToken = localStorage.getItem('jwtToken');
 
   const [activeStates, setActiveStates] = useState({}); //선택 옵션
@@ -32,10 +35,34 @@ function ArchivingProvider({ children, setLoading }) {
     activeTab,
   });
 
-  const { data: optionList, loading: optionLoading } = useFetch({
-    url: MakePath.option(ARCHIVING.URL.OPTIONS),
-    config: { method: 'GET' },
-  });
+  const [optionList, setOptionList] = useState();
+  const [optionLoading, setOptionLoading] = useState(true);
+  const fetchData = async () => {
+    // setController(new AbortController());
+    try {
+      const response = await fetch(MakePath.option(ARCHIVING.URL.OPTIONS), {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const jsonData = await response.json();
+
+      setOptionList(jsonData);
+      setOptionLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const { data: optionList, loading: optionLoading } = useFetch({
+  //   url: MakePath.option(ARCHIVING.URL.OPTIONS),
+  //   config: { method: 'GET' },
+  // });
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +70,8 @@ function ArchivingProvider({ children, setLoading }) {
     if (!reviewLoading && !optionLoading) {
       setLoading(false);
     }
-  }, [reviewLoading, optionLoading, setLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviewLoading, optionLoading]);
 
   const action = {
     select: ({ id }) => {
@@ -69,12 +97,37 @@ function ArchivingProvider({ children, setLoading }) {
     },
   };
 
+  useEffect(() => {
+    const userCar = JSON.parse(localStorage.getItem('userCar'));
+    if (fromMycar !== null && fromMycar?.fromMycar !== null && userCar) {
+      const ids = userCar.selectedOptions.map((option) => option.id);
+      setLoading(true);
+      ids.forEach((id) => {
+        setActiveStates((prevActiveStates) => ({
+          ...prevActiveStates,
+          [id]: !prevActiveStates[id],
+        }));
+      });
+      let newSelectList = [...optionSelect.extraOptionIds];
+      newSelectList = [...newSelectList, ...ids];
+      setOptionSelect({ extraOptionIds: newSelectList });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <OptionSelectAction.Provider value={{ action }}>
       <OptionSelectValue.Provider
-        value={{ activeStates, activeTab, optionList, reviewList }}
+        value={{
+          activeStates,
+          activeTab,
+          optionList,
+          reviewList,
+        }}
       >
-        {children}
+        <ModalContext.Provider value={{ firstBoarding, setFirstBoarding }}>
+          {children}
+        </ModalContext.Provider>
       </OptionSelectValue.Provider>
     </OptionSelectAction.Provider>
   );

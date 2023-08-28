@@ -84,6 +84,7 @@ const ColorChip = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 8px;
   }
 `;
 
@@ -134,7 +135,7 @@ function CompletedFunction() {
       </MainLineDiv>
 
       <FunctionTitle>
-        <div>나의 펠리세이드는 이런 기능을 가지고 있어요</div>
+        <div>나의 팰리세이드는 이런 기능을 가지고 있어요</div>
       </FunctionTitle>
       <BannerDiv>
         <SeperateDiv>
@@ -147,12 +148,7 @@ function CompletedFunction() {
               </FunctionText>
             </FunctionTextDiv>
             <FunctionTextDiv>
-              <FunctionTitle>
-                {trimPrice
-                  .toString()
-                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-                원
-              </FunctionTitle>
+              <FunctionTitle>{trimPrice.toLocaleString()} 원</FunctionTitle>
             </FunctionTextDiv>
           </FunctionDetailDiv>
         </SeperateDiv>

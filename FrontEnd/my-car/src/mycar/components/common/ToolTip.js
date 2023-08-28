@@ -112,6 +112,7 @@ function ToolTip() {
       document.removeEventListener('click', handleClick);
       clearTimeout(timerRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const location = useLocation().pathname;

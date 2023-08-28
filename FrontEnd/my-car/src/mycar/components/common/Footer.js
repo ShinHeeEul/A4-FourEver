@@ -62,8 +62,14 @@ const SelectedOptionTitleWrap = styled.div`
 `;
 const OptionCategory = styled.h2`
   ${Body3Medium}
-  color: ${palette.DarkGray};
+
   margin-bottom: 6px;
+  transition: all 0.2s ease;
+  &:hover {
+    color: ${({ $isHovered }) =>
+      $isHovered ? `${palette.Blue500}` : `${palette.DarkGray}`};
+    text-decoration: ${({ $isHovered }) => ($isHovered ? 'underline' : 'none')};
+  }
 `;
 
 const ColorSelectedImg = styled.div`
@@ -275,7 +281,15 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
         <SelectedOptionWrap>
           <SelectedOptionTitleWrap>
             <OptionCategory>선택 옵션</OptionCategory>
-            <OptionCategory style={{ cursor: 'pointer' }} onClick={showModal}>
+            <OptionCategory
+              style={{
+                cursor: 'pointer',
+                width: '80px',
+                height: '21px',
+              }}
+              $isHovered={true}
+              onClick={showModal}
+            >
               {showSummaryModal && (
                 <SummaryModal
                   userCar={userCar}
@@ -288,8 +302,8 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
           </SelectedOptionTitleWrap>
           <SelectedOptionsTagsWrap>
             {userCar.selectedOptions &&
-              userCar?.selectedOptions.slice(0, 3).map((option) => (
-                <SelectOptionTag key={option}>
+              userCar?.selectedOptions.slice(0, 3).map((option, index) => (
+                <SelectOptionTag key={index}>
                   <SelectOptionText>{option.name}</SelectOptionText>
                 </SelectOptionTag>
               ))}
@@ -317,7 +331,7 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
       {isCompletePage && (
         <ExpectPriceWrap>
           <span>예상 견적 가격</span>
-          <h3> {(trimPrice + optionPrice).toLocaleString()}</h3>
+          <h3> {(trimPrice + optionPrice).toLocaleString()}원</h3>
         </ExpectPriceWrap>
       )}
 

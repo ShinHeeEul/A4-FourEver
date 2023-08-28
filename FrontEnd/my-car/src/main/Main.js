@@ -7,6 +7,7 @@ import MainHeader from './components/MainHeader';
 import Pagination from './components/Pagination';
 import { useState, useEffect, useContext } from 'react';
 import { HeaderActionContext } from '../Root';
+import { useNavigate } from 'react-router-dom';
 
 const BgDiv = styled.div`
   position: absolute;
@@ -19,9 +20,15 @@ const AnimationDiv = styled.div``;
 
 function Main() {
   const { setIsAccess } = useContext(HeaderActionContext);
-  setIsAccess(true);
   const [currentDisplay, setCurrentDisplay] = useState(1);
+  // setIsAccess(true);
+  const navigate = useNavigate();
   useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    if (!token || token === undefined || token === 'undefined') {
+      // navigate('/');
+    }
+
     const interval = setInterval(() => {
       setCurrentDisplay((prevDisplay) => (prevDisplay % 3) + 1);
     }, 5000);
@@ -29,6 +36,7 @@ function Main() {
     return () => {
       clearInterval(interval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDisplay]);
 
   return (

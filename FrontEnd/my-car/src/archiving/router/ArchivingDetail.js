@@ -10,6 +10,7 @@ export const DataLoaderContext = createContext();
 const Container = styled.div`
   width: 100%;
   min-width: 1350px;
+  padding-top: 150px;
 `;
 
 const AllDiv = styled.div`
@@ -39,6 +40,7 @@ function ArchivingDetail() {
     <DataLoaderContext.Provider value={data}>
       <Container>
         <DetailBanner
+          isArchiving={true}
           selectedIdx={selectedIdx}
           setSelectedIdx={setSelectedIdx}
         />
@@ -50,9 +52,11 @@ function ArchivingDetail() {
                 return (
                   <EachOptCard
                     data={item}
+                    key={idx}
                     idx={idx}
                     isSelected={selectedIdx === idx}
                     onClick={() => handleCardClick(idx)}
+                    isArchiving={true}
                   />
                 );
               },

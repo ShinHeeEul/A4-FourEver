@@ -1,7 +1,7 @@
 import { keyframes, styled } from 'styled-components';
-import { Container } from './NoItem';
-import palette from '../../style/styleVariable';
-import { Body2Medium, Body2Regular, Body3Regular } from '../../style/typo';
+import { Container } from '../archiving/components/NoItem';
+import { Body2Medium } from '../style/typo';
+import palette from '../style/styleVariable';
 
 function CarIMG() {
   return (
@@ -91,7 +91,7 @@ const Circle = styled.div`
 
 function Loading({ text }) {
   return (
-    <Container>
+    <Container style={{ paddingTop: '180px' }}>
       <LoadingWrap>
         <Circle />
         <CarIMG />

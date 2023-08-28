@@ -2,9 +2,11 @@ import { BASIC_SERVER_URL } from './constant';
 
 async function fetchData({ path, method = 'GET' }) {
   const accessToken = localStorage.getItem('jwtToken');
+
   return fetch(path, {
     method,
     headers: {
+      accept: 'application/json;charset=UTF-8',
       Authorization: `Bearer ${accessToken}`,
     },
   }).then((res) => res.json());
@@ -23,7 +25,6 @@ export async function MyCarOptionAPI(option) {
     });
     return { data };
   } catch (error) {
-    console.log(error);
     return { error };
   }
 }

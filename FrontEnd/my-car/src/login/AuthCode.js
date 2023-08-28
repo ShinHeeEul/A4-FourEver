@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Heading1Bold } from '../style/typo';
-import Loading from '../archiving/components/Loading';
 import ServerErrorPage from '../error/ServerErrorPage';
 import { BASIC_SERVER_URL } from '../constant';
+import Loading from '../common/Loading';
 
 const Container = styled.div`
   width: 100vw;
@@ -22,7 +22,7 @@ function AuthCode() {
   const navigate = useNavigate();
   useEffect(() => {
     fetch(
-      `${BASIC_SERVER_URL}/user/login?code=${code}&state=${process.env.REACT_APP_STATE}`,
+      `${BASIC_SERVER_URL}/users/hyundai-login?code=${code}&state=${process.env.REACT_APP_STATE}`,
       {
         headers: { 'Content-type': 'application/json' },
         method: 'GET',
@@ -45,7 +45,7 @@ function AuthCode() {
   }, [accessToken]);
 
   if (error) return <ServerErrorPage />;
-  if (!code) return <ServerErrorPage />;
+  // if (!code) return <ServerErrorPage />;
 
   return (
     <Container>

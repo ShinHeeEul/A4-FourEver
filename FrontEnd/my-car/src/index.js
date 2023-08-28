@@ -4,6 +4,8 @@ import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import GlobalStyle from './style/globalStyle';
 
+import './style/font.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>

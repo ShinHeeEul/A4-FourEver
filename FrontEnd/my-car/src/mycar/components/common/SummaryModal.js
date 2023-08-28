@@ -31,15 +31,15 @@ const ModalDiv = styled.div`
   border-radius: 20px;
   background: #fff;
   box-shadow: -2px 0px 12px 0px rgba(78, 81, 94, 0.25);
-
+  padding-bottom: 15px;
   position: relative;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  /* overflow-y: scroll; */
+  /* &::-webkit-scrollbar {
+    width: 10px;
+  } */
 `;
 
 const TitleDiv = styled.div`
@@ -74,7 +74,13 @@ const AllPriceText = styled.span`
   ${Heading4Bold}
 `;
 
-const AllOptionDiv = styled.div``;
+const AllOptionDiv = styled.div`
+  overflow: auto;
+  height: calc(100% - 122px);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 const OptionTitleText = styled.div`
   ${Body3Medium}
@@ -86,9 +92,12 @@ const OptionContentDiv = styled.div`
   align-items: center;
   margin: 20px 20px;
   ${Body3Medium}
+  color: ${palette.DarkGray};
 `;
 
-const OptionDetailDiv = styled.div``;
+const OptionDetailDiv = styled.div`
+  color: ${palette.DarkGray};
+`;
 
 const CloseBtn = styled.div`
   cursor: pointer;
@@ -113,7 +122,7 @@ function SummaryModal() {
       <ModalBgDiv>
         <ModalDiv>
           <TitleDiv>
-            <TitleText>견적요약보기</TitleText>
+            <TitleText>견적 요약 보기</TitleText>
             <CloseBtn onClick={closeModal}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -132,10 +141,7 @@ function SummaryModal() {
           <AllPriceDiv>
             <OptionTitleText>총 견적 금액</OptionTitleText>
             <AllPriceText>
-              {(trimPrice + optionPrice)
-                .toString()
-                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-              원
+              {(trimPrice + optionPrice).toLocaleString()} 원
             </AllPriceText>
           </AllPriceDiv>
           <AllOptionDiv>
@@ -154,7 +160,7 @@ function SummaryModal() {
                   <OptionDetailDiv>
                     {userCar.engine?.price
                       ? userCar.engine.price.toLocaleString()
-                      : 0}
+                      : 0}{' '}
                     원
                   </OptionDetailDiv>
                 </OptionContentDiv>
@@ -170,7 +176,7 @@ function SummaryModal() {
                     <OptionDetailDiv>
                       {userCar.bodyType?.price
                         ? userCar.bodyType.price.toLocaleString()
-                        : 0}
+                        : 0}{' '}
                       원
                     </OptionDetailDiv>
                   </OptionContentDiv>
@@ -187,40 +193,36 @@ function SummaryModal() {
                     <OptionDetailDiv>
                       {userCar.wheelDrive?.price
                         ? userCar.wheelDrive.price.toLocaleString()
-                        : 0}
+                        : 0}{' '}
                       원
                     </OptionDetailDiv>
                   </OptionContentDiv>
                 </>
               )}
             </OptionDetailDiv>
-            <OptionDiv> 외장색상 / 내장색상</OptionDiv>
+            <OptionDiv> 외장색상 | 내장색상</OptionDiv>
             <OptionContentDiv>
               {userCar.outerColor?.name &&
-                `${userCar.outerColor.name}/${userCar.innerColor.name}`}
+                `${userCar.outerColor.name} | ${userCar.innerColor.name}`}
               {/* {userCar.outerColor.name}/{userCar.innerColor.name} */}
               <OptionDetailDiv>
                 {userCar.outerColor?.price
                   ? userCar.outerColor.price.toLocaleString()
-                  : 0}
+                  : 0}{' '}
                 원
               </OptionDetailDiv>
             </OptionContentDiv>
             <OptionDiv>선택옵션 {userCar.selectedOptions.length}</OptionDiv>
 
             {userCar.selectedOptions.length >= 0 &&
-              userCar.selectedOptions.map((elem) => {
-                return (
-                  <>
-                    <OptionContentDiv>
-                      <OptionDetailDiv>{elem.name}</OptionDetailDiv>
-                      <OptionDetailDiv>
-                        {elem.price.toLocaleString()}원
-                      </OptionDetailDiv>
-                    </OptionContentDiv>
-                  </>
-                );
-              })}
+              userCar.selectedOptions.map((elem, index) => (
+                <OptionContentDiv key={index}>
+                  <OptionDetailDiv>{elem.name}</OptionDetailDiv>
+                  <OptionDetailDiv>
+                    {elem.price.toLocaleString()} 원
+                  </OptionDetailDiv>
+                </OptionContentDiv>
+              ))}
           </AllOptionDiv>
         </ModalDiv>
       </ModalBgDiv>

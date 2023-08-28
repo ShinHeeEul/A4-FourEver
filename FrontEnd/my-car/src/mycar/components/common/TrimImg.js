@@ -1,8 +1,9 @@
 import { styled } from 'styled-components';
+import palette from '../../../style/styleVariable';
 
 const ImgContainer = styled.div`
   width: 700px;
-  height: 400px;
+  height: 404px;
   flex-shrink: 0;
   background-color: black;
   overflow: hidden;
@@ -11,6 +12,10 @@ const ImgContainer = styled.div`
   background-color: transparent;
 
   img {
+    border-radius: 8px;
+    border: 2px solid ${palette.LightSand};
+    width: 600px;
+    height: 400px;
   }
 `;
 

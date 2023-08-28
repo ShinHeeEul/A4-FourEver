@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import palette from '../style/styleVariable';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-const AlertBgDiv = styled.div`
+import { Body1Regular, Body2Regular, Body3Regular } from '../style/typo';
+import { UserCarPostRequest } from '../mycar/UserCarPostAPI';
+import { archivingPath, myCarPagePath, mychivingPath } from '../constant';
+export const AlertBgDiv = styled.div`
   position: absolute;
   top: ${({ $top }) => ($top ? `${$top}px` : 0)};
   left: 0;
@@ -22,9 +25,9 @@ const AlertDiv = styled.div`
   transform: translateY(-50%) translateX(-50%);
 
   width: 300px;
-  height: 160px;
+  height: 180px;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: 18px;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -36,14 +39,14 @@ const AlertDiv = styled.div`
 const AlertMsgDiv = styled.div`
   width: 234px;
   color: ${palette.Black};
-  ${palette.Body3Regular}
+  ${Body2Regular}
   display: flex;
   text-align: center;
   flex-direction: column;
 `;
 
 const AlertMsg = styled.div`
-  padding-top: 10px;
+  padding-top: 4px;
 `;
 
 const AlertMsgBold = styled.span`
@@ -53,7 +56,7 @@ const AlertMsgBold = styled.span`
 const AlertBtnDiv = styled.div`
   display: flex;
   gap: 6px;
-  padding-top: 20px;
+  padding-top: 27px;
 `;
 
 const BtnCancel = styled.button`
@@ -83,7 +86,12 @@ const BtnConfirm = styled.button`
   cursor: pointer;
 `;
 
-function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
+function Alert({
+  showCommonAlert,
+  setShowCommonAlert,
+  isMainBtn,
+  clickLinkBtn,
+}) {
   const navigate = useNavigate();
   useEffect(() => {
     const body = document.querySelector('body');
@@ -99,40 +107,60 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
   const alertBg = useRef();
   const scrollTop = document.documentElement.scrollTop;
   const currentPath = useLocation().pathname.split('/')[1];
-  let title;
-  let content;
-  let link;
+  const currentSubPath = useLocation().pathname.split('/')[2];
+  let title, content, link;
 
-  switch (currentPath) {
-    case 'mycar':
-      title = '마이카이빙에 저장되었습니다.';
-      content = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '아카이빙으로 이동하시겠습니까?';
-      link = isMainBtn ? '/main' : '/archiving';
-
-      break;
-    case 'archiving':
-      title = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '마이카이빙으로 이동하시겠습니까?';
-      content = '';
-      link = isMainBtn ? '/main' : '/mychiving';
-      break;
-    case 'mychiving':
-      title = isMainBtn
-        ? '메인으로 이동하시겠습니까?'
-        : '아카이빙으로 이동하시겠습니까?';
-      content = '';
-      link = isMainBtn ? '/main' : '/archiving';
-      break;
-    default:
-      return;
+  if (currentPath === 'mycar') {
+    title =
+      currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+        ? ''
+        : '마이카이빙에 저장되었습니다.';
+    content = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '아카이빙으로 이동하시겠습니까?'
+      : currentSubPath === myCarPagePath[myCarPagePath.length - 1]
+      ? '마이카이빙으로 이동하시겠습니까?'
+      : '이동하시겠습니까?';
+    link = isMainBtn ? '/main' : clickLinkBtn ? archivingPath : mychivingPath;
+  } else if (currentPath === 'archiving') {
+    content = '';
+    title = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '내차만들기로 이동하시겠습니까?'
+      : '마아카이빙으로 이동하시겠습니까?';
+    link = isMainBtn
+      ? '/main'
+      : clickLinkBtn
+      ? `/mycar/${myCarPagePath[0]}`
+      : mychivingPath;
+  } else if (currentPath === 'mychiving') {
+    content = '';
+    title = isMainBtn
+      ? '메인으로 이동하시겠습니까?'
+      : clickLinkBtn
+      ? '내차만들기로 이동하시겠습니까?'
+      : '아카이빙으로 이동하시겠습니까?';
+    link = isMainBtn
+      ? '/main'
+      : clickLinkBtn
+      ? `/mycar/${myCarPagePath[0]}`
+      : archivingPath;
   }
 
-  const closeAlert = () => {
+  const closeAlert = ({ cancel }) => {
     setShowCommonAlert(false);
-    navigate(link, { state: { from: 'mycar' } });
+    if (
+      currentPath === 'mycar' &&
+      currentSubPath !== myCarPagePath[myCarPagePath.length - 1] &&
+      !cancel
+    ) {
+      //임시저장
+      UserCarPostRequest({ is_end: 0 });
+    }
+    if (!cancel)
+      navigate(link, currentPath === 'mycar' && { state: { from: 'mycar' } });
   };
 
   return (
@@ -148,11 +176,11 @@ function Alert({ showCommonAlert, setShowCommonAlert, isMainBtn }) {
         </AlertMsgDiv>
 
         <AlertBtnDiv>
-          <BtnCancel onClick={() => closeAlert(setShowCommonAlert)}>
+          <BtnCancel onClick={() => closeAlert({ cancel: true })}>
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
 
-          <BtnConfirm onClick={() => closeAlert(setShowCommonAlert)}>
+          <BtnConfirm onClick={() => closeAlert({ cancel: false })}>
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>
         </AlertBtnDiv>

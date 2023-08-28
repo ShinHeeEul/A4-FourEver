@@ -20,7 +20,11 @@ function Mycar() {
   }, [location]);
 
   return (
-    <UserCarProvider>
+    <UserCarProvider
+      fromChivingState={
+        location?.state?.reviewState || location?.state?.tempState
+      }
+    >
       <SummaryModal />
       <ToolTip />
       <NavBar page={page} />

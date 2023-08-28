@@ -17,8 +17,8 @@ const ChivingHeaderDiv = styled.div`
 
   justify-content: space-between;
   padding: 0 90px;
-  /* position: absolute; */
-  z-index: 2;
+  position: fixed;
+  z-index: 4;
 `;
 
 const ArchivingSymbolDiv = styled.div`
@@ -31,10 +31,11 @@ const ArchivingSymbolDiv = styled.div`
   align-items: center;
   justify-content: center;
   gap: 6px;
-
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
+
+  padding: ${({ $isMychiving }) => ($isMychiving ? '0 8px' : '')};
 `;
 const ArchivingSymbolText = styled.span`
   ${Heading3Medium}
@@ -75,7 +76,18 @@ function ChivingHeader({ fromMycar }) {
   const GoMyCar = () => {
     navigate(`/mycar/${myCarPagePath[0]}`);
   };
+  const currentPath = useLocation().pathname.split('/')[1];
+  let titleText;
 
+  switch (currentPath) {
+    case 'archiving':
+      titleText = '아카이빙';
+      break;
+    case 'mychiving':
+      titleText = '마이카이빙';
+      break;
+    default:
+  }
   return (
     <ChivingHeaderDiv>
       <GoBack
@@ -83,14 +95,11 @@ function ChivingHeader({ fromMycar }) {
         src={ToBackSymbol}
         $isShow={fromMycar !== null}
       />
-      <ArchivingSymbolDiv>
+      <ArchivingSymbolDiv $isMychiving={titleText === '마이카이빙'}>
         <ArchivingLogo />
-        <ArchivingSymbolText>아카이빙</ArchivingSymbolText>
+        <ArchivingSymbolText>{titleText}</ArchivingSymbolText>
       </ArchivingSymbolDiv>
-      <ToMycarDiv onClick={GoMyCar} $isShow={fromMycar === null}>
-        <CarLogo />
-        <ToMycarText> 내 차 만들기 바로가기</ToMycarText>
-      </ToMycarDiv>
+      <ToMycarDiv onClick={GoMyCar} $isShow={fromMycar === null}></ToMycarDiv>
     </ChivingHeaderDiv>
   );
 }
