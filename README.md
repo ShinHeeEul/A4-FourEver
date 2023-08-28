@@ -26,6 +26,32 @@
 - [상세설계서](https://www.figma.com/file/7Z1cW7vx7ejocQzIJIYnDs/Handoff_%EC%97%91%EC%85%80?type=design&node-id=8-17111&mode=design&t=AesBB7DPiBepP2VS-0)   
 - [디자인링크](https://www.figma.com/file/7Z1cW7vx7ejocQzIJIYnDs/Handoff_%EC%97%91%EC%85%80?type=design&node-id=1-6&mode=design&t=LjCSeaLBp3qhUB9W-0)
 
+
+#### 📍 팀원 소개
+
+<table style="border: 0.5px solid gray">
+ <tr>
+    <td align="center"><a href="https://github.com/meanz1"><img src="https://avatars.githubusercontent.com/meanz1" width="130px;" alt=""></td>
+    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/hwangJN"><img src="https://avatars.githubusercontent.com/hwangJN" width="130px;" alt=""></td>
+    <td align="center"><a href="https://github.com/ShinHeeEul"><img src="https://avatars.githubusercontent.com/ShinHeeEul" width="130px;" alt=""></td>
+    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/LBC11"><img src="https://avatars.githubusercontent.com/LBC11" width="130px;" alt=""></td>
+
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/meanz1"><b>김민지</b></td>
+    <td align="center"style="border-right : 0.5px solid gray"><a href="https://github.com/hwangJN" ><b>황지나</b></td>
+    <td align="center"><a href="https://github.com/ShinHeeEul"><b>신희을</b></td>
+    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/LBC11"><b>이병찬</b></td>
+  </tr>
+
+  <tr>
+    <td align = "center" colspan = "2" style="border-right : 0.5px solid gray">FE</td>
+    <td align = "center" colspan = "2" style="border-right : 0.5px solid gray">BE</td>
+  </tr>
+</table>
+<br/>
+
+
 ---
 
 ### 사용한 기술 스택
@@ -82,30 +108,6 @@
 <br>
 
 --- 
-
-### 팀원 소개
-
-<table style="border: 0.5px solid gray">
- <tr>
-    <td align="center"><a href="https://github.com/meanz1"><img src="https://avatars.githubusercontent.com/meanz1" width="130px;" alt=""></td>
-    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/hwangJN"><img src="https://avatars.githubusercontent.com/hwangJN" width="130px;" alt=""></td>
-    <td align="center"><a href="https://github.com/ShinHeeEul"><img src="https://avatars.githubusercontent.com/ShinHeeEul" width="130px;" alt=""></td>
-    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/LBC11"><img src="https://avatars.githubusercontent.com/LBC11" width="130px;" alt=""></td>
-
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/meanz1"><b>김민지</b></td>
-    <td align="center"style="border-right : 0.5px solid gray"><a href="https://github.com/hwangJN" ><b>황지나</b></td>
-    <td align="center"><a href="https://github.com/ShinHeeEul"><b>신희을</b></td>
-    <td align="center" style="border-right : 0.5px solid gray"><a href="https://github.com/LBC11"><b>이병찬</b></td>
-  </tr>
-
-  <tr>
-    <td align = "center" colspan = "2" style="border-right : 0.5px solid gray">FE</td>
-    <td align = "center" colspan = "2" style="border-right : 0.5px solid gray">BE</td>
-  </tr>
-</table>
-<br/>
 
 
 
