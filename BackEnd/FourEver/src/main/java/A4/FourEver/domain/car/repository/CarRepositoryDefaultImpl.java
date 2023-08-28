@@ -4,7 +4,7 @@ import A4.FourEver.domain.car.dto.CarExtraOptionNameDTO;
 import A4.FourEver.domain.car.dto.CarReviewOverviewListDTO;
 import A4.FourEver.domain.car.dto.CarTrimsDTO;
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
@@ -96,13 +96,14 @@ public class CarRepositoryDefaultImpl implements CarRepository {
     }
 
     @Override
-    public CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewListDTO findPartialCarReviewOverviewList(final Long id, final Integer isPurchased, final List<Long> extraOptionIds) {
         String sql = "WITH RelevantReviews AS (" +
                 "SELECT car_review_id " +
                 "FROM option_review " +
                 "WHERE extra_option_id IN (:extraOptionIds) " +
                 "GROUP BY car_review_id " +
                 "HAVING COUNT(DISTINCT extra_option_id) = :size " +
+                "LIMIT 100" +
                 ") " +
 
                 "SELECT " +
@@ -127,7 +128,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
-                "JOIN car c ON d.car_id = c.id " +
+                "JOIN car c ON t.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
@@ -137,9 +138,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
                 "AND cr.is_purchased = :isPurchase " +
-                "ORDER BY cr.created_at DESC " +
-                "LIMIT 1400;";
-
+                "ORDER BY cr.created_at DESC;";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("car_id", id);
@@ -151,13 +150,14 @@ public class CarRepositoryDefaultImpl implements CarRepository {
     }
 
     @Override
-    public CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Integer> extraOptionIds) {
+    public CarReviewOverviewListDTO findAllCarReviewOverviewList(final Long id, final List<Long> extraOptionIds) {
         String sql = "WITH RelevantReviews AS (" +
                 "SELECT car_review_id " +
                 "FROM option_review " +
                 "WHERE extra_option_id IN (:extraOptionIds) " +
                 "GROUP BY car_review_id " +
                 "HAVING COUNT(DISTINCT extra_option_id) = :size " +
+                "LIMIT 100" +
                 ") " +
 
                 "SELECT " +
@@ -182,7 +182,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "JOIN engine e ON m.engine_id = e.id " +
                 "JOIN body b ON m.body_id = b.id " +
                 "JOIN drive d ON m.drive_id = d.id " +
-                "JOIN car c ON d.car_id = c.id " +
+                "JOIN car c ON t.car_id = c.id " +
                 "JOIN ex_color exc ON cr.ex_color_id = exc.id " +
                 "JOIN in_color inc ON cr.in_color_id = inc.id " +
                 "LEFT JOIN option_review orv ON cr.id = orv.car_review_id " +
@@ -191,14 +191,12 @@ public class CarRepositoryDefaultImpl implements CarRepository {
                 "LEFT JOIN total_tag tt ON ttcr.total_tag_id = tt.id " +
 
                 "WHERE cr.id IN (SELECT car_review_id FROM RelevantReviews) " +
-                "ORDER BY cr.created_at DESC " +
-                "LIMIT 1400;";
+                "ORDER BY cr.created_at DESC;";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("car_id", id);
         params.addValue("extraOptionIds", extraOptionIds);
         params.addValue("size", extraOptionIds.size());
-
 
         return namedParameterJdbcTemplate.query(sql, params, carReviewOverviewExtractor);
     }
@@ -292,7 +290,7 @@ public class CarRepositoryDefaultImpl implements CarRepository {
 
                 if (overviewDTO == null) {
                     overviewDTO = CarReviewOverviewDTO.builder()
-                            .car_review_id(id)
+                            .id(id)
                             .is_purchased(rs.getInt("is_purchased"))
                             .car_name(rs.getString("car_name"))
                             .trim_name(rs.getString("trim_name"))

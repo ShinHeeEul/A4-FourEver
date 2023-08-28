@@ -35,7 +35,8 @@ public class TrimMapper {
 
     private InColorInfoSortedDTO convertInColorInfoDTO(final InColorInfoDTO dto) {
         List<InColorTagInfoDTO> sortedInColorTag = dto.getInColorTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(InColorTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(InColorTagInfoDTO::getCount).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         return InColorInfoSortedDTO.builder()
@@ -49,7 +50,8 @@ public class TrimMapper {
 
     private ExColorInfoSortedDTO convertInColorInfoDTO(ExColorInfoDTO dto) {
         List<ExColorTagInfoDTO> sortedExColorTag = dto.getExColorTagInfoDTOS().stream()
-                .sorted(Comparator.comparingLong(ExColorTagInfoDTO::getId))
+                .sorted(Comparator.comparingLong(ExColorTagInfoDTO::getCount).reversed())
+                .limit(3)
                 .collect(Collectors.toList());
 
         return ExColorInfoSortedDTO.builder()

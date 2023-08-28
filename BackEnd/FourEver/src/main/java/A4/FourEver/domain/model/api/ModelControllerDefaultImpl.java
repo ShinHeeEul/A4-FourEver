@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "모델 정보")
 @RestController
-@RequestMapping("/model")
+@RequestMapping("/models")
 public class ModelControllerDefaultImpl implements ModelController {
 
     private final ModelService modelService;
@@ -24,7 +24,7 @@ public class ModelControllerDefaultImpl implements ModelController {
     @Override
     @Operation(summary = "특정 모델의 옵션 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @GetMapping("/option")
+    @GetMapping("/options")
     public ModelOptionsSortedDTO getModelOption(
             @RequestParam("trim_id") final Long trim_id,
             @RequestParam("body_id") final Long body_id,

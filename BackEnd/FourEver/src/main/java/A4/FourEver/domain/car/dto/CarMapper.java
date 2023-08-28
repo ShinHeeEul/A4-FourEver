@@ -1,8 +1,8 @@
 package A4.FourEver.domain.car.dto;
 
 import A4.FourEver.domain.option.extraOption.dto.ExtraOptionNameDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewDTO;
-import A4.FourEver.domain.review.carReview.dto.CarReviewOverviewSortedDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewDTO;
+import A4.FourEver.domain.carReview.dto.CarReviewOverviewSortedDTO;
 import A4.FourEver.domain.tag.totalTag.dto.TotalTagInfoDTO;
 import A4.FourEver.domain.trim.body.dto.BodyInfoDTO;
 import A4.FourEver.domain.trim.drive.dto.DriveInfoDTO;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class CarMapper {
 
-    public CarTrimsSortedDTO convertToSortedDTO(CarTrimsDTO dto) {
+    public CarTrimsSortedDTO convertToSortedDTO(final CarTrimsDTO dto) {
         List<TrimInfoDTO> trimList = dto.getTrimInfoDTOs().stream()
                 .sorted(Comparator.comparingLong(TrimInfoDTO::getId))
                 .collect(Collectors.toList());
@@ -42,10 +42,9 @@ public class CarMapper {
                 .build();
     }
 
-    public CarReviewOverviewSortedListDTO convertToSortedDTO(CarReviewOverviewListDTO dto) {
+    public CarReviewOverviewSortedListDTO convertToSortedDTO(final CarReviewOverviewListDTO dto) {
         List<CarReviewOverviewSortedDTO> overviewDTOList = dto.getCarReviewOverviewDTOs().stream()
                 .sorted(Comparator.comparing(CarReviewOverviewDTO::getCreated_at).reversed())
-                .limit(100)
                 .map(this::convertCarReview)
                 .collect(Collectors.toList());
 
@@ -54,7 +53,7 @@ public class CarMapper {
                 .build();
     }
 
-    private CarReviewOverviewSortedDTO convertCarReview(CarReviewOverviewDTO dto) {
+    private CarReviewOverviewSortedDTO convertCarReview(final CarReviewOverviewDTO dto) {
         List<ExtraOptionNameDTO> extraOptionNameDTOs = dto.getExtraOptionNameDTOs().stream()
                 .sorted(Comparator.comparingLong(ExtraOptionNameDTO::getId))
                 .collect(Collectors.toList());
@@ -64,7 +63,7 @@ public class CarMapper {
                 .collect(Collectors.toList());
 
         return CarReviewOverviewSortedDTO.builder()
-                .car_review_id(dto.getCar_review_id())
+                .id(dto.getId())
                 .car_name(dto.getCar_name())
                 .trim_name(dto.getTrim_name())
                 .drive_name(dto.getDrive_name())
