@@ -16,6 +16,13 @@
 ![image (1)](https://github.com/softeerbootcamp-2nd/A4-FourEver/assets/62049151/402982ce-e44f-4c66-aa61-2342ed097ed5)
 
 #### 📍 BE
+<div>
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/>
+<img src="https://img.shields.io/badge/Mysql-4479A1?style=flat-square&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/ApacheJmeter-D22128?style=flat-square&logo=apachejmeter&logoColor=white"/>
+<img src="https://img.shields.io/badge/JUnit5-25A162?style=flat-square&logo=junit5&logoColor=white"/>
+</div>
+
 #### 📍 FE
 <div>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
