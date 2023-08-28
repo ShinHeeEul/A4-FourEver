@@ -379,13 +379,17 @@ function Onboarding({ setModalShow, data }) {
 
               <TagWrap>
                 <div style={{ flexShrink: '0' }} className="original">
-                  {data.totalTags.map((tag) => (
-                    <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
+                  {data.totalTags.map((tag, index) => (
+                    <Tag key={index} style={{ flexShrink: '0' }}>
+                      {tag}
+                    </Tag>
                   ))}
                 </div>
                 <div style={{ flexShrink: '0' }} className="clone">
-                  {data.totalTags.map((tag) => (
-                    <Tag style={{ flexShrink: '0' }}>{tag}</Tag>
+                  {data.totalTags.map((tag, index) => (
+                    <Tag key={index} style={{ flexShrink: '0' }}>
+                      {tag}
+                    </Tag>
                   ))}
                 </div>
               </TagWrap>

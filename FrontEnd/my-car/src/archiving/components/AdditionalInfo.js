@@ -197,7 +197,6 @@ function AdditionalInfo() {
       console.error(e);
     }
   };
-  // console.log(data);
 
   return (
     <AllDiv>

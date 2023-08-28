@@ -52,6 +52,7 @@ function ArchivingDetail() {
                 return (
                   <EachOptCard
                     data={item}
+                    key={idx}
                     idx={idx}
                     isSelected={selectedIdx === idx}
                     onClick={() => handleCardClick(idx)}

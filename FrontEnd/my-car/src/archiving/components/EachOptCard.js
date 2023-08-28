@@ -174,8 +174,8 @@ function EachOptCard({ data, idx, isSelected, onClick, isArchiving }) {
         <>
           <CardDivisionSvg $isSelected={isSelected} />
           <CardTagDiv>
-            {data.extraOptionTagInfoDTOS.map((item) => {
-              return <EachTagDiv key={item.id}>{item.name}</EachTagDiv>;
+            {data.extraOptionTagInfoDTOS.map((item, index) => {
+              return <EachTagDiv key={index}>{item.name}</EachTagDiv>;
             })}
           </CardTagDiv>
         </>

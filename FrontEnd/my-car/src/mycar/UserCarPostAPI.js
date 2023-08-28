@@ -8,8 +8,6 @@ export async function UserCarPostRequest({ is_end = 1 }) {
       ? 0
       : JSON.parse(getId);
 
-  console.log(id);
-
   const userCar = JSON.parse(localStorage.getItem('userCar'));
   const accessToken = localStorage.getItem('jwtToken');
   const trimPrice = userCar.price.reduce((acc, current) => acc + current, 0);
@@ -21,21 +19,6 @@ export async function UserCarPostRequest({ is_end = 1 }) {
   const selectedOptionIDs = userCar.selectedOptions.map((item) => item.id);
 
   try {
-    console.log(
-      JSON.stringify({
-        id,
-        is_end,
-        car_id: 1,
-        trim_id: userCar.trim?.id || 0,
-        engine_id: userCar.engine?.id || 0,
-        body_id: userCar.bodyType?.id || 0,
-        drive_id: userCar.wheelDrive?.id || 0,
-        ex_color_id: userCar.outerColor?.id || 0,
-        in_color_id: userCar.innerColor?.id || 0,
-        price: trimPrice + optionPrice,
-        optionIds: selectedOptionIDs || [],
-      }),
-    );
     const data = await fetch(`${BASIC_SERVER_URL}/mychivings?userId=1`, {
       method: 'POST',
       headers: {

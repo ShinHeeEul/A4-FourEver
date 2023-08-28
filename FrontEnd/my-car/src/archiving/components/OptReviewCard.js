@@ -129,7 +129,6 @@ function OptReviewCard() {
   const CardClick = ({ id }) => {
     navigate(`/archiving/${id}`, { state: { fromMycar } });
   };
-  console.log('reviewList:', reviewList);
 
   if (!reviewList) return <ServerErrorPage />;
 

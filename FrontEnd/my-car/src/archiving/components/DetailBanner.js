@@ -342,18 +342,18 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
             {data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS] &&
               data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS].map(
                 (item, idx) => {
-                  return item.x_position !== -1 ? (
-                    <OptionPositionDiv
-                      onClick={() => toggleSelect(idx)}
-                      key={idx + 1}
-                      $left={item.x_position}
-                      $top={item.y_position}
-                      $selected={selectedIdx === idx}
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </OptionPositionDiv>
-                  ) : (
-                    <></>
+                  return (
+                    item.x_position !== -1 && (
+                      <OptionPositionDiv
+                        onClick={() => toggleSelect(idx)}
+                        key={idx + 1}
+                        $left={item.x_position}
+                        $top={item.y_position}
+                        $selected={selectedIdx === idx}
+                      >
+                        {String(idx + 1).padStart(2, '0')}
+                      </OptionPositionDiv>
+                    )
                   );
                 },
               )}
