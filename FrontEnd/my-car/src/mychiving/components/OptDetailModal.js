@@ -152,6 +152,7 @@ function OptDetailModal({
     } else {
       body.classList.remove('no-scroll');
     }
+    return () => body.classList.remove('no-scroll');
   }, [showDetailModal]);
 
   const navigate = useNavigate();
