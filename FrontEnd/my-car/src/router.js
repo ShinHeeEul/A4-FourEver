@@ -14,7 +14,14 @@ import RootSelectOption from './mycar/routers/parents/RootSelectOption';
 
 import { MyCarOptionAPI } from './api';
 
-import { MYCAR, ARCHIVINGDETAIL, MYCHIVING, MYCHIVINGDETAIL ,BASIC_SERVER_URL, ARCHIVING,} from './constant';
+import {
+  MYCAR,
+  ARCHIVINGDETAIL,
+  MYCHIVING,
+  MYCHIVINGDETAIL,
+  BASIC_SERVER_URL,
+  ARCHIVING,
+} from './constant';
 
 import RootColor from './mycar/routers/parents/RootColor';
 import ServerErrorPage from './error/ServerErrorPage';
@@ -117,7 +124,7 @@ const router = createBrowserRouter([
             path: ':id',
             loader: (item) =>
               MyCarOptionAPI(
-                `${ARCHIVINGDETAIL.SELECTEDCAR.URL}${item.params.id}/car-review`,
+                `${ARCHIVINGDETAIL.SELECTEDCAR.URL}${item.params.id}`,
               ),
             element: <ArchivingDetail />,
           },

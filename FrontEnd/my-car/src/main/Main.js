@@ -26,7 +26,7 @@ function Main() {
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (!token || token === undefined || token === 'undefined') {
-      navigate('/');
+      // navigate('/');
     }
 
     const interval = setInterval(() => {

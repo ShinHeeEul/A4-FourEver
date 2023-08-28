@@ -9,7 +9,6 @@ const useFetch = ({ url, config, optionSelect, activeTab }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('패치');
       // setController(new AbortController());
       try {
         const response = await fetch(url, {

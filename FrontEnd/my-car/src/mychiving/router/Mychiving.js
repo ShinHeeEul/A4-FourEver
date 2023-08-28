@@ -64,7 +64,7 @@ function Mychiving() {
   const navigate = useNavigate();
   async function fetchData() {
     const accessToken = localStorage.getItem('jwtToken');
-    return fetch(`${BASIC_SERVER_URL}/user/feeds`, {
+    return fetch(`${BASIC_SERVER_URL}/users/feeds`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',

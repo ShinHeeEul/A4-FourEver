@@ -172,7 +172,7 @@ function OptDetailModal({
           extra_option_ids: optionIds[0] === 0 ? [] : optionIds,
         }),
       );
-      return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
+      return fetch(`${BASIC_SERVER_URL}/reviews/to-mycar`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,

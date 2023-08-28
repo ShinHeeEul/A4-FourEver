@@ -127,8 +127,8 @@ function DeleteAlert({
           <BtnConfirm
             onClick={() => {
               inArchiving
-                ? DeleteRequest(deleteId, '/user/feed/delete/')
-                : DeleteRequest(deleteId, '/mychiving/delete/');
+                ? DeleteRequest(deleteId, '/users/feeds/')
+                : DeleteRequest(deleteId, '/mychivings/');
             }}
           >
             <AlertMsgBold>확인</AlertMsgBold>
