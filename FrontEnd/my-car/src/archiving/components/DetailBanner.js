@@ -257,14 +257,20 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
                 {data[detailStatus.SELECTEDCAR.FILED.NAME]}{' '}
                 {data[detailStatus.SELECTEDCAR.FILED.TRIM].name}
               </TrimTitleText>
-              <ReviewDate>
-                {formatDate(data[detailStatus.SELECTEDCAR.FILED.DATE])}
-              </ReviewDate>
-              <ReviewGroup>
-                {data[detailStatus.SELECTEDCAR.FILED.PURCHASE]
-                  ? '구매'
-                  : '시승'}
-              </ReviewGroup>
+              {isArchiving ? (
+                <>
+                  <ReviewDate>
+                    {formatDate(data[detailStatus.SELECTEDCAR.FILED.DATE])}
+                  </ReviewDate>
+                  <ReviewGroup>
+                    {data[detailStatus.SELECTEDCAR.FILED.PURCHASE]
+                      ? '구매'
+                      : '시승'}
+                  </ReviewGroup>
+                </>
+              ) : (
+                <></>
+              )}
             </TrimTitleDiv>
             <TrimDetailText>
               {data[detailStatus.SELECTEDCAR.FILED.ENGINE].name} /{' '}

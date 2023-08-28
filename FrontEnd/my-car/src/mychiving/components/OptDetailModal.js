@@ -91,7 +91,6 @@ const OptDiv = styled.div`
 `;
 
 const EachOptDiv = styled.div`
-  width: 100%;
   height: 150px;
   margin-right: 10px;
   display: flex;
