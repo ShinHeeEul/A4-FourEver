@@ -70,7 +70,9 @@ function Mychiving() {
         'Content-Type': 'application/json;charset=UTF-8',
         Authorization: `Bearer ${accessToken}`,
       },
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .catch((e) => navigate('/'));
   }
 
   const [state, setState] = useState();
@@ -184,7 +186,6 @@ function Mychiving() {
           </div>
         )}
       </Desc>
-
     </Container>
   );
 }
