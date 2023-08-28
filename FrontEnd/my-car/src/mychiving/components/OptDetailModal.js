@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ModalBgDiv = styled.div`
   position: absolute;
-  top: 0;
+  top: ${({ $top }) => `${$top}px`};
   left: 0;
   width: 100%;
   height: 100%;
@@ -155,23 +155,13 @@ function OptDetailModal({
     return () => body.classList.remove('no-scroll');
   }, [showDetailModal]);
 
+  const scrollTop = document.documentElement.scrollTop;
+
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('jwtToken');
   const myCarStart = async () => {
     const optionIds = myList.extraOptionDTOs.map((option) => option.id);
     const ToMycarFetch = () => {
-      console.log(
-        JSON.stringify({
-          car_name: myList.car_name,
-          trim_id: myList.trimNameDTO.id,
-          engine_id: myList.engineNameDTO.id,
-          body_id: myList.bodyNameDTO.id,
-          drive_id: myList.driveNameDTO.id,
-          in_color_id: myList.inColorIdDTO.id,
-          ex_color_id: myList.exColorIdDTO.id,
-          extra_option_ids: optionIds[0] === 0 ? [] : optionIds,
-        }),
-      );
       return fetch(`${BASIC_SERVER_URL}/reviews/to-mycar`, {
         method: 'POST',
         headers: {
@@ -205,7 +195,7 @@ function OptDetailModal({
   };
 
   return (
-    <ModalBgDiv>
+    <ModalBgDiv $top={scrollTop}>
       <ModalDiv>
         <TitleDiv>상세 보기</TitleDiv>
         <ContentDiv>

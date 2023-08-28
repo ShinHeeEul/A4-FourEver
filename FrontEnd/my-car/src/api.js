@@ -20,13 +20,11 @@ export const MakePath = {
 //내차만들기 페이지 API
 export async function MyCarOptionAPI(option) {
   try {
-    console.log(MakePath.option(option));
     const data = await fetchData({
       path: MakePath.option(option),
     });
     return { data };
   } catch (error) {
-    console.log(error);
     return { error };
   }
 }

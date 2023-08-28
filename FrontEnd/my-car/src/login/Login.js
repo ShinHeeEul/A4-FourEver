@@ -187,7 +187,6 @@ function Login() {
         .catch((e) => console.error(e));
 
       if (res?.code === 10012) {
-        console.log('로그인 실패');
         setError('serverError', { message: '비밀번호가 일치하지 않습니다' });
       }
       if (!res?.code) {
