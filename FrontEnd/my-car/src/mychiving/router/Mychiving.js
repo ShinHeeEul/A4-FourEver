@@ -64,7 +64,7 @@ function Mychiving() {
   const navigate = useNavigate();
   async function fetchData() {
     const accessToken = localStorage.getItem('jwtToken');
-    return fetch(`${BASIC_SERVER_URL}/user/feeds`, {
+    return fetch(`${BASIC_SERVER_URL}/users/feeds`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -111,6 +111,7 @@ function Mychiving() {
         {menuArr.map((elem, idx) => {
           return (
             <li
+              key={idx}
               style={{ cursor: 'pointer', marginLeft: '5px' }}
               className={idx === currentTab ? 'submenu focused' : 'submenu'}
               onClick={() => selectMenuHandler(idx)}
@@ -140,10 +141,11 @@ function Mychiving() {
                 [
                   ...state?.myChivingCompleteList,
                   ...state?.myChivingTempList,
-                ].map((elem) => {
+                ].map((elem, index) => {
                   return (
                     <MyCardOrigin
                       myList={elem}
+                      key={index}
                       extraOptions={elem.extraOptionDTOs}
                       setUpdate={setUpdate}
                     />
@@ -167,9 +169,10 @@ function Mychiving() {
                   아카이빙에서 저장한 차량 목록이 없습니다.
                 </EmptyMsgDiv>
               ) : (
-                [...state?.carReviewList].map((elem) => {
+                [...state?.carReviewList].map((elem, index) => {
                   return (
                     <CardByArchiving
+                      key={index}
                       onClick={(e) => {
                         if (e.target.tagName === 'DIV') {
                           navigate(`/archiving/${elem.id}`);

@@ -172,7 +172,7 @@ function OptDetailModal({
           extra_option_ids: optionIds[0] === 0 ? [] : optionIds,
         }),
       );
-      return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
+      return fetch(`${BASIC_SERVER_URL}/reviews/to-mycar`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -217,10 +217,10 @@ function OptDetailModal({
             <ContentTitle>선택옵션 {extraOptions.length}</ContentTitle>
           )}
           <OptDiv>
-            {extraOptions.map((elem) => {
+            {extraOptions.map((elem, index) => {
               return (
                 elem.name !== null && (
-                  <EachOptDiv>
+                  <EachOptDiv key={index}>
                     <ImgDiv>
                       <img alt={elem.id} src={elem.image} />
                       <OptName>{elem.name}</OptName>

@@ -99,7 +99,10 @@ function Header({
         </HeaderElements>
         <HeaderElements>
           {Array.from({ length: 2 }, (_, index) => (
-            <ToCarivingBtn onClick={() => showAlert({ flag: false, index })}>
+            <ToCarivingBtn
+              key={index}
+              onClick={() => showAlert({ flag: false, index })}
+            >
               <ArchivingLogo style={{ width: '20px', height: '18px' }} />
               <ToCarivingBtnText>{btnText[index]}</ToCarivingBtnText>
             </ToCarivingBtn>

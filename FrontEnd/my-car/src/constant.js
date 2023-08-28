@@ -35,7 +35,7 @@ export const USER_CAR_ACTIONS = {
 
 export const MYCAR = {
   TRIM: {
-    URL: 'cars/1/trim',
+    URL: 'cars/1/trims',
     FILED: {
       MODEL: 'trimInfoDTOs',
       ENGINE: 'engineInfoDTOs',
@@ -44,7 +44,7 @@ export const MYCAR = {
     },
   },
   COLOR: {
-    URL: 'trims/1/color',
+    URL: 'trims/1/colors',
     FILED: {
       INCOLOR: 'inColors',
       EXCOLOR: 'exColors',
@@ -59,32 +59,11 @@ export const MYCAR = {
     },
   },
   SELECTED: {
-    URL: 'model/option?trim_id=1&body_id=1&engine_id=1&drive_id=1',
+    URL: 'models/options?trim_id=1&body_id=1&engine_id=1&drive_id=1',
     FILED: {
       SELECT: 'extraOptionInfoSortedDTOs',
       BASIC: 'defaultOptionInfoDTOs',
       TAGS: 'extraOptionTagInfoDTOS',
-    },
-  },
-};
-
-export const ARCHIVINGDETAIL = {
-  SELECTEDCAR: {
-    URL: 'reviews/',
-    FILED: {
-      NAME: 'car_name',
-      PRICE: 'price',
-      COMMENT: 'comment',
-      TRIM: 'trimNameDTO',
-      ENGINE: 'engineNameDTO',
-      DRIVE: 'driveNameDTO',
-      BODY: 'bodyNameDTO',
-      INCOLOR: 'inColorDTO',
-      EXCOLOR: 'exColorDTO',
-      DATE: 'created_at',
-      EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
-      PURCHASE: 'is_purchased',
-      TOTALTAGS: 'totalTagInfoDTOs',
     },
   },
 };
@@ -166,9 +145,9 @@ export const ArchivingTabMenu = ['전체', '구매', '시승'];
 
 export const ARCHIVING = {
   URL: {
-    OPTIONS: 'cars/1/option-names',
-    REVIEW: 'cars/1/car-review',
-    ISPURCHASED: 'cars/1/car-review/',
+    OPTIONS: 'cars/1/options',
+    REVIEW: 'cars/1/car-reviews',
+    ISPURCHASED: 'cars/1/car-reviews/',
     DETAIL: 'reviews/1/car-review',
     ONBOARDING: 'reviews/on-boarding',
   },
@@ -182,9 +161,30 @@ export const ARCHIVING = {
   },
 };
 
+export const ARCHIVINGDETAIL = {
+  SELECTEDCAR: {
+    URL: 'reviews/',
+    FILED: {
+      NAME: 'car_name',
+      PRICE: 'price',
+      COMMENT: 'comment',
+      TRIM: 'trimNameDTO',
+      ENGINE: 'engineNameDTO',
+      DRIVE: 'driveNameDTO',
+      BODY: 'bodyNameDTO',
+      INCOLOR: 'inColorDTO',
+      EXCOLOR: 'exColorDTO',
+      DATE: 'created_at',
+      EXTRAOPTIONS: 'extraOptionForCarReviewDTOs',
+      PURCHASE: 'is_purchased',
+      TOTALTAGS: 'totalTagInfoDTOs',
+    },
+  },
+};
+
 export const MYCHIVING = {
   URL: {
-    FEEDS: 'user/feeds',
+    FEEDS: 'users/feeds',
   },
   FILED: {
     MYTEMPLISTS: 'myChivingTempList',
@@ -195,7 +195,7 @@ export const MYCHIVING = {
 
 export const MYCHIVINGDETAIL = {
   SELECTEDCAR: {
-    URL: 'mychiving/get',
+    URL: 'mychivings',
     FILED: {
       NAME: 'car_name',
       PRICE: 'price',

@@ -179,17 +179,15 @@ function TrimCard({ options }) {
             <CarCardLogoDiv>
               {logoTextInfo[index].value.map((item, idx) => {
                 return (
-                  <>
-                    <CarCardLogoImg key={idx} $isActive={selected === index}>
-                      <img alt={'img'} src={svgImgs[index][idx]} />
-                      <CarCardLogoName $isActive={selected === index}>
-                        {item[0]}
-                      </CarCardLogoName>
-                      <CarCardLogoName $isActive={selected === index}>
-                        {item[1]}
-                      </CarCardLogoName>
-                    </CarCardLogoImg>
-                  </>
+                  <CarCardLogoImg key={idx} $isActive={selected === index}>
+                    <img alt={'img'} src={svgImgs[index][idx]} />
+                    <CarCardLogoName $isActive={selected === index}>
+                      {item[0]}
+                    </CarCardLogoName>
+                    <CarCardLogoName $isActive={selected === index}>
+                      {item[1]}
+                    </CarCardLogoName>
+                  </CarCardLogoImg>
                 );
               })}
             </CarCardLogoDiv>

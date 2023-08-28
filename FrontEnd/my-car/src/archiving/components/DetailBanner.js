@@ -247,7 +247,6 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
   const detailStatus = isArchiving ? ARCHIVINGDETAIL : MYCHIVINGDETAIL;
   const extraOptData = data[detailStatus.SELECTEDCAR.FILED.EXTRAOPTIONS];
 
-
   return (
     <AllDiv>
       <BannerDiv>
@@ -305,13 +304,11 @@ function DetailBanner({ isArchiving, selectedIdx, setSelectedIdx }) {
                 <CardLineSvg />
                 <CardTagsDiv>
                   {extraOptData[selectedIdx].extraOptionTagInfoDTOS.map(
-                    (item) => {
-                      return (
-                        <EachTagDiv>
-                          <EachTagSpan key={item.id}>{item.name}</EachTagSpan>
-                        </EachTagDiv>
-                      );
-                    },
+                    (item, index) => (
+                      <EachTagDiv key={index}>
+                        <EachTagSpan key={item.id}>{item.name}</EachTagSpan>
+                      </EachTagDiv>
+                    ),
                   )}
                 </CardTagsDiv>
               </OptReviewDiv>

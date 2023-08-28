@@ -36,7 +36,7 @@ export async function UserCarPostRequest({ is_end = 1 }) {
         optionIds: selectedOptionIDs || [],
       }),
     );
-    const data = await fetch(`${BASIC_SERVER_URL}/mychiving/create?userId=1`, {
+    const data = await fetch(`${BASIC_SERVER_URL}/mychivings?userId=1`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',

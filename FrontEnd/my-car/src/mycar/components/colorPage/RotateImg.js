@@ -189,6 +189,7 @@ function RotateImg({ selectedOption, loading }) {
       ) : (
         Array.from({ length: 60 }, (_, index) => (
           <CarImg
+            key={index}
             $isShow={index + 1 === imageIndex}
             alt="trim"
             src={`${imagePathNew}/${index + 1}.webp`}

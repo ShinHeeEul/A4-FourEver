@@ -116,8 +116,8 @@ function DeleteAlert({
     <AlertBgDiv $top={scrollTop}>
       <AlertDiv>
         <AlertMsgDiv>
-          {msg.split('/').map((elem) => {
-            return <AlertMsg>{elem}</AlertMsg>;
+          {msg.split('/').map((elem, index) => {
+            return <AlertMsg key={index}>{elem}</AlertMsg>;
           })}
         </AlertMsgDiv>
         <AlertBtnDiv>
@@ -127,8 +127,8 @@ function DeleteAlert({
           <BtnConfirm
             onClick={() => {
               inArchiving
-                ? DeleteRequest(deleteId, '/user/feed/delete/')
-                : DeleteRequest(deleteId, '/mychiving/delete/');
+                ? DeleteRequest(deleteId, '/users/feeds/')
+                : DeleteRequest(deleteId, '/mychivings/');
             }}
           >
             <AlertMsgBold>확인</AlertMsgBold>

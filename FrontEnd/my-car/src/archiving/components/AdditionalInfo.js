@@ -149,15 +149,10 @@ function AdditionalInfo() {
   const navigate = useNavigate();
 
   function saveStateChangeFetch() {
-    fetch(
-      `${BASIC_SERVER_URL}/user/feed/${!saveState ? 'create' : 'delete'}/${
-        data.id
-      }?userId=1`,
-      {
-        method: !saveState ? 'POST' : 'DELETE',
-        headers: { Authorization: `Bearer ${accessToken}` },
-      },
-    )
+    fetch(`${BASIC_SERVER_URL}/users/feeds/${data.id}?userId=1`, {
+      method: !saveState ? 'POST' : 'DELETE',
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
       .then(() => {
         setSaveState((prev) => !prev);
       })
@@ -174,7 +169,7 @@ function AdditionalInfo() {
     );
     const ToMycarFetch = () => {
       setLoading(true);
-      return fetch(`${BASIC_SERVER_URL}/reviews/result`, {
+      return fetch(`${BASIC_SERVER_URL}/reviews/to-mycar`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -219,9 +214,13 @@ function AdditionalInfo() {
               <TagReviewTitle>차량 사용 후기</TagReviewTitle>
               <TagReviewsDiv>
                 {data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS] &&
-                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
-                    return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
-                  })}
+                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map(
+                    (item, index) => (
+                      <EachTagReviewDiv key={index}>
+                        {item.name}
+                      </EachTagReviewDiv>
+                    ),
+                  )}
               </TagReviewsDiv>
             </>
           }

@@ -178,7 +178,7 @@ function Login() {
 
   async function onValid({ email, password }) {
     try {
-      const res = await fetch(`${BASIC_SERVER_URL}/user/self-login`, {
+      const res = await fetch(`${BASIC_SERVER_URL}/users/self-login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         body: JSON.stringify({ email, password }),
@@ -189,7 +189,8 @@ function Login() {
       if (res?.code === 10012) {
         console.log('로그인 실패');
         setError('serverError', { message: '비밀번호가 일치하지 않습니다' });
-      } else {
+      }
+      if (!res?.code) {
         localStorage.setItem('jwtToken', res.jwtToken);
         navigate('/main');
       }
