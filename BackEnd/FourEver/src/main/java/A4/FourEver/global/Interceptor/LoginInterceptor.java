@@ -30,7 +30,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                 "https://www.hyundaimycar.store/",
                 "http://www.hyundaimycar.store:80",
                 "https://www.hyundaimycar.store:8080",
-                "https://www.hyundaimycar.store:8080/");
+                "https://www.hyundaimycar.store:8080/",
+                "http://localhost:3000/",
+                "http://localhost:3000");
 
         if (allowedOrigins.contains(origin)) {
             response.setHeader("Access-Control-Allow-Origin", origin);
