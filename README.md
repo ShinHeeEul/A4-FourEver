@@ -1,4 +1,19 @@
 ## 현대닷컴 내차만들기 개선 프로젝트 
+
+<div align="center">
+<br>
+ 
+### 🐥 소프티어 부트캠프 2기 A4팀 <b>포에버(FourEver)</b> 입니다 🐥
+ 
+👉🏻 [포에버의 내차만들기 바로가기](https://www.hyundaimycar.store)
+
+<br>
+
+
+</div>
+
+
+
 #### 📍 프로젝트 목적
 복잡한 플로우로 기존 현대닷컴 내차만들기 도중 사용자가 이탈하는 문제점을 개선하고자 기획된 프로젝트입니다.    
 소프티어 부트캠프 2기 과정 중에 진행되었으며, 기획팀으로부터 기획서를 제공받아 개발을 진행하였습니다.
@@ -10,6 +25,8 @@
 - [기획/정책안내](https://www.figma.com/file/7Z1cW7vx7ejocQzIJIYnDs/Handoff_%EC%97%91%EC%85%80?type=design&node-id=8-17111&mode=design&t=AesBB7DPiBepP2VS-0)  
 - [상세설계서](https://www.figma.com/file/7Z1cW7vx7ejocQzIJIYnDs/Handoff_%EC%97%91%EC%85%80?type=design&node-id=8-17111&mode=design&t=AesBB7DPiBepP2VS-0)   
 - [디자인링크](https://www.figma.com/file/7Z1cW7vx7ejocQzIJIYnDs/Handoff_%EC%97%91%EC%85%80?type=design&node-id=1-6&mode=design&t=LjCSeaLBp3qhUB9W-0)
+
+---
 
 ### 사용한 기술 스택
 #### 📍 시스템 아키텍처
@@ -63,6 +80,8 @@
 2. 아카이빙에서 저장한 차량 목록을 확인하고 삭제 또한 가능합니다. 
 
 <br>
+
+--- 
 
 ### 팀원 소개
 
