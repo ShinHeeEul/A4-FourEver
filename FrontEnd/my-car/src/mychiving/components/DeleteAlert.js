@@ -95,13 +95,12 @@ function DeleteAlert({
   const data = useContext(MychivingContext);
   useEffect(() => {
     const body = document.querySelector('body');
-
     if (showDeleteAlert) {
       body.classList.add('no-scroll');
     } else {
       body.classList.remove('no-scroll');
     }
-    return body.classList.remove('no-scroll');
+    return () => body.classList.remove('no-scroll');
   }, [showDeleteAlert]);
 
   async function DeleteRequest(id, requestUrl) {
