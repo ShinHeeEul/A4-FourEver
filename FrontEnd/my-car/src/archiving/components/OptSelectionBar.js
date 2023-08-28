@@ -30,9 +30,9 @@ const TagWrap = styled.div`
 
 const TagContainer = styled.div`
   display: flex;
-  width: 70%;
   gap: 10px;
-  flex-wrap: ${({ $lineCount }) => ($lineCount ? 'wrap' : 'nowrap')};
+  width: 100%;
+  flex-wrap: wrap;
   button {
     height: 30px;
     flex-shrink: 0;
@@ -81,19 +81,20 @@ function OptSelectionBar() {
   const { action } = useContext(OptionSelectAction);
   const { activeStates, optionList } = useContext(OptionSelectValue);
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const ClickOption = async ({ id }) => {
-    const activeLength = Object.values(activeStates).filter(
-      (value) => value === true,
-    ).length;
-    if (activeLength === 4 && !activeStates[id]) {
-      setShowTooltip(true);
-      await delay(2000);
-      setShowTooltip(false);
-    } else {
-      action.select({ id });
-    }
+    // 선택옵션 4개 선택 제한
+    // const activeLength = Object.values(activeStates).filter(
+    //   (value) => value === true,
+    // ).length;
+    // if (activeLength === 4 && !activeStates[id]) {
+    //   setShowTooltip(true);
+    //   await delay(2000);
+    //   setShowTooltip(false);
+    // } else {
+    // }
+    action.select({ id });
   };
 
   const [change, setChange] = useState(false);
@@ -119,7 +120,7 @@ function OptSelectionBar() {
   }, []);
 
   return (
-    <Container $change={change} $lineCount={activeOptions.length > 8}>
+    <Container $change={change} $lineCount={activeOptions.length > 6}>
       <WarningTooltip showTooltip={showTooltip} />
       <TagWrap>
         {!change ? (
