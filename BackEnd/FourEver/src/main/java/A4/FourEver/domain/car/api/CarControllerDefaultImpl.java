@@ -28,7 +28,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 트림 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @GetMapping("/{id}/trim")
+    @GetMapping("/{id}/trims")
     public CarTrimsSortedDTO getCarTrimsById(@PathVariable final Long id) {
         return carService.getCarTrimsById(id);
     }
@@ -36,7 +36,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 선택 가능한 옵션 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @GetMapping("/{id}/option-names")
+    @GetMapping("/{id}/options")
     public CarExtraOptionNameDTO getCarExtraOptionNameById(@PathVariable final Long id) {
         return carService.getCarExtraOptionNameById(id);
     }
@@ -44,7 +44,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 모든 차 리뷰 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @PostMapping("/{id}/car-review")
+    @PostMapping("/{id}/car-reviews")
     public CarReviewOverviewSortedListDTO getAllCarReviewOverviewList(@PathVariable final Long id, @Valid @RequestBody final ExtraOptionIdsRequestDTO request) {
         List<Long> extraOptionIds = request.getExtraOptionIds();
         return carService.getAllCarReviewOverviewList(id, extraOptionIds);
@@ -53,7 +53,7 @@ public class CarControllerDefaultImpl implements CarController {
     @Override
     @Operation(summary = "특정 차량의 구매 혹은 시승 리뷰 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @PostMapping("/{id}/car-review/{isPurchased}")
+    @PostMapping("/{id}/car-reviews/{isPurchased}")
     public CarReviewOverviewSortedListDTO getPartialCarReviewOverviewList(@PathVariable final Long id, @PathVariable final Integer isPurchased, @Valid @RequestBody final ExtraOptionIdsRequestDTO request) {
         List<Long> extraOptionIds = request.getExtraOptionIds();
         return carService.getPartialCarReviewOverviewList(id, isPurchased, extraOptionIds);
