@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @Tag(name = "마이카이빙 정보")
 @RestController
-@RequestMapping("/mychiving")
+@RequestMapping("/mychivings")
 public class MyChivingControllerDefaultImpl implements MyChivingController {
 
     private final MyChivingService myChivingService;
