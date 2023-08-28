@@ -35,7 +35,7 @@ public class CarReviewControllerDefaultImpl implements CarReviewController {
     @Override
     @Operation(summary = "특정 리뷰 정보를 이용한 내 차 만들기")
     @SecurityRequirement(name = "JWT")
-    @PostMapping("/result")
+    @PostMapping("/to-mycar")
     public CarReviewResultSortedDTO getCarReviewResult(@Valid @RequestBody final CarReviewIdDTO carReviewIdDTO) {
         return carReviewService.getCarReviewResult(carReviewIdDTO);
     }
