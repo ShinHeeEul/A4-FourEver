@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 
 @Tag(name = "유저 정보")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Primary
 public class UserControllerDefaultImpl implements UserController {
 
@@ -85,7 +85,7 @@ public class UserControllerDefaultImpl implements UserController {
     @Override
     @Operation(summary = "유저의 피드 목록에 특정 후기 추가")
     @SecurityRequirement(name = "JWT")
-    @PostMapping("/feed/create/{carReviewId}")
+    @PostMapping("/feeds/{carReviewId}")
     public void createUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.saveUserCarReviewById(userId, carReviewId);
     }
@@ -93,7 +93,7 @@ public class UserControllerDefaultImpl implements UserController {
     @Override
     @Operation(summary = "유저의 피드 목록에서 특정 후기 삭제")
     @SecurityRequirement(name = "JWT")
-    @DeleteMapping("/feed/delete/{carReviewId}")
+    @DeleteMapping("/feeds/{carReviewId}")
     public void deleteUserCarReviewById(@LoginUserId final Long userId, @PathVariable final Long carReviewId) {
         userService.deleteUserCarReviewById(userId, carReviewId);
     }

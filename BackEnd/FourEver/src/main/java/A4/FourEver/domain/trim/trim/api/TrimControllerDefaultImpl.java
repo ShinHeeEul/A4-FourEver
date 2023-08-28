@@ -24,7 +24,7 @@ public class TrimControllerDefaultImpl implements TrimController {
     @Override
     @Operation(summary = "특정 트림의 색상 정보 조회")
     @SecurityRequirement(name = "JWT")
-    @GetMapping("/{id}/color")
+    @GetMapping("/{id}/colors")
     public TrimColorsAndTagsDTO getTrimColorsAndTagsById(@PathVariable final Long id) {
         return trimService.getTrimColorsAndTagsById(id);
     }

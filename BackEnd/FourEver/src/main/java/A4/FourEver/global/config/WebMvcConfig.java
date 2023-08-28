@@ -18,7 +18,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "https://www.hyundaimycar.store/",
                         "http://www.hyundaimycar.store:80",
                         "https://www.hyundaimycar.store:8080",
-                        "https://www.hyundaimycar.store:8080/")
+                        "https://www.hyundaimycar.store:8080/",
+                        "http://localhost:3000/",
+                        "http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization", "Location",
                         "Accept", "Origin", "Host", "Referer",
