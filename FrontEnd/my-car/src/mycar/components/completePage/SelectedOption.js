@@ -123,19 +123,17 @@ function SelectedOption() {
         </SelectedOptionTitle>
         <OptionsDiv>
           <NewCardsWrap>
-            {userCar.selectedOptions.map((option) => {
-              return (
-                <Card>
-                  <CardImg src={option.image} />
-                  <DetailWrap>
-                    <CardTitleText>{option.name}</CardTitleText>
-                    <CardPriceText>
-                      {option.price.toLocaleString()}원
-                    </CardPriceText>
-                  </DetailWrap>
-                </Card>
-              );
-            })}
+            {userCar.selectedOptions.map((option, index) => (
+              <Card key={index}>
+                <CardImg src={option.image} />
+                <DetailWrap>
+                  <CardTitleText>{option.name}</CardTitleText>
+                  <CardPriceText>
+                    {option.price.toLocaleString()}원
+                  </CardPriceText>
+                </DetailWrap>
+              </Card>
+            ))}
           </NewCardsWrap>
         </OptionsDiv>
       </BgDiv>

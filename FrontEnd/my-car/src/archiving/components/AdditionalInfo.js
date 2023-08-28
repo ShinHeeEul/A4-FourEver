@@ -219,9 +219,13 @@ function AdditionalInfo() {
               <TagReviewTitle>차량 사용 후기</TagReviewTitle>
               <TagReviewsDiv>
                 {data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS] &&
-                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map((item) => {
-                    return <EachTagReviewDiv>{item.name}</EachTagReviewDiv>;
-                  })}
+                  data[detailStatus.SELECTEDCAR.FILED.TOTALTAGS].map(
+                    (item, index) => (
+                      <EachTagReviewDiv key={index}>
+                        {item.name}
+                      </EachTagReviewDiv>
+                    ),
+                  )}
               </TagReviewsDiv>
             </>
           }

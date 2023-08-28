@@ -302,8 +302,8 @@ function Footer({ page, setPage, showSummaryModal, setShowSummaryModal }) {
           </SelectedOptionTitleWrap>
           <SelectedOptionsTagsWrap>
             {userCar.selectedOptions &&
-              userCar?.selectedOptions.slice(0, 3).map((option) => (
-                <SelectOptionTag key={option}>
+              userCar?.selectedOptions.slice(0, 3).map((option, index) => (
+                <SelectOptionTag key={index}>
                   <SelectOptionText>{option.name}</SelectOptionText>
                 </SelectOptionTag>
               ))}

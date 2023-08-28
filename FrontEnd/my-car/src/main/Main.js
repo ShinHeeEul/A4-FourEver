@@ -21,7 +21,7 @@ const AnimationDiv = styled.div``;
 function Main() {
   const { setIsAccess } = useContext(HeaderActionContext);
   const [currentDisplay, setCurrentDisplay] = useState(1);
-  setIsAccess(true);
+  // setIsAccess(true);
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');

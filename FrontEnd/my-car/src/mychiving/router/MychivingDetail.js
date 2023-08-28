@@ -78,6 +78,7 @@ function MychivingDetail(isArchiving) {
                     isSelected={selectedIdx === idx}
                     onClick={() => handleCardClick(idx)}
                     isArchiving={false}
+                    key={idx}
                   />
                 );
               },

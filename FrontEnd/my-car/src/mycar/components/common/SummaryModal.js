@@ -215,18 +215,14 @@ function SummaryModal() {
             <OptionDiv>선택옵션 {userCar.selectedOptions.length}</OptionDiv>
 
             {userCar.selectedOptions.length >= 0 &&
-              userCar.selectedOptions.map((elem) => {
-                return (
-                  <>
-                    <OptionContentDiv>
-                      <OptionDetailDiv>{elem.name}</OptionDetailDiv>
-                      <OptionDetailDiv>
-                        {elem.price.toLocaleString()} 원
-                      </OptionDetailDiv>
-                    </OptionContentDiv>
-                  </>
-                );
-              })}
+              userCar.selectedOptions.map((elem, index) => (
+                <OptionContentDiv key={index}>
+                  <OptionDetailDiv>{elem.name}</OptionDetailDiv>
+                  <OptionDetailDiv>
+                    {elem.price.toLocaleString()} 원
+                  </OptionDetailDiv>
+                </OptionContentDiv>
+              ))}
           </AllOptionDiv>
         </ModalDiv>
       </ModalBgDiv>

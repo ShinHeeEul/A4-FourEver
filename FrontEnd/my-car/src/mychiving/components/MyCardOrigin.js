@@ -235,16 +235,16 @@ function MyCardOrigin({ myList, extraOptions, setUpdate }) {
         </BasicOptsDiv>
         <ExtraOptsDiv>
           {extraOptions &&
-            extraOptions.map((elem) => {
+            extraOptions.map((elem, index) => {
               return elem.name !== null ? (
-                <EachOptDiv>
+                <EachOptDiv key={index}>
                   <ImgDiv>
                     <img alt={elem.id} src={elem.image} />
                     <OptName>{elem.name}</OptName>
                   </ImgDiv>
                 </EachOptDiv>
               ) : (
-                <EmptyOptsDiv>추가 옵션이 없습니다.</EmptyOptsDiv>
+                <EmptyOptsDiv key={index}>추가 옵션이 없습니다.</EmptyOptsDiv>
               );
             })}
         </ExtraOptsDiv>

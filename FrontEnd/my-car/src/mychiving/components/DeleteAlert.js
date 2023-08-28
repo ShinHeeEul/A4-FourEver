@@ -116,8 +116,8 @@ function DeleteAlert({
     <AlertBgDiv $top={scrollTop}>
       <AlertDiv>
         <AlertMsgDiv>
-          {msg.split('/').map((elem) => {
-            return <AlertMsg>{elem}</AlertMsg>;
+          {msg.split('/').map((elem, index) => {
+            return <AlertMsg key={index}>{elem}</AlertMsg>;
           })}
         </AlertMsgDiv>
         <AlertBtnDiv>

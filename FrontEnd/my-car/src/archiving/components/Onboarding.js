@@ -391,8 +391,8 @@ function Onboarding({ setModalShow, data }) {
               </TagWrap>
             </TopWrap>
             <CarCardWrap>
-              {data.carReviewSimpleDTOS.map((car) => (
-                <EachCardWrap>
+              {data.carReviewSimpleDTOS.map((car, index) => (
+                <EachCardWrap key={index}>
                   <CarCard />
                   <img alt="car" src={car.exColorInfoDTO.rotation_image} />
                   <div className="text-wrap">
@@ -434,7 +434,7 @@ function Onboarding({ setModalShow, data }) {
         <Footer>
           <DotWrap>
             {Array.from({ length: 3 }, (_, index) => (
-              <FooterDot $isActive={index === page} />
+              <FooterDot key={index} $isActive={index === page} />
             ))}
           </DotWrap>
         </Footer>
