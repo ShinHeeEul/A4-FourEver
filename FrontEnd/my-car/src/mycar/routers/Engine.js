@@ -6,7 +6,7 @@ import { Container } from './Model';
 import { MYCAR } from '../../constant';
 import TrimImg from '../components/common/TrimImg';
 import { useSelect } from '../hook/useSelect';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 const EngineContainer = styled(Container)`
   flex-direction: row;
@@ -67,7 +67,7 @@ function Engine() {
     });
     return Promise.all(promise);
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     preloadCarImg().then(() => {
       // setLoading(false);
     });
