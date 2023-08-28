@@ -31,7 +31,7 @@ const TagWrap = styled.div`
 const TagContainer = styled.div`
   display: flex;
   gap: 10px;
-  width: 100%;
+  /* width: 92%; */
   flex-wrap: wrap;
   button {
     height: 30px;
@@ -73,6 +73,7 @@ const SmallBar = styled.div`
   gap: 20px;
   flex-shrink: 0;
   justify-content: center;
+  width: 1000px;
 `;
 
 function OptSelectionBar() {
