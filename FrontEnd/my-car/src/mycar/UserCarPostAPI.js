@@ -19,6 +19,7 @@ export async function UserCarPostRequest({ is_end = 1 }) {
   const selectedOptionIDs = userCar.selectedOptions.map((item) => item.id);
 
   try {
+    console.log('id:', id);
     const data = await fetch(`${BASIC_SERVER_URL}/mychivings?userId=1`, {
       method: 'POST',
       headers: {
@@ -26,7 +27,7 @@ export async function UserCarPostRequest({ is_end = 1 }) {
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
-        id,
+        id: id ? id : 0,
         is_end,
         car_id: 1,
         trim_id: userCar.trim?.id || 0,

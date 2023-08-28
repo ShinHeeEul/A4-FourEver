@@ -180,7 +180,7 @@ function Alert({
             <AlertMsgBold>취소</AlertMsgBold>
           </BtnCancel>
 
-          <BtnConfirm onClick={() => closeAlert({})}>
+          <BtnConfirm onClick={() => closeAlert({ cancel: false })}>
             <AlertMsgBold>확인</AlertMsgBold>
           </BtnConfirm>
         </AlertBtnDiv>
